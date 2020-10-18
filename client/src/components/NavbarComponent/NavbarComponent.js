@@ -18,30 +18,39 @@ const Navbar = () => {
     <MDBNavbar color="indigo" dark expand="md">
       <MDBNavbarBrand>
         <MDBNavLink to="/">
-          <img
+          {/* <img
             src="assets/images/logo.png"
             alt="Lebanon Freecycle"
             className="navbar-logo"
-          />
+          /> */}
+          Lebanon Freecycle
         </MDBNavLink>
       </MDBNavbarBrand>
       <MDBNavbarToggler onClick={toggleCollapse} />
       <MDBCollapse id="navbarCollapse3" isOpen={open} navbar>
-        <MDBNavbarNav right>
+        <MDBNavbarNav right classNam="navbar">
           <MDBNavItem>
-            <MDBNavLink to="/">Home</MDBNavLink>
+            <MDBNavLink to="/" className="nav-linkz nav-linkz-ltr">
+              Home
+            </MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
-            <MDBNavLink to="/donations">Donations</MDBNavLink>
+            <MDBNavLink to="/donations" className="nav-linkz nav-linkz-ltr">
+              Donations
+            </MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
-            <MDBNavLink to="/requests">Requests</MDBNavLink>
+            <MDBNavLink to="/requests" className="nav-linkz nav-linkz-ltr">
+              Requests
+            </MDBNavLink>
           </MDBNavItem>
+          {/* <MDBNavItem>
+            <MDBNavLink to="/about" className="nav-linkz nav-linkz-ltr">About</MDBNavLink>
+          </MDBNavItem> */}
           <MDBNavItem>
-            <MDBNavLink to="/about">About</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="/login">Login</MDBNavLink>
+            <MDBNavLink to="/login" className="nav-linkz nav-linkz-ltr">
+              Login
+            </MDBNavLink>
           </MDBNavItem>
         </MDBNavbarNav>
       </MDBCollapse>

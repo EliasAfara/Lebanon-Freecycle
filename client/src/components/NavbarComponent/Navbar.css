@@ -10,6 +10,31 @@
 .nav-toggler {
     margin: 0;
 }
+.navbar {
+    border-bottom: 1px solid #BBBBBB;
+}
+
+.nav-linkz:hover {
+    opacity: 1;
+}
+
+.nav-linkz::before {
+    transition: 300ms;
+    height: 5px;
+    content: "";
+    position: absolute;
+    background-color: #031D44;
+}
+
+.nav-linkz-ltr::before {
+    width: 0%;
+    bottom: 10px;
+}
+
+.nav-linkz-ltr:hover::before {
+    width: 100%;
+}
+
 
 @media screen and (max-width: 767px) {
 

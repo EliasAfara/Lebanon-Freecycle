@@ -1,7 +1,8 @@
-.footer {
-    width: 100%;
-    position:absolute;
-    left:0;
-    bottom:0;
-    right:0;
+@media only screen and (max-width: 767px) {
+    
+    .resCol {
+        flex: 2;
+        text-align: center;
+        width: 100px;
+    }
 }
