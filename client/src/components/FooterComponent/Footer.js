@@ -73,7 +73,7 @@ const Footer = () => {
                   <Link to="/about">About</Link>
                 </li>
                 <li>
-                  <Link to="/help">Help & FAQs</Link>
+                  <Link to="/faq">Help & FAQs</Link>
                 </li>
                 <li>
                   <Link to="/contact-us">Contact us</Link>
@@ -104,8 +104,7 @@ const Footer = () => {
         </MDBContainer>
         <div className="footer-copyright text-center py-3">
           <MDBContainer fluid>
-            &copy; {new Date().getFullYear()} Copyright:{" "}
-            <a href="#"> Elias Afara </a>
+            &copy; {new Date().getFullYear()} Copyright: Elias Afara
           </MDBContainer>
         </div>
       </MDBFooter>

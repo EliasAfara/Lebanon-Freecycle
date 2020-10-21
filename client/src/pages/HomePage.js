@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "../FooterComponent/Footer";
-import HowItWorks from "../HowItWorksComponent/HowItWorks";
-import Landing from "../LandingComponent/Landing";
+import Footer from "../components/FooterComponent/Footer";
+import HowItWorks from "../components/HowItWorksComponent/HowItWorks";
+import Landing from "../components/LandingComponent/Landing";
 
 const HomePage = () => {
   return (

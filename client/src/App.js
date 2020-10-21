@@ -2,12 +2,13 @@ import React from "react";
 import "./App.css";
 import Navbar from "./components/NavbarComponent/NavbarComponent";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import HomePage from "./components/pages/HomePage";
-import DonationsPage from "./components/pages/DonationsPage";
-import RequestsPage from "./components/pages/RequestsPage";
-import AboutPage from "./components/pages/AboutPage";
-import Login from "./components/pages/Login";
-import RegisterPage from "./components/pages/RegisterPage";
+import HomePage from "./pages/HomePage";
+import DonationsPage from "./pages/DonationsPage";
+import RequestsPage from "./pages/RequestsPage";
+import AboutPage from "./pages/AboutPage";
+import Login from "./pages/Login";
+import RegisterPage from "./pages/RegisterPage";
+import FAQPage from "./pages/FAQPage";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
         </Switch>
         <Switch>
           <Route exact path="/register" component={RegisterPage} />
+        </Switch>
+        <Switch>
+          <Route exact path="/faq" component={FAQPage} />
         </Switch>
       </Router>
     </>
