@@ -1,0 +1,21 @@
+
+.contact {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+.contact__card--form{
+    margin: 1rem 2rem 0 2rem;
+}
+.contact__card--form label {
+    font-weight: 600;
+}
+
+.contact__card--form button {
+    background: #25274d;
+    color: #fff;
+    font-weight: 600;
+}
+
+.contact__card--form button:focus {
+    box-shadow: none;
+}

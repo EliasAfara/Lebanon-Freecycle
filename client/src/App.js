@@ -9,6 +9,7 @@ import AboutPage from "./pages/AboutPage";
 import Login from "./pages/Login";
 import RegisterPage from "./pages/RegisterPage";
 import FAQPage from "./pages/FAQPage";
+import ContactUsPage from "./pages/ContactUsPage";
 import PageShell from "./components/Effects/PageShell";
 import ScrollToTop from "./components/Effects/scrollToTop";
 
@@ -38,6 +39,13 @@ function App() {
         </Switch>
         <Switch>
           <Route exact path="/faq" component={PageShell(FAQPage)} />
+        </Switch>
+        <Switch>
+          <Route
+            exact
+            path="/contact-us"
+            component={PageShell(ContactUsPage)}
+          />
         </Switch>
       </Router>
     </>
