@@ -1,0 +1,51 @@
+
+.faqs {
+    margin: "auto";
+    padding-top: 40px;
+}
+.faqs__row {
+    align-items: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    
+}
+.faqs__svg {
+    text-align: center;
+}
+
+.faqs__info--title {
+    color: #3F51B5;
+    font-size: 30px;
+    line-height: 35px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+
+.card-title {
+    color: #3F51B5
+}
+
+@media only screen and (max-width: 425px) {
+
+    .faqs__row {
+        align-items: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+    }
+}
+@media only screen and (max-width: 320px) {
+
+    .faqs__row {
+        align-items: center;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .faqs__svg{
+        max-width: 250;
+        max-height: 250;
+    }
+}
