@@ -1,0 +1,137 @@
+
+.contact {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+.contact__card--form{
+    margin: 1rem 2rem 0 2rem;
+}
+.contact__card--form label {
+    font-weight: 600;
+}
+
+.contact__card--form button {
+    background: #3F51B5;
+    color: #fff;
+    font-weight: 600;
+}
+
+.contact__card--form button:focus {
+    box-shadow: none;
+}
+.required {
+    color: #fa1529;
+}
+
+.error {
+    border-color: #fa1529;
+    color: #fa1529;
+    background: #fffafa;
+}
+
+.contact__form__required {
+    font-size: .75rem;
+    line-height: 1;
+    color: #3F51B5;
+}
+
+.contactUS {
+    margin: "auto";
+    padding-top: 40px;
+}
+
+.contactUS__row {
+    align-items: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+
+}
+.contactUS__svg {
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+}
+
+.contactUS__info--title {
+    color: #3F51B5;
+    font-size: 30px;
+    line-height: 35px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+.contactUS__info--Icons {
+    padding-top: 1rem;
+}
+.contactUS__info--Icons--1 {
+    display: flex;
+    color: #3F51B5;
+    transition: background-size cubic-bezier(0, .5, 0, 1) 0.3s;
+}
+.contactUS__info--Icons--2 {
+    display: flex;
+    color: #3F51B5;
+}
+.contactUS__info--link {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size cubic-bezier(0, .5, 0, 1) 0.3s;
+}
+
+.contactUS__info--link:hover,
+.contactUS__info--link:focus {
+    text-decoration: none;
+    background-size: 100% 2px;
+}
+
+@media only screen and (max-width: 522px) {
+
+    .contactUS__info--Icons {
+        display: flex;
+        align-items: center;
+    }
+    .contactUS__info--Icons--1{
+        margin: 0 0.5rem 0 0.5rem;
+    }
+    .contactUS__info--Icons--2{
+        margin: 0 0.5rem 0 0.5rem;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+
+    .contactUS__row {
+        align-items: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+    }
+}
+
+@media only screen and (max-width: 425px) {
+
+    .contactUS__row {
+        align-items: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+    }
+}
+
+@media only screen and (max-width: 320px) {
+
+    .contactUS__row {
+        align-items: center;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .contactUS__svg {
+        max-width: 250;
+        max-height: 250;
+    }
+}
