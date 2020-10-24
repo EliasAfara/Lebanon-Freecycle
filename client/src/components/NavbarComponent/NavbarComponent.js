@@ -11,7 +11,7 @@ import {
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("Home");
+  const [active, setActive] = useState("");
 
   const toggleCollapse = () => setOpen(!open);
 
@@ -35,11 +35,6 @@ const Navbar = () => {
         style={{ textAlign: "center" }}
       >
         <MDBNavbarNav right>
-          <MDBNavItem className={active === "Home" ? "active" : null}>
-            <MDBNavLink to="/" onClick={() => setActive("Home")}>
-              Home
-            </MDBNavLink>
-          </MDBNavItem>
           <MDBNavItem className={active === "Donations" ? "active" : null}>
             <MDBNavLink to="/donations" onClick={() => setActive("Donations")}>
               Donations
