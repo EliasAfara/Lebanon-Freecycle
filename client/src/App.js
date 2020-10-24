@@ -9,32 +9,35 @@ import AboutPage from "./pages/AboutPage";
 import Login from "./pages/Login";
 import RegisterPage from "./pages/RegisterPage";
 import FAQPage from "./pages/FAQPage";
+import PageShell from "./components/Effects/PageShell";
+import ScrollToTop from "./components/Effects/scrollToTop";
 
 function App() {
   return (
     <>
       <Router>
+        <ScrollToTop />
         <Navbar />
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={PageShell(HomePage)} />
         </Switch>
         <Switch>
-          <Route exact path="/donations" component={DonationsPage} />
+          <Route exact path="/donations" component={PageShell(DonationsPage)} />
         </Switch>
         <Switch>
-          <Route exact path="/requests" component={RequestsPage} />
+          <Route exact path="/requests" component={PageShell(RequestsPage)} />
         </Switch>
         <Switch>
-          <Route exact path="/about" component={AboutPage} />
+          <Route exact path="/about" component={PageShell(AboutPage)} />
         </Switch>
         <Switch>
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/login" component={PageShell(Login)} />
         </Switch>
         <Switch>
-          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/register" component={PageShell(RegisterPage)} />
         </Switch>
         <Switch>
-          <Route exact path="/faq" component={FAQPage} />
+          <Route exact path="/faq" component={PageShell(FAQPage)} />
         </Switch>
       </Router>
     </>

@@ -12,6 +12,7 @@ import {
 } from "mdbreact";
 import { Link } from "react-router-dom";
 import "./Footer.css";
+import FooterCopyright from "./FooterCopyright";
 
 const Footer = () => {
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +28,7 @@ const Footer = () => {
             <MDBCol md="8 6">
               <h5 className="title">Our Mission</h5>
               <hr
-                class="info-color mb-4 mt-0 d-inline-block mx-auto"
+                className="info-color mb-4 mt-0 d-inline-block mx-auto"
                 style={{ width: "60px" }}
               />
               <p>
@@ -41,7 +42,7 @@ const Footer = () => {
             <MDBCol md="2" className="resCol">
               <h5 className="title">Links</h5>
               <hr
-                class="info-color mb-4 mt-0 d-inline-block mx-auto"
+                className="info-color mb-4 mt-0 d-inline-block mx-auto"
                 style={{ width: "60px" }}
               />
               <ul className="list-unstyled">
@@ -65,7 +66,7 @@ const Footer = () => {
             <MDBCol md="2" className="resCol">
               <h5 className="title">Support</h5>
               <hr
-                class="info-color mb-4 mt-0 d-inline-block mx-auto"
+                className="info-color mb-4 mt-0 d-inline-block mx-auto"
                 style={{ width: "60px" }}
               />
               <ul className="list-unstyled">
@@ -102,11 +103,7 @@ const Footer = () => {
             </MDBModal>
           </MDBRow>
         </MDBContainer>
-        <div className="footer-copyright text-center py-3">
-          <MDBContainer fluid>
-            &copy; {new Date().getFullYear()} Copyright: Elias Afara
-          </MDBContainer>
-        </div>
+        <FooterCopyright />
       </MDBFooter>
     </div>
   );
