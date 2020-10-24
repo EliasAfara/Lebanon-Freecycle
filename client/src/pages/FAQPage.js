@@ -4,6 +4,7 @@ import { faq } from "../sharedData/FAQsData";
 import FAQDesigner from "../components/unDrawComponents/FAQDesigner";
 import { Link } from "react-router-dom";
 import FooterCopyright from "../components/FooterComponent/FooterCopyright";
+import BreadCrumb from "../components/BreadCrumb";
 
 const FAQPage = () => {
   const screenWidth = window.innerWidth;
@@ -27,12 +28,16 @@ const FAQPage = () => {
     <div className="faqs">
       <div className="row faqs__row" style={{ margin: "auto" }}>
         <div className="col faqs__info">
+          <BreadCrumb RouteName="FAQ" />
+          <br />
           <h1 className="faqs__info--title">Frequently Asked Questions</h1>
           <div className="faqs__info--description">
             These are the most common questions we get asked - please have a
             look and see if this is what you need. If not, feel free to{" "}
-            <Link to="/contact-us">ask your question</Link>, and we will answer
-            it as well.
+            <Link to="/contact-us" className="faqs__info--ContactUsLink">
+              ask your question
+            </Link>
+            , and we will answer it as well.
             <br />
             Click on a question to expand the answer.
           </div>

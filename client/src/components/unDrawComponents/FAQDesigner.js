@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 const FAQDesigner = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={props.width}
-    height={props.height}
+    style={{ width: props.width, height: props.height }}
     data-name="Layer 1"
     viewBox="0 0 844.675 595.262"
   >

@@ -28,6 +28,21 @@
     color: #3F51B5
 }
 
+.faqs__info--ContactUsLink{
+text-decoration: none;
+background-image: linear-gradient(currentColor, currentColor);
+background-position: 0% 100%;
+background-repeat: no-repeat;
+background-size: 0% 2px;
+transition: background-size cubic-bezier(0, .5, 0, 1) 0.3s;
+}
+
+.faqs__info--ContactUsLink:hover,
+.faqs__info--ContactUsLink:hover {
+    text-decoration: none;
+    background-size: 100% 2px;
+}
+
 @media only screen and (max-width: 425px) {
 
     .faqs__row {
