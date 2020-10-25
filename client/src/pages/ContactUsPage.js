@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ContactUs from "../components/ContactUsComponent/ContactUs";
 import FooterCopyright from "../components/FooterComponent/FooterCopyright";
-import ContactUsDesigner from "../components/unDrawComponents/ContactUsDesigner";
+import ContactUsSVG from "../components/SVGComponents/ContactUsSVG";
 import PhoneRoundedIcon from "@material-ui/icons/PhoneRounded";
 import HelpOutlineRoundedIcon from "@material-ui/icons/HelpOutlineRounded";
 import BreadCrumb from "../components/BreadCrumb";
@@ -62,7 +62,7 @@ const ContactUsPage = () => {
           </div>
         </div>
         <div className="col contactUS__svg">
-          <ContactUsDesigner width={width} height={height} />
+          <ContactUsSVG width={width} height={height} />
         </div>
       </div>
       <ContactUs />

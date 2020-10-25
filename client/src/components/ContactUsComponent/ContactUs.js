@@ -161,7 +161,9 @@ const ContactUs = () => {
               <input
                 type="text"
                 className={
-                  isNameCorrect ? "form-control" : "form-control error"
+                  isNameCorrect
+                    ? "form-control"
+                    : "form-control ContactUs__FormError"
                 }
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -179,7 +181,9 @@ const ContactUs = () => {
               <input
                 type="text"
                 className={
-                  isEmailCorrect ? "form-control" : "form-control error"
+                  isEmailCorrect
+                    ? "form-control"
+                    : "form-control ContactUs__FormError"
                 }
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -196,7 +200,9 @@ const ContactUs = () => {
               <input
                 type="text"
                 className={
-                  isSubjectCorrect ? "form-control" : "form-control error"
+                  isSubjectCorrect
+                    ? "form-control"
+                    : "form-control ContactUs__FormError"
                 }
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
