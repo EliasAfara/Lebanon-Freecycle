@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FAQ from "../components/FAQComponent/FAQComponent";
-import { faq } from "../sharedData/FAQsData";
-import FAQDesigner from "../components/unDrawComponents/FAQDesigner";
+import { faq } from "../shared/FAQsData";
+import FAQsSVG from "../components/SVGComponents/FAQsSVG";
 import { Link } from "react-router-dom";
 import FooterCopyright from "../components/FooterComponent/FooterCopyright";
 import BreadCrumb from "../components/BreadCrumb";
@@ -43,7 +43,7 @@ const FAQPage = () => {
           </div>
         </div>
         <div className="col faqs__svg">
-          <FAQDesigner width={width} height={height} />
+          <FAQsSVG width={width} height={height} />
         </div>
       </div>
 
