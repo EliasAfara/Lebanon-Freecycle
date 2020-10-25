@@ -1,4 +1,4 @@
-.how-it-works {
+.howitworks {
     text-align: center;
     justify-content: center;
 }
@@ -7,16 +7,16 @@
     width: 25rem;
 }
 
-.how-it-works h3 {
+.howitworks__heading {
     color: #e04d4d;
     font-size: 1.5em;
     line-height: 1.2;
     font-weight: bold;
 }
-.how-it-works img {
+/* .how-it-works img {
     justify-content: start;
     width: 600px;
-}
+} */
 
 @media only screen and (max-width: 820px) {
     .accordinCard {
