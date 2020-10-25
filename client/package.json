@@ -17,8 +17,12 @@
     "react-bootstrap": "^1.3.0",
     "react-dom": "^16.14.0",
     "react-hook-form": "^6.9.5",
+    "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.4",
+    "react-scroll": "^1.8.1",
+    "react-transition-group": "^4.4.1",
+    "styled-components": "^5.2.0",
     "yup": "^0.29.3"
   },
   "scripts": {
