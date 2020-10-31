@@ -1,10 +1,11 @@
 import React from "react";
+import AboutUsComponent from "../components/layout/AboutUsComponent/AboutUsComponent";
 
 const AboutPage = () => {
   return (
     <>
       <div>
-        <h4>About Page</h4>
+        <AboutUsComponent />
       </div>
     </>
   );

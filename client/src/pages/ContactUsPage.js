@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ContactUs from "../components/ContactUsComponent/ContactUs";
-import FooterCopyright from "../components/FooterComponent/FooterCopyright";
+import ContactUs from "../components/layout/ContactUsComponent/ContactUs";
+import FooterCopyright from "../components/layout/FooterComponent/FooterCopyright";
 import ContactUsSVG from "../components/SVGComponents/ContactUsSVG";
 import PhoneRoundedIcon from "@material-ui/icons/PhoneRounded";
 import HelpOutlineRoundedIcon from "@material-ui/icons/HelpOutlineRounded";

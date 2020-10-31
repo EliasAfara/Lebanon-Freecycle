@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { scroller } from "react-scroll";
 import "./HowItWorks.css";
-import { HowItWorksData } from "../../shared/HowItWorksData";
+import { HowItWorksData } from "../../../shared/HowItWorksData";
 import { Accordion, Card, Button } from "react-bootstrap";
 import { MDBBtn, MDBIcon } from "mdbreact";
 
@@ -66,7 +66,7 @@ const HowItWorks = () => {
           style={{ padding: 0, margin: 0 }}
         >
           <MDBBtn rounded gradient="blue" style={{ margin: 0 }}>
-            <MDBIcon icon={showDetails ? "eye-slash" : "eye"} /> {details}
+            <MDBIcon icon={showDetails ? "eye" : "eye-slash"} /> {details}
           </MDBBtn>
         </Accordion.Toggle>
       </Accordion>

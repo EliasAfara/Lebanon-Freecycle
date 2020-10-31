@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import FAQ from "../components/FAQComponent/FAQComponent";
+import FAQ from "../components/layout/FAQComponent/FAQComponent";
 import { faq } from "../shared/FAQsData";
 import FAQsSVG from "../components/SVGComponents/FAQsSVG";
 import { Link } from "react-router-dom";
-import FooterCopyright from "../components/FooterComponent/FooterCopyright";
+import FooterCopyright from "../components/layout/FooterComponent/FooterCopyright";
 import BreadCrumb from "../components/BreadCrumb";
 
 const FAQPage = () => {
