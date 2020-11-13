@@ -1,8 +1,0 @@
-@media only screen and (max-width: 767px) {
-    
-    .resCol {
-        flex: 2;
-        text-align: center;
-        width: 100px;
-    }
-}
