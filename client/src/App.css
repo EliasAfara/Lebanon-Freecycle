@@ -4,6 +4,22 @@
     padding: 0;
     font-family: 'Encode Sans Expanded', sans-serif;
 }
+body {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    background-color: #fff;
+    color: #333;
+}
+/* Utilities */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin-top: 6rem;
+    margin-bottom: 3rem;
+}
 
 .my-16 {
     margin-top: 4rem;
