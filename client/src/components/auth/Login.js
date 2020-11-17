@@ -30,39 +30,49 @@ const Login = ({ loginUser, isAuthenticated }) => {
     return <Redirect to='/donations' />;
   }
   return (
-    <>
-      <h1 className='large text-primary'>Sign In</h1>
-      <p className='lead'>
-        <i className='fas fa-user'></i> Sign into your Account
-      </p>
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='form-group'>
-          <input
-            type='email'
-            placeholder='Email Address'
-            name='email'
-            value={email}
-            onChange={(e) => handleChange(e)}
-            required
-          />
-        </div>
-        <div className='form-group'>
-          <input
-            type='password'
-            placeholder='Password'
-            name='password'
-            value={password}
-            onChange={(e) => handleChange(e)}
-            minLength='6'
-            required
-          />
-        </div>
-        <input type='submit' className='btn btn-primary' value='Login' />
-      </form>
-      <p className='my-1'>
-        Don't have an account? <Link to='/register'>Sign Up</Link>
-      </p>
-    </>
+    <div className='page-content'>
+      <div className='form-v5-content card'>
+        <form className='form-detail' onSubmit={handleSubmit}>
+          <h2>Sign into your Accounth</h2>
+          <div className='form-row'>
+            <label htmlFor='your-email'>Your Email</label>
+            <input
+              type='email'
+              id='your-email'
+              className='input-text'
+              placeholder='Your Email Address'
+              name='email'
+              value={email}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </div>
+          <div className='form-row'>
+            <label htmlFor='password'>Password</label>
+            <input
+              type='password'
+              id='password'
+              className='input-text'
+              placeholder='Your
+          Password'
+              name='password'
+              value={password}
+              onChange={(e) => handleChange(e)}
+              minLength='6'
+              required
+            />
+          </div>
+          <div className='form-row-last'>
+            <input type='submit' className='auth-btn' value='Login' />
+          </div>
+        </form>
+
+        <p className='sign-up-link'>
+          {' '}
+          Don't have an account <Link to='register'>Sign Up </Link>
+        </p>
+      </div>
+    </div>
   );
 };
 

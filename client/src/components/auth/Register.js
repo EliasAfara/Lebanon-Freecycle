@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import './auth.css';
 import { setAlert } from '../../actions/alert';
 
-const Register = ({ registerUser, isAuthenticated }) => {
+const Register = ({ setAlert, registerUser, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,6 +27,7 @@ const Register = ({ registerUser, isAuthenticated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
+      console.log('password does not match');
       setAlert('Passwords do not match', 'danger');
     } else {
       registerUser({
@@ -86,7 +87,6 @@ const Register = ({ registerUser, isAuthenticated }) => {
               name='password'
               value={password}
               onChange={(e) => handleChange(e)}
-              required
             />
           </div>
           <div className='form-row'>
@@ -99,7 +99,6 @@ const Register = ({ registerUser, isAuthenticated }) => {
               name='password2'
               value={password2}
               onChange={(e) => handleChange(e)}
-              required
             />
           </div>
           <div className='form-row-last'>
@@ -115,6 +114,7 @@ const Register = ({ registerUser, isAuthenticated }) => {
 };
 
 Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
   registerUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
@@ -123,4 +123,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { registerUser })(Register);
+export default connect(mapStateToProps, { setAlert, registerUser })(Register);
