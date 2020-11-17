@@ -9,11 +9,13 @@ import PageShell from '../../utils/PageShell';
 import FAQPage from '../../pages/FAQPage';
 import Register from '../auth/Register';
 import Login from '../auth/Login';
+import Alert from '../layout/Alert';
 
 const Routes = () => {
   return (
     <>
       <>
+        <Alert />
         <Switch>
           <Route exact path='/donations' component={PageShell(DonationsPage)} />
           <Route exact path='/requests' component={PageShell(RequestsPage)} />
@@ -24,10 +26,9 @@ const Routes = () => {
             path='/contact-us'
             component={PageShell(ContactUsPage)}
           />
-          <section className='container'>
-            <Route exact path='/login' component={PageShell(Login)} />
-            <Route exact path='/register' component={PageShell(Register)} />
-          </section>
+
+          <Route exact path='/login' component={PageShell(Login)} />
+          <Route exact path='/register' component={PageShell(Register)} />
 
           <Route path='*' component={ErrorPage} />
         </Switch>
