@@ -17,6 +17,9 @@ router.post(
   '/',
   [
     check('name', 'Name is required').not().isEmpty(),
+    check('name', 'Full Name should be at least 5 Characters long').isLength({
+      min: 5,
+    }),
     check('email', 'Please include a valid email').isEmail(),
     check(
       'password',
