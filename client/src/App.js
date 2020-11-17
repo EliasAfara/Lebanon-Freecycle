@@ -5,7 +5,7 @@ import './App.css';
 
 // Components
 import Navbar from './components/NavbarComponent';
-import UserNavbar from './components/UserNavbarComponent';
+// import UserNavbar from './components/UserNavbarComponent';
 import HomePage from './pages/HomePage';
 
 // Utils
@@ -37,7 +37,7 @@ function App() {
       <Router>
         <ScrollToTop />
 
-        {isLoggedIn ? <UserNavbar /> : <Navbar />}
+        {isLoggedIn ? null : <Navbar />}
 
         <Switch>
           <Route exact path='/' component={PageShell(HomePage)} />
