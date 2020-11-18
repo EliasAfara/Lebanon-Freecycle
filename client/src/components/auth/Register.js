@@ -8,14 +8,15 @@ import { setAlert } from '../../actions/alert';
 
 const Register = ({ setAlert, registerUser, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    name: '',
+    fullname: '',
+    username: '',
     email: '',
     password: '',
     password2: '',
   });
 
   // Destructing
-  const { name, email, password, password2 } = formData;
+  const { fullname, username, email, password, password2 } = formData;
 
   const handleChange = (e) => {
     setFormData({
@@ -31,7 +32,8 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
       setAlert('Passwords do not match', 'danger');
     } else {
       registerUser({
-        name,
+        fullname,
+        username,
         email,
         password,
       });
@@ -56,9 +58,22 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
               type='text'
               id='full-name'
               className='input-text'
-              placeholder='Your Full Name'
-              name='name'
-              value={name}
+              placeholder='Full Name'
+              name='fullname'
+              value={fullname}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </div>
+          <div className='form-row'>
+            <label htmlFor='username'>Username</label>
+            <input
+              type='text'
+              id='username'
+              className='input-text'
+              placeholder='Username'
+              name='username'
+              value={username}
               onChange={(e) => handleChange(e)}
               required
             />
@@ -70,7 +85,7 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
               type='email'
               id='your-email'
               className='input-text'
-              placeholder='Your Email Address'
+              placeholder='Email Address'
               name='email'
               value={email}
               onChange={(e) => handleChange(e)}
@@ -83,7 +98,7 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
               type='password'
               id='password'
               className='input-text'
-              placeholder='Your Password'
+              placeholder='Password'
               name='password'
               value={password}
               onChange={(e) => handleChange(e)}
