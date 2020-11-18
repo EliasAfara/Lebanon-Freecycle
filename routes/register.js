@@ -16,14 +16,24 @@ const User = require('../models/User');
 router.post(
   '/',
   [
-    check('name', 'Name is required').not().isEmpty(),
-    check('name', 'Full Name should be at least 5 Characters long').isLength({
+    check('fullname', 'Full Name is required.').not().isEmpty(),
+    check(
+      'fullname',
+      'Full Name should be at least 5 Characters long.'
+    ).isLength({
       min: 5,
     }),
-    check('email', 'Please include a valid email').isEmail(),
+    check('username', 'Username is required.').not().isEmpty(),
+    check(
+      'username',
+      'Username should be at least 5 Characters long.'
+    ).isLength({
+      min: 5,
+    }),
+    check('email', 'Please include a valid email.').isEmail().normalizeEmail(),
     check(
       'password',
-      'Please enter a password with 6 or more characters'
+      'Please enter a password with 6 or more characters.'
     ).isLength({ min: 6 }),
   ],
   async (req, res) => {
@@ -35,7 +45,7 @@ router.post(
       });
     }
 
-    const { name, email, password } = req.body;
+    const { fullname, username, email, password } = req.body;
 
     try {
       // See if user already exists
@@ -44,7 +54,27 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'User already exists' }] });
+          .json({ errors: [{ msg: 'E-mail already in use.' }] });
+      }
+      // username validation
+      // Usernames can only use letters, numbers, underscores and periods.
+      let user_username = await User.findOne({ username });
+
+      if (user_username) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Username already in use.' }] });
+      }
+
+      if (!/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/.test(username)) {
+        return res.status(400).json({
+          errors: [
+            {
+              msg:
+                'Usernames can only use letters, numbers, underscores and periods.',
+            },
+          ],
+        });
       }
 
       // Get users gravatar
@@ -56,7 +86,8 @@ router.post(
 
       // creates a new user instance (does not save)
       user = new User({
-        name,
+        fullname,
+        username,
         email,
         avatar,
         password,
