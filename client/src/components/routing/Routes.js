@@ -34,6 +34,9 @@ const Routes = () => {
         <Alert />
         <Switch>
           {/* Public */}
+          <Route exact path='/about' component={PageShell(AboutPage)} />
+          <Route exact path='/faq' component={PageShell(FAQPage)} />
+
           <Route exact path='/donations' component={PageShell(DonationsPage)} />
           <Route exact path='/donation/:id' component={Donation} />
           <Route
@@ -48,8 +51,7 @@ const Routes = () => {
             path='/completed-requests'
             component={completedRequests}
           />
-          <Route exact path='/about' component={PageShell(AboutPage)} />
-          <Route exact path='/faq' component={PageShell(FAQPage)} />
+
           <Route
             exact
             path='/contact-us'
@@ -58,8 +60,9 @@ const Routes = () => {
           <Route exact path='/login' component={PageShell(Login)} />
           <Route exact path='/register' component={PageShell(Register)} />
 
-          {/* Private */}
           <Route exact path='/profile/:username' component={Profile} />
+
+          {/* Private */}
           <PrivateRoute
             exact
             path='/create-profile'
