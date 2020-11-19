@@ -5,7 +5,6 @@ import './App.css';
 
 // Components
 import Navbar from './components/NavbarComponent';
-// import UserNavbar from './components/UserNavbarComponent';
 import HomePage from './pages/HomePage';
 
 // Utils
@@ -31,13 +30,12 @@ function App() {
     store.dispatch(loadUser());
   }, []);
 
-  const isLoggedIn = false;
   return (
     <Provider store={store}>
       <Router>
         <ScrollToTop />
 
-        {isLoggedIn ? null : <Navbar />}
+        <Navbar />
 
         <Switch>
           <Route exact path='/' component={PageShell(HomePage)} />
