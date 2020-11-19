@@ -25,7 +25,9 @@ import {
   BottomNavLinkName,
 } from './UserNavbarElements';
 
-const toggleUserIcon = () => {};
+const toggleUserIcon = () => {
+  console.log('Avatar');
+};
 
 const UserNavbar = ({ auth: { user } }) => {
   return (
@@ -44,7 +46,7 @@ const UserNavbar = ({ auth: { user } }) => {
           <IconContainer>
             <UserIcon
               src={user && user.avatar}
-              alt='Avatar'
+              alt={`${user && user.fullname}`}
               onClick={toggleUserIcon}
             />
           </IconContainer>
@@ -72,7 +74,7 @@ const UserNavbar = ({ auth: { user } }) => {
           </BottomNavItem>
 
           <BottomNavItem>
-            <BottomNavLinkRoute to=''>
+            <BottomNavLinkRoute to={`/profile/${user && user.username}`}>
               <BottomNavIcon>
                 <UserIcon
                   src={user && user.avatar}

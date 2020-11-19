@@ -13,13 +13,14 @@ import Alert from '../layout/Alert';
 
 import PrivateRoute from './PrivateRoute';
 
+import Profile from '../Private/profile/Profile';
+
 const Donation = ''; // Single Donation Component
 const Request = ''; // Single Request Component
 
 const completedDonations = ''; // Component that displays all completed donations
 const completedRequests = ''; // Component that displays all completed requests
 
-const Profile = ''; // Component that displays a user profile depending on his unique username
 const CreateProfile = ''; // Component that displays the form for editing & creating a profile
 
 const SubmitDonation = ''; // Component used to submit donations
