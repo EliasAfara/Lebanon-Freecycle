@@ -1,21 +1,45 @@
-import React, { useState } from "react";
-import Navbar from "./Navbar";
-import Sidebar from "./Sidebar";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const NavbarComponent = () => {
+// Redux
+import { connect } from 'react-redux';
+//import { Link } from 'react-router-dom';
+
+// Guest
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
+
+// User
+import UserNavbar from './UserNavbar';
+
+const NavbarComponent = ({ auth: { isAuthenticated, loading } }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavBar = () => {
     setIsOpen(!isOpen);
   };
 
-  return (
-    <>
-      {isOpen ? <Sidebar isOpen={isOpen} toggleNavBar={toggleNavBar} /> : null}
+  const guestNavbar = () => {
+    return (
+      <>
+        {isOpen ? (
+          <Sidebar isOpen={isOpen} toggleNavBar={toggleNavBar} />
+        ) : null}
+        <Navbar toggleNavBar={toggleNavBar} />
+      </>
+    );
+  };
 
-      <Navbar toggleNavBar={toggleNavBar} />
-    </>
-  );
+  const userNavbar = <UserNavbar />;
+
+  return <>{!loading && <>{isAuthenticated ? userNavbar : guestNavbar()}</>}</>;
 };
 
-export default NavbarComponent;
+NavbarComponent.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps)(NavbarComponent);
