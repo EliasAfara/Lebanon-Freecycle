@@ -50,6 +50,7 @@ export const NavMenu = styled.ul`
   text-align: center;
   height: 100%;
   margin-right: -22px;
+  margin-bottom: 0;
 
   @media screen and (max-width: 768px) {
     display: none;
@@ -92,6 +93,7 @@ export const UserIcon = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  margin: 0;
 `;
 
 // Bottom Navbar
@@ -154,6 +156,7 @@ export const BottomNavLinkRoute = styled(LinkRouter)`
 `;
 export const BottomNavIcon = styled.div`
   color: #fff;
+  text-align: center;
   font-size: 30px;
   width: 100%;
   height: 100%;
