@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Redux
 import { connect } from 'react-redux';
-
 import { GiLifeSupport } from 'react-icons/gi';
-
 import { BsFillGiftFill } from 'react-icons/bs';
+import { CgProfile } from 'react-icons/cg';
+import { IoMdSettings } from 'react-icons/io';
 
+// Styled Components
 import {
   Nav,
   NavbarContainer,
@@ -23,13 +25,71 @@ import {
   BottomNavIcon,
   BottomNavItem,
   BottomNavLinkName,
+  DropdownDivider,
+  DropdownList,
+  DropdownItem,
+  DropdownArrow,
+  DropdownItemIcon,
 } from './UserNavbarElements';
 
-const toggleUserIcon = () => {
-  console.log('Avatar');
-};
-
 const UserNavbar = ({ auth: { user } }) => {
+  const node = useRef();
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const handleClick = (e) => {
+    if (node.current.contains(e.target)) {
+      // inside component click
+      return;
+    }
+    // outside component click
+    setOpenMenu(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick); // left click
+
+    return () => {
+      // clean up
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
+
+  const DropdownMenu = () => (
+    <DropdownList>
+      <DropdownArrow />
+      <Link to='#!'>
+        <DropdownItem>
+          Signed in as&nbsp; <strong>{user && user.username}</strong>
+        </DropdownItem>
+      </Link>
+
+      <DropdownDivider />
+
+      <Link to='#!'>
+        <DropdownItem>
+          <DropdownItemIcon>
+            <CgProfile />
+          </DropdownItemIcon>
+          Profile
+        </DropdownItem>
+      </Link>
+
+      <Link to='#!'>
+        <DropdownItem>
+          <DropdownItemIcon>
+            <IoMdSettings />
+          </DropdownItemIcon>
+          Setting
+        </DropdownItem>
+      </Link>
+
+      <DropdownDivider />
+
+      <Link to='#!'>
+        <DropdownItem>Logout</DropdownItem>
+      </Link>
+    </DropdownList>
+  );
   return (
     <>
       <Nav>
@@ -43,12 +103,14 @@ const UserNavbar = ({ auth: { user } }) => {
               <NavLinkRoute to='/requests'>Requests</NavLinkRoute>
             </NavItem>
           </NavMenu>
-          <IconContainer>
+          <IconContainer ref={node}>
             <UserIcon
               src={user && user.avatar}
-              alt={`${user && user.fullname}`}
-              onClick={toggleUserIcon}
+              alt={user && user.fullname}
+              onClick={() => setOpenMenu(!openMenu)}
             />
+
+            {openMenu && <DropdownMenu />}
           </IconContainer>
         </NavbarContainer>
       </Nav>
@@ -78,8 +140,7 @@ const UserNavbar = ({ auth: { user } }) => {
               <BottomNavIcon>
                 <UserIcon
                   src={user && user.avatar}
-                  alt='Avatar'
-                  onClick={toggleUserIcon}
+                  alt={user && user.username}
                 />
               </BottomNavIcon>
 

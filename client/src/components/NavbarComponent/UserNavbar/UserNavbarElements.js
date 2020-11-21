@@ -81,7 +81,6 @@ export const IconContainer = styled.div`
   display: flex;
   justify-self: flex-end;
   align-items: center;
-  cursor: pointer;
 
   @media screen and (max-width: 768px) {
     display: none;
@@ -94,6 +93,7 @@ export const UserIcon = styled.img`
   height: 30px;
   border-radius: 50%;
   margin: 0;
+  cursor: pointer;
 `;
 
 // Bottom Navbar
@@ -166,14 +166,63 @@ export const BottomNavIcon = styled.div`
   transition: color 500ms ease-in-out;
 `;
 export const BottomNavLinkName = styled.div`
-  color: #fff;
-  text-decoration: none;
   display: block;
   width: 100%;
   height: 100%;
   font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
   -webkit-transition: color 500ms ease-in-out;
   -moz-transition: color 500ms ease-in-out;
   -o-transition: color 500ms ease-in-out;
   transition: color 500ms ease-in-out;
+`;
+
+// Dropdown menu
+
+export const DropdownList = styled.div`
+  position: absolute;
+  top: 50px;
+  width: 230px;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 5px;
+  transform: translate(-80%);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+`;
+
+export const DropdownItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  color: #262626;
+
+  &:hover {
+    background: lightgray;
+  }
+`;
+
+export const DropdownItemIcon = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  margin-right: 12px;
+`;
+
+export const DropdownDivider = styled.div`
+  display: block;
+  height: 0;
+  //margin: 6px 0;
+  border-top: 1px solid #ffdf6c;
+`;
+export const DropdownArrow = styled.div`
+  position: fixed;
+  left: 192px;
+  top: -7px;
+  bottom: -6px;
+  height: 14px;
+  z-index: -1;
+  width: 14px;
+  transform: rotate(45deg);
+  background: #fff;
 `;
