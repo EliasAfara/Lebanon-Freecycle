@@ -38,7 +38,7 @@ const Routes = () => {
           <Route exact path='/about' component={PageShell(AboutPage)} />
           <Route exact path='/faq' component={PageShell(FAQPage)} />
 
-          <Route exact path='/donations' component={PageShell(DonationsPage)} />
+          <Route exact path='/donations' component={DonationsPage} />
           <Route exact path='/donation/:id' component={Donation} />
           <Route
             exact
