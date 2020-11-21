@@ -84,9 +84,11 @@ const Profile = ({ auth: { user } }) => {
               Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️
               Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️
             </span>
-            <a href='www.google.com' target='_blank' className='bio-website'>
-              www.google.com
-            </a>
+            <div className='profile__website' style={{ width: 'fit-content' }}>
+              <a href='www.google.com' target='_blank' className='bio-website'>
+                www.google.com
+              </a>
+            </div>
           </div>
         </section>
       </header>
