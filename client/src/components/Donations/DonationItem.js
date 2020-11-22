@@ -1,11 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEllipsisV } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 
 // Styled Components
 import * as S from './DonationsElements';
 
 const DonationItem = () => {
+  const node = useRef();
+  const [openActions, setOpenActions] = useState(false);
+
+  const handleClick = (e) => {
+    if (node.current.contains(e.target)) {
+      // inside component click
+      return;
+    }
+    // outside component click
+    setOpenActions(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick); // left click
+
+    return () => {
+      // clean up
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
+
+  const CardActionsDropDown = () => (
+    <S.DropdownActionsList>
+      <Link to='' onClick={() => setOpenActions(!openActions)}>
+        <S.DropdownAction>
+          <S.ActionIcon>
+            <FaEdit />
+          </S.ActionIcon>
+          Edit
+        </S.DropdownAction>
+      </Link>
+
+      <Link to='' onClick={() => setOpenActions(!openActions)}>
+        <S.DropdownAction>
+          <S.ActionIcon>
+            <FaTrash />
+          </S.ActionIcon>
+          Delete
+        </S.DropdownAction>
+      </Link>
+    </S.DropdownActionsList>
+  );
+
   return (
     <>
       <S.Wrapper>
@@ -37,8 +82,13 @@ const DonationItem = () => {
                     Elias Afara
                   </Link>
                 </S.HeaderUserFullName>
-                <S.HeaderEllipsis>
-                  <FaEllipsisV style={{ width: '4px' }} />
+                <S.HeaderEllipsis ref={node}>
+                  <FaEllipsisV
+                    onClick={() => setOpenActions(!openActions)}
+                    style={{ width: '4px', cursor: 'pointer' }}
+                  />
+
+                  {openActions && <CardActionsDropDown />}
                 </S.HeaderEllipsis>
               </S.ContentHeader>
               <S.DetailsUnOrderedList>

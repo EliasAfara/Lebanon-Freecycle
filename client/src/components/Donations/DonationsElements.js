@@ -99,7 +99,6 @@ export const HeaderEllipsis = styled.span`
   height: 25px;
   font-size: 25px;
   color: #8e8e8e;
-  cursor: pointer;
 
   &:hover {
     color: rgba(var(--i1d, 38, 38, 38), 1);
@@ -174,4 +173,34 @@ export const ContentDate = styled.span`
   margin-right: 12.5px;
   font-size: 10px;
   color: #8e8e8e;
+`;
+
+// Card actions menu
+
+export const DropdownActionsList = styled.div`
+  position: absolute;
+  transform: translate(-65px, 65%);
+  width: 140px;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+`;
+
+export const DropdownAction = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  color: #262626;
+
+  &:hover {
+    background: lightgray;
+  }
+`;
+
+export const ActionIcon = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin-right: 12px;
 `;
