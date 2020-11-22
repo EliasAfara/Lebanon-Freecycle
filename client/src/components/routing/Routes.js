@@ -13,7 +13,7 @@ import Alert from '../layout/Alert';
 
 import PrivateRoute from './PrivateRoute';
 
-import Profile from '../Private/profile/Profile';
+import Profile from '../Profile';
 
 const Donation = ''; // Single Donation Component
 const Request = ''; // Single Request Component
