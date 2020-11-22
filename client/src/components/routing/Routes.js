@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ContactUsPage from '../../pages/ContactUsPage';
-import DonationsPage from '../../pages/DonationsPage';
+import Donations from '../Donations';
 import RequestsPage from '../../pages/RequestsPage';
 import AboutPage from '../../pages/AboutPage';
 import ErrorPage from '../../pages/ErrorPage';
@@ -38,7 +38,7 @@ const Routes = () => {
           <Route exact path='/about' component={PageShell(AboutPage)} />
           <Route exact path='/faq' component={PageShell(FAQPage)} />
 
-          <Route exact path='/donations' component={DonationsPage} />
+          <Route exact path='/donations' component={Donations} />
           <Route exact path='/donation/:id' component={Donation} />
           <Route
             exact
