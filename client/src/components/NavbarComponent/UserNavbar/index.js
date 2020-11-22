@@ -57,7 +57,10 @@ const UserNavbar = ({ auth: { user } }) => {
   const DropdownMenu = () => (
     <DropdownList>
       <DropdownArrow />
-      <Link to='#!'>
+      <Link
+        to={`/profile/${user && user.username}`}
+        onClick={() => setOpenMenu(!openMenu)}
+      >
         <DropdownItem>
           Signed in as&nbsp; <strong>{user && user.username}</strong>
         </DropdownItem>
@@ -65,7 +68,10 @@ const UserNavbar = ({ auth: { user } }) => {
 
       <DropdownDivider />
 
-      <Link to='#!'>
+      <Link
+        to={`/profile/${user && user.username}`}
+        onClick={() => setOpenMenu(!openMenu)}
+      >
         <DropdownItem>
           <DropdownItemIcon>
             <CgProfile />
@@ -74,7 +80,7 @@ const UserNavbar = ({ auth: { user } }) => {
         </DropdownItem>
       </Link>
 
-      <Link to='#!'>
+      <Link to='/setting' onClick={() => setOpenMenu(!openMenu)}>
         <DropdownItem>
           <DropdownItemIcon>
             <IoMdSettings />
@@ -85,7 +91,7 @@ const UserNavbar = ({ auth: { user } }) => {
 
       <DropdownDivider />
 
-      <Link to='#!'>
+      <Link to='#!' onClick={() => setOpenMenu(!openMenu)}>
         <DropdownItem>Logout</DropdownItem>
       </Link>
     </DropdownList>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link as LinkRouter } from 'react-router-dom';
+import { NavLink as NavLinkRouter } from 'react-router-dom';
 
 export const Nav = styled.nav`
   background: #202020;
@@ -67,21 +68,22 @@ export const NavMenu = styled.ul`
 
 export const NavItem = styled.li`
   height: 100%;
-  color: #eefbfb;
 `;
 
-export const NavLinkRoute = styled(LinkRouter)`
-  color: #eefbfb;
+export const NavLinkRoute = styled(NavLinkRouter)`
   display: flex;
   align-items: center;
-  text-decoration: none;
   margin: 0 2rem 0 2rem;
   height: 100%;
   cursor: pointer;
   text-decoration: none;
 
-  &:active {
-    color: #ffdf6c;
+  &:hover {
+    color: #fff;
+  }
+
+  &.active {
+    color: blue;
   }
 `;
 
