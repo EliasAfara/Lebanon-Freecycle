@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 // Redux
 import { connect } from 'react-redux';
+import { logout } from '../../../actions/auth';
+// Icons
 import { GiLifeSupport } from 'react-icons/gi';
 import { BsFillGiftFill } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
@@ -32,7 +34,7 @@ import {
   DropdownItemIcon,
 } from './UserNavbarElements';
 
-const UserNavbar = ({ auth: { user } }) => {
+const UserNavbar = ({ auth: { user }, logout }) => {
   const node = useRef();
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -53,6 +55,11 @@ const UserNavbar = ({ auth: { user } }) => {
       document.removeEventListener('click', handleClick);
     };
   }, []);
+
+  const handleLogout = () => {
+    setOpenMenu(!openMenu);
+    logout();
+  };
 
   const DropdownMenu = () => (
     <DropdownList>
@@ -91,7 +98,7 @@ const UserNavbar = ({ auth: { user } }) => {
 
       <DropdownDivider />
 
-      <Link to='#!' onClick={() => setOpenMenu(!openMenu)}>
+      <Link to='/login' onClick={handleLogout}>
         <DropdownItem>Logout</DropdownItem>
       </Link>
     </DropdownList>
@@ -161,9 +168,10 @@ const UserNavbar = ({ auth: { user } }) => {
 
 UserNavbar.propTypes = {
   auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps)(UserNavbar);
+export default connect(mapStateToProps, { logout })(UserNavbar);
