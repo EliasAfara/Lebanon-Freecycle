@@ -95,6 +95,17 @@ export const UserIcon = styled.img`
   margin: 0;
   cursor: pointer;
 `;
+export const SettingIconDiv = styled.div`
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: white;
+    font-size: 25px;
+  }
+`;
 
 // Bottom Navbar
 export const BottomNav = styled.nav`

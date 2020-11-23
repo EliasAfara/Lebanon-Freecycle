@@ -32,6 +32,7 @@ import {
   DropdownItem,
   DropdownArrow,
   DropdownItemIcon,
+  SettingIconDiv,
 } from './UserNavbarElements';
 
 const UserNavbar = ({ auth: { user }, logout }) => {
@@ -103,6 +104,11 @@ const UserNavbar = ({ auth: { user }, logout }) => {
       </Link>
     </DropdownList>
   );
+
+  const SettingPopUpFunction = () => {
+    // Pop up which will display setting options (Change password / logout)
+    // Pop up similar to instagram popup
+  };
   return (
     <>
       <Nav>
@@ -125,6 +131,11 @@ const UserNavbar = ({ auth: { user }, logout }) => {
 
             {openMenu && <DropdownMenu />}
           </IconContainer>
+          <SettingIconDiv>
+            <span onClick={SettingPopUpFunction} style={{ cursor: 'pointer' }}>
+              <IoMdSettings />
+            </span>
+          </SettingIconDiv>
         </NavbarContainer>
       </Nav>
 
