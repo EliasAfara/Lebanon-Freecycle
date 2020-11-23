@@ -4,13 +4,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { IoMdSettings } from 'react-icons/io';
-import { FaFacebookSquare } from 'react-icons/fa';
-import { FaTwitterSquare } from 'react-icons/fa';
-import { FaInstagramSquare } from 'react-icons/fa';
+import { RiFacebookFill } from 'react-icons/ri';
+import { RiTwitterFill } from 'react-icons/ri';
+import { RiInstagramLine } from 'react-icons/ri';
+import VerifiedBadgeSVG from '../SVGComponents/VerifiedBadgeSVG';
 
 import * as S from './ProfileElements';
 
 const ProfileTop = ({ auth: { user } }) => {
+  const SettingPopUpFunction = () => {
+    // Pop up which will display setting options (Change password / logout)
+    // Pop up similar to instagram popup
+  };
+
+  const verified = true;
   return (
     <>
       <S.ProfileHeader>
@@ -18,26 +25,68 @@ const ProfileTop = ({ auth: { user } }) => {
           <S.ImageSpan>
             <S.UserAvatar src={user && user.avatar} alt='Avatar' />
           </S.ImageSpan>
+
           <S.SocialIcons>
-            <FaFacebookSquare />
-            <FaTwitterSquare />
-            <FaInstagramSquare />
+            <S.IconBtn>
+              <RiFacebookFill />
+            </S.IconBtn>
+            <S.IconBtn>
+              <RiTwitterFill />
+            </S.IconBtn>
+            <S.IconBtn>
+              <RiInstagramLine />
+            </S.IconBtn>
           </S.SocialIcons>
+
+          <S.DisplayUserV1>
+            {' '}
+            <S.UserName>{user && user.username}</S.UserName>
+            {verified && (
+              <div style={{ marginLeft: '8px' }}>
+                <VerifiedBadgeSVG />
+              </div>
+            )}
+          </S.DisplayUserV1>
         </S.HeaderImage>
 
         <S.UserInfoSection>
           <S.SectionHeader>
-            <S.UserName>{user && user.username}</S.UserName>
+            <S.DisplayUserV2>
+              {' '}
+              <S.UserName>{user && user.username}</S.UserName>
+              {verified && (
+                <div style={{ marginLeft: '8px' }}>
+                  <VerifiedBadgeSVG />
+                </div>
+              )}
+            </S.DisplayUserV2>
 
             <S.EditBtnDiv>
               <S.EditBtn>Edit Profile</S.EditBtn>
             </S.EditBtnDiv>
 
-            <S.SettingBtnDiv>
-              <S.SettingBtn aria-label='profile settings'>
-                <IoMdSettings />
-              </S.SettingBtn>
-            </S.SettingBtnDiv>
+            <S.Icons>
+              <S.SocialIconsV2>
+                <S.IconBtn>
+                  <RiFacebookFill />
+                </S.IconBtn>
+                <S.IconBtn>
+                  <RiTwitterFill />
+                </S.IconBtn>
+                <S.IconBtn>
+                  <RiInstagramLine />
+                </S.IconBtn>
+              </S.SocialIconsV2>
+
+              <S.SettingIconDiv>
+                <span
+                  onClick={SettingPopUpFunction}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <IoMdSettings />
+                </span>
+              </S.SettingIconDiv>
+            </S.Icons>
           </S.SectionHeader>
 
           <S.UnOrderedList>
@@ -78,17 +127,10 @@ const ProfileTop = ({ auth: { user } }) => {
           <S.ProfileBio>
             <S.UserFullName>{user && user.fullname}</S.UserFullName>
             <span role='img' aria-label='bio' style={{ width: '100%' }}>
-              Lorem ipsum dit 📷✈️🏕️ Lorem ipsum dit 📷✈️🏕️ Loem ipsum dit
-              📷✈️🏕️ Lorem ipsum dit 📷✈️🏕️ Lorem ipsum dit 📷✈️🏕️ Lorem ipsum
-              📷✈️🏕️ Lorem ipsum dit 📷✈️🏕️ Lorem ipsum dit 📷✈️🏕️ Lorem ipsum
-              📷✈️🏕️ Lorem ipsum dit 📷✈️🏕️ Lorem ipsum dit 📷✈️🏕️ Lorem ipsum
-              dit 📷✈️🏕️
+              Lorem ipsum dit Lorem ipsum dit Lorem ipsum dit Lorem ipsum dit
+              Lorem ipsum dit Lorem ipsum dit Lorem ipsum dit Lorem ipsum dit
+              Lorem ipsum dit Lorem ipsum dit Lorem ipsum. 📷✈️🏕️
             </span>
-            <S.ProfileWebsite>
-              <Link to='www.google.com' target='_blank' className='bio-website'>
-                www.google.com
-              </Link>
-            </S.ProfileWebsite>
           </S.ProfileBio>
         </S.UserInfoSection>
       </S.ProfileHeader>

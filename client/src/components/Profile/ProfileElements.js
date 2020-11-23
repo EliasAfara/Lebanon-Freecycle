@@ -8,6 +8,11 @@ export const ProfileHeader = styled.header`
   justify-content: center;
   /* Horizontal */
   padding-right: 20px;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    padding-right: 0;
+  }
 `;
 
 export const HeaderImage = styled.div`
@@ -16,6 +21,11 @@ export const HeaderImage = styled.div`
   text-align: center;
   margin-right: 30px;
   width: 220px;
+
+  @media only screen and (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
 `;
 
 export const ImageSpan = styled.span`
@@ -29,6 +39,11 @@ export const ImageSpan = styled.span`
   position: relative;
   width: 150px;
   height: 150px;
+
+  @media only screen and (max-width: 768px) {
+    width: 96px;
+    height: 96px;
+  }
 `;
 
 export const UserAvatar = styled.img`
@@ -47,11 +62,28 @@ export const SocialIcons = styled.div`
   display: flex;
   justify-content: space-evenly;
   font-size: 24px;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+export const SocialIconsV2 = styled.div`
+  display: none;
+
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 24px;
+  }
 `;
 
 export const UserInfoSection = styled.section`
   display: grid;
   width: 60%;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const SectionHeader = styled.div`
@@ -59,12 +91,42 @@ export const SectionHeader = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin: 0 0 20px 0;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
+export const DisplayUserV1 = styled.div`
+  display: none;
+
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+`;
+
+export const DisplayUserV2 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const UserName = styled.h2`
   display: inline-block;
   font-size: 28px;
+  font-weight: 400;
   margin: 0;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const EditBtnDiv = styled.div`
@@ -73,47 +135,63 @@ export const EditBtnDiv = styled.div`
 `;
 
 export const EditBtn = styled.button`
-  font-size: 14px;
-  appearance: none;
-  background: 0 0;
-  border: 0;
-  box-sizing: border-box;
-  cursor: pointer;
   display: block;
-  font-weight: 600;
-  padding: 5px 9px;
-  text-align: center;
-  text-transform: inherit;
-  text-overflow: ellipsis;
-  width: auto;
-  border-radius: 4px;
   position: relative;
+  text-align: center;
+  padding: 5px 9px;
+  width: auto;
+  font-size: 14px;
+  font-weight: 600;
   background-color: transparent;
+  border-radius: 4px;
   border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
   color: rgba(var(--f75, 38, 38, 38), 1);
-  user-select: auto;
+  cursor: pointer;
 `;
 
-export const SettingBtnDiv = styled.div`
-  display: inline-block;
+export const Icons = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: fit-content;
   margin-left: 5px;
 `;
 
-export const SettingBtn = styled.button`
+export const IconBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
+  height: 30px;
+  width: 30px;
+  font-size: 25px;
+  margin: 0 0 0 4px;
+  cursor: pointer;
+`;
+
+export const SettingIconDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   background: 0 0;
   border: 0;
   font-size: 28px;
-  margin: 0 0 0 4px;
-  cursor: pointer;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const UnOrderedList = styled.ul`
   margin-bottom: 20px;
   display: inline-flex;
+  align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 export const ListItems = styled.li`
@@ -122,14 +200,19 @@ export const ListItems = styled.li`
   font-size: 16px;
   margin-right: 40px;
 
-  &::last-child {
+  &:last-child {
     margin-right: 0;
+  }
+
+  @media only screen and (max-width: 300px) {
+    margin-right: 10px;
   }
 `;
 
 export const ListItemSpan = styled.span`
-  color: inherit;
+  display: inline-table;
   text-align: center;
+  color: inherit;
 `;
 
 export const ItemCount = styled.span`
@@ -146,12 +229,4 @@ export const UserFullName = styled.h1`
   display: inline;
   font-size: 16px;
   font-weight: 600;
-`;
-export const ProfileWebsite = styled.div`
-  display: inline-block;
-  width: fit-content;
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 `;
