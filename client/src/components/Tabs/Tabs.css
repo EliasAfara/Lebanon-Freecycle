@@ -1,4 +1,14 @@
-.navtabs__container{
+.ant-tabs-tab{
+    margin: 0 0 0 32px !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .ant-tabs-tab:first-child{
+        margin: 0 !important;
+    }
+}
+
+/* .navtabs__container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +20,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 20px;
     width: fit-content;
     background-color: #097583;
     border: 0;
@@ -48,4 +57,4 @@
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: .25rem;
     transition: all 1s;
-}
+} */
