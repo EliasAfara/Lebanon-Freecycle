@@ -1,7 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import { IoMdSettings } from 'react-icons/io';
 import { RiFacebookFill } from 'react-icons/ri';
@@ -11,19 +8,20 @@ import VerifiedBadgeSVG from '../SVGComponents/VerifiedBadgeSVG';
 
 import * as S from './ProfileElements';
 
-const ProfileTop = ({ auth: { user } }) => {
+// Get user data from url params (username) not from logged in user
+
+const ProfileTop = ({ fullname, username, avatar, verified, bio }) => {
   const SettingPopUpFunction = () => {
     // Pop up which will display setting options (Change password / logout)
     // Pop up similar to instagram popup
   };
 
-  const verified = true;
   return (
     <>
       <S.ProfileHeader>
         <S.HeaderImage>
           <S.ImageSpan>
-            <S.UserAvatar src={user && user.avatar} alt='Avatar' />
+            <S.UserAvatar src={avatar} alt='Avatar' />
           </S.ImageSpan>
 
           <S.SocialIcons>
@@ -40,7 +38,7 @@ const ProfileTop = ({ auth: { user } }) => {
 
           <S.DisplayUserV1>
             {' '}
-            <S.UserName>{user && user.username}</S.UserName>
+            <S.UserName>{username}</S.UserName>
             {verified && (
               <div style={{ marginLeft: '8px' }}>
                 <VerifiedBadgeSVG />
@@ -53,7 +51,7 @@ const ProfileTop = ({ auth: { user } }) => {
           <S.SectionHeader>
             <S.DisplayUserV2>
               {' '}
-              <S.UserName>{user && user.username}</S.UserName>
+              <S.UserName>{username}</S.UserName>
               {verified && (
                 <div style={{ marginLeft: '8px' }}>
                   <VerifiedBadgeSVG />
@@ -109,7 +107,7 @@ const ProfileTop = ({ auth: { user } }) => {
           <S.UnOrderedList>
             <S.ListItems>
               <S.ListItemSpan>
-                <S.ItemCount>1</S.ItemCount> Requests&nbsp;&nbsp;&nbsp;
+                <S.ItemCount>1</S.ItemCount> Requests&nbsp;&nbsp;
               </S.ListItemSpan>
             </S.ListItems>
             <S.ListItems>
@@ -125,11 +123,9 @@ const ProfileTop = ({ auth: { user } }) => {
           </S.UnOrderedList>
 
           <S.ProfileBio>
-            <S.UserFullName>{user && user.fullname}</S.UserFullName>
+            <S.UserFullName>{fullname}</S.UserFullName>
             <span role='img' aria-label='bio' style={{ width: '100%' }}>
-              Lorem ipsum dit Lorem ipsum dit Lorem ipsum dit Lorem ipsum dit
-              Lorem ipsum dit Lorem ipsum dit Lorem ipsum dit Lorem ipsum dit
-              Lorem ipsum dit Lorem ipsum dit Lorem ipsum. 📷✈️🏕️
+              {bio}
             </span>
           </S.ProfileBio>
         </S.UserInfoSection>
@@ -139,11 +135,4 @@ const ProfileTop = ({ auth: { user } }) => {
   );
 };
 
-ProfileTop.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-export default connect(mapStateToProps)(ProfileTop);
+export default ProfileTop;
