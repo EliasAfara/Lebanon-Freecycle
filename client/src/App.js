@@ -8,7 +8,7 @@ import Navbar from './components/NavbarComponent';
 import HomePage from './pages/HomePage';
 
 // Utils
-import PageShell from './utils/PageShell';
+//import PageShell from './utils/PageShell';
 import ScrollToTop from './utils/scrollToTop';
 import setAuthToken from './utils/setAuthToken';
 
@@ -38,7 +38,7 @@ function App() {
         <Navbar />
 
         <Switch>
-          <Route exact path='/' component={PageShell(HomePage)} />
+          <Route exact path='/' component={HomePage} />
           <Route component={Routes} />
         </Switch>
       </Router>
