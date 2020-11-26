@@ -70,7 +70,9 @@ const UserNavbar = ({ auth: { user }, logout }) => {
         onClick={() => setOpenMenu(!openMenu)}
       >
         <DropdownItem>
-          Signed in as&nbsp; <strong>{user && user.username}</strong>
+          <span style={{ textAlign: 'center', width: '100%' }}>
+            Signed in as <strong>{user && user.username}</strong>
+          </span>
         </DropdownItem>
       </Link>
 
