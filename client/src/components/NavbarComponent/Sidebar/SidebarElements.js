@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link as LinkRouter } from 'react-router-dom';
+import { NavLink as LinkRouter } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
 
 export const SidebarContainer = styled.aside`
@@ -36,33 +36,35 @@ export const SidebarWrapper = styled.div`
 `;
 
 export const SidebarMenu = styled.ul`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(6, 80px);
-  text-align: center;
-
-  @media screen and (max-width: 480px) {
-    grid-template-rows: repeat(6, 60px);
-  }
+  justify-content: center;
+  margin-bottom: 50px;
 `;
 
 export const SidebarLink = styled(LinkRouter)`
   display: flex;
-  border-radius: 50px;
-  margin: 15px 80px 15px 80px;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 200px;
+  border-radius: 50px;
+  margin-bottom: 30px;
   font-size: 1.5rem;
-  text-decoration: none;
+  color: #fff;
   list-style: none;
   transition: 0.3s ease-in-out;
-  color: #fff;
   cursor: pointer;
 
   &:hover {
-    color: #01bf71;
+    color: #1890ff;
     transition: 0.2s ease-in-out;
+  }
+  &.active {
+    color: #1890ff;
+    border-left: 2px solid #1890ff;
+    border-right: 2px solid #1890ff;
   }
 `;
 
@@ -72,21 +74,26 @@ export const SideBtnWrap = styled.div`
 `;
 
 export const SidebarBtn = styled(LinkRouter)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50px;
-  background: #01bf71;
+  width: 200px;
+  height: 50px;
+  color: #fff;
+  background: #1890ff;
   white-space: nowrap;
-  padding: 16px 64px;
-  color: #010606;
-  font-size: 16px;
+  font-size: 1rem;
   outline: none;
-  border: none;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
 
   &:hover {
-    transition: all 0.2s ease-in-out;
     background: #fff;
-    color: #010606;
+    color: #1890ff;
+    border: 2px solid #1890ff;
+    font-weight: 600;
+  }
+  &.active {
+    display: none;
   }
 `;

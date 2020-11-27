@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link as LinkRouter } from 'react-router-dom';
+import { NavLink as LinkRouter } from 'react-router-dom';
 
 export const Nav = styled.nav`
   background: #202020;
@@ -70,10 +70,22 @@ export const NavLinkRoute = styled(LinkRouter)`
   margin: 0 2rem 0 2rem;
   height: 100%;
   cursor: pointer;
-  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.3s;
 
-  &:active {
-    color: #ffdf6c;
+  &.active {
+    color: #1890ff;
+    background-size: 100% 2px;
+    font-weight: 600;
+  }
+
+  &:hover:not(.active) {
+    color: #eefbfb;
+    background-size: 100% 2px;
+    font-weight: 400;
   }
 `;
 
@@ -116,8 +128,7 @@ export const BottomNav = styled.nav`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 85px;
-    font-size: 1rem;
+    height: 60px;
     position: fixed;
     z-index: 1;
     bottom: 0;
@@ -162,7 +173,11 @@ export const BottomNavLinkRoute = styled(LinkRouter)`
   text-decoration: none;
 
   &:hover div {
-    color: #ffdf6c;
+    color: #1890ff;
+  }
+
+  &.active div {
+    color: #1890ff;
   }
 `;
 export const BottomNavIcon = styled.div`
@@ -176,17 +191,26 @@ export const BottomNavIcon = styled.div`
   -o-transition: color 500ms ease-in-out;
   transition: color 500ms ease-in-out;
 `;
+
 export const BottomNavLinkName = styled.div`
   display: block;
   width: 100%;
   height: 100%;
-  font-size: 1rem;
+  font-size: 16px;
   color: #fff;
   text-decoration: none;
   -webkit-transition: color 500ms ease-in-out;
   -moz-transition: color 500ms ease-in-out;
   -o-transition: color 500ms ease-in-out;
   transition: color 500ms ease-in-out;
+
+  @media screen and (max-width: 375px) {
+    font-size: 12px;
+  }
+
+  @media screen and (max-width: 280px) {
+    display: none;
+  }
 `;
 
 // Dropdown menu

@@ -74,16 +74,26 @@ export const NavLinkRoute = styled(NavLinkRouter)`
   display: flex;
   align-items: center;
   margin: 0 2rem 0 2rem;
+  color: #eefbfb;
   height: 100%;
   cursor: pointer;
   text-decoration: none;
-
-  &:hover {
-    color: #fff;
-  }
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.3s;
 
   &.active {
-    color: blue;
+    color: #1890ff;
+    background-size: 100% 2px;
+    font-weight: 600;
+  }
+
+  &:hover:not(.active) {
+    color: #eefbfb;
+    background-size: 100% 2px;
+    font-weight: 400;
   }
 `;
 

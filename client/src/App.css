@@ -11,6 +11,10 @@ body {
     font-size: 14px;
     line-height: 18px;
 }
+.container {
+    padding-bottom: 60px;
+}
+
 ol,
 ul {
     list-style: none;
@@ -377,7 +381,7 @@ hr {
 }
 
 .faqs__info--ContactUsLink:hover,
-.faqs__info--ContactUsLink:hover {
+.faqs__info--ContactUsLink:focus {
     text-decoration: none;
     background-size: 100% 2px;
 }

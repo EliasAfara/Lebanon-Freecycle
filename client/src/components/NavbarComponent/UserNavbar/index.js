@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
 import { logout } from '../../../actions/auth';
 // Icons
 import { GiLifeSupport } from 'react-icons/gi';
-import { BsFillGiftFill } from 'react-icons/bs';
+import { GiNestedHearts } from 'react-icons/gi';
 import { CgProfile } from 'react-icons/cg';
 import { IoMdSettings } from 'react-icons/io';
+import { RiHeartAddFill } from 'react-icons/ri';
 
 // Styled Components
 import {
@@ -144,9 +145,18 @@ const UserNavbar = ({ auth: { user }, logout }) => {
       <BottomNav>
         <BottomNavMenu>
           <BottomNavItem>
+            <BottomNavLinkRoute to='/dashboard'>
+              <BottomNavIcon>
+                <RiHeartAddFill />
+              </BottomNavIcon>
+              <BottomNavLinkName>Dashboard</BottomNavLinkName>
+            </BottomNavLinkRoute>
+          </BottomNavItem>
+
+          <BottomNavItem>
             <BottomNavLinkRoute to='/donations'>
               <BottomNavIcon>
-                <BsFillGiftFill />
+                <GiNestedHearts />
               </BottomNavIcon>
               <BottomNavLinkName>Donations</BottomNavLinkName>
             </BottomNavLinkRoute>
