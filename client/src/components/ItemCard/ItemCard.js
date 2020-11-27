@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+
+// React Icons
 import { FaEllipsisV } from 'react-icons/fa';
 import { FaEdit } from 'react-icons/fa';
 import { FaTrash } from 'react-icons/fa';
+import { FaCheckSquare } from 'react-icons/fa';
 
 // Styled Components
 import * as S from './ItemCardElements';
@@ -49,6 +52,11 @@ const ItemCard = ({
     // delete function
   };
 
+  const handleComplete = () => {
+    setOpenActions(!openActions);
+    // update item state from available to completed
+  };
+
   const CardActionsDropDown = () => (
     <S.DropdownActionsList>
       <Link
@@ -57,15 +65,22 @@ const ItemCard = ({
       >
         <S.DropdownAction>
           <S.ActionIcon>
-            <FaEdit />
+            <FaEdit style={{ color: '#1890ff' }} />
           </S.ActionIcon>
           Edit
         </S.DropdownAction>
       </Link>
 
-      <S.DropdownAction onClick={handleDelete}>
+      <S.DropdownAction onClick={handleComplete} style={{ cursor: 'pointer' }}>
         <S.ActionIcon>
-          <FaTrash />
+          <FaCheckSquare style={{ color: 'green' }} />
+        </S.ActionIcon>
+        Completed
+      </S.DropdownAction>
+
+      <S.DropdownAction onClick={handleDelete} style={{ cursor: 'pointer' }}>
+        <S.ActionIcon>
+          <FaTrash style={{ color: 'red' }} />
         </S.ActionIcon>
         Delete
       </S.DropdownAction>
@@ -101,6 +116,8 @@ const ItemCard = ({
                       {FullName}
                     </Link>
                   </S.HeaderUserFullName>
+
+                  {/* NEEDS IS AUTHENTICATED CONDITION TO BE ADDED */}
                   <S.HeaderEllipsis ref={node}>
                     <FaEllipsisV
                       onClick={() => setOpenActions(!openActions)}
@@ -109,6 +126,7 @@ const ItemCard = ({
 
                     {openActions && <CardActionsDropDown />}
                   </S.HeaderEllipsis>
+                  {/* NEEDS IS AUTHENTICATED CONDITION TO BE ADDED */}
                 </S.ContentHeader>
                 <S.DetailsUnOrderedList>
                   <S.ListItems>
