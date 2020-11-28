@@ -16,7 +16,7 @@ const ItemDetails = {
   ItemLocation: 'Tyre, Lebanon',
   ItemAddress: 'Tyre, Behind Al Ekhlas Resturant',
   ItemDescription: 'Old and used couch',
-  ItemDateOfCreation: '11/26/2020 11:57 AM',
+  ItemDateOfCreation: '2020-11-26T00:02:28.503+00:00',
   ItemID: '123456789',
   status: true,
 };
