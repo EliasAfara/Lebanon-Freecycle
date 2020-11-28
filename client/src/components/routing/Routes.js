@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 //import PageShell from '../../utils/PageShell';
 
+import Alert from '../layout/Alert';
+import PrivateRoute from './PrivateRoute';
 // Pages
 import Login from '../auth/Login';
 import Register from '../auth/Register';
@@ -21,9 +23,6 @@ const ViewRequest = ''; // Single Request Component
 const EditProfile = ''; // Component which will contain the form to update user profile
 const EditDonation = ''; // Component used to edit a donation according to the passed ID
 const EditRequest = ''; // Component used to edit a request according to the passed ID
-
-import Alert from '../layout/Alert';
-import PrivateRoute from './PrivateRoute';
 
 const Routes = () => {
   return (
