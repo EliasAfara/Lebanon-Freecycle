@@ -3,37 +3,41 @@ import { Link as LinkRouter } from 'react-router-dom';
 import { NavLink as NavLinkRouter } from 'react-router-dom';
 
 export const Nav = styled.nav`
-  background: #202020;
-  height: 50px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 1rem;
+  justify-content: center;
+  position: fixed;
   top: 0;
-  z-index: 10;
-  padding: 0;
-  margin: 0;
+  z-index: 3;
+  height: 54px;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #dbdbdb;
+  font-size: 1rem;
 
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;
+  }
+  @media screen and (max-width: 768px) {
+    height: 54px;
   }
 `;
 
 export const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  z-index: 1;
   height: 100%;
   width: 100%;
   max-width: 1100px;
-  z-index: 1;
   padding: 0 24px;
 `;
 export const NavLogo = styled(LinkRouter)`
   display: flex;
-  justify-self: flex-start;
   align-items: center;
+  justify-self: flex-start;
   height: 100%;
-  color: #ffdf6c;
+  color: #222;
   font-size: 1.5em;
   font-weight: bold;
   text-decoration: none;
@@ -48,7 +52,7 @@ export const MobileIcon = styled.div`
     justify-self: flex-end;
     align-items: center;
     font-size: 1.8em;
-    color: #ffdf6c;
+    color: #222;
     cursor: pointer;
   }
 `;
@@ -73,16 +77,17 @@ export const NavItem = styled.li`
 export const NavLinkRoute = styled(NavLinkRouter)`
   display: flex;
   align-items: center;
-  margin: 0 2rem 0 2rem;
-  color: #eefbfb;
   height: 100%;
-  cursor: pointer;
+  color: #222;
+  font-weight: 400;
+  margin: 0 2rem 0 2rem;
   text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
   background-position: 0% 100%;
   background-repeat: no-repeat;
-  background-size: 0% 2px;
+  background-image: linear-gradient(currentColor, currentColor);
   transition: background-size 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.3s;
+  cursor: pointer;
 
   &.active {
     color: #1890ff;
@@ -91,9 +96,8 @@ export const NavLinkRoute = styled(NavLinkRouter)`
   }
 
   &:hover:not(.active) {
-    color: #eefbfb;
+    color: #76777a;
     background-size: 100% 2px;
-    font-weight: 400;
   }
 `;
 

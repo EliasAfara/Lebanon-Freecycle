@@ -34,6 +34,8 @@ import {
   DropdownArrow,
   DropdownItemIcon,
   SettingIconDiv,
+  DropdownListContainer,
+  DropdownListWrapper,
 } from './UserNavbarElements';
 
 const UserNavbar = ({ auth: { user }, logout }) => {
@@ -65,46 +67,50 @@ const UserNavbar = ({ auth: { user }, logout }) => {
 
   const DropdownMenu = () => (
     <DropdownList>
-      <DropdownArrow />
-      <Link
-        to={`/profile/${user && user.username}`}
-        onClick={() => setOpenMenu(!openMenu)}
-      >
-        <DropdownItem>
-          <span style={{ textAlign: 'center', width: '100%' }}>
-            Signed in as <strong>{user && user.username}</strong>
-          </span>
-        </DropdownItem>
-      </Link>
+      <DropdownListContainer>
+        <DropdownArrow />
+        <DropdownListWrapper>
+          <Link
+            to={`/profile/${user && user.username}`}
+            onClick={() => setOpenMenu(!openMenu)}
+          >
+            <DropdownItem>
+              <span style={{ textAlign: 'center', width: '100%' }}>
+                Signed in as <strong>{user && user.username}</strong>
+              </span>
+            </DropdownItem>
+          </Link>
 
-      <DropdownDivider />
+          <DropdownDivider />
 
-      <Link
-        to={`/profile/${user && user.username}`}
-        onClick={() => setOpenMenu(!openMenu)}
-      >
-        <DropdownItem>
-          <DropdownItemIcon>
-            <CgProfile />
-          </DropdownItemIcon>
-          Profile
-        </DropdownItem>
-      </Link>
+          <Link
+            to={`/profile/${user && user.username}`}
+            onClick={() => setOpenMenu(!openMenu)}
+          >
+            <DropdownItem>
+              <DropdownItemIcon>
+                <CgProfile />
+              </DropdownItemIcon>
+              Profile
+            </DropdownItem>
+          </Link>
 
-      <Link to='/setting' onClick={() => setOpenMenu(!openMenu)}>
-        <DropdownItem>
-          <DropdownItemIcon>
-            <IoMdSettings />
-          </DropdownItemIcon>
-          Setting
-        </DropdownItem>
-      </Link>
+          <Link to='/setting' onClick={() => setOpenMenu(!openMenu)}>
+            <DropdownItem>
+              <DropdownItemIcon>
+                <IoMdSettings />
+              </DropdownItemIcon>
+              Setting
+            </DropdownItem>
+          </Link>
 
-      <DropdownDivider />
+          <DropdownDivider />
 
-      <Link to='/login' onClick={handleLogout}>
-        <DropdownItem>Logout</DropdownItem>
-      </Link>
+          <Link to='/login' onClick={handleLogout}>
+            <DropdownItem>Logout</DropdownItem>
+          </Link>
+        </DropdownListWrapper>
+      </DropdownListContainer>
     </DropdownList>
   );
 
@@ -132,6 +138,7 @@ const UserNavbar = ({ auth: { user }, logout }) => {
             <UserIcon
               src={user && user.avatar}
               alt={user && user.fullname}
+              draggable='false'
               onClick={() => setOpenMenu(!openMenu)}
             />
 
@@ -180,6 +187,7 @@ const UserNavbar = ({ auth: { user }, logout }) => {
                 <UserIcon
                   src={user && user.avatar}
                   alt={user && user.username}
+                  draggable='false'
                 />
               </BottomNavIcon>
 

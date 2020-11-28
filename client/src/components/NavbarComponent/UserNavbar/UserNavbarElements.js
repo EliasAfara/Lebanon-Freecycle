@@ -2,23 +2,23 @@ import styled from 'styled-components';
 import { NavLink as LinkRouter } from 'react-router-dom';
 
 export const Nav = styled.nav`
-  background: #202020;
-  height: 50px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 1rem;
+  justify-content: center;
+  position: fixed;
   top: 0;
-  z-index: 10;
-  padding: 0;
-  margin: 0;
+  z-index: 3;
+  height: 54px;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #dbdbdb;
+  font-size: 1rem;
 
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;
   }
   @media screen and (max-width: 768px) {
-    display: fixed;
-    height: 50px;
+    height: 54px;
   }
 `;
 
@@ -59,22 +59,22 @@ export const NavMenu = styled.ul`
 
 export const NavItem = styled.li`
   height: 100%;
-  color: #eefbfb;
 `;
 
 export const NavLinkRoute = styled(LinkRouter)`
-  color: #eefbfb;
   display: flex;
   align-items: center;
-  text-decoration: none;
-  margin: 0 2rem 0 2rem;
   height: 100%;
-  cursor: pointer;
-  background-image: linear-gradient(currentColor, currentColor);
+  color: #222;
+  font-weight: 400;
+  margin: 0 2rem 0 2rem;
+  text-decoration: none;
+  background-size: 0% 2px;
   background-position: 0% 100%;
   background-repeat: no-repeat;
-  background-size: 0% 2px;
+  background-image: linear-gradient(currentColor, currentColor);
   transition: background-size 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.3s;
+  cursor: pointer;
 
   &.active {
     color: #1890ff;
@@ -83,9 +83,8 @@ export const NavLinkRoute = styled(LinkRouter)`
   }
 
   &:hover:not(.active) {
-    color: #eefbfb;
+    color: #76777a;
     background-size: 100% 2px;
-    font-weight: 400;
   }
 `;
 
@@ -132,8 +131,7 @@ export const BottomNav = styled.nav`
     position: fixed;
     z-index: 1;
     bottom: 0;
-    background: #202020;
-    box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -145,6 +143,8 @@ export const BottomNavMenu = styled.ul`
     justify-content: center;
     align-items: center;
     position: absolute;
+    background-color: #fff;
+    border-top: 1px solid #dbdbdb;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -181,14 +181,11 @@ export const BottomNavLinkRoute = styled(LinkRouter)`
   }
 `;
 export const BottomNavIcon = styled.div`
-  color: #fff;
+  color: #222;
   text-align: center;
   font-size: 30px;
   width: 100%;
   height: 100%;
-  -webkit-transition: color 500ms ease-in-out;
-  -moz-transition: color 500ms ease-in-out;
-  -o-transition: color 500ms ease-in-out;
   transition: color 500ms ease-in-out;
 `;
 
@@ -197,15 +194,13 @@ export const BottomNavLinkName = styled.div`
   width: 100%;
   height: 100%;
   font-size: 16px;
-  color: #fff;
-  text-decoration: none;
-  -webkit-transition: color 500ms ease-in-out;
-  -moz-transition: color 500ms ease-in-out;
-  -o-transition: color 500ms ease-in-out;
+  font-weight: 400;
+  color: #222;
   transition: color 500ms ease-in-out;
 
   @media screen and (max-width: 375px) {
     font-size: 12px;
+    font-weight: 300;
   }
 
   @media screen and (max-width: 280px) {
@@ -218,12 +213,35 @@ export const BottomNavLinkName = styled.div`
 export const DropdownList = styled.div`
   position: absolute;
   top: 50px;
-  width: 230px;
+  width: 190px;
   font-size: 14px;
   background: #fff;
   border-radius: 5px;
-  transform: translate(-80%);
+  transform: translate(-75%);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+`;
+
+export const DropdownListContainer = styled.div`
+  opacity: 1;
+  transform: translateY(0);
+  transform-origin: top center;
+  transition: opacity 75ms linear, transform 38ms ease-out;
+  box-shadow: 0 0 5px 1px rgba(var(--jb7, 0, 0, 0), 0.0975);
+  background: #fff;
+  border-radius: 6px;
+`;
+
+export const DropdownArrow = styled.div`
+  position: fixed;
+  left: 151px;
+  top: -7px;
+  bottom: -6px;
+  height: 14px;
+  z-index: -1;
+  width: 14px;
+  transform: rotate(45deg);
+  background: #fff;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.0975);
 `;
 
 export const DropdownItem = styled.div`
@@ -231,9 +249,10 @@ export const DropdownItem = styled.div`
   align-items: center;
   padding: 8px 16px;
   color: #262626;
+  width: 100%;
 
   &:hover {
-    background: lightgray;
+    background: #f6f6f6;
   }
 `;
 
@@ -250,14 +269,13 @@ export const DropdownDivider = styled.div`
   //margin: 6px 0;
   border-top: 1px solid #ffdf6c;
 `;
-export const DropdownArrow = styled.div`
-  position: fixed;
-  left: 192px;
-  top: -7px;
-  bottom: -6px;
-  height: 14px;
-  z-index: -1;
-  width: 14px;
-  transform: rotate(45deg);
+
+export const DropdownListWrapper = styled.div`
   background: #fff;
+  border-radius: 6px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  width: 100%;
 `;
