@@ -173,6 +173,7 @@ export const ContentDate = styled.span`
   margin-right: 12.5px;
   font-size: 10px;
   color: #8e8e8e;
+  text-transform: uppercase;
 `;
 
 // Card actions menu

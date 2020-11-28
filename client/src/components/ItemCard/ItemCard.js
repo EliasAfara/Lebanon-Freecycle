@@ -9,6 +9,7 @@ import { FaCheckSquare } from 'react-icons/fa';
 
 // Styled Components
 import * as S from './ItemCardElements';
+import { formatDate, formatDateMDY } from '../../utils/formatDate';
 
 const ItemCard = ({
   ItemImage,
@@ -174,7 +175,14 @@ const ItemCard = ({
                     </S.ContentBtn>
                   )}
 
-                  <S.ContentDate>{ItemDateOfCreation}</S.ContentDate>
+                  <S.ContentDate>
+                    <time
+                      dateTime={ItemDateOfCreation}
+                      title={formatDateMDY(ItemDateOfCreation)}
+                    >
+                      {formatDate(ItemDateOfCreation)}
+                    </time>
+                  </S.ContentDate>
                 </S.ContentFooter>
               </S.ContentDetails>
             </S.CardContent>
