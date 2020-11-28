@@ -95,7 +95,7 @@ const ItemCard = ({
           <S.Card>
             {ItemImage && (
               <S.CardImage>
-                <S.ItemImage src={ItemImage} alt='Item' />
+                <S.ItemImage src={ItemImage} alt='Item' draggable='false' />
               </S.CardImage>
             )}
 
@@ -103,7 +103,11 @@ const ItemCard = ({
               <S.ContentDetails>
                 <S.ContentHeader>
                   <Link to={`/profile/${Username}`}>
-                    <S.HeaderAvatar src={UserAvatar} alt='User Avatar' />
+                    <S.HeaderAvatar
+                      src={UserAvatar}
+                      alt='User Avatar'
+                      draggable='false'
+                    />
                   </Link>
 
                   <S.HeaderUserFullName>

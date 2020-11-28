@@ -21,7 +21,7 @@ const ProfileTop = ({ fullname, username, avatar, verified, bio }) => {
       <S.ProfileHeader>
         <S.HeaderImage>
           <S.ImageSpan>
-            <S.UserAvatar src={avatar} alt='Avatar' />
+            <S.UserAvatar src={avatar} alt='Avatar' draggable='false' />
           </S.ImageSpan>
 
           <S.SocialIcons>
