@@ -12,7 +12,10 @@ body {
     line-height: 18px;
 }
 .container {
-    padding-bottom: 60px;
+    width: 100%;
+    padding: 54px 15px 60px 15px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 ol,
