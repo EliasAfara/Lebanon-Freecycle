@@ -1,32 +1,29 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import ContactUsPage from '../../pages/ContactUsPage';
-import Donations from '../../pages/Donations';
-import RequestsPage from '../../pages/RequestsPage';
+//import PageShell from '../../utils/PageShell';
+
+// Pages
+import Login from '../auth/Login';
+import Register from '../auth/Register';
+import Profile from '../../pages/Profile';
+import FAQPage from '../../pages/FAQPage';
 import AboutPage from '../../pages/AboutPage';
 import ErrorPage from '../../pages/ErrorPage';
-//import PageShell from '../../utils/PageShell';
-import FAQPage from '../../pages/FAQPage';
-import Register from '../auth/Register';
-import Login from '../auth/Login';
-import Alert from '../layout/Alert';
+import RequestsPage from '../../pages/RequestsPage';
+import ContactUsPage from '../../pages/ContactUsPage';
+import DonationsPage from '../../pages/DonationsPage';
+import DashboardPage from '../../pages/DashboardPage';
 
-import PrivateRoute from './PrivateRoute';
+// To Be Created
+const ViewDonation = ''; // Single Donation Component
+const ViewRequest = ''; // Single Request Component
 
-import Profile from '../../pages/Profile';
-
-const Donation = ''; // Single Donation Component
-const Request = ''; // Single Request Component
-
-const completedDonations = ''; // Component that displays all completed donations
-const completedRequests = ''; // Component that displays all completed requests
-
-const CreateProfile = ''; // Component that displays the form for editing & creating a profile
-
-const SubmitDonation = ''; // Component used to submit donations
+const EditProfile = ''; // Component which will contain the form to update user profile
 const EditDonation = ''; // Component used to edit a donation according to the passed ID
-const SubmitRequest = ''; // Component used to submit requests
 const EditRequest = ''; // Component used to edit a request according to the passed ID
+
+import Alert from '../layout/Alert';
+import PrivateRoute from './PrivateRoute';
 
 const Routes = () => {
   return (
@@ -38,20 +35,11 @@ const Routes = () => {
           <Route exact path='/about' component={AboutPage} />
           <Route exact path='/faq' component={FAQPage} />
 
-          <Route exact path='/donations' component={Donations} />
-          <Route exact path='/donation/:id' component={Donation} />
-          <Route
-            exact
-            path='/completed-donations'
-            component={completedDonations}
-          />
+          <Route exact path='/donations' component={DonationsPage} />
+          <Route exact path='/donation/:id' component={ViewDonation} />
+
           <Route exact path='/requests' component={RequestsPage} />
-          <Route exact path='/request/:id' component={Request} />
-          <Route
-            exact
-            path='/completed-requests'
-            component={completedRequests}
-          />
+          <Route exact path='/request/:id' component={ViewRequest} />
 
           <Route exact path='/contact-us' component={ContactUsPage} />
           <Route exact path='/login' component={Login} />
@@ -60,29 +48,16 @@ const Routes = () => {
           <Route exact path='/profile/:username' component={Profile} />
 
           {/* Private */}
-          <PrivateRoute
-            exact
-            path='/create-profile'
-            component={CreateProfile}
-          />
-          <PrivateRoute exact path='/edit-profile' component={CreateProfile} />
+          <PrivateRoute exact path='/dashboard' component={DashboardPage} />
 
-          <PrivateRoute
-            exact
-            path='/submit-donation'
-            component={SubmitDonation}
-          />
+          <PrivateRoute exact path='/edit-profile' component={EditProfile} />
+
           <PrivateRoute
             exact
             path='/edit-donation/:id'
             component={EditDonation}
           />
 
-          <PrivateRoute
-            exact
-            path='/submit-request'
-            component={SubmitRequest}
-          />
           <PrivateRoute
             exact
             path='/edit-request/:id'
