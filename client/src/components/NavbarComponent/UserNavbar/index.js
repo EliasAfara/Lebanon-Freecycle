@@ -119,6 +119,9 @@ const UserNavbar = ({ auth: { user }, logout }) => {
           <NavLogo to='#!'>LFC</NavLogo>
           <NavMenu>
             <NavItem>
+              <NavLinkRoute to='/dashboard'>Dashboard</NavLinkRoute>
+            </NavItem>
+            <NavItem>
               <NavLinkRoute to='/donations'>Donations</NavLinkRoute>
             </NavItem>
             <NavItem>
