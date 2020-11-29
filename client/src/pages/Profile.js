@@ -42,7 +42,7 @@ const Profile = ({ auth: { user } }) => {
         verified={true}
         bio={bio}
       />
-      <ProfileBottom />;
+      <ProfileBottom />
     </>
   );
 };
