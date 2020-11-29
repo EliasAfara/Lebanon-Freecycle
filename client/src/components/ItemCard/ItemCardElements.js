@@ -6,13 +6,13 @@ export const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export const Card = styled.div`
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.15);
   display: flex;
   overflow: hidden;
   margin-bottom: 30px;
@@ -25,6 +25,7 @@ export const Card = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 0 3px 3px 0;
   }
 `;
 
@@ -47,7 +48,6 @@ export const ItemImage = styled.img`
   height: 100%;
 
   @media only screen and (min-width: 600px) {
-    border-radius: 10px;
     box-shadow: 1px 4px 8px 0 rgba(0, 0, 0, 0.2),
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
