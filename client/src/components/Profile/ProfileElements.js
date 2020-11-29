@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
 export const ProfileHeader = styled.header`
-  padding-top: 30px;
   display: flex;
   align-items: center;
-  /* Vertical */
   justify-content: center;
-  /* Horizontal */
-  padding-right: 20px;
+  padding: 30px 20px 20px 0;
+  border-bottom: 1px solid #f0f0f0;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;

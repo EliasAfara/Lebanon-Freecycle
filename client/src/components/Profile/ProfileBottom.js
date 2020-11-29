@@ -5,6 +5,9 @@ import ItemCard from '../ItemCard/ItemCard';
 import UserDonations from './UserDonations';
 import UserRequests from './UserRequests';
 
+import { GiLifeSupport } from 'react-icons/gi';
+import { GiNestedHearts } from 'react-icons/gi';
+
 // Fetching Donations & Requests
 
 const ItemDetails = {
@@ -132,14 +135,22 @@ const ProfileBottom = () => {
   return (
     <>
       <Tabs
-        firstTab='Donations'
+        firstTab={
+          <span>
+            <GiNestedHearts /> Donations
+          </span>
+        }
         firstComponent={
           <UserDonations
             AvailableDonations={AvailableDonations}
             CompletedDonations={CompletedDonations}
           />
         }
-        secondTab='Requests'
+        secondTab={
+          <span>
+            <GiLifeSupport /> Requests
+          </span>
+        }
         secondComponent={
           <UserRequests
             AvailableRequests={AvailableRequests}

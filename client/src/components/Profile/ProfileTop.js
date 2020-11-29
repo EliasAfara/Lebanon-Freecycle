@@ -130,7 +130,6 @@ const ProfileTop = ({ fullname, username, avatar, verified, bio }) => {
           </S.ProfileBio>
         </S.UserInfoSection>
       </S.ProfileHeader>
-      <hr />
     </>
   );
 };
