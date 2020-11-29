@@ -1,0 +1,189 @@
+.DonationsForm__Container{
+    display: flex;
+    justify-content: center;
+}
+.Form__guide{
+    display: block;
+    max-width: 300px;
+    width: 100%;
+    margin: 10px 10px 10px 0;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    overflow: hidden;
+    border-radius: 3px;
+}
+.Donations__wrapper {
+    max-width: 600px;
+    width: 100%;
+    background: #fff;
+    margin: 10px 0 10px 10px;
+    padding: 30px 80px 30px 50px;
+    border: 1px solid #dbdbdb;
+    overflow: hidden;
+    border-radius: 3px;
+}
+.Donations__form{
+    width: 100%;
+}
+
+.form__input-field{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.form__label-div{
+    width: 200px;
+    margin-right: 32px;
+    height: 100%;
+}
+
+.form__label {
+    width:100%;
+    color: #262626;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: end;
+}
+.input__field {
+    outline: none;
+    width: 90%;
+    height: 40px;
+    border: 1px solid #d5dbd9;
+    border-radius: 3px;
+    font-size: 15px;
+    padding: 8px 10px;
+    transition: all 0.3s ease;
+}
+.input__field:focus,
+.form__custom-select select:focus {
+    border-color: #609bcf;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0px 0px 8px rgba(70, 131, 223, 0.5);
+}
+.file__input-div{
+        position: relative;
+        display: inline-block;
+        width: 92%;
+        height: calc(1.5em + .75rem + 2px);
+        margin-bottom: 0;
+}
+.file__input{
+    position: relative;
+    z-index: 2;
+    /* width: 100%; */
+    height: calc(1.5em + .75rem + 2px);
+    margin: 0;
+    opacity: 0;
+}
+.file__input:focus~.custom-file-label {
+   border-color: #609bcf;
+   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset,
+   0px 0px 8px rgba(70, 131, 223, 0.5);
+}
+
+.input__field-textarea{
+    /* resize: none; */
+    height: 125px;
+}
+
+.form__custom-select{
+    position: relative;
+    width: 92%;
+    height: 40px;
+}
+.form__custom-select:before{
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    border: 8px solid;
+    border-color: #d5dbd9 transparent transparent transparent;
+    pointer-events: none;
+}
+
+.form__custom-select select{
+    appearance: none;
+    border: 1px solid #d5dbd9;
+    width: 100%;
+    height: 100%;
+    padding: 8px 10px;
+    border-radius: 3px;
+    outline: none;
+}
+
+.submit__btn{
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font-weight: 600;
+    padding: 5px 9px;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 14px;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background-color: #0095f6;
+}
+.submit__btn:hover{
+    background: rgb(71, 158, 180);
+}
+
+@media (max-width: 980px){
+    .Form__guide{
+        width: 270px;
+    }
+
+    .Donations__wrapper {
+        padding: 30px 30px 30px 30px;
+    }
+
+    .file__input-div{
+        width: 61%;
+    }
+}
+
+@media (max-width: 767px){
+    .Form__guide {
+        display: none;
+    }
+    .Donations__wrapper {
+        padding: 30px 50px 30px 50px;
+    }
+
+    .form__input-field {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .form__label {
+        margin-bottom: 5px;
+    }
+    .form__custom-select {
+        width: 100%;
+    }
+    .input__field {
+        width: 100%;
+    }
+
+    .form__label-div{
+        width: 100%;
+    }
+
+    .file__input-div {
+        width: 100%;
+    }
+    .form__label{
+        text-align: start;
+    }
+}
+
+@media (max-width: 375px) {
+    .Donations__wrapper {
+        padding: 30px;
+    }
+}

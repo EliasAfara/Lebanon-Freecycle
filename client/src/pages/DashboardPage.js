@@ -7,12 +7,10 @@ import Tabs from '../components/Tabs/NavTabs';
 const DashboardPage = (props) => {
   return (
     <>
-      <h1>This Page will display Donations & Requests Forms</h1>
-      <hr />
       <Tabs
-        firstTab='Donations Forms'
+        firstTab='Donations Form'
         firstComponent={<DonationsForm />}
-        secondTab='Requests Forms'
+        secondTab='Requests Form'
         secondComponent={<RequestsForm />}
         size='large'
       />
