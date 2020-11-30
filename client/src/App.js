@@ -13,7 +13,7 @@ import ScrollToTop from './utils/scrollToTop';
 import setAuthToken from './utils/setAuthToken';
 
 // Routes
-import Routes from './components/routing/Routes';
+import Routes from './routing/Routes';
 
 // Redux
 import { Provider } from 'react-redux';

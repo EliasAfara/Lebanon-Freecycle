@@ -2,25 +2,27 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 //import PageShell from '../../utils/PageShell';
 
-import Alert from '../layout/Alert';
+import Alert from '../components/layout/Alert';
 import PrivateRoute from './PrivateRoute';
 // Pages
-import Login from '../auth/Login';
-import Register from '../auth/Register';
-import Profile from '../../pages/Profile';
-import FAQPage from '../../pages/FAQPage';
-import AboutPage from '../../pages/AboutPage';
-import ErrorPage from '../../pages/ErrorPage';
-import RequestsPage from '../../pages/RequestsPage';
-import ContactUsPage from '../../pages/ContactUsPage';
-import DonationsPage from '../../pages/DonationsPage';
-import DashboardPage from '../../pages/DashboardPage';
+import Login from '../components/auth/Login';
+import Register from '../components/auth/Register';
+import Profile from '../pages/Profile';
+import FAQPage from '../pages/FAQPage';
+import AboutPage from '../pages/AboutPage';
+import ErrorPage from '../pages/ErrorPage';
+import RequestsPage from '../pages/RequestsPage';
+import ContactUsPage from '../pages/ContactUsPage';
+import DonationsPage from '../pages/DonationsPage';
+import DashboardPage from '../pages/DashboardPage';
+import SettingsPage from '../pages/SettingsPage';
 
 // To Be Created
 const ViewDonation = ''; // Single Donation Component
 const ViewRequest = ''; // Single Request Component
 
-const EditProfile = ''; // Component which will contain the form to update user profile
+const ChangePassword = '';
+
 const EditDonation = ''; // Component used to edit a donation according to the passed ID
 const EditRequest = ''; // Component used to edit a request according to the passed ID
 
@@ -50,7 +52,14 @@ const Routes = () => {
           <PrivateRoute exact path='/dashboard' component={DashboardPage} />
 
           {/* Change to Private Later */}
-          <Route exact path='/edit-profile' component={EditProfile} />
+
+          <Route exact path='/setting/edit-profile' component={SettingsPage} />
+
+          <Route
+            exact
+            path='/setting/change-password'
+            component={ChangePassword}
+          />
 
           {/* Change to Private Later */}
           <Route exact path='/edit-donation/:id' component={EditDonation} />
