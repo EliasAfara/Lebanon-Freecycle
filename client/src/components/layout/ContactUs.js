@@ -232,8 +232,8 @@ const ContactUs = () => {
                 Submit
               </button>
             </div>
-            <span className='contact__form__required'>
-              All fields with * are required
+            <span className='all-fields-required'>
+              All fields with <span className='required'> *</span> are required
             </span>
           </div>
         </form>
