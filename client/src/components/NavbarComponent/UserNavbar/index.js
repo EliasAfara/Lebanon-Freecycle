@@ -95,7 +95,10 @@ const UserNavbar = ({ auth: { user }, logout }) => {
             </DropdownItem>
           </Link>
 
-          <Link to='/setting' onClick={() => setOpenMenu(!openMenu)}>
+          <Link
+            to='/setting/edit-profile'
+            onClick={() => setOpenMenu(!openMenu)}
+          >
             <DropdownItem>
               <DropdownItemIcon>
                 <IoMdSettings />

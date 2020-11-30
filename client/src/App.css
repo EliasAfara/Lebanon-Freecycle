@@ -18,6 +18,7 @@ body {
     margin-left: auto;
 }
 
+
 ol,
 ul {
     list-style: none;
@@ -451,3 +452,13 @@ hr {
 }
 
 /* Error Page CSS */
+
+@media (max-width: 600px) {
+    .container {
+        max-width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+        margin-right: 0;
+        margin-left: 0;
+    }
+}

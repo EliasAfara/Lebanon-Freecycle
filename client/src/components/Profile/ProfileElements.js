@@ -222,9 +222,24 @@ export const ProfileBio = styled.div`
   line-height: 24px;
   font-size: 16px;
   width: 100%;
+
+  @media (max-width: 600px) {
+    padding: 0 20px;
+  }
 `;
 export const UserFullName = styled.h1`
   display: inline;
   font-size: 16px;
   font-weight: 600;
+`;
+
+export const BottomTabBorder = styled.div`
+  border-radius: 3px;
+  border: 1px solid #f0f0f0;
+
+  @media (max-width: 600px) {
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 0;
+  }
 `;

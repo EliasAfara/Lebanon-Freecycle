@@ -1,21 +1,17 @@
 import React from 'react';
 import Tabs from '../Tabs/NavTabs';
+import { BottomTabBorder } from './ProfileElements';
 
 const UserRequests = ({ AvailableRequests, CompletedRequests }) => {
   return (
-    <div
-      style={{
-        borderRadius: '3px',
-        border: '1px solid #f0f0f0',
-      }}
-    >
+    <BottomTabBorder>
       <Tabs
         firstTab='Available'
         secondTab='Completed'
         firstComponent={AvailableRequests}
         secondComponent={CompletedRequests}
       />
-    </div>
+    </BottomTabBorder>
   );
 };
 
