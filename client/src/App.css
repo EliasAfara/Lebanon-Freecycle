@@ -215,10 +215,11 @@ hr {
     background: #fffafa;
 }
 
-.contact__form__required {
+.all-fields-required {
     font-size: .75rem;
+    font-weight: 500;
     line-height: 1;
-    color: #3F51B5;
+    color: #68d1f1;
 }
 
 .contactUS {
