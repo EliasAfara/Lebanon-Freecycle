@@ -49,19 +49,14 @@ const Routes = () => {
           {/* Private */}
           <PrivateRoute exact path='/dashboard' component={DashboardPage} />
 
-          <PrivateRoute exact path='/edit-profile' component={EditProfile} />
+          {/* Change to Private Later */}
+          <Route exact path='/edit-profile' component={EditProfile} />
 
-          <PrivateRoute
-            exact
-            path='/edit-donation/:id'
-            component={EditDonation}
-          />
+          {/* Change to Private Later */}
+          <Route exact path='/edit-donation/:id' component={EditDonation} />
 
-          <PrivateRoute
-            exact
-            path='/edit-request/:id'
-            component={EditRequest}
-          />
+          {/* Change to Private Later */}
+          <Route exact path='/edit-request/:id' component={EditRequest} />
 
           {/* Error 404 - Not Found */}
           <Route path='*' component={ErrorPage} />
