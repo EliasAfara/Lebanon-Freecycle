@@ -130,24 +130,15 @@ const RequestsForm = (props) => {
 
             <PhoneInput
               country={'lb'}
+              onlyCountries={['lb']}
+              masks={{ lb: '.. ... ...' }}
               inputProps={{
                 name: 'phone',
                 required: true,
                 autoFocus: false,
               }}
-              isValid={(value, country) => {
-                if (value.match(/12345/)) {
-                  return 'Invalid value: ' + value + ', ' + country.name;
-                } else if (value.match(/1234/)) {
-                  return false;
-                } else {
-                  return true;
-                }
-              }}
-              placeholder='e.g. 78845230'
-              autoFormat={false}
-              disableDropdown={true}
-              disableCountryCode={true}
+              placeholder='+961 71 123 456'
+              countryCodeEditable={false}
               disableSearchIcon={true}
               disableCountryGuess={true}
             />
@@ -161,12 +152,12 @@ const RequestsForm = (props) => {
           </Styled.FormField__Div>
 
           <Styled.FormField__Div>
-            <div style={{ width: '140px', marginRight: '32px' }}>
+            <Styled.RequiredMessage__Div>
               <span className='all-fields-required'>
                 All fields with <span className='required'> *</span> are
                 required
               </span>
-            </div>
+            </Styled.RequiredMessage__Div>
 
             <input type='submit' value='Submit' className='submit__btn' />
           </Styled.FormField__Div>

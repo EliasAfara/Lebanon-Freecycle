@@ -146,24 +146,25 @@ const DonationsForm = (props) => {
 
             <PhoneInput
               country={'lb'}
+              onlyCountries={['lb']}
+              masks={{ lb: '.. ... ...' }}
               inputProps={{
                 name: 'phone',
                 required: true,
                 autoFocus: false,
               }}
-              isValid={(value, country) => {
-                if (value.match(/12345/)) {
-                  return 'Invalid value: ' + value + ', ' + country.name;
-                } else if (value.match(/1234/)) {
-                  return false;
-                } else {
-                  return true;
-                }
-              }}
-              placeholder='e.g. 78845230'
-              autoFormat={false}
-              disableDropdown={true}
-              disableCountryCode={true}
+              // isValid={(value, country) => {
+              //   if (value.match(/12345/)) {
+              //     return 'Invalid value: ' + value + ', ' + country.name;
+              //   } else if (value.match(/1234/)) {
+              //     return false;
+              //   } else {
+              //     return true;
+              //   }
+              // }}
+              autoComplete='no'
+              placeholder='+961 71 123 456'
+              countryCodeEditable={false}
               disableSearchIcon={true}
               disableCountryGuess={true}
             />
