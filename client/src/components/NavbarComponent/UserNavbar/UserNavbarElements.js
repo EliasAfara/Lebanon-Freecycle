@@ -219,6 +219,7 @@ export const DropdownList = styled.div`
   border-radius: 5px;
   transform: translate(-75%);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: transform 0.15s ease-out;
 `;
 
 export const DropdownListContainer = styled.div`
@@ -229,6 +230,8 @@ export const DropdownListContainer = styled.div`
   box-shadow: 0 0 5px 1px rgba(var(--jb7, 0, 0, 0), 0.0975);
   background: #fff;
   border-radius: 6px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
 `;
 
 export const DropdownArrow = styled.div`

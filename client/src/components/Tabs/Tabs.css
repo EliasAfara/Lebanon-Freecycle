@@ -13,6 +13,10 @@
     display: none !important;
 }
 
+.ant-tabs-top>.ant-tabs-nav::before {
+    border-bottom: 0;
+};
+
 @media only screen and (max-width: 768px) {
     .ant-tabs-tab:first-child{
         margin: 0 !important;

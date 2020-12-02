@@ -144,7 +144,6 @@ const UserNavbar = ({ auth: { user }, logout }) => {
               draggable='false'
               onClick={() => setOpenMenu(!openMenu)}
             />
-
             {openMenu && <DropdownMenu />}
           </IconContainer>
           <SettingIconDiv>

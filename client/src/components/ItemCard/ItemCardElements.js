@@ -10,7 +10,6 @@ export const Wrapper = styled.section`
 `;
 
 export const Card = styled.div`
-  background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -26,6 +25,7 @@ export const Card = styled.div`
     flex-direction: column;
     justify-content: center;
     margin: 0 3px 3px 0;
+    border-radius: 0;
   }
 `;
 

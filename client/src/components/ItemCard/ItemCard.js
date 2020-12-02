@@ -92,7 +92,7 @@ const ItemCard = ({
     <>
       <div style={{ filter: `contrast(${ItemStatus ? 100 : 50}%)` }}>
         <S.Wrapper>
-          <S.Card>
+          <S.Card style={{ background: `${ItemStatus ? '#fafffa' : '#fff'}` }}>
             {ItemImage && (
               <S.CardImage>
                 <S.ItemImage src={ItemImage} alt='Item' draggable='false' />

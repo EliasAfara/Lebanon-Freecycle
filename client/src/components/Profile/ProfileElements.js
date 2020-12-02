@@ -4,8 +4,11 @@ export const ProfileHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px 20px 20px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 20px 20px 20px 0;
+  border: 1px solid #f0f0f0;
+  border-radius: 3px;
+  margin-top: 10px;
+  background: #fff;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -223,7 +226,7 @@ export const ProfileBio = styled.div`
   font-size: 16px;
   width: 100%;
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     padding: 0 20px;
   }
 `;
@@ -236,8 +239,10 @@ export const UserFullName = styled.h1`
 export const BottomTabBorder = styled.div`
   border-radius: 3px;
   border: 1px solid #f0f0f0;
+  background: #fff;
 
   @media (max-width: 600px) {
+    border-radius: 0;
     border-right: 0;
     border-left: 0;
     border-bottom: 0;

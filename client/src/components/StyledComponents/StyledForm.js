@@ -52,6 +52,11 @@ export const FormWrapper__Div = styled.div`
     padding: 30px 50px 30px 50px;
     margin: 0;
   }
+  @media (max-width: 600px) {
+    border-radius: 0;
+    border-right: none;
+    border-left: none;
+  }
   @media (max-width: 375px) {
     padding: 20px;
   }
