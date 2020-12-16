@@ -2,7 +2,7 @@ import React from 'react';
 //import PropTypes from 'prop-types'
 
 import ItemCard from '../components/ItemCard/ItemCard';
-import Tabs from '../components/Tabs/NavTabs';
+import FilterBar from '../components/FilterBar/FilterBar';
 
 const ItemDetails = {
   UserAvatar: 'https://semantic-ui.com/images/avatar2/small/mark.png',
@@ -90,15 +90,11 @@ const CompletedRequests = (
 
 const RequestsPage = (props) => {
   return (
-    <>
-      <Tabs
-        firstTab='Available'
-        secondTab='Completed'
-        firstComponent={AvailableRequests}
-        secondComponent={CompletedRequests}
-        size='large'
-      />
-    </>
+    <div>
+      <FilterBar />
+      {AvailableRequests}
+      {CompletedRequests}
+    </div>
   );
 };
 

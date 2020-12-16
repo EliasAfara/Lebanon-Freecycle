@@ -1,8 +1,8 @@
 import React from 'react';
+import FilterBar from '../components/FilterBar/FilterBar';
 //import PropTypes from 'prop-types'
 
 import ItemCard from '../components/ItemCard/ItemCard';
-import Tabs from '../components/Tabs/NavTabs';
 
 const ItemDetails = {
   ItemImage:
@@ -96,15 +96,11 @@ const CompletedDonations = (
 
 const DonationsPage = (props) => {
   return (
-    <>
-      <Tabs
-        firstTab='Available'
-        secondTab='Completed'
-        firstComponent={AvailableDonations}
-        secondComponent={CompletedDonations}
-        size='large'
-      />
-    </>
+    <div>
+      <FilterBar />
+      {AvailableDonations}
+      {CompletedDonations}
+    </div>
   );
 };
 

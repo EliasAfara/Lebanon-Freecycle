@@ -9,8 +9,10 @@ const DashboardPage = (props) => {
     <>
       <Tabs
         firstTab='Donations Form'
+        firstKey='Donations'
         firstComponent={<DonationsForm />}
         secondTab='Requests Form'
+        secondKey='Requests'
         secondComponent={<RequestsForm />}
         size='large'
       />
