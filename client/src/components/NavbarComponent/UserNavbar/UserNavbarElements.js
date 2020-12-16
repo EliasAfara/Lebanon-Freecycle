@@ -113,7 +113,7 @@ export const SettingIconDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: white;
+    color: #262626;
     font-size: 25px;
   }
 `;
@@ -281,4 +281,32 @@ export const DropdownListWrapper = styled.div`
   overflow-y: auto;
   position: relative;
   width: 100%;
+`;
+
+export const SettingsList = styled.div`
+  display: grid;
+  gap: 20px;
+`;
+
+export const SettingsItemLink = styled(LinkRouter)`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 16px;
+  color: #262626;
+
+  &.active {
+    border-left: 2px solid #262626;
+    font-weight: 600;
+  }
+
+  &:hover {
+    color: #262626;
+    background: #f6f6f6;
+  }
+`;
+
+export const SettingsItemIcon = styled.div`
+  display: flex;
+  margin-right: 20px;
 `;

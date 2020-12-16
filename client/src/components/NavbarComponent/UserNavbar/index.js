@@ -1,16 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Drawer } from 'antd';
 
 // Redux
 import { connect } from 'react-redux';
 import { logout } from '../../../actions/auth';
 // Icons
-import { GiLifeSupport } from 'react-icons/gi';
-import { GiNestedHearts } from 'react-icons/gi';
+import { GiLifeSupport, GiNestedHearts } from 'react-icons/gi';
 import { CgProfile } from 'react-icons/cg';
 import { IoMdSettings } from 'react-icons/io';
-import { RiHeartAddFill } from 'react-icons/ri';
+import { RiHeartAddFill, RiLockPasswordFill } from 'react-icons/ri';
+import { FaUserEdit } from 'react-icons/fa';
+import { FiLogOut } from 'react-icons/fi';
 
 // Styled Components
 import {
@@ -36,11 +38,17 @@ import {
   SettingIconDiv,
   DropdownListContainer,
   DropdownListWrapper,
+  SettingsList,
+  SettingsItemIcon,
+  SettingsItemLink,
 } from './UserNavbarElements';
 
 const UserNavbar = ({ auth: { user }, logout }) => {
   const node = useRef();
   const [openMenu, setOpenMenu] = useState(false);
+
+  //Setting bar
+  const [visible, setVisible] = useState(false);
 
   const handleClick = (e) => {
     if (node.current.contains(e.target)) {
@@ -60,8 +68,16 @@ const UserNavbar = ({ auth: { user }, logout }) => {
     };
   }, []);
 
+  const toggleSetting = () => {
+    setOpenMenu(!openMenu);
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
   const handleLogout = () => {
     setOpenMenu(!openMenu);
+    setVisible(false);
     logout();
   };
 
@@ -81,7 +97,7 @@ const UserNavbar = ({ auth: { user }, logout }) => {
             </DropdownItem>
           </Link>
 
-          <DropdownDivider />
+          <hr />
 
           <Link
             to={`/profile/${user && user.username}`}
@@ -95,19 +111,14 @@ const UserNavbar = ({ auth: { user }, logout }) => {
             </DropdownItem>
           </Link>
 
-          <Link
-            to='/setting/edit-profile'
-            onClick={() => setOpenMenu(!openMenu)}
-          >
-            <DropdownItem>
-              <DropdownItemIcon>
-                <IoMdSettings />
-              </DropdownItemIcon>
-              Setting
-            </DropdownItem>
-          </Link>
+          <DropdownItem onClick={toggleSetting} style={{ cursor: 'pointer' }}>
+            <DropdownItemIcon>
+              <IoMdSettings />
+            </DropdownItemIcon>
+            Setting
+          </DropdownItem>
 
-          <DropdownDivider />
+          <hr />
 
           <Link to='/login' onClick={handleLogout}>
             <DropdownItem>Logout</DropdownItem>
@@ -117,10 +128,6 @@ const UserNavbar = ({ auth: { user }, logout }) => {
     </DropdownList>
   );
 
-  const SettingPopUpFunction = () => {
-    // Pop up which will display setting options (Change password / logout)
-    // Pop up similar to instagram popup
-  };
   return (
     <>
       <Nav>
@@ -147,12 +154,57 @@ const UserNavbar = ({ auth: { user }, logout }) => {
             {openMenu && <DropdownMenu />}
           </IconContainer>
           <SettingIconDiv>
-            <span onClick={SettingPopUpFunction} style={{ cursor: 'pointer' }}>
+            <span
+              onClick={() => setVisible(true)}
+              style={{ cursor: 'pointer' }}
+            >
               <IoMdSettings />
             </span>
           </SettingIconDiv>
         </NavbarContainer>
       </Nav>
+
+      {/* Settings Side Drawer */}
+      <Drawer
+        title='Settings'
+        placement='right'
+        closable={true}
+        onClose={onClose}
+        visible={visible}
+      >
+        <SettingsList>
+          <SettingsItemLink
+            to='/setting/edit-profile'
+            title='Edit Profile'
+            onClick={() => setVisible(false)}
+          >
+            <SettingsItemIcon>
+              <FaUserEdit />
+            </SettingsItemIcon>
+            Edit Profile
+          </SettingsItemLink>
+
+          <SettingsItemLink
+            to='/setting/change-password'
+            title='Change Password'
+            onClick={() => setVisible(false)}
+          >
+            <SettingsItemIcon>
+              <RiLockPasswordFill />
+            </SettingsItemIcon>
+            Change Password
+          </SettingsItemLink>
+        </SettingsList>
+        <hr className='styled-hr' />
+        <SettingsList>
+          <SettingsItemLink to='/login' onClick={handleLogout}>
+            <SettingsItemIcon>
+              <FiLogOut />
+            </SettingsItemIcon>
+            Logout
+          </SettingsItemLink>
+        </SettingsList>
+      </Drawer>
 
       <BottomNav>
         <BottomNavMenu>
