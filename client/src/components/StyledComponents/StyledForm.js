@@ -98,6 +98,7 @@ export const FieldName__Label = styled.label`
   font-weight: 600;
   line-height: 17px;
   text-align: end;
+  margin: 0;
 
   @media (max-width: 767px) {
     margin-bottom: 5px;
@@ -129,14 +130,13 @@ export const FieldInput__Input = styled.input`
 export const FieldInput__Textarea = styled.textarea`
   outline: none;
   width: 90%;
-  height: 40px;
   border: 1px solid #d5dbd9;
   border-radius: 3px;
   font-size: 15px;
   padding: 8px 10px;
   transition: all 0.3s ease;
   /* resize: none; */
-  height: 125px;
+  height: 100px;
 
   &:focus {
     border-color: #609bcf;
