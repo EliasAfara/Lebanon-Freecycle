@@ -15,13 +15,12 @@ import RequestsPage from '../pages/RequestsPage';
 import ContactUsPage from '../pages/ContactUsPage';
 import DonationsPage from '../pages/DonationsPage';
 import DashboardPage from '../pages/DashboardPage';
-import SettingsPage from '../pages/SettingsPage';
+import EditProfile from '../components/Setting/EditProfile';
+import ChangePassword from '../components/Setting/ChangePassword';
 
 // To Be Created
 const ViewDonation = ''; // Single Donation Component
 const ViewRequest = ''; // Single Request Component
-
-const ChangePassword = '';
 
 const EditDonation = ''; // Component used to edit a donation according to the passed ID
 const EditRequest = ''; // Component used to edit a request according to the passed ID
@@ -53,8 +52,7 @@ const Routes = () => {
 
           {/* Change to Private Later */}
 
-          <Route exact path='/setting/edit-profile' component={SettingsPage} />
-
+          <Route exact path='/setting/edit-profile' component={EditProfile} />
           <Route
             exact
             path='/setting/change-password'
