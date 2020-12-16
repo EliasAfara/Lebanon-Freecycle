@@ -13,15 +13,26 @@ body {
 }
 .container {
     width: 100%;
-    padding: 54px 15px 60px 15px;
+    padding: 75px 15px 62px 15px;
     margin-right: auto;
     margin-left: auto;
+}
+.ant-drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 
 ol,
 ul {
     list-style: none;
+}
+
+.target-link{
+    text-decoration: underline;
+    color: #006deb;
 }
 
 .my-16 {
@@ -32,11 +43,34 @@ hr {
     border-top-width: 1px;
     display: block;
     unicode-bidi: isolate;
+    margin: 0;
+}
+.styled-hr {
+    border-top-width: 1px;
+    display: block;
+    unicode-bidi: isolate;
     margin-block-start: 0.5em;
     margin-block-end: 0.5em;
     margin-inline-start: auto;
     margin-inline-end: auto;
 }
+
+/* Social Icons */
+i.fa-twitter {
+    color: #38a1f3;
+}
+i.fa-facebook {
+    color: #3b5998;
+}
+i.fa-instagram {
+    color: transparent;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    margin-right: 2px;
+}
+/* Social Icons */
 
 .SlideIn-appear {
     transform: translateX(30px);
@@ -460,5 +494,10 @@ hr {
         padding-left: 0;
         margin-right: 0;
         margin-left: 0;
+    }
+}
+@media (max-width: 767px) {
+    .container {
+        padding-top: 55px;
     }
 }
