@@ -4,8 +4,10 @@ import './Tabs.css';
 
 const NavTabs = ({
   firstTab,
-  secondTab,
+  firstKey,
   firstComponent,
+  secondTab,
+  secondKey,
   secondComponent,
   size,
 }) => {
@@ -15,14 +17,14 @@ const NavTabs = ({
   }
   return (
     <>
-      <Tabs defaultActiveKey='1' size={size} centered>
+      <Tabs size={size} centered>
         {firstComponent && (
-          <TabPane tab={firstTab} key='1'>
+          <TabPane tab={firstTab} key={firstKey}>
             {firstComponent}
           </TabPane>
         )}
         {secondComponent && (
-          <TabPane tab={secondTab} key='2'>
+          <TabPane tab={secondTab} key={secondKey}>
             {secondComponent}
           </TabPane>
         )}
