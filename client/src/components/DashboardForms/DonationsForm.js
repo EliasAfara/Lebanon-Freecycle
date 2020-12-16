@@ -104,22 +104,6 @@ const DonationsForm = (props) => {
           <Styled.FormField__Div>
             <Styled.FieldLabel__Div>
               <Styled.FieldName__Label>
-                Condition<span className='required'> *</span>
-              </Styled.FieldName__Label>
-            </Styled.FieldLabel__Div>
-
-            <div className='form__custom-select'>
-              <select name='condition' required>
-                <option value=''>Select</option>
-                <option value='Used'>Used</option>
-                <option value='Brand New'>Brand New</option>
-              </select>
-            </div>
-          </Styled.FormField__Div>
-
-          <Styled.FormField__Div>
-            <Styled.FieldLabel__Div>
-              <Styled.FieldName__Label>
                 Description<span className='required'> *</span>
               </Styled.FieldName__Label>
             </Styled.FieldLabel__Div>
