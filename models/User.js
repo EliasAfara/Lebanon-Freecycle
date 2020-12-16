@@ -22,6 +22,21 @@ const UserSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+  bio: {
+    type: String,
+  },
+  social: {
+    twitter: {
+      type: String,
+    },
+    facebbok: {
+      type: String,
+    },
+    instagram: {
+      type: String,
+    },
+  },
+  likes: { type: Number, default: 0 },
   date: {
     type: Date,
     default: Date.now,
