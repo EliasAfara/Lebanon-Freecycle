@@ -1,17 +1,13 @@
 import React from 'react';
-import Tabs from '../Tabs/NavTabs';
-import { BottomTabBorder } from './ProfileElements';
+import FilterBar from '../FilterBar/FilterBar';
 
 const UserRequests = ({ AvailableRequests, CompletedRequests }) => {
   return (
-    <BottomTabBorder>
-      <Tabs
-        firstTab='Available'
-        secondTab='Completed'
-        firstComponent={AvailableRequests}
-        secondComponent={CompletedRequests}
-      />
-    </BottomTabBorder>
+    <>
+      <FilterBar />
+      {AvailableRequests}
+      {CompletedRequests}
+    </>
   );
 };
 

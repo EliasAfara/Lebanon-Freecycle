@@ -140,6 +140,7 @@ const ProfileBottom = () => {
             <GiNestedHearts /> Donations
           </span>
         }
+        firstKey='Donations'
         firstComponent={
           <UserDonations
             AvailableDonations={AvailableDonations}
@@ -151,6 +152,7 @@ const ProfileBottom = () => {
             <GiLifeSupport /> Requests
           </span>
         }
+        secondKey='Requests'
         secondComponent={
           <UserRequests
             AvailableRequests={AvailableRequests}

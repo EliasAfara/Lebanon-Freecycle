@@ -1,17 +1,13 @@
 import React from 'react';
-import Tabs from '../Tabs/NavTabs';
-import { BottomTabBorder } from './ProfileElements';
+import FilterBar from '../FilterBar/FilterBar';
 
 const UserDonations = ({ AvailableDonations, CompletedDonations }) => {
   return (
-    <BottomTabBorder>
-      <Tabs
-        firstTab='Available'
-        secondTab='Completed'
-        firstComponent={AvailableDonations}
-        secondComponent={CompletedDonations}
-      />
-    </BottomTabBorder>
+    <>
+      <FilterBar />
+      {AvailableDonations}
+      {CompletedDonations}
+    </>
   );
 };
 

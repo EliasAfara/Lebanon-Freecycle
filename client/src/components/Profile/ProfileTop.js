@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IoMdSettings } from 'react-icons/io';
+//import { IoMdSettings } from 'react-icons/io';
 import { RiFacebookFill } from 'react-icons/ri';
 import { RiTwitterFill } from 'react-icons/ri';
 import { RiInstagramLine } from 'react-icons/ri';
@@ -11,11 +11,6 @@ import * as S from './ProfileElements';
 // Get user data from url params (username) not from logged in user
 
 const ProfileTop = ({ fullname, username, avatar, verified, bio }) => {
-  const SettingPopUpFunction = () => {
-    // Pop up which will display setting options (Change password / logout)
-    // Pop up similar to instagram popup
-  };
-
   return (
     <>
       <S.ProfileHeader>
@@ -76,14 +71,14 @@ const ProfileTop = ({ fullname, username, avatar, verified, bio }) => {
                 </S.IconBtn>
               </S.SocialIconsV2>
 
-              <S.SettingIconDiv>
+              {/* <S.SettingIconDiv>
                 <span
                   onClick={SettingPopUpFunction}
                   style={{ cursor: 'pointer' }}
                 >
                   <IoMdSettings />
                 </span>
-              </S.SettingIconDiv>
+              </S.SettingIconDiv> */}
             </S.Icons>
           </S.SectionHeader>
 
@@ -95,29 +90,12 @@ const ProfileTop = ({ fullname, username, avatar, verified, bio }) => {
             </S.ListItems>
             <S.ListItems>
               <S.ListItemSpan>
-                <S.ItemCount>2</S.ItemCount> Available
+                <S.ItemCount>2</S.ItemCount> Requests
               </S.ListItemSpan>
             </S.ListItems>
             <S.ListItems>
               <S.ListItemSpan>
-                <S.ItemCount>1</S.ItemCount> Completed
-              </S.ListItemSpan>
-            </S.ListItems>
-          </S.UnOrderedList>
-          <S.UnOrderedList>
-            <S.ListItems>
-              <S.ListItemSpan>
-                <S.ItemCount>1</S.ItemCount> Requests&nbsp;&nbsp;
-              </S.ListItemSpan>
-            </S.ListItems>
-            <S.ListItems>
-              <S.ListItemSpan>
-                <S.ItemCount>1</S.ItemCount> Available
-              </S.ListItemSpan>
-            </S.ListItems>
-            <S.ListItems>
-              <S.ListItemSpan>
-                <S.ItemCount>0</S.ItemCount> Completed
+                <S.ItemCount>0</S.ItemCount> Likes
               </S.ListItemSpan>
             </S.ListItems>
           </S.UnOrderedList>
