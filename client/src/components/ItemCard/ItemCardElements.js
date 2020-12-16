@@ -6,7 +6,7 @@ export const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 export const Card = styled.div`
@@ -14,7 +14,6 @@ export const Card = styled.div`
   box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.15);
   display: flex;
   overflow: hidden;
-  margin-bottom: 30px;
   width: 80%;
 
   @media only screen and (max-width: 768px) {
@@ -46,11 +45,6 @@ export const CardImage = styled.div`
 export const ItemImage = styled.img`
   width: 100%;
   height: 100%;
-
-  @media only screen and (min-width: 600px) {
-    box-shadow: 1px 4px 8px 0 rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
 `;
 
 export const CardContent = styled.div`

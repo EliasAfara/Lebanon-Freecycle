@@ -1,15 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-
+// Styled Components
+import * as S from './ItemCardElements';
+import { formatDate, formatDateMDY } from '../../utils/formatDate';
 // React Icons
 import { FaEllipsisV } from 'react-icons/fa';
 import { FaEdit } from 'react-icons/fa';
 import { FaTrash } from 'react-icons/fa';
 import { FaCheckSquare } from 'react-icons/fa';
+import { BsHeart } from 'react-icons/bs';
 
-// Styled Components
-import * as S from './ItemCardElements';
-import { formatDate, formatDateMDY } from '../../utils/formatDate';
+// Ant Design Delete Model
+import { Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+const { confirm } = Modal;
 
 const ItemCard = ({
   ItemImage,
@@ -18,7 +22,6 @@ const ItemCard = ({
   Username,
   ItemName,
   ItemCategory,
-  ItemState,
   ItemLocation,
   ItemAddress,
   ItemDescription,
@@ -47,15 +50,29 @@ const ItemCard = ({
     };
   }, []);
 
-  const handleDelete = () => {
-    setOpenActions(!openActions);
-    // pop up
-    // delete function
-  };
-
   const handleComplete = () => {
     setOpenActions(!openActions);
     // update item state from available to completed
+  };
+
+  const handleDelete = () => {
+    setOpenActions(!openActions);
+    confirm({
+      title: 'Are you sure?',
+      icon: <ExclamationCircleOutlined />,
+      content:
+        'Do you really want to delete this post? This process cannot be undone.',
+      okText: 'Delete',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      centered: true,
+      onOk() {
+        console.log('Deleted');
+      },
+      onCancel() {
+        console.log('Canceled');
+      },
+    });
   };
 
   const CardActionsDropDown = () => (
@@ -148,12 +165,6 @@ const ItemCard = ({
                   </S.ListItems>
                   <S.ListItems>
                     <S.ListItemSpan>
-                      <S.ListItemName>State: </S.ListItemName>
-                      {ItemState}
-                    </S.ListItemSpan>
-                  </S.ListItems>
-                  <S.ListItems>
-                    <S.ListItemSpan>
                       <S.ListItemName>Location: </S.ListItemName>
                       {ItemLocation}
                     </S.ListItemSpan>
@@ -174,9 +185,15 @@ const ItemCard = ({
 
                 <S.ContentFooter>
                   {ItemStatus && (
-                    <S.ContentBtn>
-                      <Link to={`/donation/${ItemID}`}>View More</Link>
-                    </S.ContentBtn>
+                    <>
+                      <S.ContentBtn>
+                        <Link to={`/donation/${ItemID}`}>View More</Link>
+                      </S.ContentBtn>
+                      <S.ContentBtn>
+                        <BsHeart />
+                        <span> 12</span>
+                      </S.ContentBtn>
+                    </>
                   )}
 
                   <S.ContentDate>
