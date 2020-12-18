@@ -14,3 +14,9 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
+
+// Profile types
+export const GET_USER_PROFILE = 'GET_USER_PROFILE';
+export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
+export const ACCOUNT_DELETED = 'ACCOUNT_DELETED ';
+export const USER_PROFILE_ERROR = 'USER_PROFILE_ERROR';
