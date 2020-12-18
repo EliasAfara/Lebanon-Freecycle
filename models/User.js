@@ -29,13 +29,16 @@ const UserSchema = new mongoose.Schema({
     twitter: {
       type: String,
     },
-    facebbok: {
+    facebook: {
       type: String,
     },
     instagram: {
       type: String,
     },
   },
+  verified: { type: Boolean, default: false },
+  donations: { type: Number, default: 0 },
+  requests: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
   date: {
     type: Date,
