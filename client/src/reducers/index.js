@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import auth from './auth';
 import alert from './alert';
+import profile from './profile';
 
 export default combineReducers({
   // Will take in an object (whose values are reducers) that has all the reduces I create ex: auth reducer
   auth,
   alert,
+  profile,
 });
 
 // Flow of redux:
