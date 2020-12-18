@@ -19,11 +19,13 @@ app.get('/', (req, res) => res.send('API RUNNING'));
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const authRoute = require('./routes/auth');
+const profileRoute = require('./routes/profile');
 
 // Mount Routes
 app.use('/api/register', registerRoute);
 app.use('/api/login', loginRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/profile', profileRoute);
 
 const PORT = process.env.PORT || 5000;
 
