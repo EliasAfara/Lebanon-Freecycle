@@ -30,7 +30,6 @@ import {
   BottomNavIcon,
   BottomNavItem,
   BottomNavLinkName,
-  DropdownDivider,
   DropdownList,
   DropdownItem,
   DropdownArrow,
