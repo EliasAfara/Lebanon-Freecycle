@@ -1,14 +1,94 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { RiInformationLine } from 'react-icons/ri';
 import * as Styled from '../StyledComponents/StyledForm';
 import * as ProfileForm from './SettingElements';
 
-const EditProfile = ({ auth: { user } }) => {
+import { updateProfile, deleteAccount } from '../../actions/profile';
+
+// Ant Design Delete Model
+import { Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+const { confirm } = Modal;
+
+const initialState = {
+  fullname: '',
+  username: '',
+  email: '',
+  bio: '',
+  facebook: '',
+  twitter: '',
+  instagram: '',
+};
+
+const EditProfile = ({
+  auth: { isAuthenticated, loading, user },
+  updateProfile,
+  deleteAccount,
+  history,
+}) => {
+  const [formData, setFormData] = useState(initialState);
+
+  useEffect(() => {
+    if (isAuthenticated && !loading) {
+      const profileData = { ...initialState };
+      for (const key in user) {
+        if (key in profileData) profileData[key] = user[key];
+      }
+      for (const key in user.social) {
+        if (key in profileData) profileData[key] = user.social[key];
+      }
+      setFormData(profileData);
+    }
+  }, [isAuthenticated, loading, user]);
+
+  // Destructing
+  const {
+    fullname,
+    username,
+    email,
+    bio,
+    facebook,
+    twitter,
+    instagram,
+  } = formData;
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value, // This way we can handleChange on every field
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //console.log(formData);
+    updateProfile(formData, history);
+  };
+
+  const handleDelete = () => {
+    confirm({
+      title: `${user && user.username} are you sure?`,
+      icon: <ExclamationCircleOutlined />,
+      content:
+        'Do you really want to delete your account? This process cannot be undone.',
+      okText: 'Delete',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      centered: true,
+      maskClosable: true,
+
+      onOk() {
+        deleteAccount();
+      },
+      onCancel() {},
+    });
+  };
+
   return (
     <Styled.FormContainer__Div>
-      <Styled.FormWrapper__Div>
+      <Styled.FormWrapper__Div style={{ marginLeft: 0 }}>
         <ProfileForm.ProfileHeader__Div>
           <ProfileForm.PictureContainer__Div>
             <ProfileForm.UserIcon__Img
@@ -36,16 +116,18 @@ const EditProfile = ({ auth: { user } }) => {
           </ProfileForm.ProfileHeaderText__Div>
         </ProfileForm.ProfileHeader__Div>
 
-        <form encType='multipart/form-data'>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <Styled.FormField__Div>
             <Styled.FieldLabel__Div>
-              <Styled.FieldName__Label>Name</Styled.FieldName__Label>
+              <Styled.FieldName__Label>Full Name</Styled.FieldName__Label>
             </Styled.FieldLabel__Div>
 
             <Styled.FieldInput__Input
-              name='name'
+              name='fullname'
+              value={fullname}
+              onChange={(e) => handleChange(e)}
               type='text'
-              placeholder='Name'
+              placeholder='Full Name'
             />
           </Styled.FormField__Div>
 
@@ -58,6 +140,8 @@ const EditProfile = ({ auth: { user } }) => {
 
             <Styled.FieldInput__Input
               name='username'
+              value={username}
+              onChange={(e) => handleChange(e)}
               type='text'
               placeholder='Userame'
               required
@@ -71,6 +155,8 @@ const EditProfile = ({ auth: { user } }) => {
 
             <Styled.FieldInput__Textarea
               name='bio'
+              value={bio}
+              onChange={(e) => handleChange(e)}
               spellcheck='true'
             ></Styled.FieldInput__Textarea>
           </Styled.FormField__Div>
@@ -92,6 +178,8 @@ const EditProfile = ({ auth: { user } }) => {
             <Styled.FieldInput__Input
               name='email'
               type='text'
+              value={email}
+              onChange={(e) => handleChange(e)}
               placeholder='Email'
               required
             />
@@ -118,6 +206,8 @@ const EditProfile = ({ auth: { user } }) => {
 
             <Styled.FieldInput__Input
               name='facebook'
+              value={facebook}
+              onChange={(e) => handleChange(e)}
               type='text'
               placeholder='Facebook URL'
             />
@@ -137,6 +227,8 @@ const EditProfile = ({ auth: { user } }) => {
 
             <Styled.FieldInput__Input
               name='instagram'
+              value={instagram}
+              onChange={(e) => handleChange(e)}
               type='text'
               placeholder='Instagram URL'
             />
@@ -157,19 +249,37 @@ const EditProfile = ({ auth: { user } }) => {
             <Styled.FieldInput__Input
               name='twitter'
               type='text'
+              value={twitter}
+              onChange={(e) => handleChange(e)}
               placeholder='Twitter URL'
             />
           </Styled.FormField__Div>
 
           <Styled.FormField__Div>
-            <Styled.RequiredMessage__Div>
+            <ProfileForm.RequiredMessage__Div>
               <span className='all-fields-required'>
                 All fields with <span className='required'> *</span> are
                 required
               </span>
-            </Styled.RequiredMessage__Div>
+            </ProfileForm.RequiredMessage__Div>
 
-            <input type='submit' value='Submit' className='submit__btn' />
+            <ProfileForm.ActionsContainer__Div>
+              <input
+                type='submit'
+                value='Submit'
+                style={{ marginTop: 0 }}
+                className='submit__btn'
+              />
+
+              <ProfileForm.DeleteAccount__Div>
+                <ProfileForm.DeleteAccount__Button
+                  type='button'
+                  onClick={handleDelete}
+                >
+                  Delete my account
+                </ProfileForm.DeleteAccount__Button>
+              </ProfileForm.DeleteAccount__Div>
+            </ProfileForm.ActionsContainer__Div>
           </Styled.FormField__Div>
         </form>
       </Styled.FormWrapper__Div>
@@ -179,10 +289,14 @@ const EditProfile = ({ auth: { user } }) => {
 
 EditProfile.propTypes = {
   auth: PropTypes.object.isRequired,
+  updateProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(EditProfile);
+export default connect(mapStateToProps, { updateProfile, deleteAccount })(
+  EditProfile
+);
