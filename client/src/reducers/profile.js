@@ -1,4 +1,5 @@
 import {
+  CLEAR_PROFILE,
   GET_USER_PROFILE,
   UPDATE_USER_PROFILE,
   USER_PROFILE_ERROR,
@@ -27,6 +28,12 @@ export default function profile(state = initialState, action) {
         error: payload,
         loading: false,
         profile: null,
+      };
+    case CLEAR_PROFILE:
+      return {
+        ...state,
+        profile: null,
+        loading: false,
       };
 
     default:
