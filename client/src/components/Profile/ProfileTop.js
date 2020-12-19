@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
 //import { IoMdSettings } from 'react-icons/io';
-import { RiFacebookFill } from 'react-icons/ri';
-import { RiTwitterFill } from 'react-icons/ri';
-import { RiInstagramLine } from 'react-icons/ri';
+import { RiFacebookFill, RiTwitterFill, RiInstagramLine } from 'react-icons/ri';
 import VerifiedBadgeSVG from '../SVGComponents/VerifiedBadgeSVG';
 
 import * as S from './ProfileElements';
-import { Link } from 'react-router-dom';
 
-// Get user data from url params (username) not from logged in user
+function useWindowScreenWidth() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+
+  return windowWidth;
+}
 
 const ProfileTop = ({
   profile: {
@@ -28,6 +44,7 @@ const ProfileTop = ({
   },
   auth,
 }) => {
+  const screenWidth = useWindowScreenWidth();
   return (
     <>
       <S.ProfileHeader>
@@ -37,39 +54,39 @@ const ProfileTop = ({
           </S.ImageSpan>
           <S.SocialIcons>
             {social && social.facebook && (
-              <Link
-                to={social.facebook}
+              <a
+                href={social.facebook}
                 target='_blank'
                 rel='noopener noreferrer external'
               >
                 <S.IconBtn>
                   <RiFacebookFill />
                 </S.IconBtn>
-              </Link>
+              </a>
             )}
 
             {social && social.twitter && (
-              <Link
-                to={social.twitter}
+              <a
+                href={social.twitter}
                 target='_blank'
                 rel='noopener noreferrer external'
               >
                 <S.IconBtn>
                   <RiTwitterFill />
                 </S.IconBtn>
-              </Link>
+              </a>
             )}
 
             {social && social.instagram && (
-              <Link
-                to={social.instagram}
+              <a
+                href={social.instagram}
                 target='_blank'
                 rel='noopener noreferrer external'
               >
                 <S.IconBtn>
                   <RiInstagramLine />
                 </S.IconBtn>
-              </Link>
+              </a>
             )}
           </S.SocialIcons>
 
@@ -86,72 +103,68 @@ const ProfileTop = ({
 
         <S.UserInfoSection>
           <S.SectionHeader>
-            <S.DisplayUserV2>
-              {' '}
-              <S.UserName>{username}</S.UserName>
-              {verified && (
-                <div style={{ marginLeft: '8px' }}>
-                  <VerifiedBadgeSVG />
-                </div>
-              )}
-            </S.DisplayUserV2>
+            {screenWidth < 769 ? null : (
+              <S.DisplayUserV2>
+                {' '}
+                <S.UserNameV2>{username}</S.UserNameV2>
+                {verified && (
+                  <div style={{ marginLeft: '8px' }}>
+                    <VerifiedBadgeSVG />
+                  </div>
+                )}
+              </S.DisplayUserV2>
+            )}
 
             {auth.isAuthenticated &&
               auth.loading === false &&
               auth.user.username === username && (
-                <S.EditBtnDiv>
+                <S.EditBtnDiv to='/setting/edit-profile' title='Edit Profile'>
                   <S.EditBtn>Edit Profile</S.EditBtn>
                 </S.EditBtnDiv>
               )}
+            {(social && social.facebook) ||
+            (social && social.twitter) ||
+            (social && social.instagram) ? (
+              <S.Icons>
+                <S.SocialIconsV2>
+                  {social && social.facebook && (
+                    <a
+                      href={social.facebook}
+                      target='_blank'
+                      rel='noopener noreferrer external'
+                    >
+                      <S.IconBtn>
+                        <RiFacebookFill />
+                      </S.IconBtn>
+                    </a>
+                  )}
 
-            <S.Icons>
-              <S.SocialIconsV2>
-                {social && social.facebook && (
-                  <Link
-                    to={social.facebook}
-                    target='_blank'
-                    rel='noopener noreferrer external'
-                  >
-                    <S.IconBtn>
-                      <RiFacebookFill />
-                    </S.IconBtn>
-                  </Link>
-                )}
+                  {social && social.twitter && (
+                    <a
+                      href={social.twitter}
+                      target='_blank'
+                      rel='noopener noreferrer external'
+                    >
+                      <S.IconBtn>
+                        <RiTwitterFill />
+                      </S.IconBtn>
+                    </a>
+                  )}
 
-                {social && social.twitter && (
-                  <Link
-                    to={social.twitter}
-                    target='_blank'
-                    rel='noopener noreferrer external'
-                  >
-                    <S.IconBtn>
-                      <RiTwitterFill />
-                    </S.IconBtn>
-                  </Link>
-                )}
-
-                {social && social.instagram && (
-                  <Link
-                    to={social.instagram}
-                    target='_blank'
-                    rel='noopener noreferrer external'
-                  >
-                    <S.IconBtn>
-                      <RiInstagramLine />
-                    </S.IconBtn>
-                  </Link>
-                )}
-              </S.SocialIconsV2>
-
-              {/* <S.SettingIconDiv>
-                <span
-                  onClick={SettingPopUpFunction}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <IoMdSettings />
-                </span>
-              </S.SettingIconDiv> */}
-            </S.Icons>
+                  {social && social.instagram && (
+                    <a
+                      href={social.instagram}
+                      target='_blank'
+                      rel='noopener noreferrer external'
+                    >
+                      <S.IconBtn>
+                        <RiInstagramLine />
+                      </S.IconBtn>
+                    </a>
+                  )}
+                </S.SocialIconsV2>
+              </S.Icons>
+            ) : null}
           </S.SectionHeader>
 
           <S.UnOrderedList>

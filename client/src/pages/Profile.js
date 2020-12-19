@@ -7,24 +7,37 @@ import ProfileBottom from '../components/Profile/ProfileBottom';
 // Redux
 import { connect } from 'react-redux';
 
-import SpinnerSVG from '../components/SVGComponents/SpinnerSVG';
+//import SpinnerSVG from '../components/SVGComponents/SpinnerSVG';
+import Spinner from '../components/Spinner/Spinner';
 
 import { getProfileByUsername } from '../actions/profile';
 
-const Profile = ({ getProfileByUsername, profile: { profile }, match }) => {
+const Profile = ({
+  getProfileByUsername,
+  profile: { profile, error },
+  match,
+}) => {
+  const userNameInParam = match.params.username;
   useEffect(() => {
-    getProfileByUsername(match.params.username);
-  }, [getProfileByUsername, match.params.username]);
+    getProfileByUsername(userNameInParam);
+  }, [getProfileByUsername, userNameInParam]);
 
   return (
     <>
-      {profile === null ? (
-        <SpinnerSVG />
+      {Object.keys(error).length === 0 && error.constructor === Object ? (
+        profile === null ? (
+          <Spinner />
+        ) : (
+          <>
+            <ProfileTop profile={profile} />
+            <ProfileBottom
+              totalDonations={profile.donations}
+              totalRequests={profile.requests}
+            />
+          </>
+        )
       ) : (
-        <>
-          <ProfileTop profile={profile} />
-          <ProfileBottom />
-        </>
+        <p>User Does not Exist</p>
       )}
     </>
   );

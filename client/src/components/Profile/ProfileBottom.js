@@ -46,81 +46,78 @@ const {
 // ############################################################################################
 // Donations
 
-const CompletedDonations = (
+const CurrentUserDonations = (
   // Should be an array that contains all the completed donations
   // maps over the donations schema
-  <ItemCard
-    ItemImage={ItemImage}
-    UserAvatar={UserAvatar}
-    FullName={FullName}
-    Username={Username}
-    ItemName={ItemName}
-    ItemCategory={ItemCategory}
-    ItemState={ItemState}
-    ItemLocation={ItemLocation}
-    ItemAddress={ItemAddress}
-    ItemDescription={ItemDescription}
-    ItemDateOfCreation={ItemDateOfCreation}
-    ItemID={ItemID}
-    ItemStatus={false}
-  />
-);
+  <>
+    <ItemCard
+      ItemImage={ItemImage}
+      UserAvatar={UserAvatar}
+      FullName={FullName}
+      Username={Username}
+      ItemName={ItemName}
+      ItemCategory={ItemCategory}
+      ItemState={ItemState}
+      ItemLocation={ItemLocation}
+      ItemAddress={ItemAddress}
+      ItemDescription={ItemDescription}
+      ItemDateOfCreation={ItemDateOfCreation}
+      ItemID={ItemID}
+      ItemStatus={false}
+    />
 
-const AvailableDonations = (
-  // Should be an array that contains all the available donations
-  // maps over the donations schema
-  <ItemCard
-    ItemImage={ItemImage}
-    UserAvatar={UserAvatar}
-    FullName={FullName}
-    Username={Username}
-    ItemName={ItemName}
-    ItemCategory={ItemCategory}
-    ItemState={ItemState}
-    ItemLocation={ItemLocation}
-    ItemAddress={ItemAddress}
-    ItemDescription={ItemDescription}
-    ItemDateOfCreation={ItemDateOfCreation}
-    ItemID={ItemID}
-    ItemStatus={status}
-  />
+    <ItemCard
+      ItemImage={ItemImage}
+      UserAvatar={UserAvatar}
+      FullName={FullName}
+      Username={Username}
+      ItemName={ItemName}
+      ItemCategory={ItemCategory}
+      ItemState={ItemState}
+      ItemLocation={ItemLocation}
+      ItemAddress={ItemAddress}
+      ItemDescription={ItemDescription}
+      ItemDateOfCreation={ItemDateOfCreation}
+      ItemID={ItemID}
+      ItemStatus={status}
+    />
+  </>
 );
 
 // ############################################################################################
 // Requests
 
-const CompletedRequests = (
-  <ItemCard
-    UserAvatar={UserAvatar}
-    FullName={FullName}
-    Username={Username}
-    ItemName={ItemName}
-    ItemCategory={ItemCategory}
-    ItemState={ItemState}
-    ItemLocation={ItemLocation}
-    ItemAddress={ItemAddress}
-    ItemDescription={ItemDescription}
-    ItemDateOfCreation={ItemDateOfCreation}
-    ItemID={ItemID}
-    ItemStatus={false}
-  />
-);
-
-const AvailableRequests = (
-  <ItemCard
-    UserAvatar={UserAvatar}
-    FullName={FullName}
-    Username={Username}
-    ItemName={ItemName}
-    ItemCategory={ItemCategory}
-    ItemState={ItemState}
-    ItemLocation={ItemLocation}
-    ItemAddress={ItemAddress}
-    ItemDescription={ItemDescription}
-    ItemDateOfCreation={ItemDateOfCreation}
-    ItemID={ItemID}
-    ItemStatus={status}
-  />
+const CurrentUserRequests = (
+  <>
+    <ItemCard
+      UserAvatar={UserAvatar}
+      FullName={FullName}
+      Username={Username}
+      ItemName={ItemName}
+      ItemCategory={ItemCategory}
+      ItemState={ItemState}
+      ItemLocation={ItemLocation}
+      ItemAddress={ItemAddress}
+      ItemDescription={ItemDescription}
+      ItemDateOfCreation={ItemDateOfCreation}
+      ItemID={ItemID}
+      ItemStatus={false}
+    />
+    <ItemCard
+      UserAvatar={UserAvatar}
+      FullName={FullName}
+      Username={Username}
+      ItemName={ItemName}
+      ItemCategory={ItemCategory}
+      ItemState={ItemState}
+      ItemLocation={ItemLocation}
+      ItemAddress={ItemAddress}
+      ItemDescription={ItemDescription}
+      ItemDateOfCreation={ItemDateOfCreation}
+      ItemID={ItemID}
+      ItemStatus={status}
+    />
+  </>
 );
 
 /**
@@ -131,36 +128,38 @@ const AvailableRequests = (
  *
  */
 
-const ProfileBottom = () => {
+const ProfileBottom = ({ totalDonations, totalRequests }) => {
   return (
     <>
-      <Tabs
-        firstTab={
-          <span>
-            <GiNestedHearts /> Donations
-          </span>
-        }
-        firstKey='Donations'
-        firstComponent={
-          <UserDonations
-            AvailableDonations={AvailableDonations}
-            CompletedDonations={CompletedDonations}
-          />
-        }
-        secondTab={
-          <span>
-            <GiLifeSupport /> Requests
-          </span>
-        }
-        secondKey='Requests'
-        secondComponent={
-          <UserRequests
-            AvailableRequests={AvailableRequests}
-            CompletedRequests={CompletedRequests}
-          />
-        }
-        size='large'
-      />
+      {totalDonations === 0 && totalRequests === 0 ? (
+        <p>No Donations & Requests</p>
+      ) : (
+        <Tabs
+          firstTab={
+            <span>
+              <GiNestedHearts /> Donations
+            </span>
+          }
+          firstKey='Donations'
+          firstComponent={
+            totalDonations !== 0 && (
+              <UserDonations userDonations={CurrentUserDonations} />
+            )
+          }
+          secondTab={
+            <span>
+              <GiLifeSupport /> Requests
+            </span>
+          }
+          secondKey='Requests'
+          secondComponent={
+            totalRequests !== 0 && (
+              <UserRequests userRequests={CurrentUserRequests} />
+            )
+          }
+          size='large'
+        />
+      )}
     </>
   );
 };

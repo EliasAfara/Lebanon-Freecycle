@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link as LinkRouter } from 'react-router-dom';
 
 export const ProfileHeader = styled.header`
   display: flex;
@@ -14,8 +15,10 @@ export const ProfileHeader = styled.header`
 `;
 
 export const HeaderImage = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
   margin-right: 30px;
   width: 220px;
@@ -61,6 +64,10 @@ export const SocialIcons = styled.div`
   justify-content: space-evenly;
   font-size: 24px;
 
+  &:empty {
+    display: none;
+  }
+
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -72,6 +79,10 @@ export const SocialIconsV2 = styled.div`
     display: flex;
     justify-content: space-evenly;
     font-size: 24px;
+
+    &:empty {
+      display: none;
+    }
   }
 `;
 
@@ -92,6 +103,10 @@ export const SectionHeader = styled.div`
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
+
+    &:empty {
+      display: none;
+    }
   }
 `;
 
@@ -117,19 +132,34 @@ export const DisplayUserV2 = styled.div`
 `;
 
 export const UserName = styled.h2`
+  display: none;
+
+  @media only screen and (max-width: 768px) {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+  }
+`;
+
+export const UserNameV2 = styled.h2`
   display: inline-block;
   font-size: 28px;
   font-weight: 400;
   margin: 0;
 
   @media only screen and (max-width: 768px) {
-    font-size: 20px;
+    display: none;
   }
 `;
 
-export const EditBtnDiv = styled.div`
+export const EditBtnDiv = styled(LinkRouter)`
   margin: 0 0 0 20px;
   height: fit-content;
+
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+  }
 `;
 
 export const EditBtn = styled.button`
@@ -153,6 +183,10 @@ export const Icons = styled.div`
   justify-content: center;
   height: fit-content;
   margin-left: 5px;
+
+  &:empty {
+    display: none;
+  }
 `;
 
 export const IconBtn = styled.button`
