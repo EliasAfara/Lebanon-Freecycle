@@ -1,12 +1,11 @@
 import React from 'react';
 import FilterBar from '../FilterBar/FilterBar';
 
-const UserRequests = ({ AvailableRequests, CompletedRequests }) => {
+const UserRequests = ({ userRequests }) => {
   return (
     <>
       <FilterBar />
-      {AvailableRequests}
-      {CompletedRequests}
+      {userRequests}
     </>
   );
 };

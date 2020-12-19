@@ -1,12 +1,11 @@
 import React from 'react';
 import FilterBar from '../FilterBar/FilterBar';
 
-const UserDonations = ({ AvailableDonations, CompletedDonations }) => {
+const UserDonations = ({ userDonations }) => {
   return (
     <>
       <FilterBar />
-      {AvailableDonations}
-      {CompletedDonations}
+      {userDonations}
     </>
   );
 };
