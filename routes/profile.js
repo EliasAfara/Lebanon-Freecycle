@@ -55,7 +55,7 @@ router.put(
     // Build profile object
     const profileFields = {};
     if (fullname) profileFields.fullname = fullname;
-    if (username) profileFields.username = username;
+    if (username) profileFields.username = username.toLowerCase();
     if (email) profileFields.email = email;
     if (bio) profileFields.bio = bio;
 
@@ -122,7 +122,8 @@ router.put(
  */
 router.get('/:username', async (req, res) => {
   try {
-    const user = await User.findOne({ username: req.params.username });
+    const usernameLowerCase = req.params.username.toLowerCase();
+    const user = await User.findOne({ username: usernameLowerCase });
 
     if (!user) {
       return res.status(400).json({ msg: 'User not found' });

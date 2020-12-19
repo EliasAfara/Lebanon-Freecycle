@@ -23,9 +23,9 @@ router.post(
     ).isLength({
       min: 5,
     }),
-    check('username', 'Username is required.').not().isEmpty(),
+    check('user_name', 'Username is required.').not().isEmpty(),
     check(
-      'username',
+      'user_name',
       'Username should be at least 5 Characters long.'
     ).isLength({
       min: 5,
@@ -45,7 +45,7 @@ router.post(
       });
     }
 
-    const { fullname, username, email, password } = req.body;
+    const { fullname, user_name, email, password } = req.body;
 
     try {
       // See if user already exists
@@ -56,6 +56,8 @@ router.post(
           .status(400)
           .json({ errors: [{ msg: 'E-mail already in use.' }] });
       }
+
+      const username = user_name.toLowerCase();
       // username validation
       // Usernames can only use letters, numbers, underscores and periods.
       let user_username = await User.findOne({ username });
