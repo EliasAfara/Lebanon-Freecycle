@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   GET_USER_PROFILE,
   UPDATE_USER_PROFILE,
+  CLEAR_PROFILE,
   ACCOUNT_DELETED,
   USER_PROFILE_ERROR,
 } from './types';
@@ -40,9 +41,11 @@ export const updateProfile = (formData, history) => async (dispatch) => {
       payload: res.data,
     });
 
-    console.log(`${formData.username} Profile was Updated Successfully`);
+    console.log(
+      `${formData.username.toLowerCase()} Profile was Updated Successfully`
+    );
 
-    history.push(`/profile/${formData.username}`);
+    history.push(`/profile/${formData.username.toLowerCase()}`);
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -62,6 +65,9 @@ export const deleteAccount = () => async (dispatch) => {
   try {
     await axios.delete('/api/profile');
 
+    dispatch({
+      type: CLEAR_PROFILE,
+    });
     dispatch({
       type: ACCOUNT_DELETED,
     });
