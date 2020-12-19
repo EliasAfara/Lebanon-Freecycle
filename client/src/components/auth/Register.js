@@ -9,14 +9,14 @@ import { setAlert } from '../../actions/alert';
 const Register = ({ setAlert, registerUser, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     fullname: '',
-    username: '',
+    user_name: '',
     email: '',
     password: '',
     password2: '',
   });
 
   // Destructing
-  const { fullname, username, email, password, password2 } = formData;
+  const { fullname, user_name, email, password, password2 } = formData;
 
   const handleChange = (e) => {
     setFormData({
@@ -33,7 +33,7 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
     } else {
       registerUser({
         fullname,
-        username,
+        user_name,
         email,
         password,
       });
@@ -72,8 +72,8 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
               id='username'
               className='input-text'
               placeholder='Username'
-              name='username'
-              value={username}
+              name='user_name'
+              value={user_name}
               onChange={(e) => handleChange(e)}
               required
             />

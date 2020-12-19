@@ -67,15 +67,18 @@ export const loginUser = (email, password) => async (dispatch) => {
 };
 
 // Register User Action
-export const registerUser = ({ fullname, username, email, password }) => async (
-  dispatch
-) => {
+export const registerUser = ({
+  fullname,
+  user_name,
+  email,
+  password,
+}) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  const body = JSON.stringify({ fullname, username, email, password });
+  const body = JSON.stringify({ fullname, user_name, email, password });
 
   try {
     console.log('register user');
