@@ -52,8 +52,12 @@ const Routes = () => {
 
           {/* Change to Private Later */}
 
-          <Route exact path='/setting/edit-profile' component={EditProfile} />
-          <Route
+          <PrivateRoute
+            exact
+            path='/setting/edit-profile'
+            component={EditProfile}
+          />
+          <PrivateRoute
             exact
             path='/setting/change-password'
             component={ChangePassword}
