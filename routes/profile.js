@@ -17,9 +17,10 @@ router.put(
     [
       check(
         'fullname',
-        'Full Name should be at least 5 Characters long.'
+        'Full Name should be between 2-30 Characters long.'
       ).isLength({
-        min: 5,
+        min: 2,
+        max: 30,
       }),
       check('username', 'Username is required.').not().isEmpty(),
       check(
@@ -31,6 +32,9 @@ router.put(
       check('email', 'Please include a valid email.')
         .isEmail()
         .normalizeEmail(),
+      check('bio', 'Bio should be at most 255 Characters long.').isLength({
+        max: 255,
+      }),
     ],
   ],
   async (req, res) => {

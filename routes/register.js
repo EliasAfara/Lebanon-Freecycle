@@ -19,9 +19,10 @@ router.post(
     check('fullname', 'Full Name is required.').not().isEmpty(),
     check(
       'fullname',
-      'Full Name should be at least 5 Characters long.'
+      'Full Name should be between 2-30 Characters long.'
     ).isLength({
-      min: 5,
+      min: 2,
+      max: 30,
     }),
     check('user_name', 'Username is required.').not().isEmpty(),
     check(
