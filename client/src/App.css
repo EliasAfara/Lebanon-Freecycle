@@ -16,6 +16,10 @@ body {
     padding: 75px 15px 62px 15px;
     margin-right: auto;
     margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .ant-drawer-close {
     display: flex;

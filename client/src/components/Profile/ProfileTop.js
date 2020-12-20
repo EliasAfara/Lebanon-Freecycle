@@ -57,9 +57,9 @@ const ProfileTop = ({
               <a
                 href={social.facebook}
                 target='_blank'
-                rel='noopener noreferrer external'
+                rel='noopener noreferrer'
               >
-                <S.IconBtn>
+                <S.IconBtn bgColor='#0075FA'>
                   <RiFacebookFill />
                 </S.IconBtn>
               </a>
@@ -69,9 +69,9 @@ const ProfileTop = ({
               <a
                 href={social.twitter}
                 target='_blank'
-                rel='noopener noreferrer external'
+                rel='noopener noreferrer'
               >
-                <S.IconBtn>
+                <S.IconBtn bgColor='#1DA1F2'>
                   <RiTwitterFill />
                 </S.IconBtn>
               </a>
@@ -81,9 +81,9 @@ const ProfileTop = ({
               <a
                 href={social.instagram}
                 target='_blank'
-                rel='noopener noreferrer external'
+                rel='noopener noreferrer'
               >
-                <S.IconBtn>
+                <S.IconBtn bgColor='radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)'>
                   <RiInstagramLine />
                 </S.IconBtn>
               </a>
@@ -131,9 +131,9 @@ const ProfileTop = ({
                     <a
                       href={social.facebook}
                       target='_blank'
-                      rel='noopener noreferrer external'
+                      rel='noopener noreferrer'
                     >
-                      <S.IconBtn>
+                      <S.IconBtn bgColor='#0075FA'>
                         <RiFacebookFill />
                       </S.IconBtn>
                     </a>
@@ -143,9 +143,9 @@ const ProfileTop = ({
                     <a
                       href={social.twitter}
                       target='_blank'
-                      rel='noopener noreferrer external'
+                      rel='noopener noreferrer'
                     >
-                      <S.IconBtn>
+                      <S.IconBtn bgColor='#1DA1F2'>
                         <RiTwitterFill />
                       </S.IconBtn>
                     </a>
@@ -155,9 +155,9 @@ const ProfileTop = ({
                     <a
                       href={social.instagram}
                       target='_blank'
-                      rel='noopener noreferrer external'
+                      rel='noopener noreferrer'
                     >
-                      <S.IconBtn>
+                      <S.IconBtn bgColor='radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)'>
                         <RiInstagramLine />
                       </S.IconBtn>
                     </a>

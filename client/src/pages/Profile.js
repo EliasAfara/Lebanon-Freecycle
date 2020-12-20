@@ -23,7 +23,7 @@ const Profile = ({
   }, [getProfileByUsername, userNameInParam]);
 
   return (
-    <>
+    <div style={{ maxWidth: '1000px', width: 'inherit' }}>
       {Object.keys(error).length === 0 && error.constructor === Object ? (
         profile === null ? (
           <Spinner />
@@ -40,7 +40,7 @@ const Profile = ({
       ) : (
         <p>User Does not Exist</p>
       )}
-    </>
+    </div>
   );
 };
 

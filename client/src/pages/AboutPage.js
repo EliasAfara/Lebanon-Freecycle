@@ -3,11 +3,9 @@ import AboutUsComponent from '../components/layout/AboutUs';
 
 const AboutPage = () => {
   return (
-    <>
-      <div>
-        <AboutUsComponent />
-      </div>
-    </>
+    <div style={{ maxWidth: '1000px', width: 'inherit' }}>
+      <AboutUsComponent />
+    </div>
   );
 };
 

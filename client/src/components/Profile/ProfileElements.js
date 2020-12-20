@@ -196,13 +196,15 @@ export const IconBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
-  border-radius: 4px;
-  border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
+  border-radius: 50%;
+  border: 0;
+  //border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
   height: 30px;
   width: 30px;
-  font-size: 25px;
+  font-size: 26px;
   margin: 0 0 0 4px;
+  color: #fff;
+  background: ${(props) => props.bgColor || 'palevioletred'};
   cursor: pointer;
 `;
 

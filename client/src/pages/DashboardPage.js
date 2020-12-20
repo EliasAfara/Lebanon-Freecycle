@@ -6,7 +6,7 @@ import Tabs from '../components/Tabs/NavTabs';
 
 const DashboardPage = (props) => {
   return (
-    <>
+    <div style={{ maxWidth: '1000px' }}>
       <Tabs
         firstTab='Donations Form'
         firstKey='Donations'
@@ -16,7 +16,7 @@ const DashboardPage = (props) => {
         secondComponent={<RequestsForm />}
         size='large'
       />
-    </>
+    </div>
   );
 };
 

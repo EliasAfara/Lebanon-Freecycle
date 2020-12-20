@@ -96,7 +96,7 @@ const CompletedDonations = (
 
 const DonationsPage = (props) => {
   return (
-    <div>
+    <div style={{ maxWidth: '1000px', width: 'inherit' }}>
       <FilterBar />
       {AvailableDonations}
       {CompletedDonations}

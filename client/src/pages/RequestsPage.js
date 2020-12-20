@@ -90,7 +90,7 @@ const CompletedRequests = (
 
 const RequestsPage = (props) => {
   return (
-    <div>
+    <div style={{ maxWidth: '1000px', width: 'inherit' }}>
       <FilterBar />
       {AvailableRequests}
       {CompletedRequests}

@@ -31,7 +31,7 @@ const ChangePassword = ({ updatePassword }) => {
     setFormData(initialState);
   };
   return (
-    <div>
+    <div style={{ maxWidth: '600px', width: 'inherit' }}>
       <Styled.FormContainer__Div>
         <Styled.FormWrapper__Div>
           <form onSubmit={(e) => handleSubmit(e)}>

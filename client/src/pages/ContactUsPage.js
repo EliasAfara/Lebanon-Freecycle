@@ -36,37 +36,40 @@ const ContactUsPage = () => {
     }
   }, [screenWidth]);
   return (
-    <div className='contactUS'>
-      <div className='row contactUS__row' style={{ margin: 'auto' }}>
-        <div className='col contactUS__info'>
-          <BreadCrumb RouteName='Contact Us' />
-          <br />
-          <h1 className='contactUS__info--title'>Contact Us</h1>
-          <div className='contactUS__info--description'>
-            This is the right address for your questions and concerns, praise or
-            criticism. You are welcome to contact us by phone or in writing.
+    <div style={{ maxWidth: '1000px', width: 'inherit' }}>
+      <div className='contactUS'>
+        <div className='row contactUS__row' style={{ margin: 'auto' }}>
+          <div className='col contactUS__info'>
+            <BreadCrumb RouteName='Contact Us' />
+            <br />
+            <h1 className='contactUS__info--title'>Contact Us</h1>
+            <div className='contactUS__info--description'>
+              This is the right address for your questions and concerns, praise
+              or criticism. You are welcome to contact us by phone or in
+              writing.
+            </div>
+            <div className='contactUS__info--Icons'>
+              <div className='contactUS__info--Icons--1'>
+                <PhoneRoundedIcon className={classes.icon} />{' '}
+                <a href='tel:+96178845230' className='contactUS__info--link'>
+                  +961 78 845 230
+                </a>
+              </div>
+              <div className='contactUS__info--Icons--2'>
+                <HelpOutlineRoundedIcon className={classes.icon} />{' '}
+                <Link to='/faq' className='contactUS__info--link'>
+                  FAQs / Help
+                </Link>
+              </div>
+            </div>
           </div>
-          <div className='contactUS__info--Icons'>
-            <div className='contactUS__info--Icons--1'>
-              <PhoneRoundedIcon className={classes.icon} />{' '}
-              <a href='tel:+96178845230' className='contactUS__info--link'>
-                +961 78 845 230
-              </a>
-            </div>
-            <div className='contactUS__info--Icons--2'>
-              <HelpOutlineRoundedIcon className={classes.icon} />{' '}
-              <Link to='/faq' className='contactUS__info--link'>
-                FAQs / Help
-              </Link>
-            </div>
+          <div className='col contactUS__svg'>
+            <ContactUsSVG width={width} height={height} />
           </div>
         </div>
-        <div className='col contactUS__svg'>
-          <ContactUsSVG width={width} height={height} />
-        </div>
+        <ContactUs />
+        <FooterCopyright />
       </div>
-      <ContactUs />
-      <FooterCopyright />
     </div>
   );
 };
