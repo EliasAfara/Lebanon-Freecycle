@@ -3,6 +3,8 @@ import {
   GET_USER_PROFILE,
   UPDATE_USER_PROFILE,
   USER_PROFILE_ERROR,
+  UPDATE_USER_PASSWORD,
+  UPDATE_USER_PASSWORD_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -17,6 +19,7 @@ export default function profile(state = initialState, action) {
   switch (type) {
     case GET_USER_PROFILE:
     case UPDATE_USER_PROFILE:
+    case UPDATE_USER_PASSWORD:
       return {
         ...state,
         profile: payload,
@@ -24,6 +27,7 @@ export default function profile(state = initialState, action) {
         error: {},
       };
     case USER_PROFILE_ERROR:
+    case UPDATE_USER_PASSWORD_ERROR:
       return {
         ...state,
         error: payload,

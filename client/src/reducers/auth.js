@@ -8,6 +8,7 @@ import {
   LOGOUT,
   ACCOUNT_DELETED,
   UPDATE_USER_PROFILE,
+  UPDATE_USER_PASSWORD,
 } from '../actions/types';
 
 const initialState = {
@@ -23,11 +24,12 @@ export default function auth(state = initialState, action) {
   switch (type) {
     case USER_LOADED:
     case UPDATE_USER_PROFILE:
+    case UPDATE_USER_PASSWORD:
       return {
         ...state,
         isAuthenticated: true, // Token worked, user now is logged in
         loading: false,
-        user: payload, // Name, Email, Avatar... Everything but the password
+        user: payload,
       };
 
     case REGISTER_SUCCESS:
