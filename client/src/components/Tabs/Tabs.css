@@ -1,3 +1,16 @@
+.ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-bottom>.ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-bottom>div>.ant-tabs-nav .ant-tabs-ink-bar {
+    height: 1px;
+}
+.ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-ink-bar {
+    position: absolute;
+    top: auto !important;
+    bottom: auto;
+}
+
 .ant-tabs-tab{
     margin: 0 0 0 32px !important;
 }
@@ -7,6 +20,7 @@
 
 .ant-tabs-nav {
     height: 54px;
+    border-top: 1px solid #dbdbdb;
 }
 .ant-tabs-tab-btn{
     text-transform: uppercase;
@@ -23,5 +37,13 @@
 @media only screen and (max-width: 768px) {
     .ant-tabs-tab:first-child{
         margin: 0 !important;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .ant-tabs-nav {
+        height: 44px;
+        margin: 0 !important;
+        border-bottom: 1px solid #dbdbdb;
     }
 }
