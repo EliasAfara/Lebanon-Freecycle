@@ -33,6 +33,7 @@ const Profile = ({
             <ProfileBottom
               totalDonations={profile.donations}
               totalRequests={profile.requests}
+              userName={profile.username}
             />
           </>
         )

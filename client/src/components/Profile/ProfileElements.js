@@ -5,12 +5,15 @@ export const ProfileHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 44px;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
   }
   @media only screen and (max-width: 767px) {
-    padding-top: 10px;
+    margin-bottom: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
 `;
 
