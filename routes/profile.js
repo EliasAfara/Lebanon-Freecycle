@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
 
 const User = require('../models/User');
 const auth = require('../middleware/auth');
@@ -141,6 +142,76 @@ router.get('/:username', async (req, res) => {
     res.status(500).send('500 Internal server error');
   }
 });
+/**
+ * @route    Put | #endPoint: /api/profile/update/password
+ * @desc     Update User password
+ * @access   Private (Token Needed)
+ */
+router.put(
+  '/update/password',
+  [
+    auth,
+    [
+      check('oldPassword', 'Old Password is required.').not().isEmpty(),
+      check('newPassword', 'New Password is required.').not().isEmpty(),
+      check('confirmNewPassword', 'Confirm New Password is required.')
+        .not()
+        .isEmpty(),
+      check(
+        'newPassword',
+        'New Password should be at least 6 characters long.'
+      ).isLength({ min: 6 }),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // 400 Bad Request
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    }
+
+    const { oldPassword, newPassword, confirmNewPassword } = req.body;
+
+    try {
+      // See if user already exists
+      let user = await User.findById(req.user.id);
+
+      const match = await bcrypt.compareSync(oldPassword, user.password);
+
+      if (!match) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Old Password is incorrect.' }] });
+      }
+
+      if (newPassword !== confirmNewPassword) {
+        return res.status(400).json({
+          errors: [
+            { msg: 'New Password and Confirm new password does not match.' },
+          ],
+        });
+      }
+      const saltRounds = 10;
+      const salt = await bcrypt.genSalt(saltRounds);
+      const password = await bcrypt.hash(newPassword, salt);
+
+      if (user && match) {
+        // Update user password
+        user = await User.findOneAndUpdate(
+          { _id: req.user.id },
+          { password: password },
+          { new: true }
+        );
+        return res.json(user);
+      }
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send('500 Internal Server Error');
+    }
+  }
+);
 
 /************************************************************/
 
