@@ -6,6 +6,8 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
   USER_PROFILE_ERROR,
+  UPDATE_USER_PASSWORD,
+  UPDATE_USER_PASSWORD_ERROR,
 } from './types';
 
 // Get user profile by Username
@@ -55,6 +57,40 @@ export const updateProfile = (formData, history) => async (dispatch) => {
 
     dispatch({
       type: USER_PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Update User Password
+export const updatePassword = (formData) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.put(
+      '/api/profile/update/password',
+      formData,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_USER_PASSWORD,
+      payload: res.data,
+    });
+
+    console.log('Password was Updated Successfully');
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => console.log(error));
+    }
+
+    dispatch({
+      type: UPDATE_USER_PASSWORD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
