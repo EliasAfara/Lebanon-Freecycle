@@ -1,14 +1,40 @@
-import React from 'react';
-// import PropTypes from 'prop-types'
-// import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import * as Styled from '../StyledComponents/StyledForm';
 
-const ChangePassword = (props) => {
+import { updatePassword } from '../../actions/profile';
+
+const initialState = {
+  oldPassword: '',
+  newPassword: '',
+  confirmNewPassword: '',
+};
+
+const ChangePassword = ({ updatePassword }) => {
+  const [formData, setFormData] = useState(initialState);
+
+  // Destructing
+  const { oldPassword, newPassword, confirmNewPassword } = formData;
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value, // This way we can handleChange on every field
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    updatePassword(formData);
+    setFormData(initialState);
+  };
   return (
     <div>
       <Styled.FormContainer__Div>
         <Styled.FormWrapper__Div>
-          <form encType='multipart/form-data'>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <Styled.FormField__Div>
               <Styled.FieldLabel__Div>
                 <Styled.FieldName__Label>
@@ -19,6 +45,8 @@ const ChangePassword = (props) => {
               <Styled.FieldInput__Input
                 autocomplete='off'
                 name='oldPassword'
+                value={oldPassword}
+                onChange={(e) => handleChange(e)}
                 type='password'
                 required
               />
@@ -34,6 +62,8 @@ const ChangePassword = (props) => {
               <Styled.FieldInput__Input
                 autocomplete='off'
                 name='newPassword'
+                value={newPassword}
+                onChange={(e) => handleChange(e)}
                 type='password'
                 required
               />
@@ -49,6 +79,8 @@ const ChangePassword = (props) => {
               <Styled.FieldInput__Input
                 autocomplete='off'
                 name='confirmNewPassword'
+                value={confirmNewPassword}
+                onChange={(e) => handleChange(e)}
                 type='password'
                 required
               />
@@ -71,8 +103,12 @@ const ChangePassword = (props) => {
   );
 };
 
-// ChangePassword.propTypes = {
+ChangePassword.propTypes = {
+  updatePassword: PropTypes.func.isRequired,
+};
 
-// }
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default ChangePassword;
+export default connect(mapStateToProps, { updatePassword })(ChangePassword);
