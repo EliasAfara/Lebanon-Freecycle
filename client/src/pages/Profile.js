@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import Spinner from '../components/Spinner/Spinner';
 
 import { getProfileByUsername } from '../actions/profile';
+import UserNotFound from '../components/Profile/UserNotFound';
 
 const Profile = ({
   getProfileByUsername,
@@ -38,7 +39,7 @@ const Profile = ({
           </>
         )
       ) : (
-        <p>User Does not Exist</p>
+        <UserNotFound />
       )}
     </div>
   );
