@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Drawer } from 'antd';
+import { Modal } from 'antd';
 
 // Redux
 import { connect } from 'react-redux';
@@ -10,7 +11,11 @@ import { logout } from '../../../actions/auth';
 import { GiLifeSupport, GiNestedHearts } from 'react-icons/gi';
 import { CgProfile } from 'react-icons/cg';
 import { IoMdSettings } from 'react-icons/io';
-import { RiHeartAddFill, RiLockPasswordFill } from 'react-icons/ri';
+import {
+  RiHeartAddFill,
+  RiLockPasswordFill,
+  RiPaletteFill,
+} from 'react-icons/ri';
 import { FaUserEdit } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 
@@ -40,6 +45,12 @@ import {
   SettingsList,
   SettingsItemIcon,
   SettingsItemLink,
+  SettingItem,
+  ThemesContainer,
+  LightThemeToggle,
+  DarkThemeToggle,
+  SolarizedThemeToggle,
+  SolarizedDarkThemeToggle,
 } from './UserNavbarElements';
 
 const UserNavbar = ({ auth: { user }, logout }) => {
@@ -48,6 +59,17 @@ const UserNavbar = ({ auth: { user }, logout }) => {
 
   //Setting bar
   const [visible, setVisible] = useState(false);
+
+  //Change Theme Modal
+  const [isThemesModalVisible, setIsThemesModalVisible] = useState(false);
+  const showChangeThemeModal = () => {
+    setIsThemesModalVisible(true);
+    setVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsThemesModalVisible(false);
+  };
 
   const handleClick = (e) => {
     if (node.current.contains(e.target)) {
@@ -193,6 +215,32 @@ const UserNavbar = ({ auth: { user }, logout }) => {
             </SettingsItemIcon>
             Change Password
           </SettingsItemLink>
+
+          <SettingItem title='Change Theme' onClick={showChangeThemeModal}>
+            <SettingsItemIcon>
+              <RiPaletteFill />
+            </SettingsItemIcon>
+            Change Theme
+          </SettingItem>
+
+          <Modal
+            title='Change Theme'
+            visible={isThemesModalVisible}
+            onCancel={handleCancel}
+            footer={null}
+            bodyStyle={{ padding: '0', height: '60px' }}
+          >
+            <ThemesContainer>
+              <LightThemeToggle onClick={handleCancel}>Light</LightThemeToggle>
+              <DarkThemeToggle onClick={handleCancel}>Dark</DarkThemeToggle>
+              <SolarizedThemeToggle onClick={handleCancel}>
+                Solarized
+              </SolarizedThemeToggle>
+              <SolarizedDarkThemeToggle onClick={handleCancel}>
+                Solarized Dark
+              </SolarizedDarkThemeToggle>
+            </ThemesContainer>
+          </Modal>
         </SettingsList>
         <hr className='styled-hr' />
         <SettingsList>

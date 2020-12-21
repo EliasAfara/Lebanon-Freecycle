@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink as LinkRouter } from 'react-router-dom';
+import { css } from 'styled-components';
 
 export const Nav = styled.nav`
   display: flex;
@@ -288,13 +289,15 @@ export const SettingsList = styled.div`
   gap: 20px;
 `;
 
-export const SettingsItemLink = styled(LinkRouter)`
+const sharedSettingItemStyle = css`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 8px 16px;
   color: #262626;
-
+  cursor: pointer;
+`;
+const ActiveHover = css`
   &.active {
     border-left: 2px solid #262626;
     font-weight: 600;
@@ -305,8 +308,115 @@ export const SettingsItemLink = styled(LinkRouter)`
     background: #f6f6f6;
   }
 `;
+export const SettingItem = styled.div`
+  ${sharedSettingItemStyle}
+
+  ${ActiveHover}
+`;
+
+export const SettingsItemLink = styled(LinkRouter)`
+  ${sharedSettingItemStyle}
+
+  ${ActiveHover}
+`;
 
 export const SettingsItemIcon = styled.div`
   display: flex;
   margin-right: 20px;
+`;
+
+//Themes
+
+const ThemeCircle = css`
+  content: ' ';
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -3px;
+  margin-right: 0.45rem;
+`;
+const CleanBtn = css`
+  background: none;
+  color: inherit;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+`;
+
+export const ThemesContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: inherit;
+`;
+export const LightThemeToggle = styled.button`
+  ${CleanBtn}
+  display: block;
+  width: 50%;
+  padding: 0 1rem;
+  height: inherit;
+  &::before {
+    background: #fff;
+    border: 2px solid #6db65b;
+    ${ThemeCircle}
+  }
+  &:hover {
+    color: #262626;
+    background: #f6f6f6;
+  }
+`;
+
+export const DarkThemeToggle = styled.button`
+  ${CleanBtn}
+  display: block;
+  width: 50%;
+  padding: 0 1rem;
+  height: inherit;
+  &::before {
+    background: #222831;
+    border: 2px solid #b58900;
+    ${ThemeCircle}
+  }
+  &:hover {
+    color: #262626;
+    background: #f6f6f6;
+  }
+`;
+
+export const SolarizedThemeToggle = styled.button`
+  ${CleanBtn}
+  display: block;
+  width: 60%;
+  padding: 0 1rem;
+  height: inherit;
+  &::before {
+    background: #fdf6e3;
+    border: 2px solid #b58900;
+    ${ThemeCircle}
+  }
+  &:hover {
+    color: #262626;
+    background: #f6f6f6;
+  }
+`;
+
+export const SolarizedDarkThemeToggle = styled.button`
+  ${CleanBtn}
+  display: block;
+  width: 70%;
+  padding: 0 1rem;
+  height: inherit;
+  &::before {
+    background: #002b36;
+    border: 2px solid #b58900;
+    ${ThemeCircle}
+  }
+  &:hover {
+    color: #262626;
+    background: #f6f6f6;
+  }
 `;
