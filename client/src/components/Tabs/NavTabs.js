@@ -10,6 +10,8 @@ const NavTabs = ({
   secondKey,
   secondComponent,
   size,
+  border,
+  animated,
 }) => {
   const { TabPane } = Tabs;
   if (!size) {
@@ -17,7 +19,15 @@ const NavTabs = ({
   }
   return (
     <>
-      <Tabs size={size} centered>
+      <Tabs
+        size={size}
+        centered
+        tabBarStyle={{
+          border: `${border ? 0 : 1}`,
+        }}
+        tabPosition='top'
+        animated={{ inkBar: true, tabPane: animated }}
+      >
         {firstComponent && (
           <TabPane tab={firstTab} key={firstKey}>
             {firstComponent}

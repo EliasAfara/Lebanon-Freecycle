@@ -6,7 +6,7 @@ import Tabs from '../components/Tabs/NavTabs';
 
 const DashboardPage = (props) => {
   return (
-    <div style={{ maxWidth: '1000px' }}>
+    <div style={{ width: '100%', maxWidth: '1000px' }}>
       <Tabs
         firstTab='Donations Form'
         firstKey='Donations'
@@ -15,6 +15,8 @@ const DashboardPage = (props) => {
         secondKey='Requests'
         secondComponent={<RequestsForm />}
         size='large'
+        border={true}
+        animated={false}
       />
     </div>
   );

@@ -196,11 +196,10 @@ export const IconBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  border: 0;
-  //border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
-  height: 30px;
-  width: 30px;
+  border-radius: 10%;
+  border: 1px solid #dbdbdb;
+  height: 28px;
+  width: 28px;
   font-size: 26px;
   margin: 0 0 0 4px;
   color: #fff;

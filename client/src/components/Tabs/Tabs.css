@@ -46,4 +46,8 @@
         margin: 0 !important;
         border-bottom: 1px solid #dbdbdb;
     }
+    .ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar,
+    .ant-tabs-top>div>.ant-tabs-nav .ant-tabs-ink-bar {
+        bottom: 0;
+    }
 }

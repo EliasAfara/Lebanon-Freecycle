@@ -195,6 +195,7 @@ const ProfileBottom = ({ totalDonations, totalRequests, userName }) => {
           )
         }
         size='large'
+        animated={true}
       />
     </>
   );

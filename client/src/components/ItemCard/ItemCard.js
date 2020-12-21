@@ -186,12 +186,11 @@ const ItemCard = ({
                 <S.ContentFooter>
                   {ItemStatus && (
                     <>
-                      <S.ContentBtn>
-                        <Link to={`/donation/${ItemID}`}>View More</Link>
+                      <S.ContentBtn style={{ marginRight: '5px' }}>
+                        <BsHeart style={{ color: '#f05f70' }} /> 12
                       </S.ContentBtn>
                       <S.ContentBtn>
-                        <BsHeart />
-                        <span> 12</span>
+                        <Link to={`/donation/${ItemID}`}>View More</Link>
                       </S.ContentBtn>
                     </>
                   )}
