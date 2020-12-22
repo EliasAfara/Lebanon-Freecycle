@@ -11,6 +11,7 @@
     "antd": "^4.8.5",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
+    "cogo-toast": "^4.2.3",
     "emailjs-com": "^2.6.3",
     "mdbreact": "^4.27.0",
     "prop-types": "^15.7.2",
@@ -31,8 +32,7 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.0",
     "uuid": "^8.3.1",
-    "web-vitals": "^0.2.4",
-    "yup": "^0.29.3"
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
