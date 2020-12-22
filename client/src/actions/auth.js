@@ -20,9 +20,7 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    console.log('load user');
     const res = await axios.get('/api/auth');
-    console.log('load user' + res.data);
 
     dispatch({
       type: USER_LOADED,
@@ -46,7 +44,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
   try {
     const res = await axios.post('/api/login', body, config);
-    console.log('login user:' + res.data);
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data, // Token, because we get a token back on a successful response
@@ -81,16 +79,15 @@ export const registerUser = ({
   const body = JSON.stringify({ fullname, user_name, email, password });
 
   try {
-    console.log('register user');
     const res = await axios.post('/api/register', body, config);
-    console.log('register user:' + res.data);
+
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data, // Token, because we get a token back on a successful response
     });
+
     dispatch(loadUser()); // Load user runs immediately
   } catch (err) {
-    console.log(err);
     const errors = err.response.data.errors;
 
     if (errors) {
