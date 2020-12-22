@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 //import PageShell from '../../utils/PageShell';
 
 import Alert from '../components/layout/Alert';
+import Toast from '../components/layout/Toast';
 import PrivateRoute from './PrivateRoute';
 // Pages
 import Login from '../components/auth/Login';
@@ -30,6 +31,8 @@ const Routes = () => {
     <>
       <section className='container'>
         <Alert />
+        <Toast />
+
         <Switch>
           {/* Public */}
           <Route exact path='/about' component={AboutPage} />

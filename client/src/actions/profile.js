@@ -9,6 +9,7 @@ import {
   UPDATE_USER_PASSWORD,
   UPDATE_USER_PASSWORD_ERROR,
 } from './types';
+import { setToast } from './toast';
 
 // Get user profile by Username
 export const getProfileByUsername = (username) => async (dispatch) => {
@@ -43,16 +44,14 @@ export const updateProfile = (formData, history) => async (dispatch) => {
       payload: res.data,
     });
 
-    console.log(
-      `${formData.username.toLowerCase()} Profile was Updated Successfully`
-    );
+    dispatch(setToast('Profile was updated successfully', 'success'));
 
     history.push(`/profile/${formData.username.toLowerCase()}`);
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => console.log(error));
+      errors.forEach((error) => console.error(error));
     }
 
     dispatch({
@@ -81,7 +80,7 @@ export const updatePassword = (formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    console.log('Password was Updated Successfully');
+    dispatch(setToast('Password was updated successfully', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -108,7 +107,7 @@ export const deleteAccount = () => async (dispatch) => {
       type: ACCOUNT_DELETED,
     });
 
-    console.log('You account has been permanently deleted!');
+    dispatch(setToast('You account has been permanently deleted!', 'warning'));
 
     //   dispatch(
     //     setAlert('You account has been permanently deleted!', 'warning')
