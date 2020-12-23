@@ -16,18 +16,16 @@ const User = require('../models/User');
 router.post(
   '/',
   [
-    check('fullname', 'Full Name is required.').not().isEmpty(),
     check(
       'fullname',
-      'Full Name should be between 2-30 Characters long.'
+      'Full Name is required to be between 2-30 characters'
     ).isLength({
       min: 2,
       max: 30,
     }),
-    check('user_name', 'Username is required.').not().isEmpty(),
     check(
       'user_name',
-      'Username should be at least 5 Characters long.'
+      'Username is required to be at least 5 characters'
     ).isLength({
       min: 5,
     }),
@@ -49,24 +47,15 @@ router.post(
     const { fullname, user_name, email, password } = req.body;
 
     try {
-      // See if user already exists
-      let user = await User.findOne({ email });
-
-      if (user) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'E-mail already in use.' }] });
-      }
-
       const username = user_name.toLowerCase();
       // username validation
       // Usernames can only use letters, numbers, underscores and periods.
       let user_username = await User.findOne({ username });
 
       if (user_username) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Username already in use.' }] });
+        return res.status(400).json({
+          errors: [{ msg: 'Username already in use.', param: 'user_name' }],
+        });
       }
 
       if (!/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/.test(username)) {
@@ -75,8 +64,18 @@ router.post(
             {
               msg:
                 'Usernames can only use letters, numbers, underscores and periods.',
+              param: 'user_name',
             },
           ],
+        });
+      }
+
+      // See if user already exists
+      let user = await User.findOne({ email });
+
+      if (user) {
+        return res.status(400).json({
+          errors: [{ msg: 'E-mail already in use.', param: 'email' }],
         });
       }
 
