@@ -26,8 +26,13 @@ export default function profile(state = initialState, action) {
         loading: false,
         error: {},
       };
-    case USER_PROFILE_ERROR:
     case UPDATE_USER_PASSWORD_ERROR:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
+      };
+    case USER_PROFILE_ERROR:
       return {
         ...state,
         error: payload,

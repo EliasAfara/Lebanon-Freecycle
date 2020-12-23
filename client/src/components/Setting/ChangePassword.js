@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as Styled from '../StyledComponents/StyledForm';
@@ -11,11 +11,17 @@ const initialState = {
   confirmNewPassword: '',
 };
 
-const ChangePassword = ({ updatePassword }) => {
+const ChangePassword = ({ updatePassword, profile: { error } }) => {
   const [formData, setFormData] = useState(initialState);
 
   // Destructing
   const { oldPassword, newPassword, confirmNewPassword } = formData;
+
+  useEffect(() => {
+    if (Object.keys(error).length === 0 && error.constructor === Object) {
+      setFormData(initialState);
+    }
+  }, [error]);
 
   const handleChange = (e) => {
     setFormData({
@@ -28,8 +34,8 @@ const ChangePassword = ({ updatePassword }) => {
     e.preventDefault();
     console.log(formData);
     updatePassword(formData);
-    setFormData(initialState);
   };
+
   return (
     <div style={{ maxWidth: '600px', width: 'inherit' }}>
       <Styled.FormContainer__Div>
@@ -105,10 +111,12 @@ const ChangePassword = ({ updatePassword }) => {
 
 ChangePassword.propTypes = {
   updatePassword: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  // auth: state.auth,
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { updatePassword })(ChangePassword);
