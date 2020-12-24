@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 
+const Schema = mongoose.Schema;
+
 const RequestSchema = new mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'user',
   },
   name: {
@@ -24,7 +26,34 @@ const RequestSchema = new mongoose.Schema({
   phoneNumber: {
     type: String,
   },
-  likes: { type: Number, default: 0 },
+  likes: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+      },
+    },
+  ],
+  comments: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+      },
+      text: {
+        type: String,
+        required: true,
+      },
+      name: {
+        type: String,
+      },
+      avatar: {
+        type: String,
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   status: {
     type: String,
     default: 'Available',
@@ -35,4 +64,4 @@ const RequestSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('request', RequestSchema);
+module.exports = mongoose.model('requests', RequestSchema);
