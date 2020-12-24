@@ -31,11 +31,7 @@ const Profile = ({
         ) : (
           <>
             <ProfileTop profile={profile} />
-            <ProfileBottom
-              totalDonations={profile.donations}
-              totalRequests={profile.requests}
-              userName={profile.username}
-            />
+            <ProfileBottom profile={profile} />
           </>
         )
       ) : (

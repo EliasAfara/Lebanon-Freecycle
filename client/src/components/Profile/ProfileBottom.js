@@ -150,7 +150,7 @@ const EmptySection = ({ icon, message, username, type }) => {
   );
 };
 
-const ProfileBottom = ({ totalDonations, totalRequests, userName }) => {
+const ProfileBottom = ({ profile: { username, donations, requests } }) => {
   return (
     <>
       <Tabs
@@ -161,14 +161,14 @@ const ProfileBottom = ({ totalDonations, totalRequests, userName }) => {
         }
         firstKey='Donations'
         firstComponent={
-          totalDonations !== 0 ? (
+          donations.length > 0 ? (
             <UserDonations userDonations={CurrentUserDonations} />
           ) : (
             <>
               <EmptySection
                 icon={<GiNestedHearts />}
                 message={'No Donations Yet'}
-                username={userName}
+                username={username}
                 type={'donation'}
               />
             </>
@@ -181,14 +181,14 @@ const ProfileBottom = ({ totalDonations, totalRequests, userName }) => {
         }
         secondKey='Requests'
         secondComponent={
-          totalRequests !== 0 ? (
+          requests.length > 0 ? (
             <UserRequests userRequests={CurrentUserRequests} />
           ) : (
             <>
               <EmptySection
                 icon={<GiLifeSupport />}
                 message={'No Requests Yet'}
-                username={userName}
+                username={username}
                 type={'request'}
               />
             </>

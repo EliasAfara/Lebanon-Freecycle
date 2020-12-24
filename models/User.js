@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const Schema = mongoose.Schema;
+
 const UserSchema = new mongoose.Schema({
   fullname: {
     type: String,
@@ -37,8 +39,20 @@ const UserSchema = new mongoose.Schema({
     },
   },
   verified: { type: Boolean, default: false },
-  donations: { type: Number, default: 0 },
-  requests: { type: Number, default: 0 },
+  donations: [
+    {
+      donation: {
+        type: Schema.Types.ObjectId,
+      },
+    },
+  ],
+  requests: [
+    {
+      request: {
+        type: Schema.Types.ObjectId,
+      },
+    },
+  ],
   likes: { type: Number, default: 0 },
   date: {
     type: Date,

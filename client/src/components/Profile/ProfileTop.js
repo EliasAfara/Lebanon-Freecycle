@@ -170,17 +170,24 @@ const ProfileTop = ({
           <S.UnOrderedList>
             <S.ListItems>
               <S.ListItemSpan>
-                <S.ItemCount>{donations}</S.ItemCount> Donations
+                <S.ItemCount>
+                  {donations.length > 0 ? donations.length : 0}
+                </S.ItemCount>{' '}
+                <span> Donations</span>
               </S.ListItemSpan>
             </S.ListItems>
             <S.ListItems>
               <S.ListItemSpan>
-                <S.ItemCount>{requests}</S.ItemCount> Requests
+                <S.ItemCount>
+                  {requests.length > 0 ? requests.length : 0}
+                </S.ItemCount>{' '}
+                <span> Requests</span>
               </S.ListItemSpan>
             </S.ListItems>
             <S.ListItems>
               <S.ListItemSpan>
-                <S.ItemCount>{likes}</S.ItemCount> Likes
+                <S.ItemCount>{likes}</S.ItemCount>
+                <span> Likes</span>
               </S.ListItemSpan>
             </S.ListItems>
           </S.UnOrderedList>
