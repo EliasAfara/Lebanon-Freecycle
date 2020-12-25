@@ -4,8 +4,19 @@ const Schema = mongoose.Schema;
 
 const RequestSchema = new mongoose.Schema({
   user: {
-    type: Schema.Types.ObjectId,
-    ref: 'user',
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    fullname: {
+      type: String,
+    },
+    username: {
+      type: String,
+    },
+    avatar: {
+      type: String,
+    },
   },
   name: {
     type: String,
