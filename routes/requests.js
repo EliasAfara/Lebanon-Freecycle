@@ -6,6 +6,32 @@ const User = require('../models/User');
 const Request = require('../models/Request');
 const auth = require('../middleware/auth');
 
+class APIfeatures {
+  constructor(query, queryString) {
+    this.query = query;
+    this.queryString = queryString;
+  }
+
+  filtering() {
+    const queryobj = { ...this.queryString };
+    console.log(`Query: ${JSON.stringify(queryobj)}`);
+    const excludedfields = ['page', 'sort', 'limit'];
+    excludedfields.forEach((el) => delete queryobj[el]);
+    let querystr = JSON.stringify(queryobj);
+    querystr = querystr.replace(/\b(gte|gt|lt|lte)\b/g, (match) => `$${match}`);
+    this.query.find(JSON.parse(querystr));
+    return this;
+  }
+
+  paginating() {
+    const page = this.queryString.page * 1 || 1;
+    const limit = this.queryString.limit * 1 || 10;
+    const skip = (page - 1) * limit;
+    this.query = this.query.skip(skip).limit(limit);
+    return this;
+  }
+}
+
 /**
  * @route    #reqtype: POST | #endpoint: api/requests
  * @desc     Create a request
@@ -92,43 +118,60 @@ router.post(
 // Get All in descending or ascendoing order { limit 10 per page }
 router.get('/', async (req, res) => {
   try {
-    const requests = await Request.find().limit(10).sort({ date: -1 }); // Display most recent post first
-    res.json(requests);
+    //http://localhost:5000/api/requests?page=2
+
+    const features = new APIfeatures(Request.find(), req.query)
+      .filtering()
+      .paginating();
+    const requests = await features.query.sort({ date: -1 });
+
+    let allRequests = await Request.find();
+    const pagesLimit = 10;
+    let totalPages = Math.ceil(allRequests.length / pagesLimit);
+
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+
+    res.json({
+      requestsTotalPages: totalPages,
+      requestsPageNumbers: pageNumbers,
+      requests,
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('500 Internal server error');
   }
 });
 
-// Filtering: find({ status: /Completed$/ })
 /********************************************************************************* */
 
 /**
  * @route    #reqtype: GET | #endpoint: api/requests/:id
- * @desc     Get all requests by username
+ * @desc     Get all requests for user
  * @access   Private
  */
-router.get('/:username', async (req, res) => {
+router.get('/user', async (req, res) => {
   try {
-    const usernameLowerCase = req.params.username.toLowerCase();
-    const user = await User.findOne({ username: usernameLowerCase });
-    const userName = user.username;
+    /**
+     * http://localhost:5000/api/requests/?user.username=elias
+     * http://localhost:5000/api/requests/user/?user.username=elias&status=Completed
+     * param: user.username | Value: elias
+     * param: status        | Value: Completed
+     */
+    const features = new APIfeatures(Request.find(), req.query).filtering();
 
-    const requests = await Request.find({ 'user.username': userName }).sort({
-      date: -1,
-    });
+    const requests = await features.query.sort({ date: -1 });
 
     // Handle request does not exists
     if (!requests) {
       // Check if a request exists with the provided ID
       return res.status(404).json({ msg: 'No requests were not found' });
     }
+    // { results: requests.length, requests }
     res.json(requests);
   } catch (err) {
-    if (err.message === "Cannot read property '_id' of null") {
-      return res.status(404).json({ msg: 'User was not found' });
-    }
-
     res.status(500).send('500 Internal server error');
   }
 });
@@ -233,37 +276,6 @@ router.put(
 );
 
 /**
- * @route    #reqtype: DELETE | #endpoint: api/requests/:id
- * @desc     Delete a request by ID
- * @access   Private
- */
-router.delete('/:id', auth, async (req, res) => {
-  try {
-    const request = await Request.findById(req.params.id);
-
-    // Handle request does not exists
-    if (!request) {
-      // Check if a requests exists with the provided ID
-      return res.status(404).json({ msg: 'Request was not found' });
-    }
-
-    if (request.user.id.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'User not authorized' });
-    } else {
-      await request.remove();
-    }
-    res.json({ msg: 'Request was removed successfuly!' });
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Request not found' });
-    }
-    res.status(500).send('500 Internal server error');
-  }
-});
-
-// Update Status
-/**
  * @route    #reqtype: PUT | #endpoint: api/requests/:id/:status
  * @desc     Update a request status
  * @access   Private
@@ -292,10 +304,34 @@ router.put('/:id/:status', auth, async (req, res) => {
   }
 });
 
-// Filters
 /**
- *  Get by date
- *  Get by status
+ * @route    #reqtype: DELETE | #endpoint: api/requests/:id
+ * @desc     Delete a request by ID
+ * @access   Private
  */
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const request = await Request.findById(req.params.id);
+
+    // Handle request does not exists
+    if (!request) {
+      // Check if a requests exists with the provided ID
+      return res.status(404).json({ msg: 'Request was not found' });
+    }
+
+    if (request.user.id.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized' });
+    } else {
+      await request.remove();
+    }
+    res.json({ msg: 'Request was removed successfuly!' });
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Request not found' });
+    }
+    res.status(500).send('500 Internal server error');
+  }
+});
 
 module.exports = router;
