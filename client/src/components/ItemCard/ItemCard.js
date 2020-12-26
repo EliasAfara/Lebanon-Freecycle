@@ -1,4 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+// Redux
+import { connect } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 // Styled Components
 import * as S from './ItemCardElements';
@@ -27,7 +31,12 @@ const ItemCard = ({
   ItemDescription,
   ItemDateOfCreation,
   ItemID,
+  ItemUserId,
   ItemStatus,
+  likes,
+  type,
+  auth,
+  showActions,
 }) => {
   const node = useRef();
   const [openActions, setOpenActions] = useState(false);
@@ -77,39 +86,83 @@ const ItemCard = ({
 
   const CardActionsDropDown = () => (
     <S.DropdownActionsList>
-      <Link
-        to={`/edit-donation/${ItemID}`}
-        onClick={() => setOpenActions(!openActions)}
-      >
-        <S.DropdownAction>
-          <S.ActionIcon>
-            <FaEdit style={{ color: '#1890ff' }} />
-          </S.ActionIcon>
-          Edit
-        </S.DropdownAction>
-      </Link>
+      {showActions && (
+        <>
+          {!auth.loading && auth.isAuthenticated ? (
+            ItemUserId === auth.user._id ? (
+              <>
+                <Link
+                  to={`/edit-${type}`}
+                  onClick={() => setOpenActions(!openActions)}
+                >
+                  <S.DropdownAction>
+                    <S.ActionIcon>
+                      <FaEdit style={{ color: '#1890ff' }} />
+                    </S.ActionIcon>
+                    Edit
+                  </S.DropdownAction>
+                </Link>
 
-      <S.DropdownAction onClick={handleComplete} style={{ cursor: 'pointer' }}>
-        <S.ActionIcon>
-          <FaCheckSquare style={{ color: 'green' }} />
-        </S.ActionIcon>
-        Completed
-      </S.DropdownAction>
+                <S.DropdownAction
+                  onClick={handleComplete}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <S.ActionIcon>
+                    <FaCheckSquare style={{ color: 'green' }} />
+                  </S.ActionIcon>
+                  Completed
+                </S.DropdownAction>
 
-      <S.DropdownAction onClick={handleDelete} style={{ cursor: 'pointer' }}>
-        <S.ActionIcon>
-          <FaTrash style={{ color: 'red' }} />
-        </S.ActionIcon>
-        Delete
-      </S.DropdownAction>
+                <S.DropdownAction
+                  onClick={handleDelete}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <S.ActionIcon>
+                    <FaTrash style={{ color: 'red' }} />
+                  </S.ActionIcon>
+                  Delete
+                </S.DropdownAction>
+              </>
+            ) : (
+              <S.DropdownAction
+                onClick={() => setOpenActions(!openActions)}
+                style={{ cursor: 'pointer' }}
+              >
+                <span style={{ color: 'red' }}>Report</span>
+              </S.DropdownAction>
+            )
+          ) : (
+            <S.DropdownAction
+              onClick={() => setOpenActions(!openActions)}
+              style={{ cursor: 'pointer' }}
+            >
+              <span style={{ color: 'red' }}>Report</span>
+            </S.DropdownAction>
+          )}
+          <S.DropdownAction
+            onClick={() => setOpenActions(!openActions)}
+            style={{ cursor: 'pointer' }}
+          >
+            <span style={{ color: 'Blue' }}>Share</span>
+          </S.DropdownAction>
+        </>
+      )}
     </S.DropdownActionsList>
   );
 
   return (
     <>
-      <div style={{ filter: `contrast(${ItemStatus ? 100 : 50}%)` }}>
+      <div
+        style={{
+          filter: `contrast(${ItemStatus === 'Available' ? 100 : 50}%)`,
+        }}
+      >
         <S.Wrapper>
-          <S.Card style={{ background: `${ItemStatus ? '#fafffa' : '#fff'}` }}>
+          <S.Card
+            style={{
+              background: `${ItemStatus === 'Available' ? '#fafffa' : '#fff'}`,
+            }}
+          >
             {ItemImage && (
               <S.CardImage>
                 <S.ItemImage src={ItemImage} alt='Item' draggable='false' />
@@ -119,25 +172,29 @@ const ItemCard = ({
             <S.CardContent>
               <S.ContentDetails>
                 <S.ContentHeader>
-                  <Link to={`/profile/${Username}`}>
-                    <S.HeaderAvatar
-                      src={UserAvatar}
-                      alt='User Avatar'
-                      draggable='false'
-                    />
-                  </Link>
-
-                  <S.HeaderUserFullName>
-                    <Link
-                      to={`/profile/${Username}`}
-                      style={{
-                        paddingBottom: '1px',
-                        color: 'rgba(var(--i1d, 38, 38, 38), 1)',
-                      }}
-                    >
-                      {FullName}
+                  {UserAvatar && (
+                    <Link to={`/profile/${Username}`}>
+                      <S.HeaderAvatar
+                        src={UserAvatar}
+                        alt='User Avatar'
+                        draggable='false'
+                      />
                     </Link>
-                  </S.HeaderUserFullName>
+                  )}
+
+                  {FullName && (
+                    <S.HeaderUserFullName>
+                      <Link
+                        to={`/profile/${Username}`}
+                        style={{
+                          paddingBottom: '1px',
+                          color: 'rgba(var(--i1d, 38, 38, 38), 1)',
+                        }}
+                      >
+                        {FullName}
+                      </Link>
+                    </S.HeaderUserFullName>
+                  )}
 
                   {/* NEEDS IS AUTHENTICATED CONDITION TO BE ADDED */}
                   <S.HeaderEllipsis ref={node}>
@@ -151,58 +208,73 @@ const ItemCard = ({
                   {/* NEEDS IS AUTHENTICATED CONDITION TO BE ADDED */}
                 </S.ContentHeader>
                 <S.DetailsUnOrderedList>
-                  <S.ListItems>
-                    <S.ListItemSpan>
-                      <S.ListItemName>Item: </S.ListItemName>
-                      {ItemName}
-                    </S.ListItemSpan>
-                  </S.ListItems>
-                  <S.ListItems>
-                    <S.ListItemSpan>
-                      <S.ListItemName>Category: </S.ListItemName>
-                      {ItemCategory}
-                    </S.ListItemSpan>
-                  </S.ListItems>
-                  <S.ListItems>
-                    <S.ListItemSpan>
-                      <S.ListItemName>Location: </S.ListItemName>
-                      {ItemLocation}
-                    </S.ListItemSpan>
-                  </S.ListItems>
-                  <S.ListItems>
-                    <S.ListItemSpan>
-                      <S.ListItemName>Address: </S.ListItemName>
-                      {ItemAddress}
-                    </S.ListItemSpan>
-                  </S.ListItems>
-                </S.DetailsUnOrderedList>
-                <S.ItemDescriptionDiv>
-                  <S.ItemDescription>
-                    <S.ListItemName>Description: </S.ListItemName>
-                    {ItemDescription}
-                  </S.ItemDescription>
-                </S.ItemDescriptionDiv>
-
-                <S.ContentFooter>
-                  {ItemStatus && (
-                    <>
-                      <S.ContentBtn style={{ marginRight: '5px' }}>
-                        <BsHeart style={{ color: '#f05f70' }} /> 12
-                      </S.ContentBtn>
-                      <S.ContentBtn>
-                        <Link to={`/donation/${ItemID}`}>View More</Link>
-                      </S.ContentBtn>
-                    </>
+                  {ItemName && (
+                    <S.ListItems>
+                      <S.ListItemSpan>
+                        <S.ListItemName>Item: </S.ListItemName>
+                        {ItemName}
+                      </S.ListItemSpan>
+                    </S.ListItems>
                   )}
 
-                  <S.ContentDate>
-                    <time
-                      dateTime={ItemDateOfCreation}
-                      title={formatDateMDY(ItemDateOfCreation)}
-                    >
-                      {formatDate(ItemDateOfCreation)}
-                    </time>
-                  </S.ContentDate>
+                  {ItemCategory && (
+                    <S.ListItems>
+                      <S.ListItemSpan>
+                        <S.ListItemName>Category: </S.ListItemName>
+                        {ItemCategory}
+                      </S.ListItemSpan>
+                    </S.ListItems>
+                  )}
+
+                  {ItemLocation && (
+                    <S.ListItems>
+                      <S.ListItemSpan>
+                        <S.ListItemName>Location: </S.ListItemName>
+                        {ItemLocation}
+                      </S.ListItemSpan>
+                    </S.ListItems>
+                  )}
+
+                  {ItemAddress && (
+                    <S.ListItems>
+                      <S.ListItemSpan>
+                        <S.ListItemName>Address: </S.ListItemName>
+                        {ItemAddress}
+                      </S.ListItemSpan>
+                    </S.ListItems>
+                  )}
+                </S.DetailsUnOrderedList>
+
+                {ItemDescription && (
+                  <S.ItemDescriptionDiv>
+                    <S.ItemDescription>
+                      <S.ListItemName>Description: </S.ListItemName>
+                      {ItemDescription}
+                    </S.ItemDescription>
+                  </S.ItemDescriptionDiv>
+                )}
+
+                <S.ContentFooter>
+                  <>
+                    <S.ContentBtn style={{ marginRight: '5px' }}>
+                      <BsHeart style={{ color: '#f05f70' }} />{' '}
+                      {likes && likes.length > 0 && likes.length}
+                    </S.ContentBtn>
+
+                    <S.ContentBtn>
+                      <Link to={`/${type}/${ItemID}`}>View More</Link>
+                    </S.ContentBtn>
+                  </>
+                  {ItemDateOfCreation && (
+                    <S.ContentDate>
+                      <time
+                        dateTime={ItemDateOfCreation}
+                        title={formatDateMDY(ItemDateOfCreation)}
+                      >
+                        {formatDate(ItemDateOfCreation)}
+                      </time>
+                    </S.ContentDate>
+                  )}
                 </S.ContentFooter>
               </S.ContentDetails>
             </S.CardContent>
@@ -213,4 +285,17 @@ const ItemCard = ({
   );
 };
 
-export default ItemCard;
+ItemCard.defaultProps = {
+  showActions: true,
+};
+
+ItemCard.propTypes = {
+  auth: PropTypes.object.isRequired,
+  showActions: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(ItemCard);
