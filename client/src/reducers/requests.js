@@ -1,7 +1,9 @@
 import {
   GET_ALL_REQUESTS,
   GET_ALL_USER_REQUESTS,
+  CLEAR_USER_REQUESTS,
   GET_A_SINGLE_REQUEST,
+  CLEAR_SINGLE_REQUEST,
   REQUESTS_ERROR,
   CREATE_A_REQUEST_SUCCESS,
   CREATE_REQUEST_FAIL,
@@ -13,7 +15,7 @@ import {
 
 const initialState = {
   allRequests: [],
-  userRequests: [],
+  userRequests: null,
   singleRequests: null,
   loading: true,
   error: {},
@@ -28,31 +30,45 @@ export default function requests(state = initialState, action) {
         ...state,
         allRequests: payload,
         loading: false,
-        error: {},
       };
     case GET_ALL_USER_REQUESTS:
       return {
         ...state,
         userRequests: payload,
         loading: false,
-        error: {},
+      };
+    case CLEAR_USER_REQUESTS:
+      return {
+        ...state,
+        userRequests: null,
       };
     case GET_A_SINGLE_REQUEST:
       return {
         ...state,
         singleRequests: payload,
         loading: false,
-        error: {},
+      };
+    case CLEAR_SINGLE_REQUEST:
+      return {
+        ...state,
+        singleRequests: null,
       };
     case CREATE_A_REQUEST_SUCCESS:
     case UPDATE_A_REQUEST_SUCCESS:
     case UPDATE_REQUEST_STATUS_SUCCESS:
+      return {
+        ...state,
+        allRequests: [payload, ...state.posts],
+        loading: false,
+        error: {},
+      };
     case DELETE_A_REQUEST:
       return {
         ...state,
-        allRequests: payload,
+        allRequests: state.allRequests.filter(
+          (request) => request._id !== payload
+        ),
         loading: false,
-        error: {},
       };
     case CREATE_REQUEST_FAIL:
     case UPDATE_REQUEST_FAIL:
@@ -67,7 +83,7 @@ export default function requests(state = initialState, action) {
         error: payload,
         loading: false,
         allRequests: [],
-        userRequests: [],
+        userRequests: null,
         singleRequests: null,
       };
 

@@ -3,6 +3,7 @@ import auth from './auth';
 import alert from './alert';
 import profile from './profile';
 import toast from './toast';
+import requests from './requests';
 
 export default combineReducers({
   // Will take in an object (whose values are reducers) that has all the reduces I create ex: auth reducer
@@ -10,6 +11,7 @@ export default combineReducers({
   alert,
   profile,
   toast,
+  requests,
 });
 
 // Flow of redux:
