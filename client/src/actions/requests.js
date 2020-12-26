@@ -3,7 +3,9 @@ import axios from 'axios';
 import {
   GET_ALL_REQUESTS,
   GET_ALL_USER_REQUESTS,
+  CLEAR_USER_REQUESTS,
   GET_A_SINGLE_REQUEST,
+  CLEAR_SINGLE_REQUEST,
   REQUESTS_ERROR,
   CREATE_A_REQUEST_SUCCESS,
   CREATE_REQUEST_FAIL,
@@ -17,13 +19,12 @@ import { setToast } from './toast';
 
 export const getAllRequests = (quries) => async (dispatch) => {
   try {
-    const res = {};
+    let res = {};
     if (quries.length > 0) {
       res = await axios.get(`/api/requests/?${quries}`);
     } else {
       res = await axios.get('/api/requests');
     }
-    console.log(res);
 
     dispatch({
       type: GET_ALL_REQUESTS,
@@ -47,6 +48,9 @@ export const getAllUserRequests = (quries) => async (dispatch) => {
     console.log(res);
 
     dispatch({
+      type: CLEAR_USER_REQUESTS,
+    });
+    dispatch({
       type: GET_ALL_USER_REQUESTS,
       payload: res.data,
     });
@@ -66,6 +70,10 @@ export const getSingleRequest = (id) => async (dispatch) => {
     const res = await axios.get(`api/requests/single/${id}`);
 
     console.log(res);
+
+    dispatch({
+      type: CLEAR_SINGLE_REQUEST,
+    });
 
     dispatch({
       type: GET_A_SINGLE_REQUEST,
@@ -121,7 +129,7 @@ export const updateRequest = (formData, requestId, history) => async (
   const body = JSON.stringify(formData);
 
   try {
-    const res = await axios.put('/api/requests', body, config);
+    const res = await axios.put('/api/requests', body);
 
     dispatch({
       type: UPDATE_A_REQUEST_SUCCESS,
