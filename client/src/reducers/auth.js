@@ -53,6 +53,8 @@ export default function auth(state = initialState, action) {
         ...state,
         isAuthenticated: false,
         loading: false,
+        user: null,
+        token: null,
       };
 
     default:
