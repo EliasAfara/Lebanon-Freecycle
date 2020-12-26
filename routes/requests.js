@@ -19,7 +19,7 @@ class APIfeatures {
     excludedfields.forEach((el) => delete queryobj[el]);
     let querystr = JSON.stringify(queryobj);
     querystr = querystr.replace(/\b(gte|gt|lt|lte)\b/g, (match) => `$${match}`);
-    this.query.find(JSON.parse(querystr));
+    this.query.find(JSON.parse(querystr)).sort({ date: -1 });
     return this;
   }
 
@@ -123,20 +123,25 @@ router.get('/', async (req, res) => {
     const features = new APIfeatures(Request.find(), req.query)
       .filtering()
       .paginating();
-    const requests = await features.query.sort({ date: -1 });
+    const requests = await features.query;
 
-    let allRequests = await Request.find();
-    const pagesLimit = 10;
-    let totalPages = Math.ceil(allRequests.length / pagesLimit);
+    const getAllFilteredRequests = new APIfeatures(
+      Request.find(),
+      req.query
+    ).filtering();
 
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(i);
-    }
+    let allRequests = await getAllFilteredRequests.query;
+    let totalPages = allRequests.length;
+    // const pagesLimit = 10;
+    // let totalPages = Math.ceil(allRequests.length / pagesLimit);
+
+    // const pageNumbers = [];
+    // for (let i = 1; i <= totalPages; i++) {
+    //   pageNumbers.push(i);
+    // }
 
     res.json({
-      requestsTotalPages: totalPages,
-      requestsPageNumbers: pageNumbers,
+      totalPages: totalPages,
       requests,
     });
   } catch (err) {
