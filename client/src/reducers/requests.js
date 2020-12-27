@@ -69,11 +69,22 @@ export default function requests(state = initialState, action) {
         error: {},
       };
     case DELETE_A_REQUEST:
+      const filteredRequests = state.allRequests.requests.filter(
+        (request) => request._id !== payload
+      );
+      let newUserRequests = [];
+      if (state.userRequests.length > 0) {
+        newUserRequests = state.userRequests.filter(
+          (request) => request._id !== payload
+        );
+      }
       return {
         ...state,
-        allRequests: state.allRequests.filter(
-          (request) => request._id !== payload
-        ),
+        allRequests: {
+          totalPages: state.allRequests.totalPages - 1,
+          requests: filteredRequests,
+        },
+        userRequests: newUserRequests,
         loading: false,
       };
     case CREATE_REQUEST_FAIL:

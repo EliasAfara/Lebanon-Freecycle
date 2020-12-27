@@ -316,6 +316,7 @@ router.put('/:id/:status', auth, async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
   try {
     const request = await Request.findById(req.params.id);
+    let user = await User.findById(req.user.id).select('-password');
 
     // Handle request does not exists
     if (!request) {
@@ -325,9 +326,11 @@ router.delete('/:id', auth, async (req, res) => {
 
     if (request.user.id.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'User not authorized' });
-    } else {
-      await request.remove();
     }
+    await request.remove();
+
+    //user.requests.filter((request) => request._id !== req.params.id);
+
     res.json({ msg: 'Request was removed successfuly!' });
   } catch (err) {
     console.error(err.message);

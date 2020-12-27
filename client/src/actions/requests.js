@@ -171,10 +171,12 @@ export const deleteRequest = (requestId) => async (dispatch) => {
 
     dispatch({
       type: DELETE_A_REQUEST,
+      payload: requestId,
     });
 
     dispatch(setToast('You have just deleted a request!', 'warning'));
   } catch (err) {
+    console.log(err);
     dispatch({
       type: REQUESTS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
