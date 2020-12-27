@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAllRequests } from '../actions/requests';
 
+import { RequestCategories } from '../shared/Categories';
+import { GiBrokenHeartZone } from 'react-icons/gi';
+
 import ItemCard from '../components/ItemCard/ItemCard';
-//import FilterBar from '../components/FilterBar/FilterBar';
+import FilterBar from '../components/FilterBar/FilterBar';
 import Spinner from '../components/Spinner/Spinner';
 import { Pagination } from 'antd';
-import { Select } from 'antd';
-
-const { Option } = Select;
 
 const RequestsPage = ({
   getAllRequests,
@@ -72,21 +72,6 @@ const RequestsPage = ({
 
   console.log(requests);
 
-  const FilterBar = (
-    <>
-      <Select
-        defaultValue='All'
-        placeholder='Status'
-        style={{ width: 120 }}
-        onChange={filterStatus}
-      >
-        <Option value='All'>All</Option>
-        <Option value='Available'>Available</Option>
-        <Option value='Completed'>Completed</Option>
-      </Select>
-    </>
-  );
-
   return (
     <div style={{ maxWidth: '1000px', width: 'inherit' }}>
       {loading ? (
@@ -97,40 +82,53 @@ const RequestsPage = ({
             <Spinner />
           ) : (
             <>
-              <div className='filterBar-container'>
-                <div className='filterBar'>
-                  <span>Filter: </span>
-                  &nbsp;&nbsp;&nbsp;
-                  {FilterBar}
+              <FilterBar
+                filterStatus={filterStatus}
+                categories={RequestCategories}
+              />
+              {requests.length > 0 ? (
+                <>
+                  {requests.map((request) => (
+                    <ItemCard
+                      key={request._id}
+                      UserAvatar={request.user.avatar}
+                      FullName={request.user.fullname}
+                      Username={request.user.username}
+                      ItemName={request.name}
+                      ItemCategory={request.category}
+                      ItemStatus={request.status}
+                      ItemDescription={request.description}
+                      ItemDateOfCreation={request.date}
+                      ItemID={request._id}
+                      ItemUserId={request.user.id}
+                      likes={request.likes}
+                      type='request'
+                    />
+                  ))}
+                  <div className='pagination'>
+                    <Pagination
+                      defaultCurrent={1}
+                      current={currentPage}
+                      onChange={onChange}
+                      total={totalPages}
+                      showSizeChanger={false}
+                      hideOnSinglePage={true}
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className='user-not-found'>
+                  <div className='user-not-found-icon'>
+                    <GiBrokenHeartZone
+                      style={{ width: 100, height: 100, fillOpacity: 0.34 }}
+                    />
+                  </div>
+
+                  <p className='user-not-found-title'>
+                    Sorry, couldn't find any requests.
+                  </p>
                 </div>
-              </div>
-              {requests.map((request) => (
-                <ItemCard
-                  key={request._id}
-                  UserAvatar={request.user.avatar}
-                  FullName={request.user.fullname}
-                  Username={request.user.username}
-                  ItemName={request.name}
-                  ItemCategory={request.category}
-                  ItemStatus={request.status}
-                  ItemDescription={request.description}
-                  ItemDateOfCreation={request.date}
-                  ItemID={request._id}
-                  ItemUserId={request.user.id}
-                  likes={request.likes}
-                  type='request'
-                />
-              ))}
-              <div className='pagination'>
-                <Pagination
-                  defaultCurrent={1}
-                  current={currentPage}
-                  onChange={onChange}
-                  total={totalPages}
-                  showSizeChanger={false}
-                  hideOnSinglePage={true}
-                />
-              </div>
+              )}
             </>
           )}
         </>

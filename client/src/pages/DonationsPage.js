@@ -1,5 +1,7 @@
 import React from 'react';
 import FilterBar from '../components/FilterBar/FilterBar';
+
+import { DonationsCategories } from '../shared/Categories';
 //import PropTypes from 'prop-types'
 
 //import ItemCard from '../components/ItemCard/ItemCard';
@@ -97,7 +99,7 @@ import FilterBar from '../components/FilterBar/FilterBar';
 const DonationsPage = (props) => {
   return (
     <div style={{ maxWidth: '1000px', width: 'inherit' }}>
-      <FilterBar />
+      <FilterBar categories={DonationsCategories} />
       Donations
       {/* {AvailableDonations}
       {CompletedDonations} */}
