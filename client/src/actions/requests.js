@@ -90,36 +90,28 @@ export const getSingleRequest = (id) => async (dispatch) => {
   }
 };
 
-export const createRequest = (formData, history) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const body = JSON.stringify(formData);
-
+export const createRequest = (formData) => async (dispatch) => {
   try {
-    const res = await axios.post('/api/requests', body, config);
+    const res = await axios.post('/api/requests', formData);
 
     dispatch({
       type: CREATE_A_REQUEST_SUCCESS,
-      payload: res.data, // Token, because we get a token back on a successful response
+      payload: res.data,
     });
 
     dispatch(setToast('Request was created successfully', 'success'));
-
-    history.push('/dashboard');
   } catch (err) {
+    console.log(err);
+    dispatch({
+      type: CREATE_REQUEST_FAIL,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+
     const errors = err.response.data.errors;
 
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
-
-    dispatch({
-      type: CREATE_REQUEST_FAIL,
-    });
   }
 };
 
