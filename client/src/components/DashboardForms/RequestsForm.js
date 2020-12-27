@@ -1,12 +1,55 @@
-import React from 'react';
-//import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createRequest } from '../../actions/requests';
+import { Redirect } from 'react-router-dom';
+
 import './DashboardForms.css';
+import { RequestCategories } from '../../shared/Categories';
 import PhoneInput from 'react-phone-input-2';
 import * as Styled from '../StyledComponents/StyledForm';
 import { FcRules } from 'react-icons/fc';
 import { RiInformationLine } from 'react-icons/ri';
+import { Select } from 'antd';
+const { Option } = Select;
 
-const RequestsForm = (props) => {
+const initialState = {
+  name: '',
+  category: '',
+  description: '',
+  phoneNumber: '',
+};
+
+const RequestsForm = ({ createRequest, requests: { redirectPage } }) => {
+  const [formData, setFormData] = useState(initialState);
+  const [redirect, setRedirect] = useState(false);
+
+  const { name, description, phoneNumber } = formData;
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    createRequest(formData);
+  };
+
+  useEffect(() => {
+    console.log(redirectPage);
+    if (redirectPage === true) {
+      setRedirect(true);
+    }
+  }, [redirectPage]);
+
+  if (redirect) {
+    return <Redirect to='/requests' />;
+  }
+
   return (
     <Styled.FormContainer__Div>
       <Styled.FormGuidelines__Div>
@@ -25,7 +68,7 @@ const RequestsForm = (props) => {
       <Styled.FormWrapper__Div>
         <Styled.SectionTitle__Div>Request An Item</Styled.SectionTitle__Div>
 
-        <form encType='multipart/form-data'>
+        <form encType='multipart/form-data' onSubmit={(e) => handleSubmit(e)}>
           <Styled.FormField__Div>
             <div className='asideTweek'></div>
             <span className='sectionSubTitle'>
@@ -64,6 +107,8 @@ const RequestsForm = (props) => {
 
             <Styled.FieldInput__Input
               name='name'
+              value={name}
+              onChange={(e) => handleChange(e)}
               type='text'
               placeholder='Name'
               required
@@ -77,14 +122,33 @@ const RequestsForm = (props) => {
               </Styled.FieldName__Label>
             </Styled.FieldLabel__Div>
             <div className='form__custom-select'>
-              <select name='category' required>
-                <option value=''>Select</option>
-                <option value='Forniture'>Forniture</option>
-                <option value='Clothes'>Clothes</option>
-                <option value='Food'>Food</option>
-                <option value='Books'>Books</option>
-                <option value='Others'>Others</option>
-              </select>
+              <Select
+                showSearch
+                size={'large'}
+                style={{ width: '100%', height: '100%' }}
+                placeholder='Select Category'
+                dropdownMatchSelectWidth={false}
+                optionFilterProp='children'
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+                onChange={(category) =>
+                  setFormData({
+                    ...formData,
+                    category: category,
+                  })
+                }
+                required
+              >
+                {RequestCategories.map((category) => {
+                  return (
+                    <Option key={category.id} value={category.title}>
+                      {category.title}
+                    </Option>
+                  );
+                })}
+              </Select>
             </div>
           </Styled.FormField__Div>
 
@@ -98,6 +162,9 @@ const RequestsForm = (props) => {
             <Styled.FieldInput__Textarea
               name='description'
               placeholder='Description'
+              value={description}
+              onChange={(e) => handleChange(e)}
+              required
             ></Styled.FieldInput__Textarea>
           </Styled.FormField__Div>
 
@@ -118,7 +185,7 @@ const RequestsForm = (props) => {
               onlyCountries={['lb']}
               masks={{ lb: '.. ... ...' }}
               inputProps={{
-                name: 'phone',
+                name: 'phoneNumber',
                 required: true,
                 autoFocus: false,
               }}
@@ -126,6 +193,13 @@ const RequestsForm = (props) => {
               countryCodeEditable={false}
               disableSearchIcon={true}
               disableCountryGuess={true}
+              value={phoneNumber}
+              onChange={(phone) =>
+                setFormData({
+                  ...formData,
+                  phoneNumber: phone,
+                })
+              }
             />
 
             {/* <Styled.FieldInput__Input
@@ -152,6 +226,13 @@ const RequestsForm = (props) => {
   );
 };
 
-//RequestsForm.propTypes = {};
+RequestsForm.propTypes = {
+  createRequest: PropTypes.func.isRequired,
+  requests: PropTypes.object.isRequired,
+};
 
-export default RequestsForm;
+const mapStateToProps = (state) => ({
+  requests: state.requests,
+});
+
+export default connect(mapStateToProps, { createRequest })(RequestsForm);
