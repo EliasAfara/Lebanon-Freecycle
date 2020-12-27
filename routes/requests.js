@@ -71,7 +71,7 @@ router.post(
     }
 
     try {
-      const user = await User.findById(req.user.id).select('-password');
+      let user = await User.findById(req.user.id).select('-password');
 
       const newRequest = new Request({
         name: req.body.name,
@@ -88,8 +88,6 @@ router.post(
 
       const request = await newRequest.save();
 
-      res.json(request);
-
       if (user) {
         // Update user requests array
         const requestID = request._id;
@@ -99,10 +97,11 @@ router.post(
           { requests: [...user.requests, requestID] },
           { new: true }
         );
-        return res.json(user);
       }
+
+      return res.json(request);
     } catch (err) {
-      console.error(err.message);
+      console.error(err);
       res.status(500).send('500 Internal server error');
     }
   }
