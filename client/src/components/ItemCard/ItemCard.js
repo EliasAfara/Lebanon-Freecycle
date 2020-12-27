@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import { updateRequestStatus, deleteRequest } from '../../actions/requests';
+
 // Styled Components
 import * as S from './ItemCardElements';
 import { formatDate, formatDateMDY } from '../../utils/formatDate';
@@ -20,6 +22,8 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 const { confirm } = Modal;
 
 const ItemCard = ({
+  updateRequestStatus,
+  deleteRequest,
   ItemImage,
   UserAvatar,
   FullName,
@@ -61,7 +65,22 @@ const ItemCard = ({
 
   const handleComplete = () => {
     setOpenActions(!openActions);
-    // update item state from available to completed
+    confirm({
+      title: 'Are you sure?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'Do you really want to update this item status?',
+      okText: 'Update',
+      okType: 'primary',
+      cancelText: 'Cancel',
+      centered: true,
+      onOk() {
+        updateRequestStatus(ItemID);
+        console.log('Updated');
+      },
+      onCancel() {
+        console.log('Canceled');
+      },
+    });
   };
 
   const handleDelete = () => {
@@ -76,6 +95,7 @@ const ItemCard = ({
       cancelText: 'Cancel',
       centered: true,
       onOk() {
+        deleteRequest(ItemID);
         console.log('Deleted');
       },
       onCancel() {
@@ -290,6 +310,8 @@ ItemCard.defaultProps = {
 };
 
 ItemCard.propTypes = {
+  updateRequestStatus: PropTypes.func.isRequired,
+  deleteRequest: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   showActions: PropTypes.bool,
 };
@@ -298,4 +320,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(ItemCard);
+export default connect(mapStateToProps, { updateRequestStatus, deleteRequest })(
+  ItemCard
+);
