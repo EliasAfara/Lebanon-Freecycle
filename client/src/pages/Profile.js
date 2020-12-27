@@ -31,7 +31,10 @@ const Profile = ({
         ) : (
           <>
             <ProfileTop profile={profile} />
-            <ProfileBottom profile={profile} />
+            <ProfileBottom
+              profile={profile}
+              userNameInParam={userNameInParam}
+            />
           </>
         )
       ) : (
