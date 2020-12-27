@@ -14,7 +14,7 @@ class APIfeatures {
 
   filtering() {
     const queryobj = { ...this.queryString };
-    console.log(`Query: ${JSON.stringify(queryobj)}`);
+    // console.log(`Query: ${JSON.stringify(queryobj)}`);
     const excludedfields = ['page', 'sort', 'limit'];
     excludedfields.forEach((el) => delete queryobj[el]);
     let querystr = JSON.stringify(queryobj);
@@ -96,7 +96,7 @@ router.post(
 
         user = await User.findOneAndUpdate(
           { _id: req.user.id },
-          { requests: requestID },
+          { requests: [...user.requests, requestID] },
           { new: true }
         );
         return res.json(user);

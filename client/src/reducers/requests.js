@@ -15,7 +15,7 @@ import {
 
 const initialState = {
   allRequests: [],
-  userRequests: null,
+  userRequests: [],
   singleRequests: null,
   loading: true,
   error: {},
@@ -40,7 +40,7 @@ export default function requests(state = initialState, action) {
     case CLEAR_USER_REQUESTS:
       return {
         ...state,
-        userRequests: null,
+        userRequests: [],
       };
     case GET_A_SINGLE_REQUEST:
       return {
@@ -83,7 +83,7 @@ export default function requests(state = initialState, action) {
         error: payload,
         loading: false,
         allRequests: [],
-        userRequests: null,
+        userRequests: [],
         singleRequests: null,
       };
 
