@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createRequest } from '../../actions/requests';
+import { createRequest, getAllRequests } from '../../actions/requests';
 import { Redirect } from 'react-router-dom';
 
 import './DashboardForms.css';
@@ -20,7 +20,11 @@ const initialState = {
   phoneNumber: '',
 };
 
-const RequestsForm = ({ createRequest, requests: { redirectPage } }) => {
+const RequestsForm = ({
+  getAllRequests,
+  createRequest,
+  requests: { redirectPage },
+}) => {
   const [formData, setFormData] = useState(initialState);
   const [redirect, setRedirect] = useState(false);
 
@@ -40,11 +44,12 @@ const RequestsForm = ({ createRequest, requests: { redirectPage } }) => {
   };
 
   useEffect(() => {
+    getAllRequests('');
     console.log(redirectPage);
     if (redirectPage === true) {
       setRedirect(true);
     }
-  }, [redirectPage]);
+  }, [getAllRequests, redirectPage]);
 
   if (redirect) {
     return <Redirect to='/requests' />;
@@ -227,6 +232,7 @@ const RequestsForm = ({ createRequest, requests: { redirectPage } }) => {
 };
 
 RequestsForm.propTypes = {
+  getAllRequests: PropTypes.func.isRequired,
   createRequest: PropTypes.func.isRequired,
   requests: PropTypes.object.isRequired,
 };
@@ -235,4 +241,6 @@ const mapStateToProps = (state) => ({
   requests: state.requests,
 });
 
-export default connect(mapStateToProps, { createRequest })(RequestsForm);
+export default connect(mapStateToProps, { getAllRequests, createRequest })(
+  RequestsForm
+);
