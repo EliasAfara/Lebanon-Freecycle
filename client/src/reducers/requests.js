@@ -18,6 +18,7 @@ const initialState = {
   userRequests: [],
   singleRequests: null,
   loading: true,
+  redirectPage: false,
   error: {},
 };
 
@@ -30,6 +31,7 @@ export default function requests(state = initialState, action) {
         ...state,
         allRequests: payload,
         loading: false,
+        redirectPage: false,
       };
     case GET_ALL_USER_REQUESTS:
       return {
@@ -58,8 +60,12 @@ export default function requests(state = initialState, action) {
     case UPDATE_REQUEST_STATUS_SUCCESS:
       return {
         ...state,
-        allRequests: [payload, ...state.posts],
+        allRequests: {
+          totalPages: state.allRequests.totalPages,
+          requests: [payload, ...state.allRequests.requests],
+        },
         loading: false,
+        redirectPage: true,
         error: {},
       };
     case DELETE_A_REQUEST:
