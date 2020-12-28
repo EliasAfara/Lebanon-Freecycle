@@ -43,6 +43,7 @@ const UserSchema = new mongoose.Schema({
     {
       donation: {
         type: Schema.Types.ObjectId,
+        ref: 'Donation',
       },
     },
   ],
@@ -50,6 +51,7 @@ const UserSchema = new mongoose.Schema({
     {
       request: {
         type: Schema.Types.ObjectId,
+        ref: 'Request',
       },
     },
   ],
