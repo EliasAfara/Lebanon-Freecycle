@@ -56,22 +56,58 @@ export default function requests(state = initialState, action) {
         singleRequests: null,
       };
     case CREATE_A_REQUEST_SUCCESS:
-    case UPDATE_A_REQUEST_SUCCESS:
-    case UPDATE_REQUEST_STATUS_SUCCESS:
       return {
         ...state,
         allRequests: {
-          totalPages: state.allRequests.totalPages,
+          totalPages: state.allRequests.totalPages + 1,
           requests: [payload, ...state.allRequests.requests],
         },
         loading: false,
         redirectPage: true,
         error: {},
       };
+    case UPDATE_A_REQUEST_SUCCESS:
+    case UPDATE_REQUEST_STATUS_SUCCESS:
+      let updatedRequests = [];
+      if (state.allRequests.requests.length > 0) {
+        updatedRequests = state.allRequests.requests.map((obj) => {
+          if (obj._id === payload._id) {
+            return payload;
+          } else {
+            return obj;
+          }
+        });
+      }
+
+      let updatedUserRequests = [];
+      if (state.userRequests.length > 0) {
+        updatedUserRequests = state.userRequests.map((request) => {
+          if (request._id === payload._id) {
+            return payload;
+          } else {
+            return request;
+          }
+        });
+      }
+
+      return {
+        ...state,
+        allRequests: {
+          totalPages: state.allRequests.totalPages,
+          requests: updatedRequests,
+        },
+        userRequests: updatedUserRequests,
+        loading: false,
+        redirectPage: true,
+        error: {},
+      };
     case DELETE_A_REQUEST:
-      const filteredRequests = state.allRequests.requests.filter(
-        (request) => request._id !== payload
-      );
+      let filteredRequests = [];
+      if (state.allRequests.requests.length > 0) {
+        filteredRequests = state.allRequests.requests.filter(
+          (request) => request._id !== payload
+        );
+      }
       let newUserRequests = [];
       if (state.userRequests.length > 0) {
         newUserRequests = state.userRequests.filter(
