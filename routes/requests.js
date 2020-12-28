@@ -88,16 +88,8 @@ router.post(
 
       const request = await newRequest.save();
 
-      if (user) {
-        // Update user requests array
-        const requestID = request._id;
-
-        user = await User.findOneAndUpdate(
-          { _id: req.user.id },
-          { requests: [...user.requests, requestID] },
-          { new: true }
-        );
-      }
+      user.requests.unshift({ request: request._id });
+      await user.save();
 
       return res.json(request);
     } catch (err) {
@@ -286,16 +278,9 @@ router.put(
  */
 router.put('/:id/:status', auth, async (req, res) => {
   try {
-    let status = 'Available';
-    if (req.params.status === status) {
-      status = 'Completed';
-    } else if (req.params.status === 'Completed') {
-      status = 'Available';
-    }
-
     const request = await Request.findOneAndUpdate(
       { _id: req.params.id },
-      { status: status },
+      { status: req.params.status },
       { new: true }
     );
 
@@ -327,9 +312,14 @@ router.delete('/:id', auth, async (req, res) => {
     if (request.user.id.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'User not authorized' });
     }
-    await request.remove();
 
-    //user.requests.filter((request) => request._id !== req.params.id);
+    // remove the request from user requests array
+    user.requests = user.requests.filter(
+      (requestObj) => requestObj.request.toString() !== req.params.id
+    );
+
+    await request.remove();
+    await user.save();
 
     res.json({ msg: 'Request was removed successfuly!' });
   } catch (err) {
