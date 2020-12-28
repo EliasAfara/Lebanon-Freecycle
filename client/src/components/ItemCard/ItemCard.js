@@ -64,6 +64,12 @@ const ItemCard = ({
   }, []);
 
   const handleComplete = () => {
+    let newStatus = '';
+    if (ItemStatus === 'Available') {
+      newStatus = 'Completed';
+    } else {
+      newStatus = 'Available';
+    }
     setOpenActions(!openActions);
     confirm({
       title: 'Are you sure?',
@@ -74,7 +80,7 @@ const ItemCard = ({
       cancelText: 'Cancel',
       centered: true,
       onOk() {
-        updateRequestStatus(ItemID);
+        updateRequestStatus(ItemID, newStatus);
         console.log('Updated');
       },
       onCancel() {
@@ -128,9 +134,15 @@ const ItemCard = ({
                   style={{ cursor: 'pointer' }}
                 >
                   <S.ActionIcon>
-                    <FaCheckSquare style={{ color: 'green' }} />
+                    <FaCheckSquare
+                      style={{
+                        color: `${
+                          ItemStatus === 'Available' ? 'grey' : 'green'
+                        }`,
+                      }}
+                    />
                   </S.ActionIcon>
-                  Completed
+                  {ItemStatus === 'Available' ? <>Completed</> : <>Available</>}
                 </S.DropdownAction>
 
                 <S.DropdownAction
