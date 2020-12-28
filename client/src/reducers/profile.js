@@ -5,6 +5,7 @@ import {
   USER_PROFILE_ERROR,
   UPDATE_USER_PASSWORD,
   UPDATE_USER_PASSWORD_ERROR,
+  DELETE_A_REQUEST,
 } from '../actions/types';
 
 const initialState = {
@@ -43,6 +44,19 @@ export default function profile(state = initialState, action) {
       return {
         ...state,
         profile: null,
+        loading: false,
+      };
+
+    case DELETE_A_REQUEST:
+      let newUserRequests = [];
+      if (state.profile !== null) {
+        newUserRequests = state.profile.requests.filter(
+          (requestObj) => requestObj.request !== payload
+        );
+      }
+      return {
+        ...state,
+        profile: { ...state.profile, requests: newUserRequests },
         loading: false,
       };
 
