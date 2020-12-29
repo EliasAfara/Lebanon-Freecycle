@@ -114,20 +114,22 @@ const ItemCard = ({
     <S.DropdownActionsList>
       {showActions && (
         <>
-          {!auth.loading && auth.isAuthenticated ? (
+          {!auth.authLoading && auth.isAuthenticated ? (
             ItemUserId === auth.user._id ? (
               <>
-                <Link
-                  to={`/edit-${type}`}
-                  onClick={() => setOpenActions(!openActions)}
-                >
-                  <S.DropdownAction>
-                    <S.ActionIcon>
-                      <FaEdit style={{ color: '#1890ff' }} />
-                    </S.ActionIcon>
-                    Edit
-                  </S.DropdownAction>
-                </Link>
+                {ItemStatus === 'Available' && (
+                  <Link
+                    to={`/edit-${type}/${ItemID}`}
+                    onClick={() => setOpenActions(!openActions)}
+                  >
+                    <S.DropdownAction>
+                      <S.ActionIcon>
+                        <FaEdit style={{ color: '#1890ff' }} />
+                      </S.ActionIcon>
+                      Edit
+                    </S.DropdownAction>
+                  </Link>
+                )}
 
                 <S.DropdownAction
                   onClick={handleComplete}
@@ -292,10 +294,11 @@ const ItemCard = ({
                       <BsHeart style={{ color: '#f05f70' }} />{' '}
                       {likes && likes.length > 0 && likes.length}
                     </S.ContentBtn>
-
-                    <S.ContentBtn>
-                      <Link to={`/${type}/${ItemID}`}>View More</Link>
-                    </S.ContentBtn>
+                    {ItemStatus === 'Available' && (
+                      <S.ContentBtn>
+                        <Link to={`/${type}/${ItemID}`}>View More</Link>
+                      </S.ContentBtn>
+                    )}
                   </>
                   {ItemDateOfCreation && (
                     <S.ContentDate>
