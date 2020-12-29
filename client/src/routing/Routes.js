@@ -18,13 +18,13 @@ import DonationsPage from '../pages/DonationsPage';
 import DashboardPage from '../pages/DashboardPage';
 import EditProfile from '../components/Setting/EditProfile';
 import ChangePassword from '../components/Setting/ChangePassword';
+import EditRequest from '../pages/EditRequest';
 
 // To Be Created
 const ViewDonation = ''; // Single Donation Component
 const ViewRequest = ''; // Single Request Component
 
 const EditDonation = ''; // Component used to edit a donation according to the passed ID
-const EditRequest = ''; // Component used to edit a request according to the passed ID
 
 const Routes = () => {
   return (
@@ -60,17 +60,24 @@ const Routes = () => {
             path='/setting/edit-profile'
             component={EditProfile}
           />
+
           <PrivateRoute
             exact
             path='/setting/change-password'
             component={ChangePassword}
           />
 
-          {/* Change to Private Later */}
-          <Route exact path='/edit-donation/:id' component={EditDonation} />
+          <PrivateRoute
+            exact
+            path='/edit-donation/:id'
+            component={EditDonation}
+          />
 
-          {/* Change to Private Later */}
-          <Route exact path='/edit-request/:id' component={EditRequest} />
+          <PrivateRoute
+            exact
+            path='/edit-request/:id'
+            component={EditRequest}
+          />
 
           {/* Error 404 - Not Found */}
           <Route path='*' component={ErrorPage} />
