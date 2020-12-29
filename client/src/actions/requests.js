@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import {
   GET_ALL_REQUESTS,
+  RESET_GET_ALL_REQUESTS_LOADING,
   GET_ALL_USER_REQUESTS,
   CLEAR_USER_REQUESTS,
   GET_A_SINGLE_REQUEST,
@@ -26,6 +27,9 @@ export const getAllRequests = (quries) => async (dispatch) => {
       res = await axios.get('/api/requests');
     }
 
+    dispatch({
+      type: RESET_GET_ALL_REQUESTS_LOADING,
+    });
     dispatch({
       type: GET_ALL_REQUESTS,
       payload: res.data,
@@ -67,7 +71,7 @@ export const getAllUserRequests = (quries) => async (dispatch) => {
 
 export const getSingleRequest = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`api/requests/single/${id}`);
+    const res = await axios.get(`/api/requests/single/${id}`);
 
     console.log(res);
 
@@ -80,6 +84,7 @@ export const getSingleRequest = (id) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
+    console.error(err);
     dispatch({
       type: REQUESTS_ERROR,
       payload: {
@@ -115,13 +120,11 @@ export const createRequest = (formData) => async (dispatch) => {
   }
 };
 
-export const updateRequest = (formData, requestId, history) => async (
-  dispatch
-) => {
-  const body = JSON.stringify(formData);
+export const updateRequest = (formData, requestId) => async (dispatch) => {
+  // const body = JSON.stringify(formData);
 
   try {
-    const res = await axios.put('/api/requests', body);
+    const res = await axios.put(`/api/requests/${requestId}`, formData);
 
     dispatch({
       type: UPDATE_A_REQUEST_SUCCESS,
@@ -129,8 +132,6 @@ export const updateRequest = (formData, requestId, history) => async (
     });
 
     dispatch(setToast('Request was updated successfully', 'success'));
-
-    history.push(`/request/${requestId}`);
   } catch (err) {
     const errors = err.response.data.errors;
 
