@@ -116,7 +116,7 @@ const ProfileTop = ({
             )}
 
             {auth.isAuthenticated &&
-              auth.loading === false &&
+              auth.authLoading === false &&
               auth.user.username === username && (
                 <S.EditBtnDiv to='/setting/edit-profile' title='Edit Profile'>
                   <S.EditBtn>Edit Profile</S.EditBtn>
@@ -171,7 +171,7 @@ const ProfileTop = ({
             <S.ListItems>
               <S.ListItemSpan>
                 <S.ItemCount>
-                  {donations.length > 0 ? donations.length : 0}
+                  {donations && donations.length > 0 ? donations.length : 0}
                 </S.ItemCount>{' '}
                 <span> Donations</span>
               </S.ListItemSpan>
@@ -179,7 +179,7 @@ const ProfileTop = ({
             <S.ListItems>
               <S.ListItemSpan>
                 <S.ItemCount>
-                  {requests.length > 0 ? requests.length : 0}
+                  {requests && requests.length > 0 ? requests.length : 0}
                 </S.ItemCount>{' '}
                 <span> Requests</span>
               </S.ListItemSpan>

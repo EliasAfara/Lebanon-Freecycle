@@ -13,7 +13,7 @@ import { GiBrokenHeartZone } from 'react-icons/gi';
 
 const UserRequests = ({
   getAllUserRequests,
-  requests: { userRequests, loading },
+  requests: { userRequests, userRequestLoading },
   userNameInParam,
 }) => {
   const [queries, setQueries] = useState([]);
@@ -47,7 +47,7 @@ const UserRequests = ({
 
   return (
     <>
-      {loading ? (
+      {userRequestLoading ? (
         <Spinner />
       ) : (
         <>

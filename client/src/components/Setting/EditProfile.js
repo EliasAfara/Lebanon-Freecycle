@@ -23,7 +23,7 @@ const initialState = {
 };
 
 const EditProfile = ({
-  auth: { isAuthenticated, loading, user },
+  auth: { isAuthenticated, authLoading, user },
   updateProfile,
   deleteAccount,
   history,
@@ -31,7 +31,7 @@ const EditProfile = ({
   const [formData, setFormData] = useState(initialState);
 
   useEffect(() => {
-    if (isAuthenticated && !loading) {
+    if (isAuthenticated && !authLoading) {
       const profileData = { ...initialState };
       for (const key in user) {
         if (key in profileData) profileData[key] = user[key];
@@ -41,7 +41,7 @@ const EditProfile = ({
       }
       setFormData(profileData);
     }
-  }, [isAuthenticated, loading, user]);
+  }, [isAuthenticated, authLoading, user]);
 
   // Destructing
   const {

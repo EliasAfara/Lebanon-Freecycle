@@ -14,7 +14,7 @@ import {
 const initialState = {
   token: localStorage.getItem('token'), // Stored in local storage
   isAuthenticated: null,
-  loading: true,
+  authLoading: true,
   user: null,
 };
 
@@ -28,7 +28,7 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true, // Token worked, user now is logged in
-        loading: false,
+        authLoading: false,
         user: payload,
       };
 
@@ -39,7 +39,7 @@ export default function auth(state = initialState, action) {
         ...state, // Spread operator state, Whatever currently in the state
         ...payload,
         isAuthenticated: true,
-        loading: false,
+        authLoading: false,
       };
 
     case REGISTER_FAIL:
@@ -52,7 +52,7 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: false,
-        loading: false,
+        authLoading: false,
         user: null,
         token: null,
       };

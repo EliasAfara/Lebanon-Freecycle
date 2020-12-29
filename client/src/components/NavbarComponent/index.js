@@ -12,7 +12,7 @@ import Sidebar from './Sidebar';
 // User
 import UserNavbar from './UserNavbar';
 
-const NavbarComponent = ({ auth: { isAuthenticated, loading } }) => {
+const NavbarComponent = ({ auth: { isAuthenticated, authLoading } }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavBar = () => {
@@ -32,7 +32,9 @@ const NavbarComponent = ({ auth: { isAuthenticated, loading } }) => {
 
   const userNavbar = <UserNavbar />;
 
-  return <>{!loading && <>{isAuthenticated ? userNavbar : guestNavbar()}</>}</>;
+  return (
+    <>{!authLoading && <>{isAuthenticated ? userNavbar : guestNavbar()}</>}</>
+  );
 };
 
 NavbarComponent.propTypes = {
