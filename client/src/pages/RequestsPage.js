@@ -7,10 +7,13 @@ import { getAllRequests } from '../actions/requests';
 import { RequestCategories } from '../shared/Categories';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 
+import '../components/FilterBar/FilterBar.css';
 import ItemCard from '../components/ItemCard/ItemCard';
-import FilterBar from '../components/FilterBar/FilterBar';
+//import FilterBar from '../components/FilterBar/FilterBar';
 import Spinner from '../components/Spinner/Spinner';
 import { Pagination } from 'antd';
+import { Select } from 'antd';
+const { Option } = Select;
 
 const RequestsPage = ({
   getAllRequests,
@@ -23,8 +26,15 @@ const RequestsPage = ({
   const [queryPage, setQueryPage] = useState('');
   const [queryStatus, setQueryStatus] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentCategory, setCurrentCategory] = useState('');
   const [showTimedSpinner, setShowTimedSpinner] = useState(false);
 
+  const [currentSelectedStatus, setCurrentSelectedStatus] = useState(
+    'Select Status'
+  );
+  const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
+    'Select Category'
+  );
   const timedSpinner = () => {
     setShowTimedSpinner(true);
     setTimeout(function () {
@@ -33,6 +43,7 @@ const RequestsPage = ({
   };
 
   const filterStatus = (value) => {
+    setCurrentSelectedStatus(value);
     if (value === 'All') {
       setQueryStatus('');
       setQueries([]);
@@ -52,14 +63,28 @@ const RequestsPage = ({
     setQueries([]);
   };
 
-  useEffect(() => {
-    console.log(queries);
+  const filterCategory = (cat) => {
+    setCurrentSelectedCategory(cat);
+    if (cat === 'All') {
+      setCurrentCategory('');
+      setQueries([]);
+      setQueryPage('page=1');
+    } else {
+      setCurrentCategory(`category=${cat}`);
+      setQueries([]);
+      setQueryPage('page=1');
+    }
+  };
 
+  useEffect(() => {
     if (queryPage.length > 0) {
       queries.push(queryPage);
     }
     if (queryStatus.length > 0) {
       queries.push(queryStatus);
+    }
+    if (currentCategory.length > 0) {
+      queries.push(currentCategory);
     }
 
     if (queries.length > 0) {
@@ -68,7 +93,7 @@ const RequestsPage = ({
     } else {
       getAllRequests(queryPage);
     }
-  }, [getAllRequests, queries, queryPage, queryStatus]);
+  }, [getAllRequests, queries, queryPage, queryStatus, currentCategory]);
 
   console.log(requests);
 
@@ -82,10 +107,57 @@ const RequestsPage = ({
             <Spinner />
           ) : (
             <>
-              <FilterBar
-                filterStatus={filterStatus}
-                categories={RequestCategories}
-              />
+              <>
+                <div className='filterBar-container'>
+                  <div className='filterBar'>
+                    <div className='filterBar__title'>
+                      <span className='filterBar__title-text'>Filter</span>
+                    </div>
+                    <div className='filterbar__filter'>
+                      <label className='filterbar__label'>Status:</label>
+                      <Select
+                        placeholder='Select Status'
+                        style={{ width: 120 }}
+                        onChange={filterStatus}
+                        title='Select Status'
+                        defaultValue='All'
+                        value={currentSelectedStatus}
+                      >
+                        <Option value='All'>All</Option>
+                        <Option value='Available'>Available</Option>
+                        <Option value='Completed'>Completed</Option>
+                      </Select>
+                    </div>
+
+                    <div className='filterbar__filter'>
+                      <label className='filterbar__label'>Category:</label>
+                      <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder='Select Category'
+                        dropdownMatchSelectWidth={false}
+                        optionFilterProp='children'
+                        filterOption={(input, option) =>
+                          option.children
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0
+                        }
+                        onChange={filterCategory}
+                        value={currentSelectedCategory}
+                      >
+                        <Option value='All'>All</Option>
+                        {RequestCategories.map((category) => {
+                          return (
+                            <Option key={category.id} value={category.title}>
+                              {category.title}
+                            </Option>
+                          );
+                        })}
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+              </>
               {requests.length > 0 ? (
                 <>
                   {requests.map((request) => (
