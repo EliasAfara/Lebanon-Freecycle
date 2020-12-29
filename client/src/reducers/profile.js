@@ -48,17 +48,22 @@ export default function profile(state = initialState, action) {
       };
 
     case DELETE_A_REQUEST:
+      let updatedProfile = { ...state.profile };
       let newUserRequests = [];
-      if (state.profile !== null) {
+      if (state.profile !== null && state.profile.requests.length > 0) {
         newUserRequests = state.profile.requests.filter(
           (requestObj) => requestObj.request !== payload
         );
+        updatedProfile.requests = newUserRequests;
+        return {
+          ...state,
+          profile: updatedProfile,
+        };
+      } else {
+        return {
+          ...state,
+        };
       }
-      return {
-        ...state,
-        profile: { ...state.profile, requests: newUserRequests },
-        loading: false,
-      };
 
     default:
       return state;
