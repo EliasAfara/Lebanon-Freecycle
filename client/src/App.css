@@ -58,6 +58,18 @@ ul {
     justify-content: center;
 }
 
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector::after,
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item{
+    line-height: 38px;
+    color: #262626;
+    font-weight: 400;
+}
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-placeholder {
+    line-height: 38px;
+    color: #999;
+    font-weight: 400;
+}
+
 .target-link{
     text-decoration: underline;
     color: #006deb;
