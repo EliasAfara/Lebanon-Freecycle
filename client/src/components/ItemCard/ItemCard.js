@@ -17,6 +17,8 @@ import { FaCheckSquare } from 'react-icons/fa';
 import { BsHeart } from 'react-icons/bs';
 
 // Ant Design Delete Model
+
+import { Image } from 'antd';
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 const { confirm } = Modal;
@@ -24,7 +26,6 @@ const { confirm } = Modal;
 const ItemCard = ({
   updateRequestStatus,
   deleteRequest,
-  ItemImage,
   UserAvatar,
   FullName,
   Username,
@@ -38,6 +39,7 @@ const ItemCard = ({
   ItemUserId,
   ItemStatus,
   likes,
+  images,
   type,
   auth,
   showActions,
@@ -197,13 +199,24 @@ const ItemCard = ({
               background: `${ItemStatus === 'Available' ? '#fafffa' : '#fff'}`,
             }}
           >
-            {ItemImage && (
+            {images && images.length > 0 && (
               <S.CardImage>
-                <S.ItemImage src={ItemImage} alt='Item' draggable='false' />
+                <Image
+                  src={images[0].imageURL}
+                  alt='Request Image'
+                  title='Click to preview'
+                  loading='lazy'
+                  draggable='false'
+                  width={'100%'}
+                  height={'100%'}
+                  style={{ cursor: 'pointer' }}
+                />
               </S.CardImage>
             )}
 
-            <S.CardContent>
+            <S.CardContent
+              style={{ width: `${images && images.length === 0 && '100%'}` }}
+            >
               <S.ContentDetails>
                 <S.ContentHeader>
                   {UserAvatar && (
@@ -211,6 +224,7 @@ const ItemCard = ({
                       <S.HeaderAvatar
                         src={UserAvatar}
                         alt='User Avatar'
+                        loading='lazy'
                         draggable='false'
                       />
                     </Link>

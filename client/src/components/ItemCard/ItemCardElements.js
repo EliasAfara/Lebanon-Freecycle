@@ -31,8 +31,8 @@ export const Card = styled.div`
 export const CardImage = styled.div`
   display: block;
   color: #fff;
-  width: 80%;
-  height: 250px;
+  width: 200px;
+  height: 200px;
 
   @media only screen and (max-width: 600px) {
     width: 100%;
@@ -49,8 +49,12 @@ export const ItemImage = styled.img`
 
 export const CardContent = styled.div`
   display: block;
-  width: 100%;
+  width: calc(100% - 200px);
   padding: 10px 10px 10px 20px;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const ContentDetails = styled.div`
