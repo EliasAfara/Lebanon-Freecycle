@@ -18,6 +18,7 @@ const initialState = {
   allRequests: [],
   userRequests: [],
   singleRequests: null,
+  singleRequestLoading: true,
   loading: true,
   editRequestFormLoading: true,
   userRequestLoading: true,
@@ -35,6 +36,7 @@ export default function requests(state = initialState, action) {
         loading: true,
         editRequestFormLoading: true,
         userRequestLoading: true,
+        singleRequestLoading: true,
       };
     case GET_ALL_REQUESTS:
       return {
@@ -61,6 +63,7 @@ export default function requests(state = initialState, action) {
         ...state,
         singleRequests: payload,
         editRequestFormLoading: false,
+        singleRequestLoading: false,
       };
     case CLEAR_SINGLE_REQUEST:
       return {
@@ -68,6 +71,7 @@ export default function requests(state = initialState, action) {
         singleRequests: null,
         editRequestFormLoading: true,
         loading: true,
+        singleRequestLoading: true,
       };
     case CREATE_A_REQUEST_SUCCESS:
       return {
@@ -82,7 +86,10 @@ export default function requests(state = initialState, action) {
       };
     case UPDATE_A_REQUEST_SUCCESS:
       let updatedRequests = [];
-      if (state.allRequests.requests.length > 0) {
+      if (
+        state.allRequests.length > 0 &&
+        state.allRequests.requests.length > 0
+      ) {
         updatedRequests = state.allRequests.requests.map((obj) => {
           if (obj._id === payload._id) {
             return payload;
