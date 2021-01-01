@@ -49,9 +49,10 @@ const EditRequest = ({
   };
 
   useEffect(() => {
-    getSingleRequest(userIDInParam);
     if (redirectPage === true) {
       setRedirect(true);
+    } else {
+      getSingleRequest(userIDInParam);
     }
   }, [getSingleRequest, userIDInParam, redirectPage]);
 
@@ -91,34 +92,8 @@ const EditRequest = ({
                 <Styled.FormField__Div>
                   <div className='asideTweek'></div>
                   <span className='sectionSubTitle'>
-                    <RiInformationLine /> &nbsp;<span>Item Information</span>
+                    <RiInformationLine /> &nbsp;<span>Request Information</span>
                   </span>
-                </Styled.FormField__Div>
-
-                <Styled.FormField__Div>
-                  <Styled.FieldLabel__Div>
-                    <Styled.FieldName__Label>Image(s)</Styled.FieldName__Label>
-                  </Styled.FieldLabel__Div>
-
-                  <Styled.FileField__Div>
-                    <Styled.FileInput__Input
-                      type='file'
-                      id='FileUpload'
-                      disabled={disableInput}
-                    />
-                    <label
-                      className='custom-file-label'
-                      htmlFor='customFile'
-                      style={{
-                        width: '100%',
-                        borderRadius: '3px',
-                        fontSize: '14px',
-                        fontWeight: '400',
-                      }}
-                    >
-                      Choose file
-                    </label>
-                  </Styled.FileField__Div>
                 </Styled.FormField__Div>
 
                 <Styled.FormField__Div>
