@@ -26,9 +26,43 @@ const RequestsForm = ({
   requests: { redirectPage },
 }) => {
   const [formData, setFormData] = useState(initialState);
-  const [redirect, setRedirect] = useState(false);
-
   const { name, description, phoneNumber } = formData;
+  const [redirect, setRedirect] = useState(false);
+  const [selectedImages, setSelectedImages] = useState({});
+  const [image1, setImage1] = useState('');
+  const [image2, setImage2] = useState('');
+  const [image3, setImage3] = useState('');
+
+  let imagesArray = [];
+
+  const handleFileInputChange = (e) => {
+    imagesArray = Array.from(e.target.files);
+    setSelectedImages({ ...imagesArray });
+    if (imagesArray.length > 3) {
+      setSelectedImages({});
+      setImage1('');
+      setImage2('');
+      setImage3('');
+      alert('You can only choose 3 images only');
+    } else {
+      console.log(imagesArray);
+      for (let i = 0; i < imagesArray.length; i++) {
+        const reader = new FileReader();
+        reader.readAsDataURL(imagesArray[i]);
+        reader.onloadend = () => {
+          if (i === 0) {
+            setImage1(reader.result);
+          }
+          if (i === 1) {
+            setImage2(reader.result);
+          }
+          if (i === 2) {
+            setImage3(reader.result);
+          }
+        };
+      }
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -39,13 +73,24 @@ const RequestsForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    createRequest(formData);
+
+    const data = {
+      name,
+      description,
+      phoneNumber,
+      category: formData.category,
+      image1: image1,
+      image2: image2,
+      image3: image3,
+    };
+
+    console.log(data);
+    createRequest(data);
   };
 
   useEffect(() => {
     getAllRequests('');
-    console.log(redirectPage);
+
     if (redirectPage === true) {
       setRedirect(true);
     }
@@ -87,7 +132,15 @@ const RequestsForm = ({
             </Styled.FieldLabel__Div>
 
             <Styled.FileField__Div>
-              <Styled.FileInput__Input type='file' id='FileUpload' />
+              <Styled.FileInput__Input
+                type='file'
+                name='file'
+                title='Request Images'
+                id='FileUpload'
+                accept='image/*'
+                multiple
+                onChange={handleFileInputChange}
+              />
               <label
                 className='custom-file-label'
                 htmlFor='customFile'
@@ -98,7 +151,19 @@ const RequestsForm = ({
                   fontWeight: '400',
                 }}
               >
-                Choose file
+                {Object.keys(selectedImages).length > 0 ? (
+                  Object.keys(selectedImages).length > 1 ? (
+                    <span style={{ color: 'green', borderColor: 'green' }}>
+                      {Object.keys(selectedImages).length} images selected
+                    </span>
+                  ) : (
+                    <span style={{ color: 'green', borderColor: 'green' }}>
+                      {Object.keys(selectedImages).length} image selected
+                    </span>
+                  )
+                ) : (
+                  <>Select images</>
+                )}
               </label>
             </Styled.FileField__Div>
           </Styled.FormField__Div>
@@ -241,6 +306,7 @@ const mapStateToProps = (state) => ({
   requests: state.requests,
 });
 
-export default connect(mapStateToProps, { getAllRequests, createRequest })(
-  RequestsForm
-);
+export default connect(mapStateToProps, {
+  getAllRequests,
+  createRequest,
+})(RequestsForm);
