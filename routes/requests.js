@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-
+const { cloudinary } = require('../utils/cloudinary');
 const User = require('../models/User');
 const Request = require('../models/Request');
 const auth = require('../middleware/auth');
@@ -64,6 +64,16 @@ router.post(
     ],
   ],
   async (req, res) => {
+    const {
+      name,
+      category,
+      description,
+      phoneNumber,
+      image1,
+      image2,
+      image3,
+    } = req.body;
+
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -71,13 +81,58 @@ router.post(
     }
 
     try {
+      // let firstImageURL = '';
+      // let secondImageURL = '';
+      // let thirdImageURL = '';
+      let imagesURLs = [];
+      let counter = 0;
+      if (image1 !== '') {
+        counter++;
+      }
+      if (image2 !== '') {
+        counter++;
+      }
+      if (image3 !== '') {
+        counter++;
+      }
+
+      if (counter !== 0) {
+        for (let i = 0; i < counter; i++) {
+          if (i === 0) {
+            const uploadResponseOne = await cloudinary.uploader.upload(image1, {
+              upload_preset: 'lebanon-freecycle-requests',
+              folder: 'Requests',
+            });
+            imagesURLs.push({ imageURL: uploadResponseOne.url });
+          }
+          if (i === 1) {
+            const uploadResponseTwo = await cloudinary.uploader.upload(image2, {
+              upload_preset: 'lebanon-freecycle-requests',
+              folder: 'Requests',
+            });
+            imagesURLs.push({ imageURL: uploadResponseTwo.url });
+          }
+          if (i === 2) {
+            const uploadResponseThree = await cloudinary.uploader.upload(
+              image3,
+              {
+                upload_preset: 'lebanon-freecycle-requests',
+                folder: 'Requests',
+              }
+            );
+            imagesURLs.push({ imageURL: uploadResponseThree.url });
+          }
+        }
+      }
+
       let user = await User.findById(req.user.id).select('-password');
 
       const newRequest = new Request({
-        name: req.body.name,
-        category: req.body.category,
-        description: req.body.description,
-        phoneNumber: req.body.phoneNumber,
+        name: name,
+        category: category,
+        description: description,
+        phoneNumber: phoneNumber,
+        images: imagesURLs,
         user: {
           id: req.user.id,
           fullname: user.fullname,
@@ -98,6 +153,63 @@ router.post(
     }
   }
 );
+
+/********************************************************************************* */
+// const images = [];
+
+// const uploadResponse = await cloudinary.uploader.upload(imagesContiner, {
+//   upload_preset: 'lebanon-freecycle-requests',
+//   folder: 'Requests',
+//   public_id: `request_${v4()}_${req.user.id}`,
+// });
+// images.push({
+//   image: uploadResponse.url,
+// });
+
+// const imagesArray = req.body.images;
+
+// if (imagesArray.length > 5) {
+//   return res.status(400).json({
+//     errors: [
+//       { msg: 'You can only select at most 5 images', param: 'images' },
+//     ],
+//   });
+// }
+// let images = [];
+// for (img in imagesArray) {
+//   images.push({ imageURL: img });
+// }
+// console.log(images);
+/**
+ * @route    #reqtype: POST | #endpoint: api/requests
+ * @desc     submit request images
+ * @access   Private
+ */
+router.post('/images', auth, async (req, res) => {
+  const { image1, image2, image3 } = req.body;
+  console.log(req.body);
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    let user = await User.findById(req.user.id).select('-password');
+
+    const request = await Request.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: requestFields },
+      { new: true }
+    );
+
+    return res.json(request);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('500 Internal server error');
+  }
+});
 
 /********************************************************************************* */
 
