@@ -22,10 +22,13 @@ const RequestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    data: Buffer,
-    contentType: String,
-  },
+  images: [
+    {
+      imageURL: {
+        type: String,
+      },
+    },
+  ],
   category: {
     type: String,
     required: true,
