@@ -174,6 +174,7 @@ const RequestsPage = ({
                       ItemID={request._id}
                       ItemUserId={request.user.id}
                       likes={request.likes}
+                      images={request.images}
                       type='request'
                     />
                   ))}
