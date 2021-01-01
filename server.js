@@ -7,8 +7,9 @@ connectDB();
 
 const app = express();
 
-// Init Middleware (Allow us to get the data from frontend)
-app.use(express.json({ extended: false }));
+// body parser middleware
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Prevent XSS attacks
 app.use(xss());
