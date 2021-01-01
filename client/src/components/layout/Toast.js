@@ -12,17 +12,17 @@ const Toast = ({
     if (msg && alertType === 'success') {
       cogoToast.success(msg, {
         hideAfter: 5,
-        position: 'top-right',
+        position: 'bottom-right',
       });
     } else if (msg && alertType === 'warning') {
       cogoToast.warn(msg, {
         hideAfter: 5,
-        position: 'top-right',
+        position: 'bottom-right',
       });
     } else if (msg && alertType === 'danger') {
       cogoToast.error(msg, {
         hideAfter: 5,
-        position: 'top-right',
+        position: 'bottom-right',
       });
     }
   }, [msg, alertType]);
