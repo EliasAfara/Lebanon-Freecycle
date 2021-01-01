@@ -29,10 +29,13 @@ export const Card = styled.div`
 `;
 
 export const CardImage = styled.div`
-  display: block;
-  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.12);
   width: 200px;
   height: 200px;
+  overflow: hidden;
 
   @media only screen and (max-width: 600px) {
     width: 100%;

@@ -208,7 +208,7 @@ const ItemCard = ({
                   loading='lazy'
                   draggable='false'
                   width={'100%'}
-                  height={'100%'}
+                  height={'auto'}
                   style={{ cursor: 'pointer' }}
                 />
               </S.CardImage>
