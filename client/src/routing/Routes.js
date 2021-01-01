@@ -19,10 +19,10 @@ import DashboardPage from '../pages/DashboardPage';
 import EditProfile from '../components/Setting/EditProfile';
 import ChangePassword from '../components/Setting/ChangePassword';
 import EditRequest from '../pages/EditRequest';
+import ViewRequest from '../pages/ViewRequest';
 
 // To Be Created
 const ViewDonation = ''; // Single Donation Component
-const ViewRequest = ''; // Single Request Component
 
 const EditDonation = ''; // Component used to edit a donation according to the passed ID
 
