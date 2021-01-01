@@ -1,0 +1,40 @@
+.item-title{
+    margin-top: 0.6em;
+    line-height: 56px;
+    letter-spacing: -0.011em;
+    color: rgba(41, 41, 41, 1);
+
+}
+.item-header{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.user-avatar{
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-fullname{
+    color: rgba(26, 137, 23, 1);
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.header-date{
+    color: rgba(117, 117, 117, 1);
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.dot-divider{
+    margin: 0 7px;
+}
