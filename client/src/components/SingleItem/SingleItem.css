@@ -1,11 +1,26 @@
+.single-item-container{
+    display: block;
+    padding: 0 10px 0 10px;
+    width: 100%;
+}
+
+.single-item-image-slider{
+    margin-bottom: 20px;
+}
+
 .item-title{
-    margin-top: 0.6em;
     line-height: 56px;
     letter-spacing: -0.011em;
     color: rgba(41, 41, 41, 1);
+    margin: 0;
 
 }
 .item-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.item-header-info {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -20,15 +35,15 @@
 }
 
 .user-fullname{
-    color: rgba(26, 137, 23, 1);
+    color: #1980fa;
     line-height: 20px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     margin: 0;
 }
 
 .header-date{
-    color: rgba(117, 117, 117, 1);
+    color: rgb(85, 78, 78);
     line-height: 20px;
     font-size: 14px;
     font-weight: 400;
@@ -37,4 +52,101 @@
 
 .dot-divider{
     margin: 0 7px;
+}
+
+.item-body-container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.item-body-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.item-body-contact{
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    border-left: 1px solid #292929;
+}
+.item-body-info-line{
+    display: flex;
+    flex-direction: column;
+}
+
+.item-body-info-line:first-of-type{
+    margin-bottom: 15px;
+}
+
+
+.item-body-info-title{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.item-body-info-details{
+font-size: 18px;
+font-weight: 400;
+}
+
+.header-icons-container {
+    display: flex;
+    align-items: center;
+}
+
+.header-icon-span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.item-title-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.item-title-leftside-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-love-icon{
+    color: #f05f70;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.header-love-score {
+    font-size: 18px;
+    margin-left: 10px;
+    color: #292929;
+}
+
+.ant-tag-processing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1890ff;
+    background: transparent;
+    border-color: #91d5ff;
+    font-size: inherit;
+}
+
+.ant-tag-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #52c41a;
+    background: transparent;
+    border-color: #b7eb8f;
+    font-size: inherit;
 }
