@@ -45,7 +45,7 @@ const RequestsForm = ({
       setImage3('');
       alert('You can only choose 3 images only');
     } else {
-      console.log(imagesArray);
+      //console.log(imagesArray);
       for (let i = 0; i < imagesArray.length; i++) {
         const reader = new FileReader();
         reader.readAsDataURL(imagesArray[i]);
@@ -74,17 +74,19 @@ const RequestsForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let filteredCategory = formData.category.replace(/&/g, 'and');
+
     const data = {
       name,
       description,
       phoneNumber,
-      category: formData.category,
+      category: filteredCategory,
       image1: image1,
       image2: image2,
       image3: image3,
     };
 
-    console.log(data);
+    //console.log(data);
     createRequest(data);
   };
 
@@ -122,7 +124,7 @@ const RequestsForm = ({
           <Styled.FormField__Div>
             <div className='asideTweek'></div>
             <span className='sectionSubTitle'>
-              <RiInformationLine /> &nbsp;<span>Item Information</span>
+              <RiInformationLine /> &nbsp;<span>Request Information</span>
             </span>
           </Styled.FormField__Div>
 
