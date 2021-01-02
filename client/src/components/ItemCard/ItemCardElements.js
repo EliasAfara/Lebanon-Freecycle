@@ -100,6 +100,7 @@ export const HeaderEllipsis = styled.span`
   height: 25px;
   font-size: 25px;
   color: #8e8e8e;
+  cursor: pointer;
 
   &:hover {
     color: rgba(var(--i1d, 38, 38, 38), 1);
