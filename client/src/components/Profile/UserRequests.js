@@ -18,8 +18,17 @@ const UserRequests = ({
 }) => {
   const [queries, setQueries] = useState([]);
   const [queryStatus, setQueryStatus] = useState('');
+  const [currentCategory, setCurrentCategory] = useState('');
+
+  const [currentSelectedStatus, setCurrentSelectedStatus] = useState(
+    'Select Status'
+  );
+  const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
+    'Select Category'
+  );
 
   const filterStatus = (value) => {
+    setCurrentSelectedStatus(value);
     if (value === 'All') {
       setQueryStatus('');
       setQueries([]);
@@ -28,22 +37,43 @@ const UserRequests = ({
       setQueries([]);
     }
   };
+  const filterCategory = (cat) => {
+    setCurrentSelectedCategory(cat);
+    if (cat === 'All') {
+      setCurrentCategory('');
+      setQueries([]);
+    } else {
+      setCurrentCategory(`category=${cat}`);
+      setQueries([]);
+    }
+  };
 
   useEffect(() => {
     console.log(queries);
 
+    queries.push(`user.username=${userNameInParam}`);
+
+    if (currentCategory.length > 0) {
+      let filteredCategory = currentCategory.replace(/&/g, 'and');
+
+      queries.push(filteredCategory);
+    }
     if (queryStatus.length > 0) {
       queries.push(queryStatus);
-      queries.push(`user.username=${userNameInParam}`);
     }
 
     if (queries.length > 0) {
       const activeQueries = queries.join('&');
+
       getAllUserRequests(activeQueries);
-    } else {
-      getAllUserRequests(`user.username=${userNameInParam}`);
     }
-  }, [getAllUserRequests, queries, queryStatus, userNameInParam]);
+  }, [
+    getAllUserRequests,
+    userNameInParam,
+    queries,
+    queryStatus,
+    currentCategory,
+  ]);
 
   return (
     <>
@@ -53,7 +83,10 @@ const UserRequests = ({
         <>
           <FilterBar
             filterStatus={filterStatus}
+            currentSelectedStatus={currentSelectedStatus}
             categories={RequestCategories}
+            filterCategory={filterCategory}
+            currentSelectedCategory={currentSelectedCategory}
           />
           {userRequests.length > 0 ? (
             userRequests.map((request) => (

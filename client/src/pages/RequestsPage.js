@@ -9,11 +9,9 @@ import { GiBrokenHeartZone } from 'react-icons/gi';
 
 import '../components/FilterBar/FilterBar.css';
 import ItemCard from '../components/ItemCard/ItemCard';
-//import FilterBar from '../components/FilterBar/FilterBar';
+import FilterBar from '../components/FilterBar/FilterBar';
 import Spinner from '../components/Spinner/Spinner';
 import { Pagination } from 'antd';
-import { Select } from 'antd';
-const { Option } = Select;
 
 const RequestsPage = ({
   getAllRequests,
@@ -84,7 +82,9 @@ const RequestsPage = ({
       queries.push(queryStatus);
     }
     if (currentCategory.length > 0) {
-      queries.push(currentCategory);
+      let filteredCategory = currentCategory.replace(/&/g, 'and');
+
+      queries.push(filteredCategory);
     }
 
     if (queries.length > 0) {
@@ -107,57 +107,13 @@ const RequestsPage = ({
             <Spinner />
           ) : (
             <>
-              <>
-                <div className='filterBar-container'>
-                  <div className='filterBar'>
-                    <div className='filterBar__title'>
-                      <span className='filterBar__title-text'>Filter</span>
-                    </div>
-                    <div className='filterbar__filter'>
-                      <label className='filterbar__label'>Status:</label>
-                      <Select
-                        placeholder='Select Status'
-                        style={{ width: 120 }}
-                        onChange={filterStatus}
-                        title='Select Status'
-                        defaultValue='All'
-                        value={currentSelectedStatus}
-                      >
-                        <Option value='All'>All</Option>
-                        <Option value='Available'>Available</Option>
-                        <Option value='Completed'>Completed</Option>
-                      </Select>
-                    </div>
-
-                    <div className='filterbar__filter'>
-                      <label className='filterbar__label'>Category:</label>
-                      <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder='Select Category'
-                        dropdownMatchSelectWidth={false}
-                        optionFilterProp='children'
-                        filterOption={(input, option) =>
-                          option.children
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        }
-                        onChange={filterCategory}
-                        value={currentSelectedCategory}
-                      >
-                        <Option value='All'>All</Option>
-                        {RequestCategories.map((category) => {
-                          return (
-                            <Option key={category.id} value={category.title}>
-                              {category.title}
-                            </Option>
-                          );
-                        })}
-                      </Select>
-                    </div>
-                  </div>
-                </div>
-              </>
+              <FilterBar
+                filterStatus={filterStatus}
+                currentSelectedStatus={currentSelectedStatus}
+                categories={RequestCategories}
+                filterCategory={filterCategory}
+                currentSelectedCategory={currentSelectedCategory}
+              />
               {requests.length > 0 ? (
                 <>
                   {requests.map((request) => (
