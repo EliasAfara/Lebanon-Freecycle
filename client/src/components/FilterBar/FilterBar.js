@@ -3,7 +3,13 @@ import './FilterBar.css';
 import { Select } from 'antd';
 const { Option } = Select;
 
-const FilterBar = ({ filterStatus, categories }) => {
+const FilterBar = ({
+  filterStatus,
+  currentSelectedStatus,
+  categories,
+  filterCategory,
+  currentSelectedCategory,
+}) => {
   return (
     <>
       <div className='filterBar-container'>
@@ -14,10 +20,10 @@ const FilterBar = ({ filterStatus, categories }) => {
           <div className='filterbar__filter'>
             <label className='filterbar__label'>Status:</label>
             <Select
-              defaultValue='All'
-              placeholder='Status'
+              placeholder='Select Status'
               style={{ width: 120 }}
               onChange={filterStatus}
+              value={currentSelectedStatus}
               title='Select Status'
             >
               <Option value='All'>All</Option>
@@ -37,10 +43,13 @@ const FilterBar = ({ filterStatus, categories }) => {
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
+              onChange={filterCategory}
+              value={currentSelectedCategory}
             >
+              <Option value='All'>All</Option>
               {categories.map((category) => {
                 return (
-                  <Option key={category.id} value={category.id}>
+                  <Option key={category.id} value={category.title}>
                     {category.title}
                   </Option>
                 );
