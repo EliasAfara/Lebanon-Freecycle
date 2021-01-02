@@ -2,10 +2,10 @@ import React from 'react';
 import './Slider.css';
 import { Carousel, CarouselItem } from 'react-bootstrap';
 
-const ImageSlider = ({ images }) => {
+const ImageSlider = ({ images, interval, fade }) => {
   return (
     <div className='SliderConatiner'>
-      <Carousel>
+      <Carousel interval={interval} fade={fade}>
         {images.map((img, index) => {
           return (
             <CarouselItem key={index}>
