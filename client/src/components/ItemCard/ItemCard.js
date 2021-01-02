@@ -1,24 +1,23 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 // Redux
 import { connect } from 'react-redux';
 
-import { Link } from 'react-router-dom';
+import ModalPopUp from '../Modal/ModalPopUp';
+import AuthenticatedUserActions from '../Modal/AuthenticatedUserActions';
+import GuestUserActions from '../Modal/GuestUserActions';
 import { updateRequestStatus, deleteRequest } from '../../actions/requests';
 
 // Styled Components
 import * as S from './ItemCardElements';
 import { formatDate, formatDateMDY } from '../../utils/formatDate';
 // React Icons
-import { FaEllipsisV } from 'react-icons/fa';
-import { FaEdit } from 'react-icons/fa';
-import { FaTrash } from 'react-icons/fa';
-import { FaCheckSquare } from 'react-icons/fa';
+import { VscEllipsis } from 'react-icons/vsc';
 import { BsHeart } from 'react-icons/bs';
 
+import ImageSlider from '../SingleItem/ImageSlider';
 // Ant Design Delete Model
-
-import { Image } from 'antd';
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 const { confirm } = Modal;
@@ -42,28 +41,8 @@ const ItemCard = ({
   images,
   type,
   auth,
-  showActions,
 }) => {
-  const node = useRef();
-  const [openActions, setOpenActions] = useState(false);
-
-  const handleClick = (e) => {
-    if (node.current.contains(e.target)) {
-      // inside component click
-      return;
-    }
-    // outside component click
-    setOpenActions(false);
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', handleClick); // left click
-
-    return () => {
-      // clean up
-      document.removeEventListener('click', handleClick);
-    };
-  }, []);
+  const [modalShow, setModalShow] = useState(false);
 
   const handleComplete = () => {
     let newStatus = '';
@@ -72,7 +51,7 @@ const ItemCard = ({
     } else {
       newStatus = 'Available';
     }
-    setOpenActions(!openActions);
+
     confirm({
       title: 'Are you sure?',
       icon: <ExclamationCircleOutlined />,
@@ -92,7 +71,6 @@ const ItemCard = ({
   };
 
   const handleDelete = () => {
-    setOpenActions(!openActions);
     confirm({
       title: 'Are you sure?',
       icon: <ExclamationCircleOutlined />,
@@ -112,80 +90,6 @@ const ItemCard = ({
     });
   };
 
-  const CardActionsDropDown = () => (
-    <S.DropdownActionsList>
-      {showActions && (
-        <>
-          {!auth.authLoading && auth.isAuthenticated ? (
-            ItemUserId === auth.user._id ? (
-              <>
-                {ItemStatus === 'Available' && (
-                  <Link
-                    to={`/edit-${type}/${ItemID}`}
-                    onClick={() => setOpenActions(!openActions)}
-                  >
-                    <S.DropdownAction>
-                      <S.ActionIcon>
-                        <FaEdit style={{ color: '#1890ff' }} />
-                      </S.ActionIcon>
-                      Edit
-                    </S.DropdownAction>
-                  </Link>
-                )}
-
-                <S.DropdownAction
-                  onClick={handleComplete}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <S.ActionIcon>
-                    <FaCheckSquare
-                      style={{
-                        color: `${
-                          ItemStatus === 'Available' ? 'grey' : 'green'
-                        }`,
-                      }}
-                    />
-                  </S.ActionIcon>
-                  {ItemStatus === 'Available' ? <>Completed</> : <>Available</>}
-                </S.DropdownAction>
-
-                <S.DropdownAction
-                  onClick={handleDelete}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <S.ActionIcon>
-                    <FaTrash style={{ color: 'red' }} />
-                  </S.ActionIcon>
-                  Delete
-                </S.DropdownAction>
-              </>
-            ) : (
-              <S.DropdownAction
-                onClick={() => setOpenActions(!openActions)}
-                style={{ cursor: 'pointer' }}
-              >
-                <span style={{ color: 'red' }}>Report</span>
-              </S.DropdownAction>
-            )
-          ) : (
-            <S.DropdownAction
-              onClick={() => setOpenActions(!openActions)}
-              style={{ cursor: 'pointer' }}
-            >
-              <span style={{ color: 'red' }}>Report</span>
-            </S.DropdownAction>
-          )}
-          <S.DropdownAction
-            onClick={() => setOpenActions(!openActions)}
-            style={{ cursor: 'pointer' }}
-          >
-            <span style={{ color: 'Blue' }}>Share</span>
-          </S.DropdownAction>
-        </>
-      )}
-    </S.DropdownActionsList>
-  );
-
   return (
     <>
       <div
@@ -201,16 +105,7 @@ const ItemCard = ({
           >
             {images && images.length > 0 && (
               <S.CardImage>
-                <Image
-                  src={images[0].imageURL}
-                  alt='Request Image'
-                  title='Click to preview'
-                  loading='lazy'
-                  draggable='false'
-                  width={'100%'}
-                  height={'auto'}
-                  style={{ cursor: 'pointer' }}
-                />
+                <ImageSlider images={images} interval={null} fade={false} />
               </S.CardImage>
             )}
 
@@ -244,17 +139,38 @@ const ItemCard = ({
                     </S.HeaderUserFullName>
                   )}
 
-                  {/* NEEDS IS AUTHENTICATED CONDITION TO BE ADDED */}
-                  <S.HeaderEllipsis ref={node}>
-                    <FaEllipsisV
-                      onClick={() => setOpenActions(!openActions)}
-                      style={{ width: '4px', cursor: 'pointer' }}
+                  <S.HeaderEllipsis onClick={() => setModalShow(true)}>
+                    <VscEllipsis
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                      }}
                     />
-
-                    {openActions && <CardActionsDropDown />}
                   </S.HeaderEllipsis>
-                  {/* NEEDS IS AUTHENTICATED CONDITION TO BE ADDED */}
                 </S.ContentHeader>
+
+                <ModalPopUp
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                  actions={
+                    !auth.authLoading && auth.isAuthenticated ? (
+                      ItemUserId === auth.user._id ? (
+                        <AuthenticatedUserActions
+                          itemStatus={ItemStatus}
+                          editLink={`/edit-${type}/${ItemID}`}
+                          onClickHandleComplete={handleComplete}
+                          onClickHandleDelete={handleDelete}
+                          onHide={() => setModalShow(false)}
+                        />
+                      ) : (
+                        <GuestUserActions />
+                      )
+                    ) : (
+                      <GuestUserActions />
+                    )
+                  }
+                />
+
                 <S.DetailsUnOrderedList>
                   {ItemName && (
                     <S.ListItems>
@@ -308,11 +224,10 @@ const ItemCard = ({
                       <BsHeart style={{ color: '#f05f70' }} />{' '}
                       {likes && likes.length > 0 && likes.length}
                     </S.ContentBtn>
-                    {ItemStatus === 'Available' && (
-                      <S.ContentBtn>
-                        <Link to={`/${type}/${ItemID}`}>View More</Link>
-                      </S.ContentBtn>
-                    )}
+
+                    <S.ContentBtn>
+                      <Link to={`/${type}/${ItemID}`}>View More</Link>
+                    </S.ContentBtn>
                   </>
                   {ItemDateOfCreation && (
                     <S.ContentDate>
@@ -334,15 +249,10 @@ const ItemCard = ({
   );
 };
 
-ItemCard.defaultProps = {
-  showActions: true,
-};
-
 ItemCard.propTypes = {
   updateRequestStatus: PropTypes.func.isRequired,
   deleteRequest: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  showActions: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
