@@ -86,10 +86,7 @@ export default function requests(state = initialState, action) {
       };
     case UPDATE_A_REQUEST_SUCCESS:
       let updatedRequests = [];
-      if (
-        state.allRequests.length > 0 &&
-        state.allRequests.requests.length > 0
-      ) {
+      if (state.allRequests && state.allRequests.requests.length > 0) {
         updatedRequests = state.allRequests.requests.map((obj) => {
           if (obj._id === payload._id) {
             return payload;
@@ -124,7 +121,7 @@ export default function requests(state = initialState, action) {
 
     case UPDATE_REQUEST_STATUS_SUCCESS:
       let updatedRequestsStatus = [];
-      if (state.allRequests.requests.length > 0) {
+      if (state.allRequests && state.allRequests.requests.length > 0) {
         updatedRequestsStatus = state.allRequests.requests.map((obj) => {
           if (obj._id === payload._id) {
             return payload;
@@ -145,6 +142,14 @@ export default function requests(state = initialState, action) {
         });
       }
 
+      let updateSingleRequestStatus = state.singleRequests;
+      if (
+        state.singleRequests !== null &&
+        state.singleRequests._id === payload._id
+      ) {
+        updateSingleRequestStatus = payload;
+      }
+
       return {
         ...state,
         allRequests: {
@@ -152,6 +157,7 @@ export default function requests(state = initialState, action) {
           requests: updatedRequestsStatus,
         },
         userRequests: updatedUserRequestsStatus,
+        singleRequests: updateSingleRequestStatus,
         loading: false,
         redirectPage: false,
         error: {},
