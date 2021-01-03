@@ -77,7 +77,7 @@ const ViewRequest = ({
   };
 
   return (
-    <>
+    <div style={{ width: '100%', maxWidth: '700px' }}>
       {singleRequestLoading || singleRequests === null ? (
         <Spinner />
       ) : (
@@ -94,7 +94,7 @@ const ViewRequest = ({
           />
         </>
       )}
-    </>
+    </div>
   );
 };
 
