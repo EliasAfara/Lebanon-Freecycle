@@ -1,17 +1,16 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
 import DonationsForm from '../components/DashboardForms/DonationsForm';
 import RequestsForm from '../components/DashboardForms/RequestsForm';
 import Tabs from '../components/Tabs/NavTabs';
 
-const DashboardPage = (props) => {
+const DashboardPage = () => {
   return (
     <div style={{ width: '100%', maxWidth: '1000px' }}>
       <Tabs
-        firstTab='Donations Form'
+        firstTab='Submit A Donation'
         firstKey='Donations'
         firstComponent={<DonationsForm />}
-        secondTab='Requests Form'
+        secondTab='Submit A Request'
         secondKey='Requests'
         secondComponent={<RequestsForm />}
         size='large'
@@ -21,7 +20,5 @@ const DashboardPage = (props) => {
     </div>
   );
 };
-
-//DashboardPage.propTypes = {};
 
 export default DashboardPage;
