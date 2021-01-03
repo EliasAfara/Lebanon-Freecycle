@@ -16,7 +16,7 @@ import { Pagination, Button } from 'antd';
 const RequestsPage = ({
   getAllRequests,
   requests: {
-    allRequests: { requests, totalPages },
+    allRequests: { requests, totalRequests },
     loading,
   },
 }) => {
@@ -162,7 +162,7 @@ const RequestsPage = ({
                       defaultCurrent={1}
                       current={currentPage}
                       onChange={onChange}
-                      total={totalPages}
+                      total={totalRequests}
                       showSizeChanger={false}
                       hideOnSinglePage={true}
                     />

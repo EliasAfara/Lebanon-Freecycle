@@ -155,63 +155,6 @@ router.post(
 );
 
 /********************************************************************************* */
-// const images = [];
-
-// const uploadResponse = await cloudinary.uploader.upload(imagesContiner, {
-//   upload_preset: 'lebanon-freecycle-requests',
-//   folder: 'Requests',
-//   public_id: `request_${v4()}_${req.user.id}`,
-// });
-// images.push({
-//   image: uploadResponse.url,
-// });
-
-// const imagesArray = req.body.images;
-
-// if (imagesArray.length > 5) {
-//   return res.status(400).json({
-//     errors: [
-//       { msg: 'You can only select at most 5 images', param: 'images' },
-//     ],
-//   });
-// }
-// let images = [];
-// for (img in imagesArray) {
-//   images.push({ imageURL: img });
-// }
-// console.log(images);
-/**
- * @route    #reqtype: POST | #endpoint: api/requests
- * @desc     submit request images
- * @access   Private
- */
-router.post('/images', auth, async (req, res) => {
-  const { image1, image2, image3 } = req.body;
-  console.log(req.body);
-
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  try {
-    let user = await User.findById(req.user.id).select('-password');
-
-    const request = await Request.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: requestFields },
-      { new: true }
-    );
-
-    return res.json(request);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('500 Internal server error');
-  }
-});
-
-/********************************************************************************* */
 
 /**
  * @route    #reqtype: GET | #endpoint: api/requests
@@ -234,17 +177,22 @@ router.get('/', async (req, res) => {
     ).filtering();
 
     let allRequests = await getAllFilteredRequests.query;
-    let totalPages = allRequests.length;
-    // const pagesLimit = 10;
-    // let totalPages = Math.ceil(allRequests.length / pagesLimit);
+    let totalRequests = allRequests.length;
 
-    // const pageNumbers = [];
-    // for (let i = 1; i <= totalPages; i++) {
-    //   pageNumbers.push(i);
-    // }
+    let filterQueryString = req.query;
+    let statusFilter = '';
+    // TODO
+    if (Object.keys(filterQueryString).length > 0) {
+      if (filterQueryString.status === 'Available') {
+        statusFilter = 'Available';
+      } else if (filterQueryString.status === 'Completed') {
+        statusFilter = 'Completed';
+      }
+    }
 
     res.json({
-      totalPages: totalPages,
+      totalRequests: totalRequests,
+      statusFilter: statusFilter,
       requests,
     });
   } catch (err) {
