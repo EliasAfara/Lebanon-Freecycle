@@ -10,6 +10,8 @@ import ItemCard from '../ItemCard/ItemCard';
 import FilterBar from '../FilterBar/FilterBar';
 import Spinner from '../Spinner/Spinner';
 import { GiBrokenHeartZone } from 'react-icons/gi';
+import { Button } from 'antd';
+import SideFilterBar from '../FilterBar/SideFilterBar';
 
 const UserRequests = ({
   getAllUserRequests,
@@ -26,6 +28,8 @@ const UserRequests = ({
   const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
     'Select Category'
   );
+
+  const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
 
   const filterStatus = (value) => {
     setCurrentSelectedStatus(value);
@@ -81,13 +85,34 @@ const UserRequests = ({
         <Spinner />
       ) : (
         <>
-          <FilterBar
-            filterStatus={filterStatus}
-            currentSelectedStatus={currentSelectedStatus}
-            categories={RequestCategories}
-            filterCategory={filterCategory}
-            currentSelectedCategory={currentSelectedCategory}
-          />
+          <div className='FilterBar-wrapper'>
+            <FilterBar
+              filterStatus={filterStatus}
+              currentSelectedStatus={currentSelectedStatus}
+              categories={RequestCategories}
+              filterCategory={filterCategory}
+              currentSelectedCategory={currentSelectedCategory}
+            />
+          </div>
+
+          <div className='SideFilterBar-wrapper'>
+            <Button
+              type='primary'
+              onClick={() => setSideFilterBarVisible(true)}
+            >
+              Filter Requests
+            </Button>
+            <SideFilterBar
+              onClose={() => setSideFilterBarVisible(false)}
+              visible={sideFilterBarVisible}
+              filterStatus={filterStatus}
+              currentSelectedStatus={currentSelectedStatus}
+              categories={RequestCategories}
+              filterCategory={filterCategory}
+              currentSelectedCategory={currentSelectedCategory}
+            />
+          </div>
+
           {userRequests.length > 0 ? (
             userRequests.map((request) => (
               <ItemCard

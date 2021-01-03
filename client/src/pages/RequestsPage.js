@@ -7,11 +7,11 @@ import { getAllRequests } from '../actions/requests';
 import { RequestCategories } from '../shared/Categories';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 
-import '../components/FilterBar/FilterBar.css';
 import ItemCard from '../components/ItemCard/ItemCard';
 import FilterBar from '../components/FilterBar/FilterBar';
+import SideFilterBar from '../components/FilterBar/SideFilterBar';
 import Spinner from '../components/Spinner/Spinner';
-import { Pagination } from 'antd';
+import { Pagination, Button } from 'antd';
 
 const RequestsPage = ({
   getAllRequests,
@@ -33,6 +33,8 @@ const RequestsPage = ({
   const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
     'Select Category'
   );
+  const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
+
   const timedSpinner = () => {
     setShowTimedSpinner(true);
     setTimeout(function () {
@@ -107,13 +109,34 @@ const RequestsPage = ({
             <Spinner />
           ) : (
             <>
-              <FilterBar
-                filterStatus={filterStatus}
-                currentSelectedStatus={currentSelectedStatus}
-                categories={RequestCategories}
-                filterCategory={filterCategory}
-                currentSelectedCategory={currentSelectedCategory}
-              />
+              <div className='FilterBar-wrapper'>
+                <FilterBar
+                  filterStatus={filterStatus}
+                  currentSelectedStatus={currentSelectedStatus}
+                  categories={RequestCategories}
+                  filterCategory={filterCategory}
+                  currentSelectedCategory={currentSelectedCategory}
+                />
+              </div>
+
+              <div className='SideFilterBar-wrapper'>
+                <Button
+                  type='primary'
+                  onClick={() => setSideFilterBarVisible(true)}
+                >
+                  Filter Requests
+                </Button>
+                <SideFilterBar
+                  onClose={() => setSideFilterBarVisible(false)}
+                  visible={sideFilterBarVisible}
+                  filterStatus={filterStatus}
+                  currentSelectedStatus={currentSelectedStatus}
+                  categories={RequestCategories}
+                  filterCategory={filterCategory}
+                  currentSelectedCategory={currentSelectedCategory}
+                />
+              </div>
+
               {requests.length > 0 ? (
                 <>
                   {requests.map((request) => (
