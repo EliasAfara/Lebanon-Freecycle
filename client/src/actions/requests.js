@@ -159,6 +159,7 @@ export const updateRequestStatus = (requestId, requestStatus) => async (
 
     dispatch(setToast('Request status was changed successfuly', 'success'));
   } catch (err) {
+    console.log(err);
     dispatch({
       type: UPDATE_REQUEST_FAIL,
       payload: { msg: err.response.statusText, status: err.response.status },

@@ -15,7 +15,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  allRequests: [],
+  allRequests: {},
   userRequests: [],
   singleRequests: null,
   singleRequestLoading: true,
@@ -23,6 +23,7 @@ const initialState = {
   editRequestFormLoading: true,
   userRequestLoading: true,
   redirectPage: false,
+  singleRequestRedirectOnDelete: false,
   error: {},
 };
 
@@ -37,6 +38,7 @@ export default function requests(state = initialState, action) {
         editRequestFormLoading: true,
         userRequestLoading: true,
         singleRequestLoading: true,
+        singleRequestRedirectOnDelete: false,
       };
     case GET_ALL_REQUESTS:
       return {
@@ -72,12 +74,13 @@ export default function requests(state = initialState, action) {
         editRequestFormLoading: true,
         loading: true,
         singleRequestLoading: true,
+        singleRequestRedirectOnDelete: false,
       };
     case CREATE_A_REQUEST_SUCCESS:
       return {
         ...state,
         allRequests: {
-          totalPages: state.allRequests.totalPages + 1,
+          totalRequests: state.allRequests.totalRequests + 1,
           requests: [payload, ...state.allRequests.requests],
         },
         loading: false,
@@ -86,14 +89,18 @@ export default function requests(state = initialState, action) {
       };
     case UPDATE_A_REQUEST_SUCCESS:
       let updatedRequests = [];
-      if (state.allRequests && state.allRequests.requests.length > 0) {
-        updatedRequests = state.allRequests.requests.map((obj) => {
-          if (obj._id === payload._id) {
-            return payload;
-          } else {
-            return obj;
-          }
-        });
+      if (Object.keys(state.allRequests).length > 0) {
+        if (state.allRequests.requests.length > 0) {
+          updatedRequests = state.allRequests.requests.map((obj) => {
+            if (obj._id === payload._id) {
+              return payload;
+            } else {
+              return obj;
+            }
+          });
+        }
+      } else {
+        updatedRequests = state.allRequests.requests;
       }
 
       let updatedUserRequests = [];
@@ -110,25 +117,28 @@ export default function requests(state = initialState, action) {
       return {
         ...state,
         allRequests: {
-          totalPages: state.allRequests.totalPages,
+          totalRequests: state.allRequests.totalRequests,
           requests: updatedRequests,
         },
         userRequests: updatedUserRequests,
-        loading: false,
         redirectPage: true,
         error: {},
       };
 
     case UPDATE_REQUEST_STATUS_SUCCESS:
       let updatedRequestsStatus = [];
-      if (state.allRequests && state.allRequests.requests.length > 0) {
-        updatedRequestsStatus = state.allRequests.requests.map((obj) => {
-          if (obj._id === payload._id) {
-            return payload;
-          } else {
-            return obj;
-          }
-        });
+      if (Object.keys(state.allRequests).length > 0) {
+        if (state.allRequests.requests.length > 0) {
+          updatedRequestsStatus = state.allRequests.requests.map((obj) => {
+            if (obj._id === payload._id) {
+              return payload;
+            } else {
+              return obj;
+            }
+          });
+        }
+      } else {
+        updatedRequestsStatus = state.allRequests.requests;
       }
 
       let updatedUserRequestsStatus = [];
@@ -153,36 +163,51 @@ export default function requests(state = initialState, action) {
       return {
         ...state,
         allRequests: {
-          totalPages: state.allRequests.totalPages,
+          totalRequests: state.allRequests.totalRequests,
           requests: updatedRequestsStatus,
         },
         userRequests: updatedUserRequestsStatus,
         singleRequests: updateSingleRequestStatus,
-        loading: false,
         redirectPage: false,
         error: {},
       };
     case DELETE_A_REQUEST:
       let filteredRequests = [];
-      if (state.allRequests.requests.length > 0) {
-        filteredRequests = state.allRequests.requests.filter(
-          (request) => request._id !== payload
-        );
+      let newTotalRequests = state.allRequests.totalRequests;
+      if (state.allRequests && state.allRequests.requests) {
+        newTotalRequests--;
+        if (state.allRequests.requests.length > 0) {
+          filteredRequests = state.allRequests.requests.filter(
+            (request) => request._id !== payload
+          );
+        }
+      } else {
+        filteredRequests = state.allRequests.requests;
       }
+
       let newUserRequests = [];
       if (state.userRequests.length > 0) {
         newUserRequests = state.userRequests.filter(
           (request) => request._id !== payload
         );
       }
+
+      let singleRequestDeleteCheck = state.singleRequests;
+      if (
+        state.singleRequests !== null &&
+        state.singleRequests._id === payload
+      ) {
+        singleRequestDeleteCheck = null;
+      }
       return {
         ...state,
         allRequests: {
-          totalPages: state.allRequests.totalPages - 1,
+          totalRequests: newTotalRequests,
           requests: filteredRequests,
         },
         userRequests: newUserRequests,
-        loading: false,
+        singleRequests: singleRequestDeleteCheck,
+        singleRequestRedirectOnDelete: true,
       };
     case CREATE_REQUEST_FAIL:
     case UPDATE_REQUEST_FAIL:
@@ -196,7 +221,7 @@ export default function requests(state = initialState, action) {
         ...state,
         error: payload,
         loading: false,
-        allRequests: [],
+        allRequests: {},
         userRequests: [],
         singleRequests: null,
       };
