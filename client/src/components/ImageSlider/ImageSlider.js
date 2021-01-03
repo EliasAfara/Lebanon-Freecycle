@@ -1,6 +1,7 @@
 import React from 'react';
 import './Slider.css';
 import { Carousel, CarouselItem } from 'react-bootstrap';
+import LazyImage from './LazyImage';
 
 const ImageSlider = ({ images, interval, fade }) => {
   return (
@@ -24,7 +25,15 @@ const ImageSlider = ({ images, interval, fade }) => {
         {images.map((img, index) => {
           return (
             <CarouselItem key={index}>
-              <img src={img.imageURL} alt={`Slide${index}`} className='image' />
+              {index === 0 ? (
+                <LazyImage src={img.imageURL} alt={`Slide${index}`} />
+              ) : (
+                <img
+                  src={img.imageURL}
+                  alt={`Slide${index}`}
+                  className='image'
+                />
+              )}
             </CarouselItem>
           );
         })}
