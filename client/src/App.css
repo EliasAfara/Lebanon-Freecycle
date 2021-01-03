@@ -24,6 +24,13 @@ button:focus{
     align-items: center;
     flex-direction: column;
 }
+.FilterBar-wrapper{
+    display: block;
+}
+
+.SideFilterBar-wrapper{
+display: none;
+}
 
 .ant-drawer-close {
     display: flex;
@@ -412,6 +419,14 @@ i.fa-instagram {
 /* Footer css */
 
 @media only screen and (max-width: 767px) {
+
+    .FilterBar-wrapper{
+        display: none;
+    }
+
+    .SideFilterBar-wrapper{
+        display: block;
+    }
 
     .resCol {
         flex: 2;
