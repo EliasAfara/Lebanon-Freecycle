@@ -17,7 +17,9 @@ const LazyImage = ({ src, alt }) => {
           onLoad={removePlaceholder}
           onError={removePlaceholder}
           src={src}
+          loading='lazy'
           alt={alt}
+          draggable='false'
         />
       </LazyLoad>
     </ImageWrapper>

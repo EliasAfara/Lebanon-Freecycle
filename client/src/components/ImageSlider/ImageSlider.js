@@ -30,8 +30,10 @@ const ImageSlider = ({ images, interval, fade }) => {
               ) : (
                 <img
                   src={img.imageURL}
+                  loading='lazy'
                   alt={`Slide${index}`}
                   className='image'
+                  draggable='false'
                 />
               )}
             </CarouselItem>
