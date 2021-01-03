@@ -16,7 +16,7 @@ import { formatDate, formatDateMDY } from '../../utils/formatDate';
 import { VscEllipsis } from 'react-icons/vsc';
 import { BsHeart } from 'react-icons/bs';
 
-import ImageSlider from '../SingleItem/ImageSlider';
+import ImageSlider from '../ImageSlider/ImageSlider';
 // Ant Design Delete Model
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';

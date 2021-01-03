@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import ImageSlider from './ImageSlider';
+import { Link } from 'react-router-dom';
 
 import { formatDate, formatDateMDY } from '../../utils/formatDate';
+import ModalPopUp from '../Modal/ModalPopUp';
+import AuthenticatedUserActions from '../Modal/AuthenticatedUserActions';
+import GuestUserActions from '../Modal/GuestUserActions';
+import ImageSlider from '../ImageSlider/ImageSlider';
 import './SingleItem.css';
-import { Link } from 'react-router-dom';
 import { VscEllipsis } from 'react-icons/vsc';
 import ShareIcon from '../SVGComponents/ShareIcon';
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
 import { Tooltip, Tag } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
-import ModalPopUp from '../Modal/ModalPopUp';
-import AuthenticatedUserActions from '../Modal/AuthenticatedUserActions';
-import GuestUserActions from '../Modal/GuestUserActions';
 
 const SingleItem = ({
   item: {
