@@ -19,7 +19,11 @@ const ViewRequest = ({
   getSingleRequest,
   updateRequestStatus,
   deleteRequest,
-  requests: { singleRequests, singleRequestLoading },
+  requests: {
+    singleRequests,
+    singleRequestLoading,
+    singleRequestRedirectOnDelete,
+  },
   auth,
   match,
 }) => {
@@ -68,13 +72,14 @@ const ViewRequest = ({
       onOk() {
         deleteRequest(singleRequests._id);
         console.log('Deleted');
-        return <Redirect to='/requests' />;
       },
       onCancel() {
         console.log('Canceled');
       },
     });
   };
+
+  if (singleRequestRedirectOnDelete) return <Redirect to='/requests' />;
 
   return (
     <div style={{ width: '100%', maxWidth: '700px' }}>
