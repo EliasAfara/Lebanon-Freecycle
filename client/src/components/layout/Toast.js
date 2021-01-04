@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cogoToast from 'cogo-toast';
 
-const Toast = ({
-  toastObj: {
-    toast: { msg, alertType },
-  },
-}) => {
+const Toast = ({ toastObj: { msg, alertType } }) => {
   useEffect(() => {
     if (msg && alertType === 'success') {
       cogoToast.success(msg, {
