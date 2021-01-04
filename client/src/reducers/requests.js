@@ -1,18 +1,4 @@
-import {
-  RESET_GET_ALL_REQUESTS_LOADING,
-  GET_ALL_REQUESTS,
-  GET_ALL_USER_REQUESTS,
-  CLEAR_USER_REQUESTS,
-  GET_A_SINGLE_REQUEST,
-  CLEAR_SINGLE_REQUEST,
-  REQUESTS_ERROR,
-  CREATE_A_REQUEST_SUCCESS,
-  CREATE_REQUEST_FAIL,
-  UPDATE_A_REQUEST_SUCCESS,
-  UPDATE_REQUEST_STATUS_SUCCESS,
-  UPDATE_REQUEST_FAIL,
-  DELETE_A_REQUEST,
-} from '../actions/types';
+import * as actionsType from '../actions/types';
 
 const initialState = {
   allRequests: {},
@@ -31,7 +17,7 @@ export default function requests(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case RESET_GET_ALL_REQUESTS_LOADING:
+    case actionsType.RESET_GET_ALL_REQUESTS_LOADING:
       return {
         ...state,
         loading: true,
@@ -40,34 +26,34 @@ export default function requests(state = initialState, action) {
         singleRequestLoading: true,
         singleRequestRedirectOnDelete: false,
       };
-    case GET_ALL_REQUESTS:
+    case actionsType.GET_ALL_REQUESTS:
       return {
         ...state,
         allRequests: payload,
         loading: false,
         redirectPage: false,
       };
-    case GET_ALL_USER_REQUESTS:
+    case actionsType.GET_ALL_USER_REQUESTS:
       return {
         ...state,
         userRequests: payload,
         userRequestLoading: false,
         redirectPage: false,
       };
-    case CLEAR_USER_REQUESTS:
+    case actionsType.CLEAR_USER_REQUESTS:
       return {
         ...state,
         userRequests: [],
         userRequestLoading: true,
       };
-    case GET_A_SINGLE_REQUEST:
+    case actionsType.GET_A_SINGLE_REQUEST:
       return {
         ...state,
         singleRequests: payload,
         editRequestFormLoading: false,
         singleRequestLoading: false,
       };
-    case CLEAR_SINGLE_REQUEST:
+    case actionsType.CLEAR_SINGLE_REQUEST:
       return {
         ...state,
         singleRequests: null,
@@ -76,7 +62,7 @@ export default function requests(state = initialState, action) {
         singleRequestLoading: true,
         singleRequestRedirectOnDelete: false,
       };
-    case CREATE_A_REQUEST_SUCCESS:
+    case actionsType.CREATE_A_REQUEST_SUCCESS:
       return {
         ...state,
         allRequests: {
@@ -87,7 +73,7 @@ export default function requests(state = initialState, action) {
         redirectPage: true,
         error: {},
       };
-    case UPDATE_A_REQUEST_SUCCESS:
+    case actionsType.UPDATE_A_REQUEST_SUCCESS:
       let updatedRequests = [];
       if (Object.keys(state.allRequests).length > 0) {
         if (state.allRequests.requests.length > 0) {
@@ -125,7 +111,7 @@ export default function requests(state = initialState, action) {
         error: {},
       };
 
-    case UPDATE_REQUEST_STATUS_SUCCESS:
+    case actionsType.UPDATE_REQUEST_STATUS_SUCCESS:
       let updatedRequestsStatus = [];
       if (Object.keys(state.allRequests).length > 0) {
         if (state.allRequests.requests.length > 0) {
@@ -171,7 +157,7 @@ export default function requests(state = initialState, action) {
         redirectPage: false,
         error: {},
       };
-    case DELETE_A_REQUEST:
+    case actionsType.DELETE_A_REQUEST:
       let filteredRequests = [];
       let newTotalRequests = state.allRequests.totalRequests;
       if (state.allRequests && state.allRequests.requests) {
@@ -209,14 +195,14 @@ export default function requests(state = initialState, action) {
         singleRequests: singleRequestDeleteCheck,
         singleRequestRedirectOnDelete: true,
       };
-    case CREATE_REQUEST_FAIL:
-    case UPDATE_REQUEST_FAIL:
+    case actionsType.CREATE_REQUEST_FAIL:
+    case actionsType.UPDATE_REQUEST_FAIL:
       return {
         ...state,
         error: payload,
         loading: false,
       };
-    case REQUESTS_ERROR:
+    case actionsType.REQUESTS_ERROR:
       return {
         ...state,
         error: payload,
