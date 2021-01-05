@@ -132,21 +132,17 @@ font-weight: 400;
 }
 
 .ant-tag-processing {
-    display: flex;
     align-items: center;
     justify-content: center;
     color: #1890ff;
     background: transparent;
     border-color: #91d5ff;
-    font-size: inherit;
 }
 
 .ant-tag-success {
-    display: flex;
     align-items: center;
     justify-content: center;
     color: #52c41a;
     background: transparent;
     border-color: #b7eb8f;
-    font-size: inherit;
 }

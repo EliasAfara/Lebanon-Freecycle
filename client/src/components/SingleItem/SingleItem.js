@@ -51,11 +51,19 @@ const SingleItem = ({
         </h1>
         <div className='item-title-leftside-content'>
           {status === 'Available' ? (
-            <Tag icon={<ClockCircleOutlined />} color='processing'>
+            <Tag
+              icon={<ClockCircleOutlined />}
+              color='processing'
+              style={{ fontSize: 'inherit' }}
+            >
               {status}
             </Tag>
           ) : (
-            <Tag icon={<CheckCircleOutlined />} color='success'>
+            <Tag
+              icon={<CheckCircleOutlined />}
+              color='success'
+              style={{ fontSize: 'inherit' }}
+            >
               {status}
             </Tag>
           )}
