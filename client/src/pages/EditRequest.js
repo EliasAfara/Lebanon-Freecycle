@@ -44,8 +44,17 @@ const EditRequest = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log(formData);
-    updateRequest(formData, userIDInParam);
+    let filteredCategory = category.replace(/&/g, 'and');
+
+    const data = {
+      name,
+      description,
+      phoneNumber,
+      category: filteredCategory,
+    };
+
+    //console.log(data);
+    updateRequest(data, userIDInParam);
   };
 
   useEffect(() => {
