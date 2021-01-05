@@ -14,12 +14,16 @@ import * as S from './ItemCardElements';
 import { formatDate, formatDateMDY } from '../../utils/formatDate';
 // React Icons
 import { VscEllipsis } from 'react-icons/vsc';
-import { BsHeart } from 'react-icons/bs';
+import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
 
 import ImageSlider from '../ImageSlider/ImageSlider';
 // Ant Design Delete Model
-import { Modal } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Modal, Tag, Divider } from 'antd';
+import {
+  ExclamationCircleOutlined,
+  CheckCircleOutlined,
+  ClockCircleOutlined,
+} from '@ant-design/icons';
 const { confirm } = Modal;
 
 const ItemCard = ({
@@ -31,7 +35,6 @@ const ItemCard = ({
   ItemName,
   ItemCategory,
   ItemLocation,
-  ItemAddress,
   ItemDescription,
   ItemDateOfCreation,
   ItemID,
@@ -43,6 +46,7 @@ const ItemCard = ({
   auth,
 }) => {
   const [modalShow, setModalShow] = useState(false);
+  const [liked, addLike] = useState(false);
 
   const handleComplete = () => {
     let newStatus = '';
@@ -94,15 +98,11 @@ const ItemCard = ({
     <>
       <div
         style={{
-          filter: `contrast(${ItemStatus === 'Available' ? 100 : 50}%)`,
+          filter: `contrast(${ItemStatus === 'Available' ? 100 : 75}%)`,
         }}
       >
         <S.Wrapper>
-          <S.Card
-            style={{
-              background: `${ItemStatus === 'Available' ? '#fafffa' : '#fff'}`,
-            }}
-          >
+          <S.Card currentStatus={ItemStatus}>
             {images && images.length > 0 && (
               <S.CardImage>
                 <ImageSlider images={images} interval={null} fade={false} />
@@ -136,6 +136,9 @@ const ItemCard = ({
                       >
                         {FullName}
                       </Link>
+                      {ItemLocation && (
+                        <S.ItemLocation>{ItemLocation}</S.ItemLocation>
+                      )}
                     </S.HeaderUserFullName>
                   )}
 
@@ -171,74 +174,79 @@ const ItemCard = ({
                   }
                 />
 
-                <S.DetailsUnOrderedList>
+                <S.ItemDescriptionDiv>
                   {ItemName && (
-                    <S.ListItems>
-                      <S.ListItemSpan>
-                        <S.ListItemName>Item: </S.ListItemName>
-                        {ItemName}
-                      </S.ListItemSpan>
-                    </S.ListItems>
+                    <>
+                      <S.ItemName>Name: </S.ItemName>
+                      {ItemName}
+                    </>
                   )}
 
-                  {ItemCategory && (
-                    <S.ListItems>
-                      <S.ListItemSpan>
-                        <S.ListItemName>Category: </S.ListItemName>
-                        {ItemCategory}
-                      </S.ListItemSpan>
-                    </S.ListItems>
+                  {ItemDescription && (
+                    <S.ItemDescription>{ItemDescription}</S.ItemDescription>
                   )}
-
-                  {ItemLocation && (
-                    <S.ListItems>
-                      <S.ListItemSpan>
-                        <S.ListItemName>Location: </S.ListItemName>
-                        {ItemLocation}
-                      </S.ListItemSpan>
-                    </S.ListItems>
-                  )}
-
-                  {ItemAddress && (
-                    <S.ListItems>
-                      <S.ListItemSpan>
-                        <S.ListItemName>Address: </S.ListItemName>
-                        {ItemAddress}
-                      </S.ListItemSpan>
-                    </S.ListItems>
-                  )}
-                </S.DetailsUnOrderedList>
-
-                {ItemDescription && (
-                  <S.ItemDescriptionDiv>
-                    <S.ItemDescription>
-                      <S.ListItemName>Description: </S.ListItemName>
-                      {ItemDescription}
-                    </S.ItemDescription>
-                  </S.ItemDescriptionDiv>
-                )}
-
+                </S.ItemDescriptionDiv>
                 <S.ContentFooter>
-                  <>
-                    <S.ContentBtn style={{ marginRight: '5px' }}>
-                      <BsHeart style={{ color: '#f05f70' }} />{' '}
-                      {likes && likes.length > 0 && likes.length}
-                    </S.ContentBtn>
-
-                    <S.ContentBtn>
-                      <Link to={`/${type}/${ItemID}`}>View More</Link>
-                    </S.ContentBtn>
-                  </>
-                  {ItemDateOfCreation && (
-                    <S.ContentDate>
-                      <time
-                        dateTime={ItemDateOfCreation}
-                        title={formatDateMDY(ItemDateOfCreation)}
-                      >
-                        {formatDate(ItemDateOfCreation)}
-                      </time>
-                    </S.ContentDate>
+                  {ItemCategory && (
+                    <S.FooterTags>
+                      <Tag color='default'>{ItemCategory}</Tag>
+                      {ItemStatus === 'Available' ? (
+                        <Tag icon={<ClockCircleOutlined />} color='processing'>
+                          {ItemStatus}
+                        </Tag>
+                      ) : (
+                        <Tag icon={<CheckCircleOutlined />} color='success'>
+                          {ItemStatus}
+                        </Tag>
+                      )}
+                    </S.FooterTags>
                   )}
+                  <S.LowerFooter>
+                    <>
+                      <S.LikeWrapper>
+                        <span
+                          onClick={() => addLike(!liked)}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          {liked ? (
+                            <BsFillHeartFill
+                              style={{
+                                color: '#f05f70',
+                                marginRight: `${
+                                  likes && likes.length > 0 ? '8px' : 0
+                                }`,
+                                fontSize: '16px',
+                              }}
+                            />
+                          ) : (
+                            <BsHeart
+                              style={{
+                                color: '#f05f70',
+
+                                fontSize: '16px',
+                              }}
+                            />
+                          )}
+                        </span>
+                        {likes && likes.length > 0 && <>{likes.length}</>}
+                      </S.LikeWrapper>
+
+                      <Divider type='vertical' />
+
+                      <Link to={`/${type}/${ItemID}`}>View Details</Link>
+                    </>
+
+                    {ItemDateOfCreation && (
+                      <S.ContentDate>
+                        <time
+                          dateTime={ItemDateOfCreation}
+                          title={formatDateMDY(ItemDateOfCreation)}
+                        >
+                          {formatDate(ItemDateOfCreation)}
+                        </time>
+                      </S.ContentDate>
+                    )}
+                  </S.LowerFooter>
                 </S.ContentFooter>
               </S.ContentDetails>
             </S.CardContent>
