@@ -5,6 +5,7 @@ const { cloudinary } = require('../utils/cloudinary');
 const User = require('../models/User');
 const Request = require('../models/Request');
 const auth = require('../middleware/auth');
+const { v4 } = require('uuid');
 
 class APIfeatures {
   constructor(query, queryString) {
@@ -81,9 +82,6 @@ router.post(
     }
 
     try {
-      // let firstImageURL = '';
-      // let secondImageURL = '';
-      // let thirdImageURL = '';
       let imagesURLs = [];
       let counter = 0;
       if (image1 !== '') {
@@ -101,26 +99,71 @@ router.post(
           if (i === 0) {
             const uploadResponseOne = await cloudinary.uploader.upload(image1, {
               upload_preset: 'lebanon-freecycle-requests',
+              crop: 'scale',
+              quality: 'auto:eco',
+              fetch_format: 'auto',
+              responsive_breakpoints: {
+                create_derived: true,
+                bytes_step: 20000,
+                min_width: 200,
+                max_width: 700,
+                transformation: {
+                  crop: 'fill',
+                  aspect_ratio: '16:9',
+                  gravity: 'auto',
+                },
+              },
               folder: 'Requests',
+              public_id: `lfc_${req.user.id}_request_${v4()}`,
             });
-            imagesURLs.push({ imageURL: uploadResponseOne.url });
+            imagesURLs.push({ imageURL: uploadResponseOne.secure_url });
           }
           if (i === 1) {
             const uploadResponseTwo = await cloudinary.uploader.upload(image2, {
               upload_preset: 'lebanon-freecycle-requests',
+              crop: 'scale',
+              quality: 'auto:eco',
+              fetch_format: 'auto',
+              responsive_breakpoints: {
+                create_derived: true,
+                bytes_step: 20000,
+                min_width: 200,
+                max_width: 700,
+                transformation: {
+                  crop: 'fill',
+                  aspect_ratio: '16:9',
+                  gravity: 'auto',
+                },
+              },
               folder: 'Requests',
+              public_id: `lfc_${req.user.id}_request_${v4()}`,
             });
-            imagesURLs.push({ imageURL: uploadResponseTwo.url });
+            imagesURLs.push({ imageURL: uploadResponseTwo.secure_url });
           }
           if (i === 2) {
             const uploadResponseThree = await cloudinary.uploader.upload(
               image3,
               {
                 upload_preset: 'lebanon-freecycle-requests',
+                crop: 'scale',
+                quality: 'auto:eco',
+                fetch_format: 'auto',
+                responsive_breakpoints: {
+                  create_derived: true,
+                  bytes_step: 20000,
+                  min_width: 200,
+                  max_width: 700,
+                  transformation: {
+                    crop: 'fill',
+                    aspect_ratio: '16:9',
+                    gravity: 'auto',
+                  },
+                },
                 folder: 'Requests',
+                public_id: `lfc_${req.user.id}_request_${v4()}`,
               }
             );
-            imagesURLs.push({ imageURL: uploadResponseThree.url });
+            imagesURLs.push({ imageURL: uploadResponseThree.secure_url });
           }
         }
       }
@@ -149,6 +192,13 @@ router.post(
       return res.json(request);
     } catch (err) {
       console.error(err);
+      if (err.message.includes('File size too large.')) {
+        return res.status(400).json({
+          errors: [
+            { msg: 'Image is too large. Maximum size allowed is 10 MB' },
+          ],
+        });
+      }
       res.status(500).send('500 Internal server error');
     }
   }
