@@ -1,11 +1,17 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const helmet = require('helmet');
+var compression = require('compression');
 const xss = require('xss-clean');
 
 // Connect Database
 connectDB();
 
 const app = express();
+
+// Set security header
+app.use(helmet());
+app.use(compression());
 
 // body parser middleware
 app.use(express.json({ limit: '50mb' }));
