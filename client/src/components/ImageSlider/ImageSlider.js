@@ -24,7 +24,12 @@ const ImageSlider = ({ images, interval, fade }) => {
       >
         {images.map((img, index) => {
           return (
-            <CarouselItem key={index}>
+            <CarouselItem
+              key={index}
+              style={{
+                backgroundImage: `url(${img.imageURL})`,
+              }}
+            >
               {index === 0 ? (
                 <LazyImage src={img.imageURL} alt={`Slide${index}`} />
               ) : (

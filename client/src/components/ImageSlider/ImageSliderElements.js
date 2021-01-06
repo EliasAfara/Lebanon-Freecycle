@@ -32,4 +32,5 @@ export const StyledImage = styled.img`
   max-height: 400px;
   height: inherit;
   object-fit: scale-down;
+  backdrop-filter: blur(15px);
 `;

@@ -14,6 +14,7 @@
     max-height: 400px;
     height: inherit;
     object-fit: scale-down;
+    backdrop-filter: blur(15px);
 }
 
 .carousel-inner {
@@ -27,7 +28,9 @@
 .carousel-item {
     transition: transform .6s ease-in;
     max-height: 400px;
-    background: #bfbfbf;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     height: inherit;
 }
 
