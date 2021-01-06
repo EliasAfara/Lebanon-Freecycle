@@ -34,7 +34,7 @@ export const CardImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.12);
+  /* background: rgba(0, 0, 0, 0.12); */
   width: 200px;
   height: 200px;
   overflow: hidden;
@@ -55,10 +55,11 @@ export const ItemImage = styled.img`
 export const CardContent = styled.div`
   display: block;
   width: calc(100% - 200px);
-  padding: 10px 10px 10px 20px;
+  padding: 6px 10px 6px 20px;
 
   @media only screen and (max-width: 600px) {
     width: 100%;
+    padding: 10px 20px 10px 20px;
   }
 `;
 
@@ -73,7 +74,7 @@ export const ContentHeader = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   height: fit-content;
 `;
 export const HeaderAvatar = styled.img`
@@ -119,6 +120,7 @@ export const HeaderEllipsis = styled.span`
 `;
 
 export const ItemName = styled.span`
+  font-size: 16px;
   font-weight: 600;
 `;
 
@@ -134,7 +136,7 @@ export const ItemDescription = styled.span`
   -webkit-line-clamp: 3;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  font-size: 14px;
+  font-size: 13px;
   color: inherit;
 `;
 
@@ -150,6 +152,10 @@ export const ContentFooter = styled.div`
 export const FooterTags = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media only screen and (max-width: 319px) {
+    display: block;
+  }
 `;
 
 export const LowerFooter = styled.div`

@@ -175,12 +175,7 @@ const ItemCard = ({
                 />
 
                 <S.ItemDescriptionDiv>
-                  {ItemName && (
-                    <>
-                      <S.ItemName>Name: </S.ItemName>
-                      {ItemName}
-                    </>
-                  )}
+                  {ItemName && <S.ItemName>{ItemName}</S.ItemName>}
 
                   {ItemDescription && (
                     <S.ItemDescription>{ItemDescription}</S.ItemDescription>
