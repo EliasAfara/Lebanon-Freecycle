@@ -1,22 +1,41 @@
 const mongoose = require('mongoose');
 
+const Schema = mongoose.Schema;
+
 const DonationSchema = new mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    fullname: {
+      type: String,
+    },
+    username: {
+      type: String,
+    },
+    avatar: {
+      type: String,
+    },
   },
   name: {
     type: String,
     required: true,
   },
-  image: {
-    data: Buffer,
-    contentType: String,
-    required: true,
-  },
+  images: [
+    {
+      imageURL: {
+        type: String,
+      },
+    },
+  ],
   location: {
-    type: String,
-    required: true,
+    locationName: {
+      type: String,
+      required: true,
+    },
+    longitude: { type: String, required: true },
+    latitude: { type: String, required: true },
   },
   category: {
     type: String,
@@ -34,7 +53,34 @@ const DonationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  likes: { type: Number, default: 0 },
+  likes: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+      },
+    },
+  ],
+  comments: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+      },
+      text: {
+        type: String,
+        required: true,
+      },
+      name: {
+        type: String,
+      },
+      avatar: {
+        type: String,
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   status: {
     type: String,
     default: 'Available',
@@ -45,4 +91,4 @@ const DonationSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('donation', DonationSchema);
+module.exports = mongoose.model('donations', DonationSchema);
