@@ -30,7 +30,7 @@ export default function donations(state = initialState, action) {
       return {
         ...state,
         allDonations: payload,
-        loading: false,
+        DonatinosLoading: false,
         redirectPage: false,
       };
     case actionsType.GET_ALL_USER_DONATIONS:
