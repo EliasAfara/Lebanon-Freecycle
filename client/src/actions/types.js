@@ -49,3 +49,26 @@ export const UPDATE_REQUEST_STATUS_SUCCESS = 'Update-Request-Status/success';
 export const UPDATE_REQUEST_FAIL = 'Update-Request/fail';
 
 export const DELETE_A_REQUEST = 'Delete-Request/success';
+
+// Donations Types
+export const GET_ALL_DONATIONS = 'Donations/getAll';
+
+export const GET_ALL_USER_DONATIONS = 'User-Donations/getAll';
+export const RESET_GET_ALL_DONATIONS_LOADING = 'Donations/resetLoading';
+export const CLEAR_USER_DONATIONS = 'User-Donations/cleared';
+
+export const GET_A_SINGLE_DONATION = 'Single-Donation/get';
+export const CLEAR_SINGLE_DONATION = 'Single-Donation/cleared';
+
+export const DONATIONS_ERROR = 'Donations/error';
+
+export const CREATE_A_DONATION_SUCCESS = 'Create-Donation/success';
+export const CREATE_DONATION_FAIL = 'Create-Donation/fail';
+
+export const ADD_A_DONATION_LOCATION = 'Donation-Location/added';
+
+export const UPDATE_A_DONATION_SUCCESS = 'Update-Donation/success';
+export const UPDATE_DONATION_STATUS_SUCCESS = 'Update-Donation-Status/success';
+export const UPDATE_DONATION_FAIL = 'Update-Donation/fail';
+
+export const DELETE_A_DONATION = 'Delete-Donation/success';
