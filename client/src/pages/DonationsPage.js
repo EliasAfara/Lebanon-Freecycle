@@ -1,114 +1,200 @@
-import React from 'react';
-import FilterBar from '../components/FilterBar/FilterBar';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { getAllDonations } from '../actions/donations';
 import { DonationsCategories } from '../shared/Categories';
-//import PropTypes from 'prop-types'
 
-//import ItemCard from '../components/ItemCard/ItemCard';
+import FilterBar from '../components/FilterBar/FilterBar';
+import ItemCard from '../components/ItemCard/ItemCard';
+import SideFilterBar from '../components/FilterBar/SideFilterBar';
+import Spinner from '../components/Spinner/Spinner';
+import { Pagination, Button } from 'antd';
+import { GiBrokenHeartZone } from 'react-icons/gi';
 
-// const ItemDetails = {
-//   ItemImage:
-//     'https://cdn20.pamono.com/p/g/3/6/362466_jiei2h8vpp/vintage-belgian-black-leather-couch-1974-5.jpg',
-//   UserAvatar: 'https://semantic-ui.com/images/avatar2/small/mark.png',
-//   FullName: 'Elias Afara',
-//   Username: 'elias',
-//   ItemName: 'Couch',
-//   ItemCategory: 'Fourniture',
-//   ItemState: 'Used',
-//   ItemLocation: 'Tyre, Lebanon',
-//   ItemAddress: 'Tyre, Behind Al Ekhlas Resturant',
-//   ItemDescription: 'Old and used couch',
-//   ItemDateOfCreation: '2020-11-26T00:02:28.503+00:00',
-//   ItemID: '123456789',
-//   status: true,
-// };
+const DonationsPage = ({
+  getAllDonations,
+  donations: {
+    allDonations: { donations, totalDonations },
+    DonatinosLoading,
+  },
+}) => {
+  const [queries, setQueries] = useState([]);
+  const [queryPage, setQueryPage] = useState('');
+  const [queryStatus, setQueryStatus] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentCategory, setCurrentCategory] = useState('');
+  const [showTimedSpinner, setShowTimedSpinner] = useState(false);
 
-// const {
-//   ItemImage,
-//   UserAvatar,
-//   FullName,
-//   Username,
-//   ItemName,
-//   ItemCategory,
-//   ItemState,
-//   ItemLocation,
-//   ItemAddress,
-//   ItemDescription,
-//   ItemDateOfCreation,
-//   ItemID,
-//   status,
-// } = ItemDetails;
+  const [currentSelectedStatus, setCurrentSelectedStatus] = useState(
+    'Select Status'
+  );
+  const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
+    'Select Category'
+  );
+  const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
 
-// const AvailableDonations = (
-//   // Should be an array that contains all the available donations
-//   // maps over the donations schema
-//   <ItemCard
-//     ItemImage={ItemImage}
-//     UserAvatar={UserAvatar}
-//     FullName={FullName}
-//     Username={Username}
-//     ItemName={ItemName}
-//     ItemCategory={ItemCategory}
-//     ItemState={ItemState}
-//     ItemLocation={ItemLocation}
-//     ItemAddress={ItemAddress}
-//     ItemDescription={ItemDescription}
-//     ItemDateOfCreation={ItemDateOfCreation}
-//     ItemID={ItemID}
-//     ItemStatus={status}
-//   />
-// );
+  const timedSpinner = () => {
+    setShowTimedSpinner(true);
+    setTimeout(function () {
+      setShowTimedSpinner(false);
+    }, 1000);
+  };
 
-// const CompletedDonations = (
-//   // Should be an array that contains all the completed donations
-//   // maps over the donations schema
-//   <>
-//     <ItemCard
-//       ItemImage={ItemImage}
-//       UserAvatar={UserAvatar}
-//       FullName={FullName}
-//       Username={Username}
-//       ItemName={ItemName}
-//       ItemCategory={ItemCategory}
-//       ItemState={ItemState}
-//       ItemLocation={ItemLocation}
-//       ItemAddress={ItemAddress}
-//       ItemDescription={ItemDescription}
-//       ItemDateOfCreation={ItemDateOfCreation}
-//       ItemID={ItemID}
-//       ItemStatus={false}
-//     />
-//     <ItemCard
-//       ItemImage={ItemImage}
-//       UserAvatar={UserAvatar}
-//       FullName={FullName}
-//       Username={Username}
-//       ItemName={ItemName}
-//       ItemCategory={ItemCategory}
-//       ItemState={ItemState}
-//       ItemLocation={ItemLocation}
-//       ItemAddress={ItemAddress}
-//       ItemDescription={ItemDescription}
-//       ItemDateOfCreation={ItemDateOfCreation}
-//       ItemID={ItemID}
-//       ItemStatus={false}
-//     />
-//   </>
-// );
+  const filterStatus = (value) => {
+    setCurrentSelectedStatus(value);
+    if (value === 'All') {
+      setQueryStatus('');
+      setQueries([]);
+      setQueryPage('page=1');
+    } else {
+      setQueryStatus(`status=${value}`);
+      setQueries([]);
+      setQueryPage('page=1');
+    }
+  };
 
-const DonationsPage = (props) => {
+  const onChange = (page) => {
+    setCurrentPage(page);
+    setQueryPage(`page=${page}`);
+    window.scrollTo(0, 0);
+    timedSpinner();
+    setQueries([]);
+  };
+
+  const filterCategory = (cat) => {
+    setCurrentSelectedCategory(cat);
+    if (cat === 'All') {
+      setCurrentCategory('');
+      setQueries([]);
+      setQueryPage('page=1');
+    } else {
+      setCurrentCategory(`category=${cat}`);
+      setQueries([]);
+      setQueryPage('page=1');
+    }
+  };
+  useEffect(() => {
+    if (queryPage.length > 0) {
+      queries.push(queryPage);
+    }
+    if (queryStatus.length > 0) {
+      queries.push(queryStatus);
+    }
+    if (currentCategory.length > 0) {
+      let filteredCategory = currentCategory.replace(/&/g, 'and');
+
+      queries.push(filteredCategory);
+    }
+
+    if (queries.length > 0) {
+      const activeQueries = queries.join('&');
+      getAllDonations(activeQueries);
+    } else {
+      getAllDonations(queryPage);
+    }
+  }, [getAllDonations, queries, queryPage, queryStatus, currentCategory]);
+
+  console.log(donations);
+
   return (
     <div style={{ maxWidth: '1000px', width: 'inherit' }}>
-      <FilterBar categories={DonationsCategories} />
-      Donations
-      {/* {AvailableDonations}
-      {CompletedDonations} */}
+      {DonatinosLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {showTimedSpinner ? (
+            <Spinner />
+          ) : (
+            <>
+              <div className='FilterBar-wrapper'>
+                <FilterBar
+                  filterStatus={filterStatus}
+                  currentSelectedStatus={currentSelectedStatus}
+                  categories={DonationsCategories}
+                  filterCategory={filterCategory}
+                  currentSelectedCategory={currentSelectedCategory}
+                />
+              </div>
+
+              <div className='SideFilterBar-wrapper'>
+                <Button
+                  type='primary'
+                  onClick={() => setSideFilterBarVisible(true)}
+                >
+                  Filter
+                </Button>
+                <SideFilterBar
+                  onClose={() => setSideFilterBarVisible(false)}
+                  visible={sideFilterBarVisible}
+                  filterStatus={filterStatus}
+                  currentSelectedStatus={currentSelectedStatus}
+                  categories={DonationsCategories}
+                  filterCategory={filterCategory}
+                  currentSelectedCategory={currentSelectedCategory}
+                />
+              </div>
+
+              {donations && donations.length > 0 ? (
+                <>
+                  {donations.map((donation) => (
+                    <ItemCard
+                      key={donation._id}
+                      UserAvatar={donation.user.avatar}
+                      FullName={donation.user.fullname}
+                      Username={donation.user.username}
+                      ItemName={donation.name}
+                      ItemCategory={donation.category}
+                      ItemStatus={donation.status}
+                      ItemLocation={donation.location.locationName}
+                      ItemDescription={donation.description}
+                      ItemDateOfCreation={donation.date}
+                      ItemID={donation._id}
+                      ItemUserId={donation.user.id}
+                      likes={donation.likes}
+                      images={donation.images}
+                      type='donation'
+                    />
+                  ))}
+                  <div className='pagination'>
+                    <Pagination
+                      defaultCurrent={1}
+                      current={currentPage}
+                      onChange={onChange}
+                      total={totalDonations}
+                      showSizeChanger={false}
+                      hideOnSinglePage={true}
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className='user-not-found'>
+                  <div className='user-not-found-icon'>
+                    <GiBrokenHeartZone
+                      style={{ width: 100, height: 100, fillOpacity: 0.34 }}
+                    />
+                  </div>
+
+                  <p className='user-not-found-title'>
+                    Sorry, couldn't find any donations.
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 };
 
-// Donations.propTypes = {
+DonationsPage.propTypes = {
+  getAllDonations: PropTypes.func.isRequired,
+  donations: PropTypes.object.isRequired,
+};
 
-// }
+const mapStateToProps = (state) => ({
+  donations: state.donations,
+});
 
-export default DonationsPage;
+export default connect(mapStateToProps, { getAllDonations })(DonationsPage);
