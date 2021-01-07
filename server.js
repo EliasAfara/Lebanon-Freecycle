@@ -28,6 +28,7 @@ const loginRoute = require('./routes/login');
 const authRoute = require('./routes/auth');
 const profileRoute = require('./routes/profile');
 const requestsRoute = require('./routes/requests');
+const donationsRoute = require('./routes/donations');
 
 // Mount Routes
 app.use('/api/register', registerRoute);
@@ -35,6 +36,7 @@ app.use('/api/login', loginRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/profile', profileRoute);
 app.use('/api/requests', requestsRoute);
+app.use('/api/donations', donationsRoute);
 
 const PORT = process.env.PORT || 5000;
 
