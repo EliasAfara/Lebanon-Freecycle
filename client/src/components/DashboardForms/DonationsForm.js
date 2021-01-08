@@ -1,12 +1,146 @@
-import React from 'react';
-//import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createDonation, getAllDonations } from '../../actions/donations';
+import { DonationsCategories } from '../../shared/Categories';
+import { Locations } from '../../shared/Locations';
+import { Redirect } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import './DashboardForms.css';
 import { FcRules } from 'react-icons/fc';
 import { RiInformationLine } from 'react-icons/ri';
 import * as Styled from '../StyledComponents/StyledForm';
+import { Select } from 'antd';
+const { Option } = Select;
 
-const DonationsForm = (props) => {
+const initialState = {
+  name: '',
+  category: '',
+  description: '',
+  phoneNumber: '',
+  address: '',
+  locationName: '',
+  longitude: '',
+  latitude: '',
+  district: '',
+  googleMapLink: '',
+};
+const DonationsForm = ({
+  createDonation,
+  getAllDonations,
+  donations: { redirectPage },
+}) => {
+  const [formData, setFormData] = useState(initialState);
+  const {
+    name,
+    description,
+    phoneNumber,
+    address,
+    locationName,
+    longitude,
+    latitude,
+    district,
+    googleMapLink,
+  } = formData;
+  const [redirect, setRedirect] = useState(false);
+  const [selectedImages, setSelectedImages] = useState({});
+  const [image1, setImage1] = useState('');
+  const [image2, setImage2] = useState('');
+  const [image3, setImage3] = useState('');
+
+  let imagesArray = [];
+
+  const handleFileInputChange = (e) => {
+    imagesArray = Array.from(e.target.files);
+    setSelectedImages({ ...imagesArray });
+    if (imagesArray.length > 3) {
+      setSelectedImages({});
+      setImage1('');
+      setImage2('');
+      setImage3('');
+      alert('You can only choose 3 images only');
+    } else {
+      //console.log(imagesArray);
+      for (let i = 0; i < imagesArray.length; i++) {
+        const reader = new FileReader();
+        reader.readAsDataURL(imagesArray[i]);
+        reader.onloadend = () => {
+          if (i === 0) {
+            setImage1(reader.result);
+          }
+          if (i === 1) {
+            setImage2(reader.result);
+          }
+          if (i === 2) {
+            setImage3(reader.result);
+          }
+        };
+      }
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLocation = (locationName) => {
+    let locationDetails = Locations.filter(
+      (location) => locationName === location.Location_Name_En
+    );
+    console.log(locationDetails[0]);
+    setFormData({
+      ...formData,
+      locationName: locationDetails[0].Location_Name_En,
+      longitude: locationDetails[0].Longitude,
+      latitude: locationDetails[0].Latitude,
+      district: locationDetails[0].District,
+      googleMapLink: locationDetails[0].Google_Map_link,
+    });
+  };
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let filteredCategory = formData.category.replace(/&/g, 'and');
+
+    const data = {
+      name,
+      description,
+      phoneNumber,
+      category: filteredCategory,
+      address,
+      locationName,
+      longitude,
+      latitude,
+      district,
+      googleMapLink,
+      image1: image1,
+      image2: image2,
+      image3: image3,
+    };
+
+    console.log(data);
+    createDonation(data);
+  };
+
+  useEffect(() => {
+    getAllDonations('');
+    if (redirectPage === true) {
+      setRedirect(true);
+    }
+  }, [getAllDonations, redirectPage]);
+
+  if (redirect) {
+    return <Redirect to='/donations' />;
+  }
+
   return (
     <Styled.FormContainer__Div>
       <Styled.FormGuidelines__Div>
@@ -20,7 +154,7 @@ const DonationsForm = (props) => {
       <Styled.FormWrapper__Div>
         <Styled.SectionTitle__Div>Provide a Donation</Styled.SectionTitle__Div>
 
-        <form encType='multipart/form-data'>
+        <form encType='multipart/form-data' onSubmit={(e) => handleSubmit(e)}>
           <Styled.FormField__Div>
             <div className='asideTweek'></div>
             <span className='sectionSubTitle'>
@@ -36,10 +170,18 @@ const DonationsForm = (props) => {
             </Styled.FieldLabel__Div>
 
             <Styled.FileField__Div>
-              <Styled.FileInput__Input type='file' id='FileUpload' />
+              <Styled.FileInput__Input
+                type='file'
+                name='file'
+                title='Donation Images'
+                id='FileUpload'
+                accept='image/*'
+                multiple
+                onChange={handleFileInputChange}
+              />
               <label
                 className='custom-file-label'
-                htmlFor='FileUpload'
+                htmlFor='customFile'
                 style={{
                   width: '100%',
                   borderRadius: '3px',
@@ -47,7 +189,19 @@ const DonationsForm = (props) => {
                   fontWeight: '400',
                 }}
               >
-                Choose file
+                {Object.keys(selectedImages).length > 0 ? (
+                  Object.keys(selectedImages).length > 1 ? (
+                    <span style={{ color: 'green', borderColor: 'green' }}>
+                      {Object.keys(selectedImages).length} images selected
+                    </span>
+                  ) : (
+                    <span style={{ color: 'green', borderColor: 'green' }}>
+                      {Object.keys(selectedImages).length} image selected
+                    </span>
+                  )
+                ) : (
+                  <>Select images</>
+                )}
               </label>
             </Styled.FileField__Div>
           </Styled.FormField__Div>
@@ -61,6 +215,8 @@ const DonationsForm = (props) => {
 
             <Styled.FieldInput__Input
               name='name'
+              value={name}
+              onChange={(e) => handleChange(e)}
               type='text'
               placeholder='Name'
               required
@@ -75,11 +231,29 @@ const DonationsForm = (props) => {
             </Styled.FieldLabel__Div>
 
             <div className='form__custom-select'>
-              <select name='state' required>
-                <option value=''>Select</option>
-                <option value='Tyre'>Tyre</option>
-                <option value='Beirut'>Beirut</option>
-              </select>
+              <Select
+                showSearch
+                size={'large'}
+                style={{ width: '100%', height: '100%' }}
+                placeholder='Select Location'
+                defaultActiveFirstOption={false}
+                optionFilterProp='children'
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+                onChange={handleLocation}
+                autoComplete='chrome-off'
+                required
+              >
+                {Locations.map((location, index) => {
+                  return (
+                    <Option key={index} value={location.Location_Name_En}>
+                      {location.Location_Name_En + ' - ' + location.District}
+                    </Option>
+                  );
+                })}
+              </Select>
             </div>
           </Styled.FormField__Div>
 
@@ -89,15 +263,34 @@ const DonationsForm = (props) => {
                 Category<span className='required'> *</span>
               </Styled.FieldName__Label>
             </Styled.FieldLabel__Div>
-
             <div className='form__custom-select'>
-              <select name='category' required>
-                <option value=''>Select</option>
-                <option value='Forniture'>Forniture</option>
-                <option value='Clothes'>Clothes</option>
-                <option value='Food'>Food</option>
-                <option value='Books'>Books</option>
-              </select>
+              <Select
+                showSearch
+                size={'large'}
+                style={{ width: '100%', height: '100%' }}
+                placeholder='Select Category'
+                dropdownMatchSelectWidth={false}
+                optionFilterProp='children'
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+                onChange={(category) =>
+                  setFormData({
+                    ...formData,
+                    category: category,
+                  })
+                }
+                required
+              >
+                {DonationsCategories.map((category) => {
+                  return (
+                    <Option key={category.id} value={category.title}>
+                      {category.title}
+                    </Option>
+                  );
+                })}
+              </Select>
             </div>
           </Styled.FormField__Div>
 
@@ -111,6 +304,9 @@ const DonationsForm = (props) => {
             <Styled.FieldInput__Textarea
               name='description'
               placeholder='Description'
+              value={description}
+              onChange={(e) => handleChange(e)}
+              required
             ></Styled.FieldInput__Textarea>
           </Styled.FormField__Div>
 
@@ -133,32 +329,22 @@ const DonationsForm = (props) => {
               onlyCountries={['lb']}
               masks={{ lb: '.. ... ...' }}
               inputProps={{
-                name: 'phone',
+                name: 'phoneNumber',
                 required: true,
                 autoFocus: false,
               }}
-              // isValid={(value, country) => {
-              //   if (value.match(/12345/)) {
-              //     return 'Invalid value: ' + value + ', ' + country.name;
-              //   } else if (value.match(/1234/)) {
-              //     return false;
-              //   } else {
-              //     return true;
-              //   }
-              // }}
-              autoComplete='no'
               placeholder='+961 71 123 456'
               countryCodeEditable={false}
               disableSearchIcon={true}
               disableCountryGuess={true}
+              value={phoneNumber}
+              onChange={(phone) =>
+                setFormData({
+                  ...formData,
+                  phoneNumber: phone,
+                })
+              }
             />
-
-            {/* <Styled.FieldInput__Input
-              name='phoneNumber'
-              type='tel'
-              placeholder='Phone Number e.g. 78 845 230'
-              required
-            /> */}
           </Styled.FormField__Div>
 
           <Styled.FormField__Div>
@@ -170,6 +356,8 @@ const DonationsForm = (props) => {
 
             <Styled.FieldInput__Input
               name='address'
+              value={address}
+              onChange={(e) => handleChange(e)}
               type='text'
               placeholder='Address'
               required
@@ -192,12 +380,17 @@ const DonationsForm = (props) => {
   );
 };
 
-//DonationForm.propTypes = {};
+DonationsForm.propTypes = {
+  getAllDonations: PropTypes.func.isRequired,
+  createDonation: PropTypes.func.isRequired,
+  donations: PropTypes.object.isRequired,
+};
 
-export default DonationsForm;
+const mapStateToProps = (state) => ({
+  donations: state.donations,
+});
 
-// style = 'object-fit: cover;';
-
-// sizes = '600px';
-// srcset="";
-// tabindex="";
+export default connect(mapStateToProps, {
+  createDonation,
+  getAllDonations,
+})(DonationsForm);
