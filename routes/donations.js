@@ -72,15 +72,16 @@ router.post(
       category,
       description,
       phoneNumber,
+      address,
       locationName,
       longitude,
       latitude,
-      address,
+      district,
+      googleMapLink,
+      image1,
+      image2,
+      image3,
     } = req.body;
-
-    //   image1,
-    //   image2,
-    //   image3,
 
     const errors = validationResult(req);
 
@@ -90,90 +91,90 @@ router.post(
 
     try {
       let imagesURLs = [];
-      //   let counter = 0;
-      //   if (image1 !== '') {
-      //     counter++;
-      //   }
-      //   if (image2 !== '') {
-      //     counter++;
-      //   }
-      //   if (image3 !== '') {
-      //     counter++;
-      //   }
+      let counter = 0;
+      if (image1 !== '') {
+        counter++;
+      }
+      if (image2 !== '') {
+        counter++;
+      }
+      if (image3 !== '') {
+        counter++;
+      }
 
-      //   if (counter !== 0) {
-      //     for (let i = 0; i < counter; i++) {
-      //       if (i === 0) {
-      //         const uploadResponseOne = await cloudinary.uploader.upload(image1, {
-      //           upload_preset: 'lebanon-freecycle-donations',
-      //           crop: 'scale',
-      //           quality: 'auto:eco',
-      //           fetch_format: 'auto',
-      //           responsive_breakpoints: {
-      //             create_derived: true,
-      //             bytes_step: 20000,
-      //             min_width: 200,
-      //             max_width: 700,
-      //             transformation: {
-      //               crop: 'fill',
-      //               aspect_ratio: '16:9',
-      //               gravity: 'auto',
-      //             },
-      //           },
-      //           folder: 'donations',
-      //           public_id: `lfc_${req.user.id}_donation_${v4()}`,
-      //         });
-      //         imagesURLs.push({ imageURL: uploadResponseOne.secure_url });
-      //       }
-      //       if (i === 1) {
-      //         const uploadResponseTwo = await cloudinary.uploader.upload(image2, {
-      //           upload_preset: 'lebanon-freecycle-donations',
-      //           crop: 'scale',
-      //           quality: 'auto:eco',
-      //           fetch_format: 'auto',
-      //           responsive_breakpoints: {
-      //             create_derived: true,
-      //             bytes_step: 20000,
-      //             min_width: 200,
-      //             max_width: 700,
-      //             transformation: {
-      //               crop: 'fill',
-      //               aspect_ratio: '16:9',
-      //               gravity: 'auto',
-      //             },
-      //           },
-      //           folder: 'donations',
-      //           public_id: `lfc_${req.user.id}_donation_${v4()}`,
-      //         });
-      //         imagesURLs.push({ imageURL: uploadResponseTwo.secure_url });
-      //       }
-      //       if (i === 2) {
-      //         const uploadResponseThree = await cloudinary.uploader.upload(
-      //           image3,
-      //           {
-      //             upload_preset: 'lebanon-freecycle-donations',
-      //             crop: 'scale',
-      //             quality: 'auto:eco',
-      //             fetch_format: 'auto',
-      //             responsive_breakpoints: {
-      //               create_derived: true,
-      //               bytes_step: 20000,
-      //               min_width: 200,
-      //               max_width: 700,
-      //               transformation: {
-      //                 crop: 'fill',
-      //                 aspect_ratio: '16:9',
-      //                 gravity: 'auto',
-      //               },
-      //             },
-      //             folder: 'donations',
-      //             public_id: `lfc_${req.user.id}_donation_${v4()}`,
-      //           }
-      //         );
-      //         imagesURLs.push({ imageURL: uploadResponseThree.secure_url });
-      //       }
-      //     }
-      //   }
+      if (counter !== 0) {
+        for (let i = 0; i < counter; i++) {
+          if (i === 0) {
+            const uploadResponseOne = await cloudinary.uploader.upload(image1, {
+              upload_preset: 'lebanon-freecycle-donations',
+              crop: 'scale',
+              quality: 'auto:eco',
+              fetch_format: 'auto',
+              responsive_breakpoints: {
+                create_derived: true,
+                bytes_step: 20000,
+                min_width: 200,
+                max_width: 700,
+                transformation: {
+                  crop: 'fill',
+                  aspect_ratio: '16:9',
+                  gravity: 'auto',
+                },
+              },
+              folder: 'donations',
+              public_id: `lfc_${req.user.id}_donation_${v4()}`,
+            });
+            imagesURLs.push({ imageURL: uploadResponseOne.secure_url });
+          }
+          if (i === 1) {
+            const uploadResponseTwo = await cloudinary.uploader.upload(image2, {
+              upload_preset: 'lebanon-freecycle-donations',
+              crop: 'scale',
+              quality: 'auto:eco',
+              fetch_format: 'auto',
+              responsive_breakpoints: {
+                create_derived: true,
+                bytes_step: 20000,
+                min_width: 200,
+                max_width: 700,
+                transformation: {
+                  crop: 'fill',
+                  aspect_ratio: '16:9',
+                  gravity: 'auto',
+                },
+              },
+              folder: 'donations',
+              public_id: `lfc_${req.user.id}_donation_${v4()}`,
+            });
+            imagesURLs.push({ imageURL: uploadResponseTwo.secure_url });
+          }
+          if (i === 2) {
+            const uploadResponseThree = await cloudinary.uploader.upload(
+              image3,
+              {
+                upload_preset: 'lebanon-freecycle-donations',
+                crop: 'scale',
+                quality: 'auto:eco',
+                fetch_format: 'auto',
+                responsive_breakpoints: {
+                  create_derived: true,
+                  bytes_step: 20000,
+                  min_width: 200,
+                  max_width: 700,
+                  transformation: {
+                    crop: 'fill',
+                    aspect_ratio: '16:9',
+                    gravity: 'auto',
+                  },
+                },
+                folder: 'donations',
+                public_id: `lfc_${req.user.id}_donation_${v4()}`,
+              }
+            );
+            imagesURLs.push({ imageURL: uploadResponseThree.secure_url });
+          }
+        }
+      }
 
       let user = await User.findById(req.user.id).select('-password');
 
@@ -187,6 +188,8 @@ router.post(
           locationName: locationName,
           longitude: longitude,
           latitude: latitude,
+          district: district,
+          googleMapLink: googleMapLink,
         },
         images: imagesURLs,
         user: {
