@@ -137,7 +137,7 @@ const RequestsPage = ({
                 />
               </div>
 
-              {requests.length > 0 ? (
+              {requests && requests.length > 0 ? (
                 <>
                   {requests.map((request) => (
                     <ItemCard
