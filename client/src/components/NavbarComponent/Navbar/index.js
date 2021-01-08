@@ -1,5 +1,7 @@
 import React from 'react';
 import { FaBars } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
+import LogoSVG from '../../SVGComponents/LogoSVG';
 import {
   Nav,
   NavbarContainer,
@@ -17,7 +19,11 @@ const Navbar = ({ toggleNavBar }) => {
     <>
       <Nav>
         <NavbarContainer>
-          <NavLogo to='/'>LFC</NavLogo>
+          <NavLogo>
+            <NavLink to='/'>
+              <LogoSVG />
+            </NavLink>
+          </NavLogo>
 
           <MobileIcon onClick={toggleNavBar}>
             <FaBars />

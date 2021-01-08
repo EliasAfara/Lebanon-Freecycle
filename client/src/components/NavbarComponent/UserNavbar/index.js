@@ -52,6 +52,7 @@ import {
   SolarizedThemeToggle,
   SolarizedDarkThemeToggle,
 } from './UserNavbarElements';
+import LogoSVG from '../../SVGComponents/LogoSVG';
 
 const UserNavbar = ({ auth: { user }, logout }) => {
   const node = useRef();
@@ -153,7 +154,9 @@ const UserNavbar = ({ auth: { user }, logout }) => {
     <>
       <Nav>
         <NavbarContainer>
-          <NavLogo to='#!'>LFC</NavLogo>
+          <NavLogo>
+            <LogoSVG />
+          </NavLogo>
           <NavMenu>
             <NavItem>
               <NavLinkRoute to='/dashboard'>Dashboard</NavLinkRoute>

@@ -32,16 +32,11 @@ export const NavbarContainer = styled.div`
   z-index: 1;
   padding: 0 24px;
 `;
-export const NavLogo = styled(LinkRouter)`
+export const NavLogo = styled.div`
   display: flex;
   justify-self: flex-start;
   align-items: center;
   height: 100%;
-  color: #ffdf6c;
-  font-size: 1.5em;
-  font-weight: bold;
-  text-decoration: none;
-  cursor: pointer;
 `;
 
 export const NavMenu = styled.ul`
@@ -50,7 +45,6 @@ export const NavMenu = styled.ul`
   list-style: none;
   text-align: center;
   height: 100%;
-  margin-right: -22px;
   margin-bottom: 0;
 
   @media screen and (max-width: 768px) {
