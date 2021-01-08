@@ -1,0 +1,21 @@
+.lfc-logo svg:hover {
+    animation: lfc 10s infinite;
+    animation-duration: 10s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    animation-name: lfc;
+}
+
+@keyframes lfc {
+    0% {
+        filter: hue-rotate(0deg)
+    }
+
+    50% {
+        filter: hue-rotate(360deg)
+    }
+}
