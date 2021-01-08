@@ -14,7 +14,7 @@ export const Card = styled.div`
   box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.15);
   display: flex;
   overflow: hidden;
-  width: 80%;
+  width: 100%;
   background: ${(props) =>
     props.currentStatus === 'Available' ? `#fafffa` : `#fff`};
 
@@ -95,11 +95,17 @@ export const HeaderUserFullName = styled.span`
   justify-content: center;
 `;
 
-export const ItemLocation = styled.span`
-  font-size: 11px;
-  color: #8e8e8e;
+export const ItemLocation = styled.div`
   height: fit-content;
   margin-top: -6px;
+`;
+export const ItemLocationLink = styled.a`
+  font-size: 11px;
+  color: #8e8e8e;
+
+  &:hover {
+    color: rgba(var(--i1d, 38, 38, 38), 1);
+  }
 `;
 
 export const HeaderEllipsis = styled.span`
