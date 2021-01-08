@@ -138,10 +138,10 @@ export default function donations(state = initialState, action) {
         });
       }
 
-      let updateSingleDonationStatus = state.singleDonation;
+      let updateSingleDonationStatus = state.singleDonations;
       if (
-        state.singleDonation !== null &&
-        state.singleDonation._id === payload._id
+        state.singleDonations !== null &&
+        state.singleDonations._id === payload._id
       ) {
         updateSingleDonationStatus = payload;
       }
