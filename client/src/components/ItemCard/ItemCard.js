@@ -8,6 +8,7 @@ import ModalPopUp from '../Modal/ModalPopUp';
 import AuthenticatedUserActions from '../Modal/AuthenticatedUserActions';
 import GuestUserActions from '../Modal/GuestUserActions';
 import { updateRequestStatus, deleteRequest } from '../../actions/requests';
+import { updateDonationStatus, deleteDonation } from '../../actions/donations';
 
 // Styled Components
 import * as S from './ItemCardElements';
@@ -29,6 +30,8 @@ const { confirm } = Modal;
 const ItemCard = ({
   updateRequestStatus,
   deleteRequest,
+  updateDonationStatus,
+  deleteDonation,
   UserAvatar,
   FullName,
   Username,
@@ -65,7 +68,11 @@ const ItemCard = ({
       cancelText: 'Cancel',
       centered: true,
       onOk() {
-        updateRequestStatus(ItemID, newStatus);
+        if (type === 'donation') {
+          updateDonationStatus(ItemID, newStatus);
+        } else if (type === 'request') {
+          updateRequestStatus(ItemID, newStatus);
+        }
         console.log('Updated');
       },
       onCancel() {
@@ -85,7 +92,11 @@ const ItemCard = ({
       cancelText: 'Cancel',
       centered: true,
       onOk() {
-        deleteRequest(ItemID);
+        if (type === 'donation') {
+          deleteDonation(ItemID);
+        } else if (type === 'request') {
+          deleteRequest(ItemID);
+        }
         console.log('Deleted');
       },
       onCancel() {
@@ -137,7 +148,17 @@ const ItemCard = ({
                         {FullName}
                       </Link>
                       {ItemLocation && (
-                        <S.ItemLocation>{ItemLocation}</S.ItemLocation>
+                        <S.ItemLocation>
+                          <S.ItemLocationLink
+                            href={ItemLocation.googleMapLink}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                          >
+                            {ItemLocation.locationName +
+                              ' - ' +
+                              ItemLocation.district}
+                          </S.ItemLocationLink>
+                        </S.ItemLocation>
                       )}
                     </S.HeaderUserFullName>
                   )}
@@ -156,7 +177,9 @@ const ItemCard = ({
                   show={modalShow}
                   onHide={() => setModalShow(false)}
                   actions={
-                    !auth.authLoading && auth.isAuthenticated ? (
+                    auth.user !== null &&
+                    !auth.authLoading &&
+                    auth.isAuthenticated ? (
                       ItemUserId === auth.user._id ? (
                         <AuthenticatedUserActions
                           itemStatus={ItemStatus}
@@ -255,6 +278,8 @@ const ItemCard = ({
 ItemCard.propTypes = {
   updateRequestStatus: PropTypes.func.isRequired,
   deleteRequest: PropTypes.func.isRequired,
+  updateDonationStatus: PropTypes.func.isRequired,
+  deleteDonation: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -262,6 +287,9 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { updateRequestStatus, deleteRequest })(
-  ItemCard
-);
+export default connect(mapStateToProps, {
+  updateRequestStatus,
+  deleteRequest,
+  updateDonationStatus,
+  deleteDonation,
+})(ItemCard);
