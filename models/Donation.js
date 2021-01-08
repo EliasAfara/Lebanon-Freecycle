@@ -36,6 +36,8 @@ const DonationSchema = new mongoose.Schema({
     },
     longitude: { type: String, required: true },
     latitude: { type: String, required: true },
+    district: { type: String, required: true },
+    googleMapLink: { type: String, required: true },
   },
   category: {
     type: String,
