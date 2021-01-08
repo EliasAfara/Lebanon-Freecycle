@@ -8,7 +8,9 @@ import { DonationsCategories } from '../shared/Categories';
 import FilterBar from '../components/FilterBar/FilterBar';
 import ItemCard from '../components/ItemCard/ItemCard';
 import SideFilterBar from '../components/FilterBar/SideFilterBar';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import Spinner from '../components/Spinner/Spinner';
+import './DonationPageStyles.css';
 import { Pagination, Button } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 
@@ -98,7 +100,7 @@ const DonationsPage = ({
   console.log(donations);
 
   return (
-    <div style={{ maxWidth: '1000px', width: 'inherit' }}>
+    <div className='donations-page-container'>
       {DonatinosLoading ? (
         <Spinner />
       ) : (
@@ -107,77 +109,105 @@ const DonationsPage = ({
             <Spinner />
           ) : (
             <>
-              <div className='FilterBar-wrapper'>
-                <FilterBar
-                  filterStatus={filterStatus}
-                  currentSelectedStatus={currentSelectedStatus}
-                  categories={DonationsCategories}
-                  filterCategory={filterCategory}
-                  currentSelectedCategory={currentSelectedCategory}
-                />
+              <div className='dontions-timeline'>
+                <div className='FilterBar-wrapper'>
+                  <FilterBar
+                    filterStatus={filterStatus}
+                    currentSelectedStatus={currentSelectedStatus}
+                    categories={DonationsCategories}
+                    filterCategory={filterCategory}
+                    currentSelectedCategory={currentSelectedCategory}
+                  />
+                </div>
+
+                <div className='SideFilterBar-wrapper'>
+                  <Button
+                    type='primary'
+                    onClick={() => setSideFilterBarVisible(true)}
+                  >
+                    Filter
+                  </Button>
+                  <SideFilterBar
+                    onClose={() => setSideFilterBarVisible(false)}
+                    visible={sideFilterBarVisible}
+                    filterStatus={filterStatus}
+                    currentSelectedStatus={currentSelectedStatus}
+                    categories={DonationsCategories}
+                    filterCategory={filterCategory}
+                    currentSelectedCategory={currentSelectedCategory}
+                  />
+                </div>
+
+                {donations && donations.length > 0 ? (
+                  <>
+                    {donations.map((donation) => (
+                      <ItemCard
+                        key={donation._id}
+                        UserAvatar={donation.user.avatar}
+                        FullName={donation.user.fullname}
+                        Username={donation.user.username}
+                        ItemName={donation.name}
+                        ItemCategory={donation.category}
+                        ItemStatus={donation.status}
+                        ItemLocation={donation.location}
+                        ItemDescription={donation.description}
+                        ItemDateOfCreation={donation.date}
+                        ItemID={donation._id}
+                        ItemUserId={donation.user.id}
+                        likes={donation.likes}
+                        images={donation.images}
+                        type='donation'
+                      />
+                    ))}
+                    <div className='pagination'>
+                      <Pagination
+                        defaultCurrent={1}
+                        current={currentPage}
+                        onChange={onChange}
+                        total={totalDonations}
+                        showSizeChanger={false}
+                        hideOnSinglePage={true}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <div className='user-not-found'>
+                    <div className='user-not-found-icon'>
+                      <GiBrokenHeartZone
+                        style={{ width: 100, height: 100, fillOpacity: 0.34 }}
+                      />
+                    </div>
+
+                    <p className='user-not-found-title'>
+                      Sorry, couldn't find any donations.
+                    </p>
+                  </div>
+                )}
               </div>
 
-              <div className='SideFilterBar-wrapper'>
-                <Button
-                  type='primary'
-                  onClick={() => setSideFilterBarVisible(true)}
-                >
-                  Filter
-                </Button>
-                <SideFilterBar
-                  onClose={() => setSideFilterBarVisible(false)}
-                  visible={sideFilterBarVisible}
-                  filterStatus={filterStatus}
-                  currentSelectedStatus={currentSelectedStatus}
-                  categories={DonationsCategories}
-                  filterCategory={filterCategory}
-                  currentSelectedCategory={currentSelectedCategory}
-                />
-              </div>
+              {donations && donations.length > 0 && (
+                <div className='donations-map-container'>
+                  <MapContainer center={[33.8547, 35.8623]} zoom={8}>
+                    <TileLayer
+                      url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    />
 
-              {donations && donations.length > 0 ? (
-                <>
-                  {donations.map((donation) => (
-                    <ItemCard
-                      key={donation._id}
-                      UserAvatar={donation.user.avatar}
-                      FullName={donation.user.fullname}
-                      Username={donation.user.username}
-                      ItemName={donation.name}
-                      ItemCategory={donation.category}
-                      ItemStatus={donation.status}
-                      ItemLocation={donation.location.locationName}
-                      ItemDescription={donation.description}
-                      ItemDateOfCreation={donation.date}
-                      ItemID={donation._id}
-                      ItemUserId={donation.user.id}
-                      likes={donation.likes}
-                      images={donation.images}
-                      type='donation'
-                    />
-                  ))}
-                  <div className='pagination'>
-                    <Pagination
-                      defaultCurrent={1}
-                      current={currentPage}
-                      onChange={onChange}
-                      total={totalDonations}
-                      showSizeChanger={false}
-                      hideOnSinglePage={true}
-                    />
-                  </div>
-                </>
-              ) : (
-                <div className='user-not-found'>
-                  <div className='user-not-found-icon'>
-                    <GiBrokenHeartZone
-                      style={{ width: 100, height: 100, fillOpacity: 0.34 }}
-                    />
-                  </div>
-
-                  <p className='user-not-found-title'>
-                    Sorry, couldn't find any donations.
-                  </p>
+                    {donations.map((donation, index) => (
+                      <Marker
+                        key={index}
+                        position={[
+                          donation.location.latitude,
+                          donation.location.longitude,
+                        ]}
+                      >
+                        <Popup>
+                          {donation.name} <br />{' '}
+                          {donation.location.locationName}
+                        </Popup>
+                      </Marker>
+                    ))}
+                  </MapContainer>
                 </div>
               )}
             </>
