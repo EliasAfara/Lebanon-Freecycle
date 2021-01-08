@@ -14,11 +14,7 @@ const FilterBar = ({
     <>
       <div className='filterBar-container'>
         <div className='filterBar'>
-          <div className='filterBar__title'>
-            <span className='filterBar__title-text'>Filter</span>
-          </div>
           <div className='filterbar__filter'>
-            <label className='filterbar__label'>Status:</label>
             <Select
               placeholder='Select Status'
               style={{ width: 120 }}
@@ -33,10 +29,9 @@ const FilterBar = ({
           </div>
 
           <div className='filterbar__filter'>
-            <label className='filterbar__label'>Category:</label>
             <Select
               showSearch
-              style={{ width: 200 }}
+              style={{ width: 140 }}
               placeholder='Select Category'
               dropdownMatchSelectWidth={false}
               optionFilterProp='children'
