@@ -124,7 +124,7 @@ export const BottomNav = styled.nav`
     width: 100%;
     height: 60px;
     position: fixed;
-    z-index: 1;
+    z-index: 1040;
     bottom: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   }
