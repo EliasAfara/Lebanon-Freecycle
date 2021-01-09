@@ -9,6 +9,7 @@ import FilterBar from '../components/FilterBar/FilterBar';
 import ItemCard from '../components/ItemCard/ItemCard';
 import SideFilterBar from '../components/FilterBar/SideFilterBar';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 import Spinner from '../components/Spinner/Spinner';
 import './DonationPageStyles.css';
 import { Pagination, Button } from 'antd';
@@ -192,24 +193,25 @@ const DonationsPage = ({
                       url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
-
-                    {donations.map(
-                      (donation, index) =>
-                        donation.status === 'Available' && (
-                          <Marker
-                            key={index}
-                            position={[
-                              donation.location.latitude,
-                              donation.location.longitude,
-                            ]}
-                          >
-                            <Popup>
-                              {donation.name} <br />{' '}
-                              {donation.location.locationName}
-                            </Popup>
-                          </Marker>
-                        )
-                    )}
+                    <MarkerClusterGroup>
+                      {donations.map(
+                        (donation, index) =>
+                          donation.status === 'Available' && (
+                            <Marker
+                              key={index}
+                              position={[
+                                donation.location.latitude,
+                                donation.location.longitude,
+                              ]}
+                            >
+                              <Popup>
+                                {donation.name} <br />{' '}
+                                {donation.location.locationName}
+                              </Popup>
+                            </Marker>
+                          )
+                      )}
+                    </MarkerClusterGroup>
                   </MapContainer>
                 </div>
               )}
