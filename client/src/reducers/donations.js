@@ -61,6 +61,7 @@ export default function donations(state = initialState, action) {
         DonatinosLoading: true,
         singleDonationLoading: true,
         singleDonationRedirectOnDelete: false,
+        redirectPage: false,
       };
     case actionsType.CREATE_A_DONATION_SUCCESS:
       return {
@@ -75,7 +76,7 @@ export default function donations(state = initialState, action) {
       };
     case actionsType.UPDATE_A_DONATION_SUCCESS:
       let updatedDonations = [];
-      if (Object.keys(state.allDonations).length > 0) {
+      if (state.allDonations && state.allDonations.donations) {
         if (state.allDonations.donations.length > 0) {
           updatedDonations = state.allDonations.donations.map((obj) => {
             if (obj._id === payload._id) {
@@ -113,7 +114,7 @@ export default function donations(state = initialState, action) {
 
     case actionsType.UPDATE_DONATION_STATUS_SUCCESS:
       let updatedDonationsStatus = [];
-      if (Object.keys(state.allDonations).length > 0) {
+      if (state.allDonations && state.allDonations.donations) {
         if (state.allDonations.donations.length > 0) {
           updatedDonationsStatus = state.allDonations.donations.map((obj) => {
             if (obj._id === payload._id) {

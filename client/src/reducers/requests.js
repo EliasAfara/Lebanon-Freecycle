@@ -61,6 +61,7 @@ export default function requests(state = initialState, action) {
         loading: true,
         singleRequestLoading: true,
         singleRequestRedirectOnDelete: false,
+        redirectPage: false,
       };
     case actionsType.CREATE_A_REQUEST_SUCCESS:
       return {
@@ -75,7 +76,7 @@ export default function requests(state = initialState, action) {
       };
     case actionsType.UPDATE_A_REQUEST_SUCCESS:
       let updatedRequests = [];
-      if (Object.keys(state.allRequests).length > 0) {
+      if (state.allRequests && state.allRequests.requests) {
         if (state.allRequests.requests.length > 0) {
           updatedRequests = state.allRequests.requests.map((obj) => {
             if (obj._id === payload._id) {
@@ -113,7 +114,7 @@ export default function requests(state = initialState, action) {
 
     case actionsType.UPDATE_REQUEST_STATUS_SUCCESS:
       let updatedRequestsStatus = [];
-      if (Object.keys(state.allRequests).length > 0) {
+      if (state.allRequests && state.allRequests.requests) {
         if (state.allRequests.requests.length > 0) {
           updatedRequestsStatus = state.allRequests.requests.map((obj) => {
             if (obj._id === payload._id) {
