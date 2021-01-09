@@ -343,6 +343,8 @@ router.put(
         min: 11,
         max: 12,
       }),
+      check('locationName', 'Location is required').not().isEmpty(),
+      check('address', 'Location is required').not().isEmpty(),
     ],
   ],
   async (req, res) => {
@@ -355,13 +357,32 @@ router.put(
     try {
       const user = await User.findById(req.user.id).select('-password');
 
-      const { name, category, description, phoneNumber } = req.body;
+      const {
+        name,
+        category,
+        description,
+        phoneNumber,
+        address,
+        locationName,
+        longitude,
+        latitude,
+        district,
+        googleMapLink,
+      } = req.body;
 
       const donationFields = {};
       if (name) donationFields.name = name;
       if (category) donationFields.category = category;
       if (description) donationFields.description = description;
       if (phoneNumber) donationFields.phoneNumber = phoneNumber;
+      if (address) donationFields.address = address;
+
+      donationFields.location = {};
+      donationFields.location.locationName = locationName;
+      donationFields.location.longitude = longitude;
+      donationFields.location.latitude = latitude;
+      donationFields.location.district = district;
+      donationFields.location.googleMapLink = googleMapLink;
 
       donationFields.user = {};
       donationFields.user.id = req.user.id;
