@@ -19,10 +19,9 @@ import DashboardPage from '../pages/DashboardPage';
 import EditProfile from '../components/Setting/EditProfile';
 import ChangePassword from '../components/Setting/ChangePassword';
 import EditRequest from '../pages/EditRequest';
+import EditDonation from '../pages/EditDonation';
 import ViewRequest from '../pages/ViewRequest';
 import ViewDonation from '../pages/ViewDonation';
-
-const EditDonation = ''; // Component used to edit a donation according to the passed ID
 
 const Routes = () => {
   return (
@@ -33,6 +32,7 @@ const Routes = () => {
 
         <Switch>
           {/* Public */}
+
           <Route exact path='/about' component={AboutPage} />
           <Route exact path='/faq' component={FAQPage} />
 
@@ -50,8 +50,6 @@ const Routes = () => {
 
           {/* Private */}
           <PrivateRoute exact path='/dashboard' component={DashboardPage} />
-
-          {/* Change to Private Later */}
 
           <PrivateRoute
             exact
