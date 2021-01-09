@@ -6,10 +6,14 @@ import ModalPopUp from '../Modal/ModalPopUp';
 import AuthenticatedUserActions from '../Modal/AuthenticatedUserActions';
 import GuestUserActions from '../Modal/GuestUserActions';
 import ImageSlider from '../ImageSlider/ImageSlider';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import './SingleItem.css';
 import { VscEllipsis } from 'react-icons/vsc';
 import ShareIcon from '../SVGComponents/ShareIcon';
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
+import { RiUserLocationFill, RiPhoneFill } from 'react-icons/ri';
+import { MdLocationCity } from 'react-icons/md';
+import { SiGooglestreetview } from 'react-icons/si';
 import { Tooltip, Tag } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 
@@ -26,7 +30,8 @@ const SingleItem = ({
     likes,
     comments,
     date,
-    map,
+    address,
+    location,
   },
   auth,
   type,
@@ -50,23 +55,6 @@ const SingleItem = ({
           <strong>{name}</strong>
         </h1>
         <div className='item-title-leftside-content'>
-          {status === 'Available' ? (
-            <Tag
-              icon={<ClockCircleOutlined />}
-              color='processing'
-              style={{ fontSize: 'inherit' }}
-            >
-              {status}
-            </Tag>
-          ) : (
-            <Tag
-              icon={<CheckCircleOutlined />}
-              color='success'
-              style={{ fontSize: 'inherit' }}
-            >
-              {status}
-            </Tag>
-          )}
           <span className='header-love-icon' onClick={() => addLike(!liked)}>
             {liked ? (
               <BsFillHeartFill style={{ color: '#f05f70' }} />
@@ -93,15 +81,17 @@ const SingleItem = ({
               draggable='false'
             />
           </Link>
-          <Link to={`/profile/${user.username}`}>
-            <h4 className='user-fullname'>{user.fullname}</h4>
-          </Link>
-          <h4 className='header-date'>
-            <span className='dot-divider'>•</span>
-            <time dateTime={date} title={formatDateMDY(date)}>
-              {formatDate(date)}
-            </time>
-          </h4>
+          <div className='header-info-wrapper'>
+            <Link to={`/profile/${user.username}`}>
+              <h4 className='user-fullname'>{user.fullname}</h4>
+            </Link>
+            <h4 className='header-date'>
+              <span className='dot-divider'>•</span>
+              <time dateTime={date} title={formatDateMDY(date)}>
+                {formatDate(date)}
+              </time>
+            </h4>
+          </div>
         </div>
         <div className='header-icons-container'>
           <span className='header-icon-span'>
@@ -136,38 +126,83 @@ const SingleItem = ({
       />
 
       <div className='item-body-container'>
-        <div className='item-body-info'>
-          <div className='item-body-info-line'>
-            <h2 className='item-body-info-title'>Category</h2>
-            <span className='item-body-info-details'>{category}</span>
+        <div>
+          <div className='item-body-tags'>
+            <Tag>{category}</Tag>
+            {status === 'Available' ? (
+              <Tag icon={<ClockCircleOutlined />} color='processing'>
+                {status}
+              </Tag>
+            ) : (
+              <Tag icon={<CheckCircleOutlined />} color='success'>
+                {status}
+              </Tag>
+            )}
           </div>
           <div className='item-body-info-line'>
-            <h2 className='item-body-info-title'>Description</h2>
             <span className='item-body-info-details'>{description}</span>
+            {status === 'Available' && (
+              <div className='item-body-contact'>
+                <div className='item-body-info-details'>
+                  {location && (
+                    <span className='item-details-contact-wrapper'>
+                      <MdLocationCity />{' '}
+                      <span className='item-details-contact'>
+                        {location.locationName}
+                      </span>
+                    </span>
+                  )}
+
+                  {address && (
+                    <span className='item-details-contact-wrapper'>
+                      <RiUserLocationFill />{' '}
+                      <span className='item-details-contact'>{address}</span>
+                    </span>
+                  )}
+
+                  <span className='item-details-contact-wrapper'>
+                    <RiPhoneFill />{' '}
+                    <a
+                      href={`tel:${lebanesePhoneNumber}`}
+                      className='item-details-contact'
+                    >
+                      {lebanesePhoneNumber}
+                    </a>
+                  </span>
+                  {location && (
+                    <span className='item-details-contact-wrapper'>
+                      <SiGooglestreetview />{' '}
+                      <a
+                        href={location.googleMapLink}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='item-details-contact'
+                      >
+                        View on Google Map
+                      </a>
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
-        {status === 'Available' && (
-          <div className='item-body-contact'>
-            <h2 className='item-body-info-title'>Phone Number</h2>
-            <span className='item-body-info-details'>
-              {lebanesePhoneNumber}
-            </span>
-          </div>
-        )}
       </div>
-
-      {map && (
-        <div
-          style={{
-            background: '#fff',
-            width: '700px',
-            height: '400px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          MAP
+      {location && status === 'Available' && (
+        <div style={{ marginTop: '20px', marginBottom: '10px' }}>
+          <MapContainer
+            center={[33.8547, 35.8623]}
+            zoom={8}
+            style={{ position: 'relative' }}
+          >
+            <TileLayer
+              url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <Marker position={[location.latitude, location.longitude]}>
+              <Popup>{location.locationName}</Popup>
+            </Marker>
+          </MapContainer>
         </div>
       )}
     </div>
