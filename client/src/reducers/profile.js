@@ -56,7 +56,23 @@ export default function profile(state = initialState, action) {
           ...state,
         };
       }
-
+    case actionsType.DELETE_A_DONATION:
+      let updatedProfileDonations = { ...state.profile };
+      let newUserProfileDonations = [];
+      if (state.profile !== null && state.profile.donations.length > 0) {
+        newUserProfileDonations = state.profile.donations.filter(
+          (donationObj) => donationObj.donation !== payload
+        );
+        updatedProfileDonations.donations = newUserProfileDonations;
+        return {
+          ...state,
+          profile: updatedProfileDonations,
+        };
+      } else {
+        return {
+          ...state,
+        };
+      }
     default:
       return state;
   }
