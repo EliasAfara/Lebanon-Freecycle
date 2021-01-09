@@ -193,20 +193,23 @@ const DonationsPage = ({
                       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
 
-                    {donations.map((donation, index) => (
-                      <Marker
-                        key={index}
-                        position={[
-                          donation.location.latitude,
-                          donation.location.longitude,
-                        ]}
-                      >
-                        <Popup>
-                          {donation.name} <br />{' '}
-                          {donation.location.locationName}
-                        </Popup>
-                      </Marker>
-                    ))}
+                    {donations.map(
+                      (donation, index) =>
+                        donation.status === 'Available' && (
+                          <Marker
+                            key={index}
+                            position={[
+                              donation.location.latitude,
+                              donation.location.longitude,
+                            ]}
+                          >
+                            <Popup>
+                              {donation.name} <br />{' '}
+                              {donation.location.locationName}
+                            </Popup>
+                          </Marker>
+                        )
+                    )}
                   </MapContainer>
                 </div>
               )}
