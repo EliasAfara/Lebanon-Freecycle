@@ -73,7 +73,7 @@ export const getAllUserDonations = (quries) => async (dispatch) => {
   }
 };
 
-export const getSingleDontion = (donationId) => async (dispatch) => {
+export const getSingleDonation = (donationId) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/donations/single/${donationId}`);
 
