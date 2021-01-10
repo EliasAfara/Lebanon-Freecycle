@@ -101,6 +101,10 @@
     margin-bottom: 0;
 }
 
+.user-content-spinner{
+    text-align: center;
+}
+
 @media only screen and (max-width: 991px) {
     .user-not-found {
         padding-top: 120px;

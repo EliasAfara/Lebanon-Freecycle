@@ -8,9 +8,8 @@ import { RequestCategories } from '../../shared/Categories';
 
 import ItemCard from '../ItemCard/ItemCard';
 import FilterBar from '../FilterBar/FilterBar';
-import Spinner from '../Spinner/Spinner';
 import { GiBrokenHeartZone } from 'react-icons/gi';
-import { Button } from 'antd';
+import { Button, Space, Spin } from 'antd';
 import SideFilterBar from '../FilterBar/SideFilterBar';
 
 const UserRequests = ({
@@ -82,7 +81,11 @@ const UserRequests = ({
   return (
     <>
       {userRequestLoading ? (
-        <Spinner />
+        <div className='user-content-spinner'>
+          <Space size='middle'>
+            <Spin size='large' />
+          </Space>
+        </div>
       ) : (
         <>
           <div className='FilterBar-wrapper'>
