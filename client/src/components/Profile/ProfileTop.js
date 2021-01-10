@@ -59,7 +59,7 @@ const ProfileTop = ({
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <S.IconBtn bgColor='#0075FA'>
+                <S.IconBtn>
                   <RiFacebookFill />
                 </S.IconBtn>
               </a>
@@ -71,7 +71,7 @@ const ProfileTop = ({
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <S.IconBtn bgColor='#1DA1F2'>
+                <S.IconBtn>
                   <RiTwitterFill />
                 </S.IconBtn>
               </a>
@@ -83,7 +83,7 @@ const ProfileTop = ({
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <S.IconBtn bgColor='radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)'>
+                <S.IconBtn>
                   <RiInstagramLine />
                 </S.IconBtn>
               </a>

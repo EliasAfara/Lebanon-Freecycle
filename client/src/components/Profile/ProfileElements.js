@@ -202,8 +202,8 @@ export const IconBtn = styled.button`
   width: 28px;
   font-size: 26px;
   margin: 0 0 0 4px;
-  color: #fff;
-  background: ${(props) => props.bgColor || 'palevioletred'};
+  color: #292929;
+  background: transparent;
   cursor: pointer;
 `;
 
