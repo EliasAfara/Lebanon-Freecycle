@@ -114,6 +114,55 @@ const ItemCard = ({
       >
         <S.Wrapper>
           <S.Card currentStatus={ItemStatus}>
+            <S.ContentHeaderV2>
+              {UserAvatar && (
+                <Link to={`/profile/${Username}`}>
+                  <S.HeaderAvatar
+                    src={UserAvatar}
+                    alt='User Avatar'
+                    loading='lazy'
+                    draggable='false'
+                  />
+                </Link>
+              )}
+
+              {FullName && (
+                <S.HeaderUserFullName>
+                  <Link
+                    to={`/profile/${Username}`}
+                    style={{
+                      paddingBottom: '1px',
+                      color: 'rgba(var(--i1d, 38, 38, 38), 1)',
+                    }}
+                  >
+                    {FullName}
+                  </Link>
+                  {ItemLocation && (
+                    <S.ItemLocation>
+                      <S.ItemLocationLink
+                        href={ItemLocation.googleMapLink}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        {ItemLocation.locationName +
+                          ' - ' +
+                          ItemLocation.district}
+                      </S.ItemLocationLink>
+                    </S.ItemLocation>
+                  )}
+                </S.HeaderUserFullName>
+              )}
+
+              <S.HeaderEllipsis onClick={() => setModalShow(true)}>
+                <VscEllipsis
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                  }}
+                />
+              </S.HeaderEllipsis>
+            </S.ContentHeaderV2>
+
             {images && images.length > 0 && (
               <S.CardImage>
                 <ImageSlider images={images} interval={null} fade={false} />

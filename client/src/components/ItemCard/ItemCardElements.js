@@ -41,12 +41,10 @@ export const CardImage = styled.div`
 
   @media only screen and (max-width: 600px) {
     width: 100%;
-    height: 395px;
-  }
-  @media only screen and (max-width: 320px) {
-    height: 290px;
+    height: 100%;
   }
 `;
+
 export const ItemImage = styled.img`
   width: 100%;
   height: 100%;
@@ -68,6 +66,10 @@ export const ContentDetails = styled.div`
   grid-template-rows: 0.5fr 1fr 0.7fr;
   width: 100%;
   height: 100%;
+
+  @media only screen and (max-width: 600px) {
+    grid-template-rows: 1fr 0.7fr;
+  }
 `;
 
 export const ContentHeader = styled.div`
@@ -76,7 +78,24 @@ export const ContentHeader = styled.div`
   width: 100%;
   margin-bottom: 5px;
   height: fit-content;
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `;
+
+export const ContentHeaderV2 = styled.div`
+  display: none;
+
+  @media only screen and (max-width: 600px) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    height: fit-content;
+  }
+`;
+
 export const HeaderAvatar = styled.img`
   vertical-align: middle;
   margin-right: 10px;
