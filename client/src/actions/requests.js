@@ -15,6 +15,7 @@ import {
   UPDATE_REQUEST_FAIL,
   DELETE_A_REQUEST,
   CLEAR_USER_PROFILE,
+  REQUEST_FORM_LOADING,
 } from './types';
 import { setAlert } from './alert';
 import { setToast } from './toast';
@@ -100,6 +101,9 @@ export const getSingleRequest = (id) => async (dispatch) => {
 };
 
 export const createRequest = (formData) => async (dispatch) => {
+  dispatch({
+    type: REQUEST_FORM_LOADING,
+  });
   try {
     const res = await axios.post('/api/requests', formData);
 

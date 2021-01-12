@@ -100,7 +100,7 @@ const RequestsPage = ({
   console.log(requests);
 
   return (
-    <div style={{ maxWidth: '1000px', width: 'inherit' }}>
+    <div style={{ maxWidth: '700px', width: 'inherit' }}>
       {loading ? (
         <Spinner />
       ) : (

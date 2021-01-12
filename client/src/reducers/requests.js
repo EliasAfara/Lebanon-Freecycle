@@ -10,6 +10,7 @@ const initialState = {
   userRequestLoading: true,
   redirectPage: false,
   singleRequestRedirectOnDelete: false,
+  createRequestFormLoading: false,
   error: {},
 };
 
@@ -63,6 +64,11 @@ export default function requests(state = initialState, action) {
         singleRequestRedirectOnDelete: false,
         redirectPage: false,
       };
+    case actionsType.REQUEST_FORM_LOADING:
+      return {
+        ...state,
+        createRequestFormLoading: true,
+      };
     case actionsType.CREATE_A_REQUEST_SUCCESS:
       return {
         ...state,
@@ -70,6 +76,7 @@ export default function requests(state = initialState, action) {
           totalRequests: state.allRequests.totalRequests + 1,
           requests: [payload, ...state.allRequests.requests],
         },
+        createRequestFormLoading: false,
         loading: false,
         redirectPage: true,
         error: {},
@@ -197,6 +204,13 @@ export default function requests(state = initialState, action) {
         singleRequestRedirectOnDelete: true,
       };
     case actionsType.CREATE_REQUEST_FAIL:
+      return {
+        ...state,
+        error: payload,
+        createRequestFormLoading: false,
+        loading: false,
+      };
+
     case actionsType.UPDATE_REQUEST_FAIL:
       return {
         ...state,

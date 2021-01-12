@@ -10,8 +10,10 @@ import PhoneInput from 'react-phone-input-2';
 import * as Styled from '../StyledComponents/StyledForm';
 import { FcRules } from 'react-icons/fc';
 import { RiInformationLine } from 'react-icons/ri';
-import { Select } from 'antd';
+import { Select, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 const { Option } = Select;
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const initialState = {
   name: '',
@@ -23,9 +25,11 @@ const initialState = {
 const RequestsForm = ({
   getAllRequests,
   createRequest,
-  requests: { redirectPage },
+  requests: { redirectPage, createRequestFormLoading },
 }) => {
   const [formData, setFormData] = useState(initialState);
+  const [formLoading, setFormLoading] = useState(false);
+
   const { name, description, phoneNumber } = formData;
   const [redirect, setRedirect] = useState(false);
   const [selectedImages, setSelectedImages] = useState({});
@@ -93,12 +97,19 @@ const RequestsForm = ({
   };
 
   useEffect(() => {
-    getAllRequests('');
+    if (createRequestFormLoading) {
+      setFormLoading(true);
+    } else {
+      setFormLoading(false);
+    }
 
     if (redirectPage === true) {
       setRedirect(true);
+      setFormLoading(false);
+    } else {
+      getAllRequests('');
     }
-  }, [getAllRequests, redirectPage]);
+  }, [getAllRequests, createRequestFormLoading, redirectPage]);
 
   if (redirect) {
     return <Redirect to='/requests' />;
@@ -275,13 +286,6 @@ const RequestsForm = ({
                 })
               }
             />
-
-            {/* <Styled.FieldInput__Input
-              name='phoneNumber'
-              type='tel'
-              placeholder='Phone Number e.g. 78 845 230'
-              required
-            /> */}
           </Styled.FormField__Div>
 
           <Styled.FormField__Div>
@@ -291,8 +295,30 @@ const RequestsForm = ({
                 required
               </span>
             </Styled.RequiredMessage__Div>
-
-            <input type='submit' value='Submit' className='submit__btn' />
+            <div className='form__footer-wrapper'>
+              <button
+                type='submit'
+                value='Submit'
+                className='submit__btn'
+                disabled={formLoading}
+              >
+                {formLoading ? (
+                  <>
+                    <Spin
+                      indicator={antIcon}
+                      style={{
+                        color: 'inherit',
+                        fontSize: 'inherit',
+                        marginRight: '5px',
+                      }}
+                    />{' '}
+                    Submitting...
+                  </>
+                ) : (
+                  <>Submit</>
+                )}
+              </button>
+            </div>
           </Styled.FormField__Div>
         </form>
       </Styled.FormWrapper__Div>
