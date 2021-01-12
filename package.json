@@ -23,6 +23,7 @@
     "helmet": "^4.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.14",
+    "normalize-url": "^5.3.0",
     "uuid": "^8.3.2",
     "xss-clean": "^0.1.1"
   },
