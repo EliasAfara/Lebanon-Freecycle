@@ -16,6 +16,7 @@ import {
   UPDATE_DONATION_FAIL,
   DELETE_A_DONATION,
   CLEAR_USER_PROFILE,
+  DONATION_FORM_LOADING,
 } from './types';
 
 import { setAlert } from './alert';
@@ -104,6 +105,10 @@ export const getSingleDonation = (donationId) => async (dispatch) => {
 };
 
 export const createDonation = (formData) => async (dispatch) => {
+  dispatch({
+    type: DONATION_FORM_LOADING,
+  });
+
   try {
     const res = await axios.post('/api/donations', formData);
 

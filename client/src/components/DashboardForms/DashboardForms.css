@@ -98,10 +98,18 @@ transition: all 0.3s ease;
         0px 0px 8px rgba(70, 131, 223, 0.5);
 }
 
+.form__footer-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%
+}
+
 .submit__btn{
     box-sizing: border-box;
     cursor: pointer;
     display: block;
+    width: 135px;
     font-weight: 600;
     padding: 5px 9px;
     text-align: center;

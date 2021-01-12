@@ -10,8 +10,10 @@ import './DashboardForms.css';
 import { FcRules } from 'react-icons/fc';
 import { RiInformationLine } from 'react-icons/ri';
 import * as Styled from '../StyledComponents/StyledForm';
-import { Select } from 'antd';
+import { Select, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 const { Option } = Select;
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const initialState = {
   name: '',
@@ -28,9 +30,11 @@ const initialState = {
 const DonationsForm = ({
   createDonation,
   getAllDonations,
-  donations: { redirectPage },
+  donations: { redirectPage, createDonationFormLoading },
 }) => {
   const [formData, setFormData] = useState(initialState);
+  const [formLoading, setFormLoading] = useState(false);
+
   const {
     name,
     description,
@@ -133,11 +137,19 @@ const DonationsForm = ({
   };
 
   useEffect(() => {
-    getAllDonations('');
+    if (createDonationFormLoading) {
+      setFormLoading(true);
+    } else {
+      setFormLoading(false);
+    }
+
     if (redirectPage === true) {
       setRedirect(true);
+      setFormLoading(false);
+    } else {
+      getAllDonations('');
     }
-  }, [getAllDonations, redirectPage]);
+  }, [getAllDonations, createDonationFormLoading, redirectPage]);
 
   if (redirect) {
     return <Redirect to='/donations' />;
@@ -384,8 +396,30 @@ const DonationsForm = ({
                 required
               </span>
             </Styled.RequiredMessage__Div>
-
-            <input type='submit' value='Submit' className='submit__btn' />
+            <div className='form__footer-wrapper'>
+              <button
+                type='submit'
+                value='Submit'
+                className='submit__btn'
+                disabled={formLoading}
+              >
+                {formLoading ? (
+                  <>
+                    <Spin
+                      indicator={antIcon}
+                      style={{
+                        color: 'inherit',
+                        fontSize: 'inherit',
+                        marginRight: '5px',
+                      }}
+                    />{' '}
+                    Submitting...
+                  </>
+                ) : (
+                  <>Submit</>
+                )}
+              </button>
+            </div>
           </Styled.FormField__Div>
         </form>
       </Styled.FormWrapper__Div>

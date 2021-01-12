@@ -164,7 +164,7 @@ export const FileField__Div = styled.div`
 export const FileInput__Input = styled.input`
   position: relative;
   z-index: 2;
-  /* width: 100%; */
+  width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
   margin: 0;
   opacity: 0;
@@ -178,7 +178,7 @@ export const FileInput__Input = styled.input`
 
 export const RequiredMessage__Div = styled.div`
   width: 140px;
-  margin-right: 32px;
+  margin-right: 86px;
 
   @media (max-width: 767px) {
     margin: 10px 0 10px 0;

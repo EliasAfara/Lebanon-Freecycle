@@ -10,6 +10,7 @@ const initialState = {
   userDonationLoading: true,
   redirectPage: false,
   singleDonationRedirectOnDelete: false,
+  createDonationFormLoading: false,
   error: {},
 };
 
@@ -63,6 +64,13 @@ export default function donations(state = initialState, action) {
         singleDonationRedirectOnDelete: false,
         redirectPage: false,
       };
+
+    case actionsType.DONATION_FORM_LOADING:
+      return {
+        ...state,
+        createDonationFormLoading: true,
+      };
+
     case actionsType.CREATE_A_DONATION_SUCCESS:
       return {
         ...state,
@@ -70,6 +78,7 @@ export default function donations(state = initialState, action) {
           totalDonations: state.allDonations.totalDonations + 1,
           donations: [payload, ...state.allDonations.donations],
         },
+        createDonationFormLoading: false,
         DonatinosLoading: false,
         redirectPage: true,
         error: {},
@@ -196,7 +205,15 @@ export default function donations(state = initialState, action) {
         singleDonations: singleDonationDeleteCheck,
         singleDonationRedirectOnDelete: true,
       };
+
     case actionsType.CREATE_DONATION_FAIL:
+      return {
+        ...state,
+        error: payload,
+        createDonationFormLoading: false,
+        DonatinosLoading: false,
+      };
+
     case actionsType.UPDATE_DONATION_FAIL:
       return {
         ...state,
