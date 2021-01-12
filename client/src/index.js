@@ -5,6 +5,7 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import 'antd/dist/antd.css';
 import 'react-phone-input-2/lib/style.css';
+import 'react-leaflet-markercluster/dist/styles.min.css';
 import App from './App';
 
 ReactDOM.render(<App />, document.getElementById('root'));
