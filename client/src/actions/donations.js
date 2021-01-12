@@ -15,6 +15,7 @@ import {
   UPDATE_DONATION_STATUS_SUCCESS,
   UPDATE_DONATION_FAIL,
   DELETE_A_DONATION,
+  CLEAR_USER_PROFILE,
 } from './types';
 
 import { setAlert } from './alert';
@@ -28,6 +29,9 @@ export const getAllDonations = (quries) => async (dispatch) => {
     } else {
       res = await axios.get('/api/donations');
     }
+    dispatch({
+      type: CLEAR_USER_PROFILE,
+    });
 
     dispatch({
       type: RESET_GET_ALL_DONATIONS_LOADING,

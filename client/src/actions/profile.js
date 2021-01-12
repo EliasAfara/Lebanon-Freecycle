@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import {
   GET_USER_PROFILE,
+  CLEAR_USER_PROFILE,
   UPDATE_USER_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
@@ -16,6 +17,9 @@ export const getProfileByUsername = (username) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/profile/${username}`);
 
+    dispatch({
+      type: CLEAR_USER_PROFILE,
+    });
     dispatch({
       type: GET_USER_PROFILE,
       payload: res.data,

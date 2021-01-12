@@ -14,6 +14,7 @@ import {
   UPDATE_REQUEST_STATUS_SUCCESS,
   UPDATE_REQUEST_FAIL,
   DELETE_A_REQUEST,
+  CLEAR_USER_PROFILE,
 } from './types';
 import { setAlert } from './alert';
 import { setToast } from './toast';
@@ -26,6 +27,9 @@ export const getAllRequests = (quries) => async (dispatch) => {
     } else {
       res = await axios.get('/api/requests');
     }
+    dispatch({
+      type: CLEAR_USER_PROFILE,
+    });
 
     dispatch({
       type: RESET_GET_ALL_REQUESTS_LOADING,

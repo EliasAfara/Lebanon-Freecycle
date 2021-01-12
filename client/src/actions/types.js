@@ -21,6 +21,7 @@ export const LOGOUT = 'Logout';
 
 // Profile types
 export const GET_USER_PROFILE = 'User-Profile/get';
+export const CLEAR_USER_PROFILE = 'User-Profile/cleared';
 export const UPDATE_USER_PROFILE = 'User-Profile/updated';
 export const CLEAR_PROFILE = 'User-Profile/cleared';
 export const ACCOUNT_DELETED = 'Account/deleted';
