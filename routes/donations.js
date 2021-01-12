@@ -2,36 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const { cloudinary } = require('../utils/cloudinary');
+const APIfeatures = require('../utils/APIfeatures');
 const User = require('../models/User');
 const Donation = require('../models/Donation');
 const auth = require('../middleware/auth');
 const { v4 } = require('uuid');
-
-class APIfeatures {
-  constructor(query, queryString) {
-    this.query = query;
-    this.queryString = queryString;
-  }
-
-  filtering() {
-    const queryobj = { ...this.queryString };
-    // console.log(`Query: ${JSON.stringify(queryobj)}`);
-    const excludedfields = ['page', 'sort', 'limit'];
-    excludedfields.forEach((el) => delete queryobj[el]);
-    let querystr = JSON.stringify(queryobj);
-    querystr = querystr.replace(/\b(gte|gt|lt|lte)\b/g, (match) => `$${match}`);
-    this.query.find(JSON.parse(querystr)).sort({ date: -1 });
-    return this;
-  }
-
-  paginating() {
-    const page = this.queryString.page * 1 || 1;
-    const limit = this.queryString.limit * 1 || 10;
-    const skip = (page - 1) * limit;
-    this.query = this.query.skip(skip).limit(limit);
-    return this;
-  }
-}
 
 /**
  * @route    #reqtype: POST | #endpoint: api/donations
@@ -40,32 +15,27 @@ class APIfeatures {
  */
 router.post(
   '/',
-  [
-    auth,
-    [
-      check(
-        'name',
-        'Text is required to be between 2 to 40 characters'
-      ).isLength({
-        min: 2,
-        max: 40,
-      }),
-      check(
-        'description',
-        'Description is required to be between 5 to 255 characters'
-      ).isLength({
-        min: 5,
-        max: 255,
-      }),
-      check('category', 'Category is required').not().isEmpty(),
-      check('phoneNumber', 'Phone Number is required').isLength({
-        min: 11,
-        max: 12,
-      }),
-      check('locationName', 'Location is required').not().isEmpty(),
-      check('address', 'Location is required').not().isEmpty(),
-    ],
-  ],
+
+  auth,
+  check('name', 'Text is required to be between 2 to 40 characters').isLength({
+    min: 2,
+    max: 40,
+  }),
+  check(
+    'description',
+    'Description is required to be between 5 to 255 characters'
+  ).isLength({
+    min: 5,
+    max: 255,
+  }),
+  check('category', 'Category is required').notEmpty(),
+  check('phoneNumber', 'Phone Number is required').isLength({
+    min: 11,
+    max: 12,
+  }),
+  check('locationName', 'Location is required').notEmpty(),
+  check('address', 'Location is required').notEmpty(),
+
   async (req, res) => {
     const {
       name,
@@ -78,9 +48,7 @@ router.post(
       latitude,
       district,
       googleMapLink,
-      image1,
-      image2,
-      image3,
+      imagesConatiner,
     } = req.body;
 
     const errors = validationResult(req);
@@ -91,21 +59,12 @@ router.post(
 
     try {
       let imagesURLs = [];
-      let counter = 0;
-      if (image1 !== '') {
-        counter++;
-      }
-      if (image2 !== '') {
-        counter++;
-      }
-      if (image3 !== '') {
-        counter++;
-      }
 
-      if (counter !== 0) {
-        for (let i = 0; i < counter; i++) {
-          if (i === 0) {
-            const uploadResponseOne = await cloudinary.uploader.upload(image1, {
+      if (imagesConatiner.length > 0) {
+        for (let i = 0; i < imagesConatiner.length; i++) {
+          let uploadResponse = await cloudinary.uploader.upload(
+            imagesConatiner[i],
+            {
               upload_preset: 'lebanon-freecycle-donations',
               crop: 'scale',
               quality: 'auto:eco',
@@ -123,57 +82,14 @@ router.post(
               },
               folder: 'donations',
               public_id: `lfc_${req.user.id}_donation_${v4()}`,
-            });
-            imagesURLs.push({ imageURL: uploadResponseOne.secure_url });
-          }
-          if (i === 1) {
-            const uploadResponseTwo = await cloudinary.uploader.upload(image2, {
-              upload_preset: 'lebanon-freecycle-donations',
-              crop: 'scale',
-              quality: 'auto:eco',
-              fetch_format: 'auto',
-              responsive_breakpoints: {
-                create_derived: true,
-                bytes_step: 20000,
-                min_width: 200,
-                max_width: 700,
-                transformation: {
-                  crop: 'fill',
-                  aspect_ratio: '16:9',
-                  gravity: 'auto',
-                },
-              },
-              folder: 'donations',
-              public_id: `lfc_${req.user.id}_donation_${v4()}`,
-            });
-            imagesURLs.push({ imageURL: uploadResponseTwo.secure_url });
-          }
-          if (i === 2) {
-            const uploadResponseThree = await cloudinary.uploader.upload(
-              image3,
-              {
-                upload_preset: 'lebanon-freecycle-donations',
-                crop: 'scale',
-                quality: 'auto:eco',
-                fetch_format: 'auto',
-                responsive_breakpoints: {
-                  create_derived: true,
-                  bytes_step: 20000,
-                  min_width: 200,
-                  max_width: 700,
-                  transformation: {
-                    crop: 'fill',
-                    aspect_ratio: '16:9',
-                    gravity: 'auto',
-                  },
-                },
-                folder: 'donations',
-                public_id: `lfc_${req.user.id}_donation_${v4()}`,
-              }
-            );
-            imagesURLs.push({ imageURL: uploadResponseThree.secure_url });
-          }
+            }
+          );
+          imagesURLs.push({ imageURL: uploadResponse.secure_url });
         }
+      } else {
+        return res.status(400).json({
+          errors: [{ msg: 'A donation image is required' }],
+        });
       }
 
       let user = await User.findById(req.user.id).select('-password');
@@ -208,13 +124,13 @@ router.post(
       return res.json(donation);
     } catch (err) {
       console.error(err);
-      //   if (err.message.includes('File size too large.')) {
-      //     return res.status(400).json({
-      //       errors: [
-      //         { msg: 'Image is too large. Maximum size allowed is 10 MB' },
-      //       ],
-      //     });
-      //   }
+      if (err.message.includes('File size too large.')) {
+        return res.status(400).json({
+          errors: [
+            { msg: 'Image is too large. Maximum size allowed is 10 MB' },
+          ],
+        });
+      }
       res.status(500).send('500 Internal server error');
     }
   }
@@ -265,6 +181,7 @@ router.get('/', async (req, res) => {
 router.get('/user', async (req, res) => {
   try {
     /**
+     * @examples
      * http://localhost:5000/api/donations/?user.username=elias
      * http://localhost:5000/api/donations/user/?user.username=elias&status=Completed
      * param: user.username | Value: elias
@@ -321,32 +238,26 @@ router.get('/single/:id', async (req, res) => {
  */
 router.put(
   '/:id',
-  [
-    auth,
-    [
-      check(
-        'name',
-        'Text is required to be between 2 to 40 characters'
-      ).isLength({
-        min: 2,
-        max: 40,
-      }),
-      check(
-        'description',
-        'Description is required to be between 5 to 255 characters'
-      ).isLength({
-        min: 5,
-        max: 255,
-      }),
-      check('category', 'Category is required').not().isEmpty(),
-      check('phoneNumber', 'Phone Number is required').isLength({
-        min: 11,
-        max: 12,
-      }),
-      check('locationName', 'Location is required').not().isEmpty(),
-      check('address', 'Location is required').not().isEmpty(),
-    ],
-  ],
+  auth,
+  check('name', 'Text is required to be between 2 to 40 characters').isLength({
+    min: 2,
+    max: 40,
+  }),
+  check(
+    'description',
+    'Description is required to be between 5 to 255 characters'
+  ).isLength({
+    min: 5,
+    max: 255,
+  }),
+  check('category', 'Category is required').notEmpty(),
+  check('phoneNumber', 'Phone Number is required').isLength({
+    min: 11,
+    max: 12,
+  }),
+  check('locationName', 'Location is required').notEmpty(),
+  check('address', 'Location is required').notEmpty(),
+
   async (req, res) => {
     const errors = validationResult(req);
 
@@ -377,18 +288,20 @@ router.put(
       if (phoneNumber) donationFields.phoneNumber = phoneNumber;
       if (address) donationFields.address = address;
 
-      donationFields.location = {};
-      donationFields.location.locationName = locationName;
-      donationFields.location.longitude = longitude;
-      donationFields.location.latitude = latitude;
-      donationFields.location.district = district;
-      donationFields.location.googleMapLink = googleMapLink;
+      donationFields.location = {
+        locationName: locationName,
+        longitude: longitude,
+        latitude: latitude,
+        district: district,
+        googleMapLink: googleMapLink,
+      };
 
-      donationFields.user = {};
-      donationFields.user.id = req.user.id;
-      donationFields.user.fullname = user.fullname;
-      donationFields.user.username = user.username;
-      donationFields.user.avatar = user.avatar;
+      donationFields.user = {
+        id: req.user.id,
+        fullname: user.fullname,
+        username: user.username,
+        avatar: user.avatar,
+      };
 
       const donation = await Donation.findOneAndUpdate(
         { _id: req.params.id },

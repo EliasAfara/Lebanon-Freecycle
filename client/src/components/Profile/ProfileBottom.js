@@ -77,7 +77,7 @@ const ProfileBottom = ({
           )
         }
         size='large'
-        animated={true}
+        animated={false}
       />
     </>
   );

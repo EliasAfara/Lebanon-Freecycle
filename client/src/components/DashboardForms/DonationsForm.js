@@ -101,14 +101,18 @@ const DonationsForm = ({
     });
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  // useEffect(() => {
+  //   console.log(formData);
+  // }, [formData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     let filteredCategory = formData.category.replace(/&/g, 'and');
+    let imagesConatiner = [];
+    if (image1.length > 0) imagesConatiner.push(image1);
+    if (image2.length > 0) imagesConatiner.push(image2);
+    if (image3.length > 0) imagesConatiner.push(image3);
 
     const data = {
       name,
@@ -121,9 +125,7 @@ const DonationsForm = ({
       latitude,
       district,
       googleMapLink,
-      image1: image1,
-      image2: image2,
-      image3: image3,
+      imagesConatiner,
     };
 
     console.log(data);
@@ -212,7 +214,6 @@ const DonationsForm = ({
                 Name<span className='required'> *</span>
               </Styled.FieldName__Label>
             </Styled.FieldLabel__Div>
-
             <Styled.FieldInput__Input
               name='name'
               value={name}
@@ -221,6 +222,18 @@ const DonationsForm = ({
               placeholder='Name'
               required
             />
+            {/* <div>
+              <Styled.FieldInput__Input
+                name='name'
+                value={name}
+                onChange={(e) => handleChange(e)}
+                type='text'
+                placeholder='Name'
+                className='form-control is-invalid'
+                required
+              />
+              <div className='invalid-feedback'>Please enter a value</div>
+            </div> */}
           </Styled.FormField__Div>
 
           <Styled.FormField__Div>

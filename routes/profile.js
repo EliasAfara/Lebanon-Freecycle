@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const normalizeUrl = require('normalize-url');
 
 const User = require('../models/User');
 const auth = require('../middleware/auth');
@@ -13,31 +14,23 @@ const auth = require('../middleware/auth');
  */
 router.put(
   '/update',
-  [
-    auth,
-    [
-      check(
-        'fullname',
-        'Full Name should be between 2-30 Characters long.'
-      ).isLength({
-        min: 2,
-        max: 30,
-      }),
-      check('username', 'Username is required.').not().isEmpty(),
-      check(
-        'username',
-        'Username should be at least 5 Characters long.'
-      ).isLength({
-        min: 5,
-      }),
-      check('email', 'Please include a valid email.')
-        .isEmail()
-        .normalizeEmail(),
-      check('bio', 'Bio should be at most 255 Characters long.').isLength({
-        max: 255,
-      }),
-    ],
-  ],
+  auth,
+  check(
+    'fullname',
+    'Full Name should be between 2-30 Characters long.'
+  ).isLength({
+    min: 2,
+    max: 30,
+  }),
+  check('username', 'Username is required.').notEmpty(),
+  check('username', 'Username should be at least 5 Characters long.').isLength({
+    min: 5,
+  }),
+  check('email', 'Please include a valid email.').isEmail().normalizeEmail(),
+  check('bio', 'Bio should be at most 255 Characters long.').isLength({
+    max: 255,
+  }),
+
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -66,9 +59,18 @@ router.put(
 
     // Build socail object
     profileFields.social = {};
-    if (twitter) profileFields.social.twitter = twitter;
-    if (facebook) profileFields.social.facebook = facebook;
-    if (instagram) profileFields.social.instagram = instagram;
+    if (twitter)
+      profileFields.social.twitter = normalizeUrl(twitter, {
+        forceHttps: true,
+      });
+    if (facebook)
+      profileFields.social.facebook = normalizeUrl(facebook, {
+        forceHttps: true,
+      });
+    if (instagram)
+      profileFields.social.instagram = normalizeUrl(instagram, {
+        forceHttps: true,
+      });
 
     try {
       // See if user already exists
@@ -149,20 +151,15 @@ router.get('/:username', async (req, res) => {
  */
 router.put(
   '/update/password',
-  [
-    auth,
-    [
-      check('oldPassword', 'Old Password is required.').not().isEmpty(),
-      check('newPassword', 'New Password is required.').not().isEmpty(),
-      check('confirmNewPassword', 'Confirm New Password is required.')
-        .not()
-        .isEmpty(),
-      check(
-        'newPassword',
-        'New Password should be at least 6 characters long.'
-      ).isLength({ min: 6 }),
-    ],
-  ],
+  auth,
+  check('oldPassword', 'Old Password is required.').notEmpty(),
+  check('newPassword', 'New Password is required.').notEmpty(),
+  check('confirmNewPassword', 'Confirm New Password is required.').notEmpty(),
+  check(
+    'newPassword',
+    'New Password should be at least 6 characters long.'
+  ).isLength({ min: 6 }),
+
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

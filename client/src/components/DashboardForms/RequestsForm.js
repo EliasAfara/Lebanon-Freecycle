@@ -75,15 +75,17 @@ const RequestsForm = ({
     e.preventDefault();
 
     let filteredCategory = formData.category.replace(/&/g, 'and');
+    let imagesConatiner = [];
+    if (image1.length > 0) imagesConatiner.push(image1);
+    if (image2.length > 0) imagesConatiner.push(image2);
+    if (image3.length > 0) imagesConatiner.push(image3);
 
     const data = {
       name,
       description,
       phoneNumber,
       category: filteredCategory,
-      image1: image1,
-      image2: image2,
-      image3: image3,
+      imagesConatiner,
     };
 
     //console.log(data);

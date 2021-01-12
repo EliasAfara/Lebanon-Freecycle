@@ -2,36 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const { cloudinary } = require('../utils/cloudinary');
+const APIfeatures = require('../utils/APIfeatures');
 const User = require('../models/User');
 const Request = require('../models/Request');
 const auth = require('../middleware/auth');
 const { v4 } = require('uuid');
-
-class APIfeatures {
-  constructor(query, queryString) {
-    this.query = query;
-    this.queryString = queryString;
-  }
-
-  filtering() {
-    const queryobj = { ...this.queryString };
-    // console.log(`Query: ${JSON.stringify(queryobj)}`);
-    const excludedfields = ['page', 'sort', 'limit'];
-    excludedfields.forEach((el) => delete queryobj[el]);
-    let querystr = JSON.stringify(queryobj);
-    querystr = querystr.replace(/\b(gte|gt|lt|lte)\b/g, (match) => `$${match}`);
-    this.query.find(JSON.parse(querystr)).sort({ date: -1 });
-    return this;
-  }
-
-  paginating() {
-    const page = this.queryString.page * 1 || 1;
-    const limit = this.queryString.limit * 1 || 10;
-    const skip = (page - 1) * limit;
-    this.query = this.query.skip(skip).limit(limit);
-    return this;
-  }
-}
 
 /**
  * @route    #reqtype: POST | #endpoint: api/requests
@@ -40,39 +15,31 @@ class APIfeatures {
  */
 router.post(
   '/',
-  [
-    auth,
-    [
-      check(
-        'name',
-        'Text is required to be between 2 to 40 characters'
-      ).isLength({
-        min: 2,
-        max: 40,
-      }),
-      check(
-        'description',
-        'Description is required to be between 5 to 255 characters'
-      ).isLength({
-        min: 5,
-        max: 255,
-      }),
-      check('category', 'Category is required').not().isEmpty(),
-      check('phoneNumber', 'Phone Number is required').isLength({
-        min: 11,
-        max: 12,
-      }),
-    ],
-  ],
+  auth,
+  check('name', 'Text is required to be between 2 to 40 characters').isLength({
+    min: 2,
+    max: 40,
+  }),
+  check(
+    'description',
+    'Description is required to be between 5 to 255 characters'
+  ).isLength({
+    min: 5,
+    max: 255,
+  }),
+  check('category', 'Category is required').notEmpty(),
+  check('phoneNumber', 'Phone Number is required').isLength({
+    min: 11,
+    max: 12,
+  }),
+
   async (req, res) => {
     const {
       name,
       category,
       description,
       phoneNumber,
-      image1,
-      image2,
-      image3,
+      imagesConatiner,
     } = req.body;
 
     const errors = validationResult(req);
@@ -83,21 +50,12 @@ router.post(
 
     try {
       let imagesURLs = [];
-      let counter = 0;
-      if (image1 !== '') {
-        counter++;
-      }
-      if (image2 !== '') {
-        counter++;
-      }
-      if (image3 !== '') {
-        counter++;
-      }
 
-      if (counter !== 0) {
-        for (let i = 0; i < counter; i++) {
-          if (i === 0) {
-            const uploadResponseOne = await cloudinary.uploader.upload(image1, {
+      if (imagesConatiner.length > 0) {
+        for (let i = 0; i < imagesConatiner.length; i++) {
+          let uploadResponse = await cloudinary.uploader.upload(
+            imagesConatiner[i],
+            {
               upload_preset: 'lebanon-freecycle-requests',
               crop: 'scale',
               quality: 'auto:eco',
@@ -113,58 +71,11 @@ router.post(
                   gravity: 'auto',
                 },
               },
-              folder: 'Requests',
+              folder: 'requests',
               public_id: `lfc_${req.user.id}_request_${v4()}`,
-            });
-            imagesURLs.push({ imageURL: uploadResponseOne.secure_url });
-          }
-          if (i === 1) {
-            const uploadResponseTwo = await cloudinary.uploader.upload(image2, {
-              upload_preset: 'lebanon-freecycle-requests',
-              crop: 'scale',
-              quality: 'auto:eco',
-              fetch_format: 'auto',
-              responsive_breakpoints: {
-                create_derived: true,
-                bytes_step: 20000,
-                min_width: 200,
-                max_width: 700,
-                transformation: {
-                  crop: 'fill',
-                  aspect_ratio: '16:9',
-                  gravity: 'auto',
-                },
-              },
-              folder: 'Requests',
-              public_id: `lfc_${req.user.id}_request_${v4()}`,
-            });
-            imagesURLs.push({ imageURL: uploadResponseTwo.secure_url });
-          }
-          if (i === 2) {
-            const uploadResponseThree = await cloudinary.uploader.upload(
-              image3,
-              {
-                upload_preset: 'lebanon-freecycle-requests',
-                crop: 'scale',
-                quality: 'auto:eco',
-                fetch_format: 'auto',
-                responsive_breakpoints: {
-                  create_derived: true,
-                  bytes_step: 20000,
-                  min_width: 200,
-                  max_width: 700,
-                  transformation: {
-                    crop: 'fill',
-                    aspect_ratio: '16:9',
-                    gravity: 'auto',
-                  },
-                },
-                folder: 'Requests',
-                public_id: `lfc_${req.user.id}_request_${v4()}`,
-              }
-            );
-            imagesURLs.push({ imageURL: uploadResponseThree.secure_url });
-          }
+            }
+          );
+          imagesURLs.push({ imageURL: uploadResponse.secure_url });
         }
       }
 
@@ -317,30 +228,24 @@ router.get('/single/:id', async (req, res) => {
  */
 router.put(
   '/:id',
-  [
-    auth,
-    [
-      check(
-        'name',
-        'Text is required to be between 2 to 40 characters'
-      ).isLength({
-        min: 2,
-        max: 40,
-      }),
-      check(
-        'description',
-        'Description is required to be between 5 to 255 characters'
-      ).isLength({
-        min: 5,
-        max: 255,
-      }),
-      check('category', 'Category is required').not().isEmpty(),
-      check('phoneNumber', 'Phone Number is required').isLength({
-        min: 11,
-        max: 12,
-      }),
-    ],
-  ],
+  auth,
+  check('name', 'Text is required to be between 2 to 40 characters').isLength({
+    min: 2,
+    max: 40,
+  }),
+  check(
+    'description',
+    'Description is required to be between 5 to 255 characters'
+  ).isLength({
+    min: 5,
+    max: 255,
+  }),
+  check('category', 'Category is required').notEmpty(),
+  check('phoneNumber', 'Phone Number is required').isLength({
+    min: 11,
+    max: 12,
+  }),
+
   async (req, res) => {
     const errors = validationResult(req);
 
@@ -359,11 +264,12 @@ router.put(
       if (description) requestFields.description = description;
       if (phoneNumber) requestFields.phoneNumber = phoneNumber;
 
-      requestFields.user = {};
-      requestFields.user.id = req.user.id;
-      requestFields.user.fullname = user.fullname;
-      requestFields.user.username = user.username;
-      requestFields.user.avatar = user.avatar;
+      requestFields.user = {
+        id: req.user.id,
+        fullname: user.fullname,
+        username: user.username,
+        avatar: user.avatar,
+      };
 
       const request = await Request.findOneAndUpdate(
         { _id: req.params.id },
