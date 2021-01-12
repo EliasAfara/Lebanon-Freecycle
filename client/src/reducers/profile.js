@@ -2,7 +2,7 @@ import * as actionsType from '../actions/types';
 
 const initialState = {
   profile: null,
-  loading: true,
+  profileLoading: true,
   error: {},
 };
 
@@ -10,33 +10,40 @@ export default function profile(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case actionsType.CLEAR_USER_PROFILE:
+      return {
+        ...state,
+        profile: null,
+        profileLoading: true,
+      };
+
     case actionsType.GET_USER_PROFILE:
     case actionsType.UPDATE_USER_PROFILE:
     case actionsType.UPDATE_USER_PASSWORD:
       return {
         ...state,
         profile: payload,
-        loading: false,
+        profileLoading: false,
         error: {},
       };
     case actionsType.UPDATE_USER_PASSWORD_ERROR:
       return {
         ...state,
         error: payload,
-        loading: false,
+        profileLoading: false,
       };
     case actionsType.USER_PROFILE_ERROR:
       return {
         ...state,
         error: payload,
-        loading: false,
+        profileLoading: false,
         profile: null,
       };
     case actionsType.CLEAR_PROFILE:
       return {
         ...state,
         profile: null,
-        loading: false,
+        profileLoading: false,
       };
 
     case actionsType.DELETE_A_REQUEST:

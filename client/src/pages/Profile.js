@@ -15,7 +15,7 @@ import UserNotFound from '../components/Profile/UserNotFound';
 
 const Profile = ({
   getProfileByUsername,
-  profile: { profile, error },
+  profile: { profile, profileLoading, error },
   match,
 }) => {
   const userNameInParam = match.params.username;
@@ -26,7 +26,7 @@ const Profile = ({
   return (
     <div style={{ maxWidth: '1000px', width: 'inherit' }}>
       {Object.keys(error).length === 0 && error.constructor === Object ? (
-        profile === null ? (
+        profileLoading && profile === null ? (
           <Spinner />
         ) : (
           <>
