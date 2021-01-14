@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createDonation, getAllDonations } from '../../actions/donations';
+import { createDonation } from '../../actions/donations';
 import { DonationsCategories } from '../../shared/Categories';
 import { Locations } from '../../shared/Locations';
 import { Redirect } from 'react-router-dom';
@@ -29,7 +29,6 @@ const initialState = {
 };
 const DonationsForm = ({
   createDonation,
-  getAllDonations,
   donations: { redirectPage, createDonationFormLoading },
 }) => {
   const [formData, setFormData] = useState(initialState);
@@ -146,10 +145,8 @@ const DonationsForm = ({
     if (redirectPage === true) {
       setRedirect(true);
       setFormLoading(false);
-    } else {
-      getAllDonations('');
     }
-  }, [getAllDonations, createDonationFormLoading, redirectPage]);
+  }, [createDonationFormLoading, redirectPage]);
 
   if (redirect) {
     return <Redirect to='/donations' />;
@@ -428,7 +425,6 @@ const DonationsForm = ({
 };
 
 DonationsForm.propTypes = {
-  getAllDonations: PropTypes.func.isRequired,
   createDonation: PropTypes.func.isRequired,
   donations: PropTypes.object.isRequired,
 };
@@ -439,5 +435,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   createDonation,
-  getAllDonations,
 })(DonationsForm);

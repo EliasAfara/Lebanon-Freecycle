@@ -50,7 +50,14 @@ const ProfileTop = ({
       <S.ProfileHeader>
         <S.HeaderImage>
           <S.ImageSpan>
-            <S.UserAvatar src={avatar} alt='Avatar' draggable='false' />
+            <S.UserAvatar
+              src={avatar}
+              alt='Avatar'
+              width='150'
+              height='150'
+              loading='lazy'
+              draggable='false'
+            />
           </S.ImageSpan>
           <S.SocialIcons>
             {social && social.facebook && (

@@ -14,12 +14,12 @@ import { setToast } from './toast';
 
 // Get user profile by Username
 export const getProfileByUsername = (username) => async (dispatch) => {
+  dispatch({
+    type: CLEAR_USER_PROFILE,
+  });
   try {
     const res = await axios.get(`/api/profile/${username}`);
 
-    dispatch({
-      type: CLEAR_USER_PROFILE,
-    });
     dispatch({
       type: GET_USER_PROFILE,
       payload: res.data,
@@ -101,12 +101,12 @@ export const updatePassword = (formData) => async (dispatch) => {
 
 // Delete User Account
 export const deleteAccount = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_PROFILE,
+  });
   try {
     await axios.delete('/api/profile');
 
-    dispatch({
-      type: CLEAR_PROFILE,
-    });
     dispatch({
       type: ACCOUNT_DELETED,
     });

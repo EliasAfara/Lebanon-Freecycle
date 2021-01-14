@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createRequest, getAllRequests } from '../../actions/requests';
+import { createRequest } from '../../actions/requests';
 import { Redirect } from 'react-router-dom';
 
 import './DashboardForms.css';
@@ -23,7 +23,6 @@ const initialState = {
 };
 
 const RequestsForm = ({
-  getAllRequests,
   createRequest,
   requests: { redirectPage, createRequestFormLoading },
 }) => {
@@ -106,10 +105,8 @@ const RequestsForm = ({
     if (redirectPage === true) {
       setRedirect(true);
       setFormLoading(false);
-    } else {
-      getAllRequests('');
     }
-  }, [getAllRequests, createRequestFormLoading, redirectPage]);
+  }, [createRequestFormLoading, redirectPage]);
 
   if (redirect) {
     return <Redirect to='/requests' />;
@@ -327,7 +324,6 @@ const RequestsForm = ({
 };
 
 RequestsForm.propTypes = {
-  getAllRequests: PropTypes.func.isRequired,
   createRequest: PropTypes.func.isRequired,
   requests: PropTypes.object.isRequired,
 };
@@ -337,6 +333,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getAllRequests,
   createRequest,
 })(RequestsForm);

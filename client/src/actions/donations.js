@@ -15,7 +15,6 @@ import {
   UPDATE_DONATION_STATUS_SUCCESS,
   UPDATE_DONATION_FAIL,
   DELETE_A_DONATION,
-  CLEAR_USER_PROFILE,
   DONATION_FORM_LOADING,
 } from './types';
 
@@ -23,6 +22,9 @@ import { setAlert } from './alert';
 import { setToast } from './toast';
 
 export const getAllDonations = (quries) => async (dispatch) => {
+  dispatch({
+    type: RESET_GET_ALL_DONATIONS_LOADING,
+  });
   try {
     let res = {};
     if (quries.length > 0) {
@@ -30,13 +32,7 @@ export const getAllDonations = (quries) => async (dispatch) => {
     } else {
       res = await axios.get('/api/donations');
     }
-    dispatch({
-      type: CLEAR_USER_PROFILE,
-    });
 
-    dispatch({
-      type: RESET_GET_ALL_DONATIONS_LOADING,
-    });
     dispatch({
       type: GET_ALL_DONATIONS,
       payload: res.data,
@@ -54,14 +50,15 @@ export const getAllDonations = (quries) => async (dispatch) => {
 };
 
 export const getAllUserDonations = (quries) => async (dispatch) => {
+  dispatch({
+    type: CLEAR_USER_DONATIONS,
+  });
+
   try {
     const res = await axios.get(`/api/donations/user/?${quries}`);
 
     console.log(res);
 
-    dispatch({
-      type: CLEAR_USER_DONATIONS,
-    });
     dispatch({
       type: GET_ALL_USER_DONATIONS,
       payload: res.data,
@@ -79,14 +76,14 @@ export const getAllUserDonations = (quries) => async (dispatch) => {
 };
 
 export const getSingleDonation = (donationId) => async (dispatch) => {
+  dispatch({
+    type: CLEAR_SINGLE_DONATION,
+  });
+
   try {
     const res = await axios.get(`/api/donations/single/${donationId}`);
 
     console.log(res);
-
-    dispatch({
-      type: CLEAR_SINGLE_DONATION,
-    });
 
     dispatch({
       type: GET_A_SINGLE_DONATION,

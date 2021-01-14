@@ -14,13 +14,15 @@ import {
   UPDATE_REQUEST_STATUS_SUCCESS,
   UPDATE_REQUEST_FAIL,
   DELETE_A_REQUEST,
-  CLEAR_USER_PROFILE,
   REQUEST_FORM_LOADING,
 } from './types';
 import { setAlert } from './alert';
 import { setToast } from './toast';
 
 export const getAllRequests = (quries) => async (dispatch) => {
+  dispatch({
+    type: RESET_GET_ALL_REQUESTS_LOADING,
+  });
   try {
     let res = {};
     if (quries.length > 0) {
@@ -28,13 +30,7 @@ export const getAllRequests = (quries) => async (dispatch) => {
     } else {
       res = await axios.get('/api/requests');
     }
-    dispatch({
-      type: CLEAR_USER_PROFILE,
-    });
 
-    dispatch({
-      type: RESET_GET_ALL_REQUESTS_LOADING,
-    });
     dispatch({
       type: GET_ALL_REQUESTS,
       payload: res.data,
@@ -51,14 +47,15 @@ export const getAllRequests = (quries) => async (dispatch) => {
 };
 
 export const getAllUserRequests = (quries) => async (dispatch) => {
+  dispatch({
+    type: CLEAR_USER_REQUESTS,
+  });
+
   try {
     const res = await axios.get(`/api/requests/user/?${quries}`);
 
     console.log(res);
 
-    dispatch({
-      type: CLEAR_USER_REQUESTS,
-    });
     dispatch({
       type: GET_ALL_USER_REQUESTS,
       payload: res.data,
@@ -75,14 +72,14 @@ export const getAllUserRequests = (quries) => async (dispatch) => {
 };
 
 export const getSingleRequest = (id) => async (dispatch) => {
+  dispatch({
+    type: CLEAR_SINGLE_REQUEST,
+  });
+
   try {
     const res = await axios.get(`/api/requests/single/${id}`);
 
     console.log(res);
-
-    dispatch({
-      type: CLEAR_SINGLE_REQUEST,
-    });
 
     dispatch({
       type: GET_A_SINGLE_REQUEST,

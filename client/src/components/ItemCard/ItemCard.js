@@ -122,6 +122,8 @@ const ItemCard = ({
                     alt='User Avatar'
                     loading='lazy'
                     draggable='false'
+                    width='35'
+                    height='35'
                   />
                 </Link>
               )}
@@ -181,6 +183,8 @@ const ItemCard = ({
                         alt='User Avatar'
                         loading='lazy'
                         draggable='false'
+                        width='35'
+                        height='35'
                       />
                     </Link>
                   )}
@@ -336,9 +340,11 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {
-  updateRequestStatus,
-  deleteRequest,
-  updateDonationStatus,
-  deleteDonation,
-})(ItemCard);
+export default React.memo(
+  connect(mapStateToProps, {
+    updateRequestStatus,
+    deleteRequest,
+    updateDonationStatus,
+    deleteDonation,
+  })(ItemCard)
+);

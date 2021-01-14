@@ -91,7 +91,7 @@ export const SocialIconsV2 = styled.div`
 
 export const UserInfoSection = styled.section`
   display: grid;
-  width: 60%;
+  width: fit-content;
 
   @media only screen and (max-width: 768px) {
     width: 100%;

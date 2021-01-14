@@ -47,7 +47,7 @@ const SingleItem = ({
   return (
     <div className='single-item-container'>
       <div className='single-item-image-slider'>
-        {images && <ImageSlider images={images} interval={3000} fade={true} />}
+        {images && <ImageSlider images={images} interval={4000} fade={true} />}
       </div>
 
       <div className='item-title-container'>
@@ -79,6 +79,8 @@ const SingleItem = ({
               className='user-avatar'
               loading='lazy'
               draggable='false'
+              width='40px'
+              height='40px'
             />
           </Link>
           <div className='header-info-wrapper'>
@@ -209,4 +211,4 @@ const SingleItem = ({
   );
 };
 
-export default SingleItem;
+export default React.memo(SingleItem);

@@ -172,6 +172,8 @@ const UserNavbar = ({ auth: { user }, logout }) => {
             <UserIcon
               src={user && user.avatar}
               alt={user && user.fullname}
+              width='30'
+              height='30'
               draggable='false'
               onClick={() => setOpenMenu(!openMenu)}
             />
@@ -291,6 +293,8 @@ const UserNavbar = ({ auth: { user }, logout }) => {
                 <UserIcon
                   src={user && user.avatar}
                   alt={user && user.username}
+                  width='30'
+                  height='30'
                   draggable='false'
                 />
               </BottomNavIcon>
