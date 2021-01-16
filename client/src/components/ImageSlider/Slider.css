@@ -3,12 +3,6 @@
     max-height: 400px;
     height: inherit;
 }
-.carousel {
-    position: relative;
-    width: auto;
-    max-height: 400px;
-    height: inherit;
-}
 .image {
     width: 100%;
     max-height: 400px;
@@ -17,25 +11,50 @@
     backdrop-filter: blur(15px);
 }
 
-.carousel-inner {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
+/* React Slick Slider*/
+
+.slick-slider{
     height: inherit;
-    max-height: 400px;
+    max-height: inherit;
+}
+.slick-list {
+    height: 100%;
 }
 
-.carousel-item {
-    transition: transform .6s ease-in;
-    max-height: 400px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: inherit;
+.slick-track{
+ height: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
 }
 
-.carousel .carousel-control-prev-icon,
-.carousel .carousel-control-next-icon {
-    width: 40px;
-    height: 40px;
+.slick-dots {
+    position: absolute;
+    bottom: 0;
+}
+
+.slick-prev, .slick-next {
+    z-index: 1;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    opacity: .65;
+    color: azure;
+}
+
+.slick-dots li button:before {
+    color: lightsteelblue;
+}
+.slick-dots li.slick-active button:before {
+    opacity: .75;
+    color: #1890ff;
+}
+
+.slick-slide div:nth-child(1) {
+    height: 100%;
+}
+
+.slick-slide {
+    backdrop-filter: contrast(80%);
 }

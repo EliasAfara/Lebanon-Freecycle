@@ -1,52 +1,87 @@
 import React from 'react';
 import './Slider.css';
-import { Carousel, CarouselItem } from 'react-bootstrap';
-import LazyImage from './LazyImage';
+// import { Carousel, CarouselItem } from 'react-bootstrap';
+// import LazyImage from './LazyImage';
+import Slider from 'react-slick';
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block', right: '2px' }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block', left: '2px' }}
+      onClick={onClick}
+    />
+  );
+}
 
 const ImageSlider = ({ images, interval, fade }) => {
+  const settings = {
+    dots: true,
+    lazyLoad: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          nextArrow: <></>,
+          prevArrow: <></>,
+          infinite: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          nextArrow: <></>,
+          prevArrow: <></>,
+          infinite: false,
+        },
+      },
+    ],
+  };
   return (
     <div className='SliderConatiner'>
-      <Carousel
-        interval={interval}
-        fade={fade}
-        prevIcon={
-          images &&
-          images.length > 1 && (
-            <span aria-hidden='true' className='carousel-control-prev-icon' />
-          )
-        }
-        nextIcon={
-          images &&
-          images.length > 1 && (
-            <span aria-hidden='true' className='carousel-control-next-icon' />
-          )
-        }
-      >
+      <Slider {...settings}>
         {images.map((img, index) => {
           return (
-            <CarouselItem
+            <div
               key={index}
               style={{
-                backgroundImage: `url(${img.imageURL})`,
+                height: '100%',
               }}
             >
-              {index === 0 ? (
-                <LazyImage src={img.imageURL} alt={`Slide${index}`} />
-              ) : (
-                <img
-                  src={img.imageURL}
-                  loading='lazy'
-                  alt={`Slide${index}`}
-                  className='image'
-                  draggable='false'
-                />
-              )}
-            </CarouselItem>
+              <img
+                src={img.imageURL}
+                loading='lazy'
+                alt={`Slide${index}`}
+                className='image'
+                draggable='false'
+                width='700'
+                height='400'
+              />
+            </div>
           );
         })}
-      </Carousel>
+      </Slider>
     </div>
   );
 };
 
-export default ImageSlider;
+export default React.memo(ImageSlider);
