@@ -8,17 +8,17 @@ const Toast = ({ toastObj: { msg, alertType } }) => {
     if (msg && alertType === 'success') {
       cogoToast.success(msg, {
         hideAfter: 5,
-        position: 'bottom-right',
+        position: 'top-left',
       });
     } else if (msg && alertType === 'warning') {
       cogoToast.warn(msg, {
         hideAfter: 5,
-        position: 'bottom-right',
+        position: 'top-left',
       });
     } else if (msg && alertType === 'danger') {
       cogoToast.error(msg, {
         hideAfter: 5,
-        position: 'bottom-right',
+        position: 'top-left',
       });
     }
   }, [msg, alertType]);
