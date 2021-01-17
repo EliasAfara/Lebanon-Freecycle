@@ -36,16 +36,16 @@ router.post(
 
       if (!user) {
         return res.status(400).json({
-          errors: [{ msg: 'Invalid Credentials' }],
+          errors: [{ msg: 'Invalid Credentials', param: 'credentialsError' }],
         });
       }
 
       // Validate user credentials
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Invalid Credentials' }] });
+        return res.status(400).json({
+          errors: [{ msg: 'Invalid Credentials', param: 'credentialsError' }],
+        });
       }
 
       // Return jsonwebtoken (when user registers, he will be logged in instantly and that get done using jsonwebtoken)

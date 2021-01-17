@@ -4,6 +4,7 @@ const initialState = {
   token: localStorage.getItem('token'), // Stored in local storage
   isAuthenticated: null,
   authLoading: true,
+  loginFormLoading: false,
   user: null,
 };
 
@@ -22,7 +23,6 @@ export default function auth(state = initialState, action) {
       };
 
     case actionsType.REGISTER_SUCCESS:
-    case actionsType.LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
       return {
         ...state, // Spread operator state, Whatever currently in the state
@@ -31,9 +31,35 @@ export default function auth(state = initialState, action) {
         authLoading: false,
       };
 
+    case actionsType.LOGIN_FORM_LOADING:
+      return {
+        ...state,
+        loginFormLoading: true,
+      };
+
+    case actionsType.LOGIN_SUCCESS:
+      localStorage.setItem('token', payload.token);
+      return {
+        ...state, // Spread operator state, Whatever currently in the state
+        ...payload,
+        isAuthenticated: true,
+        authLoading: false,
+        loginFormLoading: false,
+      };
+
+    case actionsType.LOGIN_FAIL:
+      localStorage.removeItem('token'); // Remove token from loal storage
+      return {
+        ...state,
+        isAuthenticated: false,
+        authLoading: false,
+        loginFormLoading: false,
+        user: null,
+        token: null,
+      };
+
     case actionsType.REGISTER_FAIL:
     case actionsType.AUTH_ERROR:
-    case actionsType.LOGIN_FAIL:
     case actionsType.LOGOUT:
     case actionsType.ACCOUNT_DELETED:
       // Clears all the auth state and it also clears the token from local storage

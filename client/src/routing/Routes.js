@@ -7,7 +7,7 @@ import PrivateRoute from './PrivateRoute';
 
 // Pages
 
-import Login from '../components/auth/Login';
+import Login from '../components/Forms/LoginForm';
 import Register from '../components/auth/Register';
 import Profile from '../pages/Profile';
 import FAQPage from '../pages/FAQPage';

@@ -75,5 +75,6 @@ export const UPDATE_DONATION_FAIL = 'Update-Donation/fail';
 export const DELETE_A_DONATION = 'Delete-Donation/success';
 
 // Form Loading
+export const LOGIN_FORM_LOADING = 'Login-Form/loading';
 export const DONATION_FORM_LOADING = 'Donation-Form/loading';
 export const REQUEST_FORM_LOADING = 'Request-Form/loading';

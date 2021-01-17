@@ -3,6 +3,7 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
+  LOGIN_FORM_LOADING,
   LOGIN_FAIL,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -10,6 +11,7 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
+import { setToast } from './toast';
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -41,7 +43,9 @@ export const loginUser = (email, password) => async (dispatch) => {
     },
   };
   const body = JSON.stringify({ email, password });
-
+  dispatch({
+    type: LOGIN_FORM_LOADING,
+  });
   try {
     const res = await axios.post('/api/login', body, config);
 
@@ -52,10 +56,15 @@ export const loginUser = (email, password) => async (dispatch) => {
 
     dispatch(loadUser()); // Load user runs immediately
   } catch (err) {
+    console.log(err);
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => {
+        if (error.param === 'credentialsError') {
+          dispatch(setToast(error.msg, 'danger'));
+        }
+      });
     }
 
     dispatch({
