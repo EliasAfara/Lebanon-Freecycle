@@ -3,22 +3,9 @@ import { Link } from 'react-router-dom';
 import ContactUs from '../components/layout/ContactUs';
 import FooterCopyright from '../components/layout/FooterCopyright';
 import ContactUsSVG from '../components/SVGComponents/ContactUsSVG';
-import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
-import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 import BreadCrumb from '../components/layout/BreadCrumb';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: '5px',
-    width: 20,
-    height: 23,
-    color: '#3F51B5',
-  },
-}));
 
 const ContactUsPage = () => {
-  const classes = useStyles();
   const screenWidth = window.innerWidth;
   const [width, setWidth] = useState('');
   const [height, setHeight] = useState('');
@@ -50,13 +37,11 @@ const ContactUsPage = () => {
             </div>
             <div className='contactUS__info--Icons'>
               <div className='contactUS__info--Icons--1'>
-                <PhoneRoundedIcon className={classes.icon} />{' '}
                 <a href='tel:+96178845230' className='contactUS__info--link'>
                   +961 78 845 230
                 </a>
               </div>
               <div className='contactUS__info--Icons--2'>
-                <HelpOutlineRoundedIcon className={classes.icon} />{' '}
                 <Link to='/faq' className='contactUS__info--link'>
                   FAQs / Help
                 </Link>

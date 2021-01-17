@@ -1,12 +1,9 @@
-import React from "react";
-import { MDBContainer } from "mdbreact";
+import React from 'react';
 
 const FooterCopyright = () => {
   return (
-    <div className="footer-copyright text-center py-3">
-      <MDBContainer fluid>
-        &copy; {new Date().getFullYear()} Copyright: Elias Afara
-      </MDBContainer>
+    <div className='footer-copyright text-center py-3'>
+      <>&copy; {new Date().getFullYear()} Copyright: Elias Afara</>
     </div>
   );
 };

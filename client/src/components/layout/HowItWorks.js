@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import { scroller } from 'react-scroll';
 import { HowItWorksData } from '../../shared/HowItWorksData';
 import { Accordion, Card, Button } from 'react-bootstrap';
-import { MDBIcon } from 'mdbreact';
 
 const HowItWorksSteps = ({ title, content, icon }) => {
   return (
     <>
       <Card className='accordinCard'>
-        <Card.Header>
-          <MDBIcon icon={icon} aria-hidden='true' /> {title}
-        </Card.Header>
+        <Card.Header> {title}</Card.Header>
         <Accordion.Collapse eventKey='0'>
           <Card.Body>
             <Card.Text>{content}</Card.Text>
@@ -65,7 +62,7 @@ const HowItWorks = () => {
           onClick={handleDetails}
           style={{ padding: 0, margin: 0 }}
         >
-          <MDBIcon icon={showDetails ? 'eye' : 'eye-slash'} /> {details}
+          {details}
         </Accordion.Toggle>
       </Accordion>
     </div>
