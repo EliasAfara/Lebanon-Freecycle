@@ -167,7 +167,7 @@ const ItemCard = ({
 
             {images && images.length > 0 && (
               <S.CardImage>
-                <ImageSlider images={images} interval={null} fade={false} />
+                <ImageSlider images={images} />
               </S.CardImage>
             )}
 
