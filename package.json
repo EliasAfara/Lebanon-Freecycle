@@ -12,6 +12,7 @@
   "author": "Elias Afara",
   "license": "ISC",
   "dependencies": {
+    "@loadable/component": "^5.14.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.23.0",
     "compression": "^1.7.4",
@@ -24,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.14",
     "normalize-url": "^5.3.0",
+    "react-reveal": "^1.2.2",
     "uuid": "^8.3.2",
     "xss-clean": "^0.1.1"
   },
