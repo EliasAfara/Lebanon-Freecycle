@@ -54,7 +54,9 @@ router.post(
 
       if (user_username) {
         return res.status(400).json({
-          errors: [{ msg: 'Username already in use.', param: 'user_name' }],
+          errors: [
+            { msg: 'Username already in use.', param: 'user_name_taken' },
+          ],
         });
       }
 
@@ -75,7 +77,7 @@ router.post(
 
       if (user) {
         return res.status(400).json({
-          errors: [{ msg: 'E-mail already in use.', param: 'email' }],
+          errors: [{ msg: 'E-mail already in use.', param: 'email_taken' }],
         });
       }
 

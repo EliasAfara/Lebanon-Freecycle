@@ -15,7 +15,7 @@ export const Span = styled.span`
   font-weight: 600;
   color: rgb(255, 130, 92);
   height: 0.775rem;
-  padding: 0 0.675rem 0 0;
+  font-size: 12px;
 `;
 
 export const ButtonContainer = styled.div`

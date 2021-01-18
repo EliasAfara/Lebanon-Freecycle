@@ -8,9 +8,9 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   LOGOUT,
+  REGISTER_FORM_LOADING,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
-import { setAlert } from './alert';
 import { setToast } from './toast';
 
 // Load User
@@ -43,9 +43,11 @@ export const loginUser = (email, password) => async (dispatch) => {
     },
   };
   const body = JSON.stringify({ email, password });
+
   dispatch({
     type: LOGIN_FORM_LOADING,
   });
+
   try {
     const res = await axios.post('/api/login', body, config);
 
@@ -87,6 +89,10 @@ export const registerUser = ({
   };
   const body = JSON.stringify({ fullname, user_name, email, password });
 
+  dispatch({
+    type: REGISTER_FORM_LOADING,
+  });
+
   try {
     const res = await axios.post('/api/register', body, config);
 
@@ -100,7 +106,14 @@ export const registerUser = ({
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => {
+        if (error.param === 'user_name_taken') {
+          dispatch(setToast(error.msg, 'danger'));
+        }
+        if (error.param === 'email_taken') {
+          dispatch(setToast(error.msg, 'danger'));
+        }
+      });
     }
 
     dispatch({
@@ -111,6 +124,5 @@ export const registerUser = ({
 
 // Logout Action / Clear Profile
 export const logout = () => (dispatch) => {
-  //   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };

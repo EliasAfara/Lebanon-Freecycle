@@ -5,6 +5,7 @@ const initialState = {
   isAuthenticated: null,
   authLoading: true,
   loginFormLoading: false,
+  registerFormLoading: false,
   user: null,
 };
 
@@ -22,12 +23,19 @@ export default function auth(state = initialState, action) {
         user: payload,
       };
 
+    case actionsType.REGISTER_FORM_LOADING:
+      return {
+        ...state,
+        registerFormLoading: true,
+      };
+
     case actionsType.REGISTER_SUCCESS:
       localStorage.setItem('token', payload.token);
       return {
         ...state, // Spread operator state, Whatever currently in the state
         ...payload,
         isAuthenticated: true,
+        registerFormLoading: false,
         authLoading: false,
       };
 
@@ -48,16 +56,6 @@ export default function auth(state = initialState, action) {
       };
 
     case actionsType.LOGIN_FAIL:
-      localStorage.removeItem('token'); // Remove token from loal storage
-      return {
-        ...state,
-        isAuthenticated: false,
-        authLoading: false,
-        loginFormLoading: false,
-        user: null,
-        token: null,
-      };
-
     case actionsType.REGISTER_FAIL:
     case actionsType.AUTH_ERROR:
     case actionsType.LOGOUT:
@@ -68,6 +66,8 @@ export default function auth(state = initialState, action) {
         ...state,
         isAuthenticated: false,
         authLoading: false,
+        loginFormLoading: false,
+        registerFormLoading: false,
         user: null,
         token: null,
       };
