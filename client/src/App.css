@@ -32,7 +32,22 @@ button:focus{
 display: none;
 }
 
+.ant-drawer,
+.ant-modal-mask,
+.ant-image-preview-mask {
+    z-index: 1050;
+}
+
+.ant-modal-wrap,
+.ant-image-preview-wrap {
+    z-index: 1060;
+}
+
 .ant-drawer-close {
+    height: 100%;
+}
+.ant-drawer-close,
+.ant-modal-close-x {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,12 +55,9 @@ display: none;
 }
 
 .ant-modal-close-x {
-    display: flex;
     width: 55px;
     height: 55px;
     font-size: 16px;
-    align-items: center;
-    justify-content: center;
 }
 
 .anticon{
@@ -129,41 +141,7 @@ i.fa-instagram {
 }
 /* Social Icons */
 
-.SlideIn-appear {
-    transform: translateX(30px);
-    opacity: 0;
-}
 
-.SlideIn-appear.SlideIn-appear-active {
-    opacity: 1;
-    transform: translateX(0);
-    ;
-    transition: all 0.6s linear;
-}
-
-.SlideIn-enter {
-    opacity: 0;
-    transform: translateX(30px);
-}
-
-.SlideIn-enter.SlideIn-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: all 0.2s linear 0.4s;
-}
-
-.SlideIn-leave {
-    opacity: 1.0;
-    transform: translateX(0);
-}
-
-.SlideIn-leave.SlideIn-leave-active {
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-    transform: translateX(-30px);
-    transition: all 0.2s linear;
-}
 
 /* Landing css */
 
