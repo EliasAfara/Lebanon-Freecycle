@@ -3,11 +3,17 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: inline-block;
   width: 100%;
-  padding-top: 10px;
+  padding-top: 5px;
+  margin-top: 10px;
 
   &:first-of-type {
     padding-top: 0;
+    margin-top: 0;
   }
+`;
+
+export const Label = styled.label`
+  font-weight: 500;
 `;
 
 export const Input = styled.input`
@@ -19,6 +25,9 @@ export const Input = styled.input`
   font-size: 15px;
   padding: 8px 10px;
   transition: all 0.3s ease;
+  border-color: ${(props) => props.isInvalid && '#fa1529'};
+  color: ${(props) => props.isInvalid && '#fa1529'};
+  background: ${(props) => props.isInvalid && '#fffafa'};
 
   &:focus {
     border-color: #609bcf;
