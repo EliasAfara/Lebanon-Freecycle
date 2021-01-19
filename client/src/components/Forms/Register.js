@@ -3,24 +3,32 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import useForm from './useForm';
-import { validateRegisterForm } from '../../../utils/validateForm';
+import useForm from '../../costumeHooks/useForm';
+import { validateRegisterForm } from '../../utils/validateForm';
 
 import loadable, { lazy } from '@loadable/component';
 
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import * as S from '../styles';
-import { registerUser } from '../../../actions/auth';
+import * as S from './styles';
+import { registerUser } from '../../actions/auth';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-const FormContainer = lazy(() => import('../../../common/FormContainer'));
-const Input = loadable(() => import('../../../common/Input'));
-const Button = loadable(() => import('../../../common/Button'));
+const FormContainer = lazy(() => import('../../common/FormContainer'));
+const Input = loadable(() => import('../../common/Input'));
+const Button = loadable(() => import('../../common/Button'));
+
+const initialValues = {
+  fullname: '',
+  user_name: '',
+  email: '',
+  password: '',
+};
 
 const Register = ({ registerUser, isAuthenticated, registerFormLoading }) => {
   const { formData, errors, handleChange, handleSubmit } = useForm(
+    initialValues,
     validateRegisterForm,
     registerUser
   );

@@ -36,13 +36,13 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Login User Action
-export const loginUser = (email, password) => async (dispatch) => {
+export const loginUser = (formData) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  const body = JSON.stringify({ email, password });
+  const body = JSON.stringify(formData);
 
   dispatch({
     type: LOGIN_FORM_LOADING,
@@ -76,18 +76,13 @@ export const loginUser = (email, password) => async (dispatch) => {
 };
 
 // Register User Action
-export const registerUser = ({
-  fullname,
-  user_name,
-  email,
-  password,
-}) => async (dispatch) => {
+export const registerUser = (formData) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  const body = JSON.stringify({ fullname, user_name, email, password });
+  const body = JSON.stringify(formData);
 
   dispatch({
     type: REGISTER_FORM_LOADING,
