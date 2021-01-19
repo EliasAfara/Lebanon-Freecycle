@@ -20,7 +20,7 @@ import Routes from './routing/Routes';
 import './App.css';
 
 import { ThemeProvider } from 'styled-components';
-import { useDarkMode } from './utils/useDarkMode';
+import { useDarkMode } from './costumeHooks/useDarkMode';
 import { GlobalStyles } from './globalStyles';
 import { lightTheme, darkTheme } from './Themes';
 
