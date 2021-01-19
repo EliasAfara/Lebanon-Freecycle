@@ -72,10 +72,6 @@ export default function requests(state = initialState, action) {
     case actionsType.CREATE_A_REQUEST_SUCCESS:
       return {
         ...state,
-        allRequests: {
-          totalRequests: state.allRequests.totalRequests + 1,
-          requests: [payload, ...state.allRequests.requests],
-        },
         createRequestFormLoading: false,
         loading: false,
         redirectPage: true,

@@ -74,10 +74,6 @@ export default function donations(state = initialState, action) {
     case actionsType.CREATE_A_DONATION_SUCCESS:
       return {
         ...state,
-        allDonations: {
-          totalDonations: state.allDonations.totalDonations + 1,
-          donations: [payload, ...state.allDonations.donations],
-        },
         createDonationFormLoading: false,
         DonatinosLoading: false,
         redirectPage: true,
