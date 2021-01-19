@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { NavLink as LinkRouter } from 'react-router-dom';
 import { css } from 'styled-components';
+import { NavLink as NavLinkRouter } from 'react-router-dom';
 
 export const Nav = styled.nav`
   display: flex;
@@ -11,13 +11,11 @@ export const Nav = styled.nav`
   z-index: 1030;
   height: 54px;
   width: 100%;
-  background-color: #fff;
-  border-bottom: 1px solid #dbdbdb;
+  background-color: ${(props) => props.theme.headerBackground};
+  border-bottom: ${(props) => `1px solid ${props.theme.toggleBorder}`};
   font-size: 1rem;
+  transition: 0.8s all ease;
 
-  @media screen and (max-width: 960px) {
-    transition: 0.8s all ease;
-  }
   @media screen and (max-width: 768px) {
     height: 54px;
   }
@@ -32,11 +30,25 @@ export const NavbarContainer = styled.div`
   z-index: 1;
   padding: 0 24px;
 `;
+
 export const NavLogo = styled.div`
   display: flex;
   justify-self: flex-start;
   align-items: center;
   height: 100%;
+`;
+
+export const MobileIcon = styled.div`
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-self: flex-end;
+    align-items: center;
+    font-size: 1.8em;
+    color: ${(props) => props.theme.fontColor};
+    cursor: pointer;
+  }
 `;
 
 export const NavMenu = styled.ul`
@@ -56,11 +68,11 @@ export const NavItem = styled.li`
   height: 100%;
 `;
 
-export const NavLinkRoute = styled(LinkRouter)`
+export const NavLinkRoute = styled(NavLinkRouter)`
   display: flex;
   align-items: center;
   height: 100%;
-  color: #222;
+  color: ${(props) => props.theme.fontColor};
   font-weight: 400;
   margin: 0 2rem 0 2rem;
   text-decoration: none;
@@ -72,7 +84,7 @@ export const NavLinkRoute = styled(LinkRouter)`
   cursor: pointer;
 
   &.active {
-    color: #1890ff;
+    color: ${(props) => props.theme.activeLinkColor};
     background-size: 100% 2px;
     font-weight: 600;
   }
@@ -82,6 +94,52 @@ export const NavLinkRoute = styled(LinkRouter)`
     background-size: 100% 2px;
   }
 `;
+
+// Guest Navbar Extra Styles
+
+export const NavBtn = styled.nav`
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const NavBtnLink = styled(NavLinkRouter)`
+  border-radius: 50px;
+  background: ${(props) => props.theme.button.primary};
+  color: ${(props) => props.theme.fontColor};
+  white-space: nowrap;
+  padding: 8px 17px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  outline: none;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    border: 2px solid #ffdf6c;
+    color: #ffdf6c;
+  }
+`;
+
+export const NavThemeToggle = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+// Guest Navbar Extra Styles
 
 export const IconContainer = styled.div`
   display: flex;
@@ -108,7 +166,7 @@ export const SettingIconDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: #262626;
+    color: ${(props) => props.theme.fontColor};
     font-size: 25px;
   }
 `;
@@ -138,14 +196,15 @@ export const BottomNavMenu = styled.ul`
     justify-content: center;
     align-items: center;
     position: absolute;
-    background-color: #fff;
-    border-top: 1px solid #dbdbdb;
+    background-color: ${(props) => props.theme.headerBackground};
+    border-top: ${(props) => `1px solid ${props.theme.toggleBorder}`};
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
     height: 100%;
     width: 100%;
+    transition: 0.8s all ease;
   }
 `;
 
@@ -163,7 +222,7 @@ export const BottomNavItem = styled.li`
   }
 `;
 
-export const BottomNavLinkRoute = styled(LinkRouter)`
+export const BottomNavLinkRoute = styled(NavLinkRouter)`
   width: 80%;
   text-decoration: none;
 
@@ -172,11 +231,11 @@ export const BottomNavLinkRoute = styled(LinkRouter)`
   }
 
   &.active div {
-    color: #1890ff;
+    color: ${(props) => props.theme.activeLinkColor};
   }
 `;
 export const BottomNavIcon = styled.div`
-  color: #222;
+  color: ${(props) => props.theme.fontColor};
   text-align: center;
   font-size: 30px;
   width: 100%;
@@ -190,7 +249,7 @@ export const BottomNavLinkName = styled.div`
   height: 100%;
   font-size: 16px;
   font-weight: 400;
-  color: #222;
+  color: ${(props) => props.theme.fontColor};
   transition: color 500ms ease-in-out;
 
   @media screen and (max-width: 375px) {
@@ -308,7 +367,7 @@ export const SettingItem = styled.div`
   ${ActiveHover}
 `;
 
-export const SettingsItemLink = styled(LinkRouter)`
+export const SettingsItemLink = styled(NavLinkRouter)`
   ${sharedSettingItemStyle}
 
   ${ActiveHover}
@@ -319,98 +378,9 @@ export const SettingsItemIcon = styled.div`
   margin-right: 20px;
 `;
 
-//Themes
-
-const ThemeCircle = css`
-  content: ' ';
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  width: 1.5rem;
-  height: 1.5rem;
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: -3px;
-  margin-right: 0.45rem;
-`;
-const CleanBtn = css`
-  background: none;
-  color: inherit;
-  border: none;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-`;
-
-export const ThemesContainer = styled.div`
+export const SettingChangeTheme = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: inherit;
-`;
-export const LightThemeToggle = styled.button`
-  ${CleanBtn}
-  display: block;
-  width: 50%;
-  padding: 0 1rem;
-  height: inherit;
-  &::before {
-    background: #fff;
-    border: 2px solid #6db65b;
-    ${ThemeCircle}
-  }
-  &:hover {
-    color: #262626;
-    background: #f6f6f6;
-  }
-`;
-
-export const DarkThemeToggle = styled.button`
-  ${CleanBtn}
-  display: block;
-  width: 50%;
-  padding: 0 1rem;
-  height: inherit;
-  &::before {
-    background: #222831;
-    border: 2px solid #b58900;
-    ${ThemeCircle}
-  }
-  &:hover {
-    color: #262626;
-    background: #f6f6f6;
-  }
-`;
-
-export const SolarizedThemeToggle = styled.button`
-  ${CleanBtn}
-  display: block;
-  width: 60%;
-  padding: 0 1rem;
-  height: inherit;
-  &::before {
-    background: #fdf6e3;
-    border: 2px solid #b58900;
-    ${ThemeCircle}
-  }
-  &:hover {
-    color: #262626;
-    background: #f6f6f6;
-  }
-`;
-
-export const SolarizedDarkThemeToggle = styled.button`
-  ${CleanBtn}
-  display: block;
-  width: 70%;
-  padding: 0 1rem;
-  height: inherit;
-  &::before {
-    background: #002b36;
-    border: 2px solid #b58900;
-    ${ThemeCircle}
-  }
-  &:hover {
-    color: #262626;
-    background: #f6f6f6;
-  }
+  justify-content: center;
+  padding: 8px 16px;
 `;
