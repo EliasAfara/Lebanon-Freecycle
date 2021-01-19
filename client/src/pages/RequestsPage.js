@@ -12,6 +12,9 @@ import FilterBar from '../components/FilterBar/FilterBar';
 import SideFilterBar from '../components/FilterBar/SideFilterBar';
 import Spinner from '../components/Spinner/Spinner';
 import { Pagination, Button } from 'antd';
+import useStatusFilter from '../costumeHooks/useStatusFilter';
+import useCategoryFilter from '../costumeHooks/useCategoryFilter';
+import usePagination from '../costumeHooks/usePagination';
 
 const RequestsPage = ({
   getAllRequests,
@@ -22,17 +25,19 @@ const RequestsPage = ({
 }) => {
   const [queries, setQueries] = useState([]);
   const [queryPage, setQueryPage] = useState('');
-  const [queryStatus, setQueryStatus] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentCategory, setCurrentCategory] = useState('');
-  const [showTimedSpinner, setShowTimedSpinner] = useState(false);
 
-  const [currentSelectedStatus, setCurrentSelectedStatus] = useState(
-    'Select Status'
+  const { filterStatus, queryStatus, currentSelectedStatus } = useStatusFilter(
+    setQueries,
+    setQueryPage
   );
-  const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
-    'Select Category'
-  );
+
+  const {
+    filterCategory,
+    currentCategory,
+    currentSelectedCategory,
+  } = useCategoryFilter(setQueries, setQueryPage);
+
+  const [showTimedSpinner, setShowTimedSpinner] = useState(false);
   const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
 
   const timedSpinner = () => {
@@ -42,39 +47,11 @@ const RequestsPage = ({
     }, 1000);
   };
 
-  const filterStatus = (value) => {
-    setCurrentSelectedStatus(value);
-    if (value === 'All') {
-      setQueryStatus('');
-      setQueries([]);
-      setQueryPage('page=1');
-    } else {
-      setQueryStatus(`status=${value}`);
-      setQueries([]);
-      setQueryPage('page=1');
-    }
-  };
-
-  const onChange = (page) => {
-    setCurrentPage(page);
-    setQueryPage(`page=${page}`);
-    window.scrollTo(0, 0);
-    timedSpinner();
-    setQueries([]);
-  };
-
-  const filterCategory = (cat) => {
-    setCurrentSelectedCategory(cat);
-    if (cat === 'All') {
-      setCurrentCategory('');
-      setQueries([]);
-      setQueryPage('page=1');
-    } else {
-      setCurrentCategory(`category=${cat}`);
-      setQueries([]);
-      setQueryPage('page=1');
-    }
-  };
+  const { onPageChange, currentPage } = usePagination(
+    setQueries,
+    setQueryPage,
+    timedSpinner
+  );
 
   useEffect(() => {
     if (queryPage.length > 0) {
@@ -161,7 +138,7 @@ const RequestsPage = ({
                     <Pagination
                       defaultCurrent={1}
                       current={currentPage}
-                      onChange={onChange}
+                      onChange={onPageChange}
                       total={totalRequests}
                       showSizeChanger={false}
                       hideOnSinglePage={true}

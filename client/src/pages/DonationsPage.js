@@ -14,6 +14,9 @@ import Spinner from '../components/Spinner/Spinner';
 import './DonationPageStyles.css';
 import { Pagination, Button } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
+import useStatusFilter from '../costumeHooks/useStatusFilter';
+import useCategoryFilter from '../costumeHooks/useCategoryFilter';
+import usePagination from '../costumeHooks/usePagination';
 
 const DonationsPage = ({
   getAllDonations,
@@ -24,17 +27,20 @@ const DonationsPage = ({
 }) => {
   const [queries, setQueries] = useState([]);
   const [queryPage, setQueryPage] = useState('');
-  const [queryStatus, setQueryStatus] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentCategory, setCurrentCategory] = useState('');
+
+  const { filterStatus, queryStatus, currentSelectedStatus } = useStatusFilter(
+    setQueries,
+    setQueryPage
+  );
+
+  const {
+    filterCategory,
+    currentCategory,
+    currentSelectedCategory,
+  } = useCategoryFilter(setQueries, setQueryPage);
+
   const [showTimedSpinner, setShowTimedSpinner] = useState(false);
 
-  const [currentSelectedStatus, setCurrentSelectedStatus] = useState(
-    'Select Status'
-  );
-  const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
-    'Select Category'
-  );
   const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
 
   const timedSpinner = () => {
@@ -44,39 +50,12 @@ const DonationsPage = ({
     }, 1000);
   };
 
-  const filterStatus = (value) => {
-    setCurrentSelectedStatus(value);
-    if (value === 'All') {
-      setQueryStatus('');
-      setQueries([]);
-      setQueryPage('page=1');
-    } else {
-      setQueryStatus(`status=${value}`);
-      setQueries([]);
-      setQueryPage('page=1');
-    }
-  };
+  const { onPageChange, currentPage } = usePagination(
+    setQueries,
+    setQueryPage,
+    timedSpinner
+  );
 
-  const onChange = (page) => {
-    setCurrentPage(page);
-    setQueryPage(`page=${page}`);
-    window.scrollTo(0, 0);
-    timedSpinner();
-    setQueries([]);
-  };
-
-  const filterCategory = (cat) => {
-    setCurrentSelectedCategory(cat);
-    if (cat === 'All') {
-      setCurrentCategory('');
-      setQueries([]);
-      setQueryPage('page=1');
-    } else {
-      setCurrentCategory(`category=${cat}`);
-      setQueries([]);
-      setQueryPage('page=1');
-    }
-  };
   useEffect(() => {
     if (queryPage.length > 0) {
       queries.push(queryPage);
@@ -164,7 +143,7 @@ const DonationsPage = ({
                       <Pagination
                         defaultCurrent={1}
                         current={currentPage}
-                        onChange={onChange}
+                        onChange={onPageChange}
                         total={totalDonations}
                         showSizeChanger={false}
                         hideOnSinglePage={true}
