@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link as LinkRouter } from 'react-router-dom';
 
 export const Wrapper = styled.section`
   width: 100%;
@@ -16,7 +17,11 @@ export const Card = styled.div`
   overflow: hidden;
   width: 100%;
   background: ${(props) =>
-    props.currentStatus === 'Available' ? `#fafffa` : `#fff`};
+    props.currentStatus === 'Available'
+      ? props.theme.itemBackground.available
+      : props.theme.itemBackground.completed};
+
+  transition: 0.7s all ease;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -55,6 +60,10 @@ export const CardContent = styled.div`
     width: 100%;
     padding: 10px 20px 10px 20px;
   }
+`;
+
+export const ViewItemDetailsLink = styled(LinkRouter)`
+  color: ${(props) => props.theme.activeLinkColor};
 `;
 
 export const ContentDetails = styled.div`
@@ -101,7 +110,6 @@ export const HeaderAvatar = styled.img`
 `;
 
 export const HeaderUserFullName = styled.span`
-  color: rgba(var(--i1d, 38, 38, 38), 1);
   font-size: 14px;
   font-weight: 600;
   height: 100%;

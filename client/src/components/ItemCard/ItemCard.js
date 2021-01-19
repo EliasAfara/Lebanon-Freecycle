@@ -134,7 +134,7 @@ const ItemCard = ({
                     to={`/profile/${Username}`}
                     style={{
                       paddingBottom: '1px',
-                      color: 'rgba(var(--i1d, 38, 38, 38), 1)',
+                      color: 'inherit',
                     }}
                   >
                     {FullName}
@@ -195,7 +195,7 @@ const ItemCard = ({
                         to={`/profile/${Username}`}
                         style={{
                           paddingBottom: '1px',
-                          color: 'rgba(var(--i1d, 38, 38, 38), 1)',
+                          color: 'inherit',
                         }}
                       >
                         {FullName}
@@ -304,7 +304,9 @@ const ItemCard = ({
 
                       <Divider type='vertical' />
 
-                      <Link to={`/${type}/${ItemID}`}>View Details</Link>
+                      <S.ViewItemDetailsLink to={`/${type}/${ItemID}`}>
+                        View Details
+                      </S.ViewItemDetailsLink>
                     </>
 
                     {ItemDateOfCreation && (

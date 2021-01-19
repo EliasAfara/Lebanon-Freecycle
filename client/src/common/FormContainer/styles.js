@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const FormContainer = styled.div`
   max-width: ${(props) => (props.maxWidth ? props.maxWidth : '600px')};
   width: 100%;
-  background: #fff;
+  background: ${(props) => props.theme.formBackground};
   margin-top: 10px;
   padding: 10px 50px 30px 50px;
   border: 1px solid #dbdbdb;
