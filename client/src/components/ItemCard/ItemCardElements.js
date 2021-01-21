@@ -167,6 +167,7 @@ export const ItemDescription = styled.span`
   -webkit-box-orient: vertical;
   font-size: 13px;
   color: inherit;
+  word-break: break-all;
 `;
 
 // Card Footer

@@ -201,7 +201,11 @@ const ProfileTop = ({
 
           <S.ProfileBio>
             <S.UserFullName>{fullname}</S.UserFullName>
-            <span role='img' aria-label='bio' style={{ width: '100%' }}>
+            <span
+              role='img'
+              aria-label='bio'
+              style={{ width: '100%', wordBreak: 'break-all' }}
+            >
               {bio}
             </span>
           </S.ProfileBio>
