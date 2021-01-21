@@ -2,20 +2,23 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { formatDate, formatDateMDY } from '../../utils/formatDate';
-import ModalPopUp from '../Modal/ModalPopUp';
 import AuthenticatedUserActions from '../Modal/AuthenticatedUserActions';
 import GuestUserActions from '../Modal/GuestUserActions';
-import ImageSlider from '../ImageSlider/ImageSlider';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+
 import './SingleItem.css';
-import { VscEllipsis } from 'react-icons/vsc';
 import ShareIcon from '../SVGComponents/ShareIcon';
+import { Tooltip, Tag } from 'antd';
+import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { VscEllipsis } from 'react-icons/vsc';
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
 import { RiUserLocationFill, RiPhoneFill } from 'react-icons/ri';
 import { MdLocationCity } from 'react-icons/md';
 import { SiGooglestreetview } from 'react-icons/si';
-import { Tooltip, Tag } from 'antd';
-import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import loadable from '@loadable/component';
+
+const ImageSlider = loadable(() => import('../ImageSlider/ImageSlider'));
+const Map = loadable(() => import('../Map'));
+const ModalPopUp = loadable(() => import('../Modal/ModalPopUp'));
 
 const SingleItem = ({
   item: {
@@ -191,20 +194,14 @@ const SingleItem = ({
         </div>
       </div>
       {location && status === 'Available' && (
-        <div style={{ marginTop: '20px', marginBottom: '10px' }}>
-          <MapContainer
-            center={[33.8547, 35.8623]}
-            zoom={8}
-            style={{ position: 'relative' }}
-          >
-            <TileLayer
-              url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            />
-            <Marker position={[location.latitude, location.longitude]}>
-              <Popup>{location.locationName}</Popup>
-            </Marker>
-          </MapContainer>
+        <div
+          style={{
+            marginTop: '20px',
+            marginBottom: '10px',
+            position: 'relative',
+          }}
+        >
+          <Map singleMarker={true} singleLocationData={location} />
         </div>
       )}
     </div>

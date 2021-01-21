@@ -4,19 +4,29 @@ import { connect } from 'react-redux';
 
 import { getAllDonations } from '../actions/donations';
 import { DonationsCategories } from '../shared/Categories';
+import useStatusFilter from '../costumeHooks/useStatusFilter';
+import useCategoryFilter from '../costumeHooks/useCategoryFilter';
+import usePagination from '../costumeHooks/usePagination';
+import loadable from '@loadable/component';
 
-import FilterBar from '../components/FilterBar/FilterBar';
-import ItemCard from '../components/ItemCard/ItemCard';
-import SideFilterBar from '../components/FilterBar/SideFilterBar';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
 import Spinner from '../components/Spinner/Spinner';
 import './DonationPageStyles.css';
 import { Pagination, Button } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
-import useStatusFilter from '../costumeHooks/useStatusFilter';
-import useCategoryFilter from '../costumeHooks/useCategoryFilter';
-import usePagination from '../costumeHooks/usePagination';
+
+const Map = loadable(() => import('../components/Map'));
+const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'), {
+  fallback: <div>Loading...</div>,
+});
+const ItemCard = loadable(() => import('../components/ItemCard/ItemCard'), {
+  fallback: <div>Loading...</div>,
+});
+const SideFilterBar = loadable(
+  () => import('../components/FilterBar/SideFilterBar'),
+  {
+    fallback: <div>Loading...</div>,
+  }
+);
 
 const DonationsPage = ({
   getAllDonations,
@@ -167,31 +177,10 @@ const DonationsPage = ({
 
               {donations && donations.length > 0 && (
                 <div className='donations-map-container'>
-                  <MapContainer center={[33.8547, 35.8623]} zoom={8}>
-                    <TileLayer
-                      url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    />
-                    <MarkerClusterGroup>
-                      {donations.map(
-                        (donation, index) =>
-                          donation.status === 'Available' && (
-                            <Marker
-                              key={index}
-                              position={[
-                                donation.location.latitude,
-                                donation.location.longitude,
-                              ]}
-                            >
-                              <Popup>
-                                {donation.name} <br />{' '}
-                                {donation.location.locationName}
-                              </Popup>
-                            </Marker>
-                          )
-                      )}
-                    </MarkerClusterGroup>
-                  </MapContainer>
+                  <Map
+                    multipleMarkers={true}
+                    multipleLocationData={donations}
+                  />
                 </div>
               )}
             </>

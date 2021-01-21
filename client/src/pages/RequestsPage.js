@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// Redux
 import { connect } from 'react-redux';
+
 import { getAllRequests } from '../actions/requests';
-
 import { RequestCategories } from '../shared/Categories';
-import { GiBrokenHeartZone } from 'react-icons/gi';
-
-import ItemCard from '../components/ItemCard/ItemCard';
-import FilterBar from '../components/FilterBar/FilterBar';
-import SideFilterBar from '../components/FilterBar/SideFilterBar';
-import Spinner from '../components/Spinner/Spinner';
-import { Pagination, Button } from 'antd';
 import useStatusFilter from '../costumeHooks/useStatusFilter';
 import useCategoryFilter from '../costumeHooks/useCategoryFilter';
 import usePagination from '../costumeHooks/usePagination';
+import loadable from '@loadable/component';
+
+import Spinner from '../components/Spinner/Spinner';
+import { Pagination, Button } from 'antd';
+import { GiBrokenHeartZone } from 'react-icons/gi';
+
+const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'));
+const ItemCard = loadable(() => import('../components/ItemCard/ItemCard'));
+const SideFilterBar = loadable(() =>
+  import('../components/FilterBar/SideFilterBar')
+);
 
 const RequestsPage = ({
   getAllRequests,
