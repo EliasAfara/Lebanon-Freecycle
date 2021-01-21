@@ -44,8 +44,12 @@ const GuestNavbar = ({ isOpen, toggleNavBar, theme, toggleTheme }) => {
                 onHandleColor='#191C30'
                 offColor='#8e8e8e'
                 offHandleColor='#fff'
-                checkedIcon={<img src={moonIcon} alt='moon icon' />}
-                uncheckedIcon={<img src={sunIcon} alt='sun icon' />}
+                checkedIcon={
+                  <img src={moonIcon} height='28' width='30' alt='moon icon' />
+                }
+                uncheckedIcon={
+                  <img src={sunIcon} height='28' width='30' alt='sun icon' />
+                }
               />
             </S.NavThemeToggle>
 
@@ -73,8 +77,22 @@ const GuestNavbar = ({ isOpen, toggleNavBar, theme, toggleTheme }) => {
                     checked={theme === 'dark'}
                     onColor='#222'
                     offColor='#8e8e8e'
-                    checkedIcon={<img src={moonIcon} alt='moon icon' />}
-                    uncheckedIcon={<img src={sunIcon} alt='sun icon' />}
+                    checkedIcon={
+                      <img
+                        src={moonIcon}
+                        height='28'
+                        width='30'
+                        alt='moon icon'
+                      />
+                    }
+                    uncheckedIcon={
+                      <img
+                        src={sunIcon}
+                        height='28'
+                        width='30'
+                        alt='sun icon'
+                      />
+                    }
                     boxShadow='0 0 2px 3px #1890fa'
                     activeBoxShadow='0 0 2px 3px #1890fz'
                   />
