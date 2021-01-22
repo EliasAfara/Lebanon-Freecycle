@@ -6,7 +6,7 @@ export const FormContainer = styled.div`
   background: ${(props) => props.theme.formBackground};
   margin-top: 10px;
   padding: 10px 50px 30px 50px;
-  border: 1px solid #dbdbdb;
+  border: 1px solid ${(props) => props.theme.toggleBorder};
   overflow: hidden;
   border-radius: 3px;
 

@@ -54,7 +54,7 @@ const GuestNavbar = ({ isOpen, toggleNavBar, theme, toggleTheme }) => {
             </S.NavThemeToggle>
 
             <S.NavBtn>
-              <S.NavBtnLink to='/register'>JOIN FREE</S.NavBtnLink>
+              <S.NavBtnLink to='/register'></S.NavBtnLink>
             </S.NavBtn>
 
             <S.MobileIcon onClick={toggleNavBar}>
@@ -134,9 +134,10 @@ const GuestNavbar = ({ isOpen, toggleNavBar, theme, toggleTheme }) => {
               <hr className='styled-hr' />
 
               <S.SettingsList>
-                <S.NavBtnLink to='/register' onClick={toggleNavBar}>
-                  JOIN FREE
-                </S.NavBtnLink>
+                <S.NavBtnLink
+                  to='/register'
+                  onClick={toggleNavBar}
+                ></S.NavBtnLink>
               </S.SettingsList>
             </Drawer>
           </>

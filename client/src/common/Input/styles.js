@@ -27,7 +27,10 @@ export const Input = styled.input`
   transition: all 0.3s ease;
   border-color: ${(props) => props.isInvalid && '#fa1529'};
   color: ${(props) => props.isInvalid && '#fa1529'};
-  background: ${(props) => props.isInvalid && '#fffafa'};
+  background: ${(props) =>
+    props.isInvalid
+      ? props.theme.inValidInputBackground
+      : props.theme.formBackground};
 
   &:focus {
     border-color: #609bcf;

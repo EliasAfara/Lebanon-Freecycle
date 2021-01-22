@@ -123,9 +123,24 @@ export const NavBtnLink = styled(NavLinkRouter)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: #fff;
+    background: ${(props) => props.theme.models.background};
     border: 2px solid #ffdf6c;
     color: #ffdf6c;
+  }
+
+  &::before {
+    content: 'JOIN FREE';
+  }
+
+  &.active {
+    background: ${(props) => props.theme.models.background};
+    border: 2px solid #ffdf6c;
+    color: #ffdf6c;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  &.active::before {
+    content: 'Almost there';
   }
 `;
 
@@ -269,7 +284,7 @@ export const DropdownList = styled.div`
   top: 50px;
   width: 190px;
   font-size: 14px;
-  background: #fff;
+  background: ${(props) => props.theme.models.background};
   border-radius: 5px;
   transform: translate(-75%);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
@@ -282,7 +297,7 @@ export const DropdownListContainer = styled.div`
   transform-origin: top center;
   transition: opacity 75ms linear, transform 38ms ease-out;
   box-shadow: 0 0 5px 1px rgba(var(--jb7, 0, 0, 0), 0.0975);
-  background: #fff;
+  background: ${(props) => props.theme.models.background};
   border-radius: 6px;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
@@ -297,7 +312,7 @@ export const DropdownArrow = styled.div`
   z-index: -1;
   width: 14px;
   transform: rotate(45deg);
-  background: #fff;
+  background: ${(props) => props.theme.models.background};
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.0975);
 `;
 
@@ -305,11 +320,11 @@ export const DropdownItem = styled.div`
   display: flex;
   align-items: center;
   padding: 8px 16px;
-  color: #262626;
+  color: ${(props) => props.theme.fontColor};
   width: 100%;
 
   &:hover {
-    background: #f6f6f6;
+    background: ${(props) => props.theme.models.hoverColor};
   }
 `;
 
@@ -328,7 +343,7 @@ export const DropdownDivider = styled.div`
 `;
 
 export const DropdownListWrapper = styled.div`
-  background: #fff;
+  background: ${(props) => props.theme.models.background};
   border-radius: 6px;
   height: 100%;
   overflow-x: hidden;
@@ -347,7 +362,7 @@ const sharedSettingItemStyle = css`
   align-items: center;
   justify-content: flex-start;
   padding: 8px 16px;
-  color: #262626;
+  color: ${(props) => props.theme.fontColor};
   cursor: pointer;
 `;
 const ActiveHover = css`
@@ -357,8 +372,8 @@ const ActiveHover = css`
   }
 
   &:hover {
-    color: #262626;
-    background: #f6f6f6;
+    color: ${(props) => props.theme.fontColor};
+    background: ${(props) => props.theme.models.hoverColor};
   }
 `;
 export const SettingItem = styled.div`

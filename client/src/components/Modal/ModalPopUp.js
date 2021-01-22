@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import './ModalPopUp.css';
 
 const ModalPopUp = ({ show, onHide, actions }) => {
   return (
