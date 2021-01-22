@@ -4,7 +4,6 @@ import { Link as LinkRouter } from 'react-router-dom';
 export const ProfileHeader = styled.header`
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-bottom: 44px;
 
   @media only screen and (max-width: 768px) {
@@ -141,6 +140,7 @@ export const UserName = styled.h2`
     display: inline-block;
     font-size: 20px;
     font-weight: 400;
+    color: ${(props) => props.theme.fontColor};
     margin: 0;
   }
 `;
@@ -149,6 +149,7 @@ export const UserNameV2 = styled.h2`
   display: inline-block;
   font-size: 28px;
   font-weight: 400;
+  color: ${(props) => props.theme.fontColor};
   margin: 0;
 
   @media only screen and (max-width: 768px) {
@@ -175,8 +176,9 @@ export const EditBtn = styled.button`
   font-weight: 600;
   background-color: transparent;
   border-radius: 4px;
-  border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
-  color: rgba(var(--f75, 38, 38, 38), 1);
+  border: 1px solid ${(props) => props.theme.toggleBorder};
+  color: ${(props) => props.theme.fontColor};
+
   cursor: pointer;
 `;
 
@@ -197,12 +199,12 @@ export const IconBtn = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 10%;
-  border: 1px solid #dbdbdb;
+  border: 1px solid ${(props) => props.theme.toggleBorder};
   height: 28px;
   width: 28px;
   font-size: 26px;
   margin: 0 0 0 4px;
-  color: #292929;
+  color: ${(props) => props.theme.fontColor};
   background: transparent;
   cursor: pointer;
 `;
@@ -214,6 +216,8 @@ export const SettingIconDiv = styled.div`
   background: 0 0;
   border: 0;
   font-size: 28px;
+
+  color: ${(props) => props.theme.fontColor};
 
   @media only screen and (max-width: 768px) {
     display: none;
@@ -269,6 +273,7 @@ export const UserFullName = styled.h1`
   display: inline;
   font-size: 16px;
   font-weight: 600;
+  color: ${(props) => props.theme.fontColor};
 `;
 
 // export const BottomTabBorder = styled.div`

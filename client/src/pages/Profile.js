@@ -24,7 +24,7 @@ const Profile = ({
   }, [getProfileByUsername, userNameInParam]);
 
   return (
-    <div style={{ maxWidth: '1000px', width: 'inherit' }}>
+    <div style={{ maxWidth: '800px', width: 'inherit' }}>
       {Object.keys(error).length === 0 && error.constructor === Object ? (
         profileLoading && profile === null ? (
           <Spinner />
