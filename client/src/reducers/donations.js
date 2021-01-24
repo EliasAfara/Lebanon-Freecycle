@@ -18,15 +18,6 @@ export default function donations(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case actionsType.RESET_GET_ALL_DONATIONS_LOADING:
-      return {
-        ...state,
-        DonatinosLoading: true,
-        editDonationFormLoading: true,
-        userDonationLoading: true,
-        singleDonationLoading: true,
-        singleDonationRedirectOnDelete: false,
-      };
     case actionsType.GET_ALL_DONATIONS:
       return {
         ...state,
@@ -59,7 +50,6 @@ export default function donations(state = initialState, action) {
         ...state,
         singleDonations: null,
         editDonationFormLoading: true,
-        DonatinosLoading: true,
         singleDonationLoading: true,
         singleDonationRedirectOnDelete: false,
         redirectPage: false,
@@ -72,8 +62,34 @@ export default function donations(state = initialState, action) {
       };
 
     case actionsType.CREATE_A_DONATION_SUCCESS:
+      let newCreatedDonations = [];
+      if (state.allDonations && state.allDonations.Donations) {
+        if (state.allDonations.donations.length > 0) {
+          let tempNewCreatedDonations = state.allDonations.donations;
+          tempNewCreatedDonations[9] = tempNewCreatedDonations[8];
+          tempNewCreatedDonations[8] = tempNewCreatedDonations[7];
+          tempNewCreatedDonations[7] = tempNewCreatedDonations[6];
+          tempNewCreatedDonations[6] = tempNewCreatedDonations[5];
+          tempNewCreatedDonations[5] = tempNewCreatedDonations[4];
+          tempNewCreatedDonations[4] = tempNewCreatedDonations[3];
+          tempNewCreatedDonations[3] = tempNewCreatedDonations[2];
+          tempNewCreatedDonations[2] = tempNewCreatedDonations[1];
+          tempNewCreatedDonations[1] = tempNewCreatedDonations[0];
+          tempNewCreatedDonations[0] = payload;
+
+          newCreatedDonations = tempNewCreatedDonations;
+        }
+      } else {
+        newCreatedDonations = undefined;
+      }
       return {
         ...state,
+        allDonations: {
+          totalDonations:
+            state.allDonations.totalDonations &&
+            state.allDonations.totalDonations + 1,
+          donations: newCreatedDonations,
+        },
         createDonationFormLoading: false,
         DonatinosLoading: false,
         redirectPage: true,

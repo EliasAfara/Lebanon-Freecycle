@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import {
   GET_ALL_REQUESTS,
-  RESET_GET_ALL_REQUESTS_LOADING,
   GET_ALL_USER_REQUESTS,
   CLEAR_USER_REQUESTS,
   GET_A_SINGLE_REQUEST,
@@ -20,9 +19,6 @@ import { setAlert } from './alert';
 import { setToast } from './toast';
 
 export const getAllRequests = (quries) => async (dispatch) => {
-  dispatch({
-    type: RESET_GET_ALL_REQUESTS_LOADING,
-  });
   try {
     let res = {};
     if (quries.length > 0) {

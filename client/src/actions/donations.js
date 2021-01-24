@@ -3,7 +3,6 @@ import axios from 'axios';
 import {
   GET_ALL_DONATIONS,
   GET_ALL_USER_DONATIONS,
-  RESET_GET_ALL_DONATIONS_LOADING,
   CLEAR_USER_DONATIONS,
   GET_A_SINGLE_DONATION,
   CLEAR_SINGLE_DONATION,
@@ -22,9 +21,6 @@ import { setAlert } from './alert';
 import { setToast } from './toast';
 
 export const getAllDonations = (quries) => async (dispatch) => {
-  dispatch({
-    type: RESET_GET_ALL_DONATIONS_LOADING,
-  });
   try {
     let res = {};
     if (quries.length > 0) {

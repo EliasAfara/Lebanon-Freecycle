@@ -57,6 +57,12 @@ const RequestsPage = ({
   );
 
   useEffect(() => {
+    if (requests === undefined) {
+      getAllRequests(queryPage);
+    }
+  }, [getAllRequests, requests, queryPage]);
+
+  useEffect(() => {
     if (queryPage.length > 0) {
       queries.push(queryPage);
     }
@@ -68,16 +74,24 @@ const RequestsPage = ({
 
       queries.push(filteredCategory);
     }
+    let updateAfterTenSeconds = true;
 
     if (queries.length > 0) {
       const activeQueries = queries.join('&');
       getAllRequests(activeQueries);
+      updateAfterTenSeconds = false;
     } else {
-      getAllRequests(queryPage);
+      if (updateAfterTenSeconds) {
+        const interval = setInterval(() => {
+          getAllRequests(queryPage);
+        }, 10000);
+
+        return () => clearInterval(interval);
+      }
     }
   }, [getAllRequests, queries, queryPage, queryStatus, currentCategory]);
 
-  console.log(requests);
+  // console.log(requests);
 
   return (
     <div style={{ maxWidth: '700px', width: 'inherit' }}>

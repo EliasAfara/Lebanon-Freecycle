@@ -18,15 +18,6 @@ export default function requests(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case actionsType.RESET_GET_ALL_REQUESTS_LOADING:
-      return {
-        ...state,
-        loading: true,
-        editRequestFormLoading: true,
-        userRequestLoading: true,
-        singleRequestLoading: true,
-        singleRequestRedirectOnDelete: false,
-      };
     case actionsType.GET_ALL_REQUESTS:
       return {
         ...state,
@@ -59,7 +50,6 @@ export default function requests(state = initialState, action) {
         ...state,
         singleRequests: null,
         editRequestFormLoading: true,
-        loading: true,
         singleRequestLoading: true,
         singleRequestRedirectOnDelete: false,
         redirectPage: false,
@@ -70,8 +60,35 @@ export default function requests(state = initialState, action) {
         createRequestFormLoading: true,
       };
     case actionsType.CREATE_A_REQUEST_SUCCESS:
+      let newCreatedRequests = [];
+      if (state.allRequests && state.allRequests.requests) {
+        if (state.allRequests.requests.length > 0) {
+          let tempNewCreatedRequests = state.allRequests.requests;
+          tempNewCreatedRequests[9] = tempNewCreatedRequests[8];
+          tempNewCreatedRequests[8] = tempNewCreatedRequests[7];
+          tempNewCreatedRequests[7] = tempNewCreatedRequests[6];
+          tempNewCreatedRequests[6] = tempNewCreatedRequests[5];
+          tempNewCreatedRequests[5] = tempNewCreatedRequests[4];
+          tempNewCreatedRequests[4] = tempNewCreatedRequests[3];
+          tempNewCreatedRequests[3] = tempNewCreatedRequests[2];
+          tempNewCreatedRequests[2] = tempNewCreatedRequests[1];
+          tempNewCreatedRequests[1] = tempNewCreatedRequests[0];
+          tempNewCreatedRequests[0] = payload;
+
+          newCreatedRequests = tempNewCreatedRequests;
+        }
+      } else {
+        newCreatedRequests = undefined;
+      }
+
       return {
         ...state,
+        allRequests: {
+          totalRequests:
+            state.allRequests.totalRequests &&
+            state.allRequests.totalRequests + 1,
+          requests: newCreatedRequests,
+        },
         createRequestFormLoading: false,
         loading: false,
         redirectPage: true,

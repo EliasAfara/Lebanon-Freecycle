@@ -67,6 +67,12 @@ const DonationsPage = ({
   );
 
   useEffect(() => {
+    if (donations === undefined) {
+      getAllDonations(queryPage);
+    }
+  }, [getAllDonations, donations, queryPage]);
+
+  useEffect(() => {
     if (queryPage.length > 0) {
       queries.push(queryPage);
     }
@@ -78,16 +84,24 @@ const DonationsPage = ({
 
       queries.push(filteredCategory);
     }
+    let updateAfterTenSeconds = true;
 
     if (queries.length > 0) {
       const activeQueries = queries.join('&');
       getAllDonations(activeQueries);
+      updateAfterTenSeconds = false;
     } else {
-      getAllDonations(queryPage);
+      if (updateAfterTenSeconds) {
+        const interval = setInterval(() => {
+          getAllDonations(queryPage);
+        }, 10000);
+
+        return () => clearInterval(interval);
+      }
     }
   }, [getAllDonations, queries, queryPage, queryStatus, currentCategory]);
 
-  console.log(donations);
+  // console.log(donations);
 
   return (
     <div className='donations-page-container'>
@@ -175,14 +189,16 @@ const DonationsPage = ({
                 )}
               </div>
 
-              {donations && donations.length > 0 && (
-                <div className='donations-map-container'>
-                  <Map
-                    multipleMarkers={true}
-                    multipleLocationData={donations}
-                  />
-                </div>
-              )}
+              {donations &&
+                donations.length > 0 &&
+                currentSelectedStatus !== 'Completed' && (
+                  <div className='donations-map-container'>
+                    <Map
+                      multipleMarkers={true}
+                      multipleLocationData={donations}
+                    />
+                  </div>
+                )}
             </>
           )}
         </>

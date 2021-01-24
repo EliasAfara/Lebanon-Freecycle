@@ -34,7 +34,6 @@ export const UPDATE_USER_PASSWORD_ERROR = 'User-Password-Update/error';
 export const GET_ALL_REQUESTS = 'Requests/getAll';
 
 export const GET_ALL_USER_REQUESTS = 'User-Requests/getAll';
-export const RESET_GET_ALL_REQUESTS_LOADING = 'Requests/resetLoading';
 export const CLEAR_USER_REQUESTS = 'User-Requests/cleared';
 
 export const GET_A_SINGLE_REQUEST = 'Single-Request/get';
@@ -55,7 +54,6 @@ export const DELETE_A_REQUEST = 'Delete-Request/success';
 export const GET_ALL_DONATIONS = 'Donations/getAll';
 
 export const GET_ALL_USER_DONATIONS = 'User-Donations/getAll';
-export const RESET_GET_ALL_DONATIONS_LOADING = 'Donations/resetLoading';
 export const CLEAR_USER_DONATIONS = 'User-Donations/cleared';
 
 export const GET_A_SINGLE_DONATION = 'Single-Donation/get';
