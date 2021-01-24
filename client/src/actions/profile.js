@@ -89,7 +89,11 @@ export const updatePassword = (formData) => async (dispatch) => {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => console.error(error));
+      errors.forEach((error) => {
+        if (error.param === 'oldPassword') {
+          dispatch(setToast(error.msg, 'danger'));
+        }
+      });
     }
 
     dispatch({

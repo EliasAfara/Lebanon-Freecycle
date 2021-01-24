@@ -51,21 +51,6 @@ export const ManageGravatar__Span = styled.span`
   }
 `;
 
-export const SocialIcons = styled.div`
-  display: block;
-
-  @media (max-width: 767px) {
-    display: none;
-  }
-`;
-
-export const SocialIconsName = styled.div`
-  display: none;
-
-  @media (max-width: 767px) {
-    display: block;
-  }
-`;
 export const RequiredMessage__Div = styled.div`
   width: 140px;
   margin-right: 85px;
