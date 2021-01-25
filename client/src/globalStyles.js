@@ -36,6 +36,39 @@ hr {
 button:focus{
     outline: none;
 }
+.ant-spin{
+    color: ${(props) => props.theme.activeLinkColor};
+}
+
+.ant-spin-dot-item{
+    background-color: ${(props) => props.theme.activeLinkColor};
+}
+
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
+    background-color: ${(props) => props.theme.models.background};
+}
+.ant-pagination-item {
+    color: ${(props) => props.theme.fontColor};
+    background-color: ${(props) => props.theme.models.background};
+}
+.ant-pagination-item-active {
+    font-weight: 500;
+    background: ${(props) => props.theme.models.background};
+    border-color: ${(props) => props.theme.activeLinkColor};
+}
+.ant-pagination-item-active a {
+    color: ${(props) => props.theme.activeLinkColor} !important;
+}
+.ant-pagination-item:focus, .ant-pagination-item:hover {
+    border-color: ${(props) => props.theme.activeLinkColor};
+}
+.ant-pagination-item:focus a, .ant-pagination-item:hover a {
+    color: ${(props) => props.theme.activeLinkColor};
+}
+.ant-pagination-prev:focus .ant-pagination-item-link, .ant-pagination-next:focus .ant-pagination-item-link, .ant-pagination-prev:hover .ant-pagination-item-link, .ant-pagination-next:hover .ant-pagination-item-link {
+    color: ${(props) => props.theme.activeLinkColor};
+    border-color: ${(props) => props.theme.activeLinkColor};
+}
 
 .modal-content {
     background-color: ${(props) => props.theme.models.background};
