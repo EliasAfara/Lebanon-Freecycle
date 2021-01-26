@@ -1,18 +1,18 @@
 import React from 'react';
-import DonationsForm from '../components/DashboardForms/DonationsForm';
-import RequestsForm from '../components/DashboardForms/RequestsForm';
+import Donations from '../components/Forms/Donations';
+import Requests from '../components/Forms/Requests';
 import Tabs from '../components/Tabs/NavTabs';
 
 const DashboardPage = () => {
   return (
     <div style={{ width: '100%', maxWidth: '1000px' }}>
       <Tabs
-        firstTab='Submit A Donation'
+        firstTab='Donate'
         firstKey='Donations'
-        firstComponent={<DonationsForm />}
-        secondTab='Submit A Request'
+        firstComponent={<Donations />}
+        secondTab='Request'
         secondKey='Requests'
-        secondComponent={<RequestsForm />}
+        secondComponent={<Requests />}
         size='large'
         border={true}
         animated={false}

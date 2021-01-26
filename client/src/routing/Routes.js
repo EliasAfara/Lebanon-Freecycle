@@ -1,14 +1,19 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
 
 import Alert from '../components/layout/Alert';
 import Toast from '../components/layout/Toast';
-import PrivateRoute from './PrivateRoute';
 
-// Pages
-
+// Forms
 import Login from '../components/Forms/Login';
 import Register from '../components/Forms/Register';
+import EditRequest from '../components/Forms/EditRequest';
+import EditDonation from '../components/Forms/EditDonation';
+import EditProfile from '../components/Forms/EditProfile';
+import ChangePassword from '../components/Forms/ChangePassword';
+
+// Public Pages
 import Profile from '../pages/Profile';
 import FAQPage from '../pages/FAQPage';
 import AboutPage from '../pages/AboutPage';
@@ -16,15 +21,11 @@ import ErrorPage from '../pages/ErrorPage';
 import RequestsPage from '../pages/RequestsPage';
 import ContactUsPage from '../pages/ContactUsPage';
 import DonationsPage from '../pages/DonationsPage';
-
 import ViewDonation from '../pages/ViewDonation';
 import ViewRequest from '../pages/ViewRequest';
 
+// Private Pages
 import DashboardPage from '../pages/DashboardPage';
-import EditProfile from '../components/Setting/EditProfile';
-import ChangePassword from '../components/Setting/ChangePassword';
-import EditRequest from '../pages/EditRequest';
-import EditDonation from '../pages/EditDonation';
 
 const Routes = () => {
   return (
