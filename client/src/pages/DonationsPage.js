@@ -11,6 +11,7 @@ import loadable from '@loadable/component';
 
 import Spinner from '../components/Spinner/Spinner';
 import './DonationPageStyles.css';
+import * as S from '../components/layout/styles';
 import { Pagination, Button } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 
@@ -104,7 +105,7 @@ const DonationsPage = ({
   // console.log(donations);
 
   return (
-    <div className='donations-page-container'>
+    <S.PageContainer>
       {DonatinosLoading ? (
         <Spinner />
       ) : (
@@ -113,7 +114,7 @@ const DonationsPage = ({
             <Spinner />
           ) : (
             <>
-              <div className='dontions-timeline'>
+              <S.ContentContainer>
                 <div className='FilterBar-wrapper'>
                   <FilterBar
                     filterStatus={filterStatus}
@@ -187,23 +188,23 @@ const DonationsPage = ({
                     </p>
                   </div>
                 )}
-              </div>
+              </S.ContentContainer>
 
               {donations &&
                 donations.length > 0 &&
                 currentSelectedStatus !== 'Completed' && (
-                  <div className='donations-map-container'>
+                  <S.SideContentContainer>
                     <Map
                       multipleMarkers={true}
                       multipleLocationData={donations}
                     />
-                  </div>
+                  </S.SideContentContainer>
                 )}
             </>
           )}
         </>
       )}
-    </div>
+    </S.PageContainer>
   );
 };
 

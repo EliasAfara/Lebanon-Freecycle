@@ -36,6 +36,15 @@ hr {
 button:focus{
     outline: none;
 }
+
+.card-header{
+    font-weight: 600;
+    background-color: ${(props) => props.theme.cardHeaderBackground};
+}
+.card-body, .list-group-item{
+    background-color: ${(props) => props.theme.models.background};
+}
+
 .ant-spin{
     color: ${(props) => props.theme.activeLinkColor};
 }

@@ -1,10 +1,3 @@
-.donations-page-container {
-    width: inherit;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
 .leaflet-container {
     width: inherit;
     height: 400px;
@@ -13,68 +6,22 @@
     border-radius: 3px;
 }
 
-.donations-map-container {
-    width: 400px;
-    height: 400px;
-}
-
-.dontions-timeline {
-    margin-right: 28px;
-    max-width: 650px;
-    width: 100%
-}
-
-
-
 @media only screen and (max-width: 1024px) {
-
-    .dontions-timeline {
-        margin-right: 15px;
-        max-width: 600px;
-    }
-
     .leaflet-container {
         width: 100%;
         height: 350px;
         position: relative;
     }
-    .donations-map-container {
-        width: 100%;
-        height: 350px;
-    }
 }
 @media only screen and (max-width: 1090px) {
-
     .leaflet-container {
-        height: 300px;
-    }
-
-    .donations-map-container {
-        width: 300px;
         height: 300px;
     }
 }
 @media only screen and (max-width: 991px) {
-
-    .donations-page-container {
-        flex-direction: column-reverse;
-        align-items: center;
-    }
-
-    .dontions-timeline {
-        margin-right: 0;
-        max-width: 100%
-    }
-
     .leaflet-container {
         width: 100%;
         height: 350px;
         position: relative;
-    }
-
-    .donations-map-container {
-        width: 100%;
-        height: 350px;
-        margin-bottom: 20px;
     }
 }

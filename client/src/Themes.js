@@ -16,6 +16,7 @@ export const lightTheme = {
     hoverColor: '#f6f6f6',
   },
   markerFilter: 'none',
+  cardHeaderBackground: 'rgba(0,0,0,.03)',
 };
 
 // textcolor: #e6e6e6;
@@ -38,6 +39,7 @@ export const darkTheme = {
     hoverColor: '#252526',
   },
   markerFilter: 'hue-rotate(45deg)',
+  cardHeaderBackground: '#242526',
 };
 
 // export const solarizedDarkTheme = {

@@ -37,7 +37,7 @@ const Routes = () => {
           {/* Public */}
 
           <Route exact path='/about' component={AboutPage} />
-          <Route exact path='/faq' component={FAQPage} />
+          <Route exact path='/faq/:faq' component={FAQPage} />
 
           <Route exact path='/donations' component={DonationsPage} />
           <Route exact path='/donation/:id' component={ViewDonation} />
