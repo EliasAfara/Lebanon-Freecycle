@@ -19,10 +19,12 @@ export const PageContainer_FAQ = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  height: 100vh;
+  margin-top: 75px;
 
   @media only screen and (max-width: 991px) {
+    justify-content: normal;
     flex-direction: column;
-    padding-top: 20px;
   }
 `;
 
@@ -91,3 +93,48 @@ export const SideBarRoute = styled(NavLinkRouter)`
     color: ${(props) => props.theme.activeLinkColor};
   }
 `;
+
+// Footer
+export const FooterContainer = styled.div`
+  padding: 40px 0;
+  background-color: ${(props) => props.theme.headerBackground};
+  border-top: ${(props) => `1px solid ${props.theme.toggleBorder}`};
+  color: ${(props) => props.theme.fontColor};
+  transition: 0.8s all ease;
+`;
+
+export const FooterRoutesList = styled.ul`
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+export const FooterRoutesListItem = styled.li`
+  padding: 0 10px;
+`;
+
+export const FooterRoutesListItem_Link = styled(NavLinkRouter)`
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const FooterCopyRight = styled.p`
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 0;
+`;
+
+// Footer
