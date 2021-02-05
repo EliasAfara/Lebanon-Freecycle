@@ -5,6 +5,7 @@ import profile from './profile';
 import toast from './toast';
 import requests from './requests';
 import donations from './donations';
+import filters from './filters';
 
 export default combineReducers({
   // Will take in an object (whose values are reducers) that has all the reduces I create ex: auth reducer
@@ -14,6 +15,7 @@ export default combineReducers({
   toast,
   requests,
   donations,
+  filters,
 });
 
 // Flow of redux:

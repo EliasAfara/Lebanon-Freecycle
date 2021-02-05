@@ -1,6 +1,6 @@
 import React from 'react';
-import './FilterBar.css';
 import { Select } from 'antd';
+import * as S from './styles';
 const { Option } = Select;
 
 const FilterBar = ({
@@ -9,26 +9,33 @@ const FilterBar = ({
   categories,
   filterCategory,
   currentSelectedCategory,
+  LocationsData,
+  filterLocation,
+  currentSelectedLocation,
 }) => {
   return (
     <>
-      <div className='filterBar-container'>
-        <div className='filterBar'>
-          <div className='filterbar__filter'>
+      <S.FilterBarContaier>
+        <S.FilterBar>
+          <S.FilterSelector>
             <Select
               placeholder='Select Status'
               style={{ width: 120 }}
               onChange={filterStatus}
-              value={currentSelectedStatus}
+              value={
+                currentSelectedStatus.length > 0
+                  ? currentSelectedStatus
+                  : 'Select Status'
+              }
               title='Select Status'
             >
               <Option value='All'>All</Option>
               <Option value='Available'>Available</Option>
               <Option value='Completed'>Completed</Option>
             </Select>
-          </div>
+          </S.FilterSelector>
 
-          <div className='filterbar__filter'>
+          <S.FilterSelector>
             <Select
               showSearch
               style={{ width: 140 }}
@@ -39,7 +46,11 @@ const FilterBar = ({
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
               onChange={filterCategory}
-              value={currentSelectedCategory}
+              value={
+                currentSelectedCategory.length > 0
+                  ? currentSelectedCategory
+                  : 'Select Category'
+              }
             >
               <Option value='All'>All</Option>
               {categories.map((category) => {
@@ -50,9 +61,43 @@ const FilterBar = ({
                 );
               })}
             </Select>
-          </div>
-        </div>
-      </div>
+          </S.FilterSelector>
+
+          {filterLocation && currentSelectedLocation !== undefined && (
+            <S.FilterSelector>
+              <Select
+                showSearch
+                style={{ width: 140 }}
+                placeholder='Select Location'
+                dropdownMatchSelectWidth={false}
+                defaultActiveFirstOption={false}
+                optionFilterProp='children'
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+                autoComplete='chrome-off'
+                value={
+                  currentSelectedLocation.length > 0
+                    ? currentSelectedLocation
+                    : 'Select Location'
+                }
+                onChange={filterLocation}
+              >
+                <Option value='All'>All</Option>
+
+                {LocationsData.map((location, index) => {
+                  return (
+                    <Option key={index} value={location.Location_Name_En}>
+                      {location.Location_Name_En + ' - ' + location.District}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </S.FilterSelector>
+          )}
+        </S.FilterBar>
+      </S.FilterBarContaier>
     </>
   );
 };

@@ -1,19 +1,26 @@
-import { useState } from 'react';
-
-const useCategoryFilter = (setQueries, setQueryPage) => {
-  const [currentCategory, setCurrentCategory] = useState('');
-  const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
-    'Select Category'
-  );
-
+const useCategoryFilter = (
+  setQueries,
+  setQueryPage,
+  FilterDonationCategory,
+  FilterRequestCategory
+) => {
   const filterCategory = (cat) => {
-    setCurrentSelectedCategory(cat);
     if (cat === 'All') {
-      setCurrentCategory('');
+      if (FilterDonationCategory) {
+        FilterDonationCategory(cat, '');
+      } else if (FilterRequestCategory) {
+        FilterRequestCategory(cat, '');
+      }
+
       setQueries([]);
       setQueryPage('page=1');
     } else {
-      setCurrentCategory(`category=${cat}`);
+      if (FilterDonationCategory) {
+        FilterDonationCategory(cat, `category=${cat}`);
+      } else if (FilterRequestCategory) {
+        FilterRequestCategory(cat, `category=${cat}`);
+      }
+
       setQueries([]);
       setQueryPage('page=1');
     }
@@ -21,8 +28,6 @@ const useCategoryFilter = (setQueries, setQueryPage) => {
 
   return {
     filterCategory,
-    currentCategory,
-    currentSelectedCategory,
   };
 };
 

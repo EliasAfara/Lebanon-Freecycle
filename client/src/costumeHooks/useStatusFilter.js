@@ -1,19 +1,26 @@
-import { useState } from 'react';
-
-const useStatusFilter = (setQueries, setQueryPage) => {
-  const [queryStatus, setQueryStatus] = useState('');
-  const [currentSelectedStatus, setCurrentSelectedStatus] = useState(
-    'Select Status'
-  );
-
+const useStatusFilter = (
+  setQueries,
+  setQueryPage,
+  FilterDonationStatus,
+  FilterRequestStatus
+) => {
   const filterStatus = (value) => {
-    setCurrentSelectedStatus(value);
     if (value === 'All') {
-      setQueryStatus('');
+      if (FilterDonationStatus) {
+        FilterDonationStatus(value, '');
+      } else if (FilterRequestStatus) {
+        FilterRequestStatus(value, '');
+      }
+
       setQueries([]);
       setQueryPage('page=1');
     } else {
-      setQueryStatus(`status=${value}`);
+      if (FilterDonationStatus) {
+        FilterDonationStatus(value, `status=${value}`);
+      } else if (FilterRequestStatus) {
+        FilterRequestStatus(value, `status=${value}`);
+      }
+
       setQueries([]);
       setQueryPage('page=1');
     }
@@ -21,8 +28,6 @@ const useStatusFilter = (setQueries, setQueryPage) => {
 
   return {
     filterStatus,
-    queryStatus,
-    currentSelectedStatus,
   };
 };
 

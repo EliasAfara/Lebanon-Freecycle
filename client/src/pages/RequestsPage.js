@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getAllRequests } from '../actions/requests';
+import { FilterRequestCategory, FilterRequestStatus } from '../actions/filters';
 import { RequestCategories } from '../shared/Categories';
 import useStatusFilter from '../costumeHooks/useStatusFilter';
 import useCategoryFilter from '../costumeHooks/useCategoryFilter';
@@ -25,20 +26,30 @@ const RequestsPage = ({
     allRequests: { requests, totalRequests },
     loading,
   },
+  FilterRequestCategory,
+  FilterRequestStatus,
+  requestsFilters: {
+    currentStatusFilter,
+    currentSelectedStatus,
+
+    currentCategoryFilter,
+    currentSelectedCategory,
+  },
 }) => {
   const [queries, setQueries] = useState([]);
   const [queryPage, setQueryPage] = useState('');
 
-  const { filterStatus, queryStatus, currentSelectedStatus } = useStatusFilter(
+  const { filterStatus } = useStatusFilter(
     setQueries,
-    setQueryPage
+    setQueryPage,
+    FilterRequestStatus
   );
 
-  const {
-    filterCategory,
-    currentCategory,
-    currentSelectedCategory,
-  } = useCategoryFilter(setQueries, setQueryPage);
+  const { filterCategory } = useCategoryFilter(
+    setQueries,
+    setQueryPage,
+    FilterRequestCategory
+  );
 
   const [showTimedSpinner, setShowTimedSpinner] = useState(false);
   const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
@@ -66,11 +77,11 @@ const RequestsPage = ({
     if (queryPage.length > 0) {
       queries.push(queryPage);
     }
-    if (queryStatus.length > 0) {
-      queries.push(queryStatus);
+    if (currentStatusFilter.length > 0) {
+      queries.push(currentStatusFilter);
     }
-    if (currentCategory.length > 0) {
-      let filteredCategory = currentCategory.replace(/&/g, 'and');
+    if (currentCategoryFilter.length > 0) {
+      let filteredCategory = currentCategoryFilter.replace(/&/g, 'and');
 
       queries.push(filteredCategory);
     }
@@ -89,7 +100,13 @@ const RequestsPage = ({
         return () => clearInterval(interval);
       }
     }
-  }, [getAllRequests, queries, queryPage, queryStatus, currentCategory]);
+  }, [
+    getAllRequests,
+    queries,
+    queryPage,
+    currentStatusFilter,
+    currentCategoryFilter,
+  ]);
 
   // console.log(requests);
 
@@ -186,10 +203,18 @@ const RequestsPage = ({
 RequestsPage.propTypes = {
   getAllRequests: PropTypes.func.isRequired,
   requests: PropTypes.object.isRequired,
+  FilterRequestCategory: PropTypes.func.isRequired,
+  FilterRequestStatus: PropTypes.func.isRequired,
+  requestsFilters: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  requestsFilters: state.filters.requestsFilters,
   requests: state.requests,
 });
 
-export default connect(mapStateToProps, { getAllRequests })(RequestsPage);
+export default connect(mapStateToProps, {
+  getAllRequests,
+  FilterRequestCategory,
+  FilterRequestStatus,
+})(RequestsPage);

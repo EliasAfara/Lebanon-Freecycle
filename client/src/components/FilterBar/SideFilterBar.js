@@ -10,6 +10,9 @@ const SideFilterBar = ({
   categories,
   filterCategory,
   currentSelectedCategory,
+  LocationsData,
+  filterLocation,
+  currentSelectedLocation,
 }) => {
   const SidebarFilterStatus = (value) => {
     onClose();
@@ -19,6 +22,11 @@ const SideFilterBar = ({
   const SidebarFilterCategory = (value) => {
     onClose();
     filterCategory(value);
+  };
+
+  const SidebarFilterLocation = (value) => {
+    onClose();
+    filterLocation(value);
   };
   return (
     <>
@@ -35,7 +43,11 @@ const SideFilterBar = ({
             placeholder='Select Status'
             style={{ width: 200 }}
             onChange={SidebarFilterStatus}
-            value={currentSelectedStatus}
+            value={
+              currentSelectedStatus.length > 0
+                ? currentSelectedStatus
+                : 'Select Status'
+            }
             title='Select Status'
           >
             <Option value='All'>All</Option>
@@ -57,7 +69,11 @@ const SideFilterBar = ({
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
             onChange={SidebarFilterCategory}
-            value={currentSelectedCategory}
+            value={
+              currentSelectedCategory.length > 0
+                ? currentSelectedCategory
+                : 'Select Category'
+            }
           >
             <Option value='All'>All</Option>
             {categories.map((category) => {
@@ -69,6 +85,44 @@ const SideFilterBar = ({
             })}
           </Select>
         </div>
+        <br />
+
+        {filterLocation && currentSelectedLocation !== undefined && (
+          <>
+            <Divider>Location</Divider>
+            <div>
+              <Select
+                showSearch
+                style={{ width: 200 }}
+                placeholder='Select Location'
+                dropdownMatchSelectWidth={false}
+                defaultActiveFirstOption={false}
+                optionFilterProp='children'
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+                autoComplete='chrome-off'
+                value={
+                  currentSelectedLocation.length > 0
+                    ? currentSelectedLocation
+                    : 'Select Location'
+                }
+                onChange={SidebarFilterLocation}
+              >
+                <Option value='All'>All</Option>
+
+                {LocationsData.map((location, index) => {
+                  return (
+                    <Option key={index} value={location.Location_Name_En}>
+                      {location.Location_Name_En + ' - ' + location.District}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </div>
+          </>
+        )}
       </Drawer>
     </>
   );

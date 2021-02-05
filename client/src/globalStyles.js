@@ -175,7 +175,9 @@ button:focus{
     font-weight: 700;
 }
 
-
+.ant-select-single .ant-select-selector .ant-select-selection-item {
+    color: ${(props) => props.theme.fontColor};
+}
 
 .ant-drawer-header {
     color: ${(props) => props.theme.fontColor};

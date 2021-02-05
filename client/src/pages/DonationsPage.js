@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getAllDonations } from '../actions/donations';
+import {
+  FilterDonationLocation,
+  FilterDonationCategory,
+  FilterDonationStatus,
+} from '../actions/filters';
 import { DonationsCategories } from '../shared/Categories';
 import useStatusFilter from '../costumeHooks/useStatusFilter';
 import useCategoryFilter from '../costumeHooks/useCategoryFilter';
 import usePagination from '../costumeHooks/usePagination';
+import { Locations } from '../shared/Locations';
 import loadable from '@loadable/component';
 
 import Spinner from '../components/Spinner/Spinner';
@@ -14,6 +20,7 @@ import './DonationPageStyles.css';
 import * as S from '../components/layout/styles';
 import { Pagination, Button } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
+import useLocationFilter from '../costumeHooks/useLocationFilter';
 
 const Map = loadable(() => import('../components/Map'));
 const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'), {
@@ -35,20 +42,40 @@ const DonationsPage = ({
     allDonations: { donations, totalDonations },
     DonatinosLoading,
   },
+  FilterDonationLocation,
+  FilterDonationCategory,
+  FilterDonationStatus,
+  donationsFilters: {
+    currentStatusFilter,
+    currentSelectedStatus,
+
+    currentCategoryFilter,
+    currentSelectedCategory,
+
+    currentLocationFilter,
+    currentSelectedLocation,
+  },
 }) => {
   const [queries, setQueries] = useState([]);
   const [queryPage, setQueryPage] = useState('');
 
-  const { filterStatus, queryStatus, currentSelectedStatus } = useStatusFilter(
+  const { filterStatus } = useStatusFilter(
     setQueries,
-    setQueryPage
+    setQueryPage,
+    FilterDonationStatus
   );
 
-  const {
-    filterCategory,
-    currentCategory,
-    currentSelectedCategory,
-  } = useCategoryFilter(setQueries, setQueryPage);
+  const { filterCategory } = useCategoryFilter(
+    setQueries,
+    setQueryPage,
+    FilterDonationCategory
+  );
+
+  const { filterLocation } = useLocationFilter(
+    setQueries,
+    setQueryPage,
+    FilterDonationLocation
+  );
 
   const [showTimedSpinner, setShowTimedSpinner] = useState(false);
 
@@ -77,11 +104,14 @@ const DonationsPage = ({
     if (queryPage.length > 0) {
       queries.push(queryPage);
     }
-    if (queryStatus.length > 0) {
-      queries.push(queryStatus);
+    if (currentStatusFilter.length > 0) {
+      queries.push(currentStatusFilter);
     }
-    if (currentCategory.length > 0) {
-      let filteredCategory = currentCategory.replace(/&/g, 'and');
+    if (currentLocationFilter.length > 0) {
+      queries.push(currentLocationFilter);
+    }
+    if (currentCategoryFilter.length > 0) {
+      let filteredCategory = currentCategoryFilter.replace(/&/g, 'and');
 
       queries.push(filteredCategory);
     }
@@ -100,7 +130,14 @@ const DonationsPage = ({
         return () => clearInterval(interval);
       }
     }
-  }, [getAllDonations, queries, queryPage, queryStatus, currentCategory]);
+  }, [
+    getAllDonations,
+    queries,
+    queryPage,
+    currentStatusFilter,
+    currentCategoryFilter,
+    currentLocationFilter,
+  ]);
 
   // console.log(donations);
 
@@ -122,6 +159,9 @@ const DonationsPage = ({
                     categories={DonationsCategories}
                     filterCategory={filterCategory}
                     currentSelectedCategory={currentSelectedCategory}
+                    LocationsData={Locations}
+                    filterLocation={filterLocation}
+                    currentSelectedLocation={currentSelectedLocation}
                   />
                 </div>
 
@@ -140,6 +180,9 @@ const DonationsPage = ({
                     categories={DonationsCategories}
                     filterCategory={filterCategory}
                     currentSelectedCategory={currentSelectedCategory}
+                    LocationsData={Locations}
+                    filterLocation={filterLocation}
+                    currentSelectedLocation={currentSelectedLocation}
                   />
                 </div>
 
@@ -210,11 +253,21 @@ const DonationsPage = ({
 
 DonationsPage.propTypes = {
   getAllDonations: PropTypes.func.isRequired,
+  FilterDonationLocation: PropTypes.func.isRequired,
+  FilterDonationCategory: PropTypes.func.isRequired,
+  FilterDonationStatus: PropTypes.func.isRequired,
   donations: PropTypes.object.isRequired,
+  donationsFilters: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  donationsFilters: state.filters.donationsFilters,
   donations: state.donations,
 });
 
-export default connect(mapStateToProps, { getAllDonations })(DonationsPage);
+export default connect(mapStateToProps, {
+  getAllDonations,
+  FilterDonationLocation,
+  FilterDonationCategory,
+  FilterDonationStatus,
+})(DonationsPage);

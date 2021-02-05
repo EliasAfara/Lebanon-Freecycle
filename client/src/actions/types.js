@@ -77,3 +77,13 @@ export const LOGIN_FORM_LOADING = 'Login-Form/loading';
 export const REGISTER_FORM_LOADING = 'Register-Form/loading';
 export const DONATION_FORM_LOADING = 'Donation-Form/loading';
 export const REQUEST_FORM_LOADING = 'Request-Form/loading';
+
+// Filtering
+export const REQUEST_FILTER_STATUS = 'Request-Filter/Status';
+export const REQUEST_FILTER_CATEGORY = 'Request-Filter/Category';
+
+export const DONATION_FILTER_LOCATION = 'Donation-Filter/Location';
+export const DONATION_FILTER_CATEGORY = 'Donation-Filter/Category';
+export const DONATION_FILTER_STATUS = 'Donation-Filter/Status';
+
+export const FILTER_ERROR = 'FILTER_ERROR';
