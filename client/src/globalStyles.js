@@ -20,6 +20,9 @@ body {
     line-height: 18px;
     transition: 0.8s all ease;
 }
+p{
+    margin-bottom: 0;
+}
 
 ol,
 ul {
@@ -31,6 +34,9 @@ hr {
     display: block;
     unicode-bidi: isolate;
     margin: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: ${(props) => props.theme.fontColor};
 }
 
 button:focus{
@@ -52,6 +58,19 @@ button:focus{
 .ant-spin-dot-item{
     background-color: ${(props) => props.theme.activeLinkColor};
 }
+/* collapse */
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    color: ${(props) => props.theme.fontColor};
+    background-color: ${(props) => props.theme.cardHeaderBackground};
+}
+
+.ant-collapse-content, .ant-collapse-content > .ant-collapse-content-box{
+    color: ${(props) => props.theme.fontColor};
+    background-color: ${(props) => props.theme.models.background};
+}
+
+/* collapse */
 
 .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
     background-color: ${(props) => props.theme.models.background};
@@ -304,23 +323,6 @@ display: none;
     color: #999;
     font-weight: 400;
 }
-
-/* Social Icons */
-i.fa-twitter {
-    color: #38a1f3;
-}
-i.fa-facebook {
-    color: #3b5998;
-}
-i.fa-instagram {
-    color: transparent;
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    margin-right: 2px;
-}
-/* Social Icons */
   
 /* Form Inputs */
 

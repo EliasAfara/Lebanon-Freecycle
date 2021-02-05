@@ -59,3 +59,11 @@ export const RequiredMessage__Div = styled.div`
     width: 100%;
   }
 `;
+
+export const ContactUsForm = styled.div`
+  width: 400px;
+
+  @media (max-width: 768px) {
+    width: 500px;
+  }
+`;

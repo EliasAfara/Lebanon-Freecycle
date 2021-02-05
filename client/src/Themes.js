@@ -7,6 +7,7 @@ export const lightTheme = {
   itemBackground: { available: '#fafffa', completed: '#fff' },
   button: {
     primary: '#1890ff',
+    secondary: '#25282c',
   },
   formBackground: '#fff',
   inValidInputBackground: '#fffafa !important',
@@ -30,6 +31,7 @@ export const darkTheme = {
   itemBackground: { available: '#242526', completed: '#242530' },
   button: {
     primary: '#985EFF',
+    secondary: '#25282c',
   },
   formBackground: '#242526',
   inValidInputBackground: '#442323 !important',
