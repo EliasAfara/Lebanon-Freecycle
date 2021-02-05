@@ -1,71 +1,76 @@
-import React, { useState } from 'react';
-import { scroller } from 'react-scroll';
+import React from 'react';
+// import { scroller } from 'react-scroll';
 import { HowItWorksData } from '../../shared/HowItWorksData';
-import { Accordion, Card, Button } from 'react-bootstrap';
+import { GiLifeSupport, GiNestedHearts } from 'react-icons/gi';
+import { TiArrowRepeat } from 'react-icons/ti';
+import {
+  FaHandsHelping,
+  FaHandHoldingHeart,
+  FaHandHolding,
+} from 'react-icons/fa';
+import * as S from './styles';
 
 const HowItWorksSteps = ({ title, content, icon }) => {
+  const IconSelector = ({ icon }) => {
+    if (icon === 'GiLifeSupport') {
+      return <GiLifeSupport />;
+    } else if (icon === 'GiNestedHearts') {
+      return <GiNestedHearts />;
+    } else if (icon === 'TiArrowRepeat') {
+      return <TiArrowRepeat />;
+    } else if (icon === 'FaHandsHelping') {
+      return <FaHandsHelping />;
+    } else if (icon === 'FaHandHoldingHeart') {
+      return <FaHandHoldingHeart />;
+    } else if (icon === 'FaHandHolding') {
+      return <FaHandHolding />;
+    } else {
+      return '';
+    }
+  };
   return (
     <>
-      <Card className='accordinCard'>
-        <Card.Header> {title}</Card.Header>
-        <Accordion.Collapse eventKey='0'>
-          <Card.Body>
-            <Card.Text>{content}</Card.Text>
-          </Card.Body>
-        </Accordion.Collapse>
-      </Card>
-      <br />
+      <S.HowItWorkTile>
+        <S.HowItWorkTile_Inner>
+          <div>
+            <S.InnerItemHeader>
+              <IconSelector icon={icon} />
+            </S.InnerItemHeader>
+          </div>
+          <div className='features-tiles-item-content'>
+            <h4 style={{ marginTop: 0, marginBottom: '8px', fontSize: '24px' }}>
+              {title}
+            </h4>
+            <p style={{ fontSize: '18px' }}>{content}</p>
+          </div>
+        </S.HowItWorkTile_Inner>
+      </S.HowItWorkTile>
     </>
   );
 };
 
 const HowItWorks = () => {
-  const [showDetails, setShowDetails] = useState(false);
-  const [details, setDetails] = useState('Show details');
-
-  const scrollToSection = () => {
-    scroller.scrollTo('howitworks', {
-      duration: 800,
-      delay: 0,
-      smooth: 'easeInOutQuart',
-    });
-  };
-
-  const handleDetails = () => {
-    scrollToSection();
-    if (showDetails) {
-      setDetails('Show details');
-      setShowDetails(false);
-    } else {
-      setDetails('Hide details');
-      setShowDetails(true);
-    }
-  };
-
   return (
-    <div className='howitworks'>
-      <h3 className='howitworks__heading'>How it works</h3>
-      <Accordion>
-        {HowItWorksData.map((item) => (
-          <HowItWorksSteps
-            key={item.id}
-            title={item.title}
-            content={item.content}
-            icon={item.icon}
-          />
-        ))}
+    <section>
+      <S.SectionContainer>
+        <S.HowItWorksSection>
+          <S.HowItWorksHeading>
+            <S.HowItWorksH1>How it works</S.HowItWorksH1>
+          </S.HowItWorksHeading>
 
-        <Accordion.Toggle
-          as={Button}
-          variant='link'
-          eventKey='0'
-          onClick={handleDetails}
-          style={{ padding: 0, margin: 0 }}
-        >
-          {details}
-        </Accordion.Toggle>
-      </Accordion>
-    </div>
+          <S.FeaturesWrapper>
+            {HowItWorksData.map((item) => (
+              <HowItWorksSteps
+                key={item.id}
+                title={item.title}
+                content={item.content}
+                icon={item.icon}
+              />
+            ))}
+          </S.FeaturesWrapper>
+        </S.HowItWorksSection>
+      </S.SectionContainer>
+    </section>
   );
 };
 
