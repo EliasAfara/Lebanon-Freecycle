@@ -95,7 +95,7 @@ const DonationsPage = ({
       if (updateAfterTenSeconds) {
         const interval = setInterval(() => {
           getAllDonations(queryPage);
-        }, 10000);
+        }, 60000);
 
         return () => clearInterval(interval);
       }

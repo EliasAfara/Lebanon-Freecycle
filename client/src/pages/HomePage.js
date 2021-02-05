@@ -1,14 +1,22 @@
 import React from 'react';
-import Footer from '../components/layout/Footer';
-import HowItWorks from '../components/layout/HowItWorks';
-import Landing from '../components/layout/Landing';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const HomePage = () => {
+import Hero from '../components/layout/Hero';
+import HowItWorks from '../components/layout/HowItWorks';
+import Footer from '../components/layout/Footer';
+
+const HomePage = ({ isAuthenticated }) => {
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to='/donations' />;
+  }
+
   return (
     <>
       <div>
-        <Landing />
-        <hr className='my-16' />
+        <Hero />
         <HowItWorks />
         <Footer />
       </div>
@@ -16,4 +24,12 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+HomePage.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(HomePage);

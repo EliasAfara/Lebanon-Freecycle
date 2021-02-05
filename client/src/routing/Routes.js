@@ -15,11 +15,8 @@ import ChangePassword from '../components/Forms/ChangePassword';
 
 // Public Pages
 import Profile from '../pages/Profile';
-import FAQPage from '../pages/FAQPage';
-import AboutPage from '../pages/AboutPage';
 import ErrorPage from '../pages/ErrorPage';
 import RequestsPage from '../pages/RequestsPage';
-import ContactUsPage from '../pages/ContactUsPage';
 import DonationsPage from '../pages/DonationsPage';
 import ViewDonation from '../pages/ViewDonation';
 import ViewRequest from '../pages/ViewRequest';
@@ -36,16 +33,12 @@ const Routes = () => {
         <Switch>
           {/* Public */}
 
-          <Route exact path='/about' component={AboutPage} />
-          <Route exact path='/faq/:faq' component={FAQPage} />
-
           <Route exact path='/donations' component={DonationsPage} />
           <Route exact path='/donation/:id' component={ViewDonation} />
 
           <Route exact path='/requests' component={RequestsPage} />
           <Route exact path='/request/:id' component={ViewRequest} />
 
-          <Route exact path='/contact-us' component={ContactUsPage} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
 

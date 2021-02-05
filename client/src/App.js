@@ -13,6 +13,9 @@ import setAuthToken from './utils/setAuthToken';
 // Components
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import ContactUsPage from './pages/ContactUsPage';
+import FAQPage from './pages/FAQPage';
 
 // Routes
 import Routes from './routing/Routes';
@@ -51,6 +54,11 @@ function App() {
 
           <Switch>
             <Route exact path='/' component={HomePage} />
+
+            <Route exact path='/about' component={AboutPage} />
+            <Route exact path='/contact-us' component={ContactUsPage} />
+            <Route exact path='/faq/:faq' component={FAQPage} />
+
             <Route component={Routes} />
           </Switch>
         </Router>
