@@ -172,3 +172,32 @@ export const validateRequestsForm = (values) => {
 
   return RequestsErrors;
 };
+
+export const validateContactUsForm = (values) => {
+  let ContactUsErrors = {};
+
+  if (!values.name) {
+    ContactUsErrors.name = 'Name is required';
+  } else if (values.name.length < 2 || values.name.length > 40) {
+    ContactUsErrors.name = 'Name is required to be between 2-40 characters';
+  }
+
+  if (!values.email) {
+    ContactUsErrors.email = 'Email is required';
+  } else if (!emailRegex.test(values.email)) {
+    ContactUsErrors.email = 'Invalid email address. e.g., email@example.com';
+  }
+
+  if (!values.subject) {
+    ContactUsErrors.subject = 'Subject is required';
+  } else if (values.subject.length < 2 || values.subject.length > 40) {
+    ContactUsErrors.subject =
+      'Subject is required to be between 2-40 characters';
+  }
+
+  if (!values.message) {
+    ContactUsErrors.message = 'Message is required';
+  }
+
+  return ContactUsErrors;
+};
