@@ -141,20 +141,8 @@ router.get('/', async (req, res) => {
     let allRequests = await getAllFilteredRequests.query;
     let totalRequests = allRequests.length;
 
-    let filterQueryString = req.query;
-    let statusFilter = '';
-    // TODO
-    if (Object.keys(filterQueryString).length > 0) {
-      if (filterQueryString.status === 'Available') {
-        statusFilter = 'Available';
-      } else if (filterQueryString.status === 'Completed') {
-        statusFilter = 'Completed';
-      }
-    }
-
     res.json({
       totalRequests: totalRequests,
-      statusFilter: statusFilter,
       requests,
     });
   } catch (err) {
