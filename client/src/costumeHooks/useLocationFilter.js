@@ -1,18 +1,18 @@
 const useLocationFilter = (
   setQueries,
-  setQueryPage,
-  FilterDonationLocation
+  FilterDonationLocation,
+  ChangeDonationsPage
 ) => {
   const filterLocation = (cat) => {
     if (cat === 'All') {
       FilterDonationLocation(cat, '');
 
       setQueries([]);
-      setQueryPage('page=1');
+      ChangeDonationsPage(1, 'page=1');
     } else {
       FilterDonationLocation(cat, `location.locationName=${cat}`);
       setQueries([]);
-      setQueryPage('page=1');
+      ChangeDonationsPage(1, 'page=1');
     }
   };
 

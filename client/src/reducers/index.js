@@ -6,6 +6,7 @@ import toast from './toast';
 import requests from './requests';
 import donations from './donations';
 import filters from './filters';
+import pagination from './pagination';
 
 export default combineReducers({
   // Will take in an object (whose values are reducers) that has all the reduces I create ex: auth reducer
@@ -16,6 +17,7 @@ export default combineReducers({
   requests,
   donations,
   filters,
+  pagination,
 });
 
 // Flow of redux:

@@ -79,11 +79,13 @@ export const DONATION_FORM_LOADING = 'Donation-Form/loading';
 export const REQUEST_FORM_LOADING = 'Request-Form/loading';
 
 // Filtering
-export const REQUEST_FILTER_STATUS = 'Request-Filter/Status';
-export const REQUEST_FILTER_CATEGORY = 'Request-Filter/Category';
+export const REQUEST_FILTER_STATUS = 'Requests-Filter/Status';
+export const REQUEST_FILTER_CATEGORY = 'Requests-Filter/Category';
 
-export const DONATION_FILTER_LOCATION = 'Donation-Filter/Location';
-export const DONATION_FILTER_CATEGORY = 'Donation-Filter/Category';
-export const DONATION_FILTER_STATUS = 'Donation-Filter/Status';
+export const DONATION_FILTER_LOCATION = 'Donations-Filter/Location';
+export const DONATION_FILTER_CATEGORY = 'Donations-Filter/Category';
+export const DONATION_FILTER_STATUS = 'Donations-Filter/Status';
 
-export const FILTER_ERROR = 'FILTER_ERROR';
+// Pagination
+export const DONATION_PAGINATION = 'All-Donations/Pagination';
+export const REQUEST_PAGINATION = 'All-Requests/Pagination';

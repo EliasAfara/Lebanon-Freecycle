@@ -1,8 +1,9 @@
 const useCategoryFilter = (
   setQueries,
-  setQueryPage,
   FilterDonationCategory,
-  FilterRequestCategory
+  ChangeDonationsPage,
+  FilterRequestCategory,
+  ChangeRequestsPage
 ) => {
   const filterCategory = (cat) => {
     if (cat === 'All') {
@@ -12,8 +13,13 @@ const useCategoryFilter = (
         FilterRequestCategory(cat, '');
       }
 
+      if (ChangeDonationsPage) {
+        ChangeDonationsPage(1, 'page=1');
+      } else if (ChangeRequestsPage) {
+        ChangeRequestsPage(1, 'page=1');
+      }
+
       setQueries([]);
-      setQueryPage('page=1');
     } else {
       if (FilterDonationCategory) {
         FilterDonationCategory(cat, `category=${cat}`);
@@ -21,8 +27,13 @@ const useCategoryFilter = (
         FilterRequestCategory(cat, `category=${cat}`);
       }
 
+      if (ChangeDonationsPage) {
+        ChangeDonationsPage(1, 'page=1');
+      } else if (ChangeRequestsPage) {
+        ChangeRequestsPage(1, 'page=1');
+      }
+
       setQueries([]);
-      setQueryPage('page=1');
     }
   };
 

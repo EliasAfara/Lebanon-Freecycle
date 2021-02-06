@@ -1,11 +1,16 @@
-import { useState } from 'react';
-
-const usePagination = (setQueries, setQueryPage, timedSpinner) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
+const usePagination = (
+  setQueries,
+  timedSpinner,
+  ChangeDonationsPage,
+  ChangeRequestsPage
+) => {
   const onPageChange = (page) => {
-    setCurrentPage(page);
-    setQueryPage(`page=${page}`);
+    if (ChangeDonationsPage) {
+      ChangeDonationsPage(page, `page=${page}`);
+    } else if (ChangeRequestsPage) {
+      ChangeRequestsPage(page, `page=${page}`);
+    }
+
     window.scrollTo(0, 0);
     timedSpinner();
     setQueries([]);
@@ -13,7 +18,6 @@ const usePagination = (setQueries, setQueryPage, timedSpinner) => {
 
   return {
     onPageChange,
-    currentPage,
   };
 };
 

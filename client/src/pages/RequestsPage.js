@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { getAllRequests } from '../actions/requests';
 import { FilterRequestCategory, FilterRequestStatus } from '../actions/filters';
+import { ChangeRequestsPage } from '../actions/pagination';
 import { RequestCategories } from '../shared/Categories';
 import useStatusFilter from '../costumeHooks/useStatusFilter';
 import useCategoryFilter from '../costumeHooks/useCategoryFilter';
@@ -35,23 +36,13 @@ const RequestsPage = ({
     currentCategoryFilter,
     currentSelectedCategory,
   },
+  ChangeRequestsPage,
+  requestsPagination: { currentPageQuery, currentSelectedPage },
 }) => {
   const [queries, setQueries] = useState([]);
-  const [queryPage, setQueryPage] = useState('');
-
-  const { filterStatus } = useStatusFilter(
-    setQueries,
-    setQueryPage,
-    FilterRequestStatus
-  );
-
-  const { filterCategory } = useCategoryFilter(
-    setQueries,
-    setQueryPage,
-    FilterRequestCategory
-  );
 
   const [showTimedSpinner, setShowTimedSpinner] = useState(false);
+
   const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
 
   const timedSpinner = () => {
@@ -61,21 +52,36 @@ const RequestsPage = ({
     }, 1000);
   };
 
-  const { onPageChange, currentPage } = usePagination(
+  // Filter Requests by Status
+  const { filterStatus } = useStatusFilter(
     setQueries,
-    setQueryPage,
-    timedSpinner
+    FilterRequestStatus,
+    ChangeRequestsPage
+  );
+
+  // Filter Requests by Category
+  const { filterCategory } = useCategoryFilter(
+    setQueries,
+    FilterRequestCategory,
+    ChangeRequestsPage
+  );
+
+  // Change Requests page
+  const { onPageChange } = usePagination(
+    setQueries,
+    timedSpinner,
+    ChangeRequestsPage
   );
 
   useEffect(() => {
     if (requests === undefined) {
-      getAllRequests(queryPage);
+      getAllRequests(currentPageQuery);
     }
-  }, [getAllRequests, requests, queryPage]);
+  }, [getAllRequests, requests, currentPageQuery]);
 
   useEffect(() => {
-    if (queryPage.length > 0) {
-      queries.push(queryPage);
+    if (currentPageQuery.length > 0) {
+      queries.push(currentPageQuery);
     }
     if (currentStatusFilter.length > 0) {
       queries.push(currentStatusFilter);
@@ -94,7 +100,7 @@ const RequestsPage = ({
     } else {
       if (updateAfterTenSeconds) {
         const interval = setInterval(() => {
-          getAllRequests(queryPage);
+          getAllRequests(currentPageQuery);
         }, 10000);
 
         return () => clearInterval(interval);
@@ -103,7 +109,7 @@ const RequestsPage = ({
   }, [
     getAllRequests,
     queries,
-    queryPage,
+    currentPageQuery,
     currentStatusFilter,
     currentCategoryFilter,
   ]);
@@ -171,7 +177,7 @@ const RequestsPage = ({
                   <div className='pagination'>
                     <Pagination
                       defaultCurrent={1}
-                      current={currentPage}
+                      current={currentSelectedPage}
                       onChange={onPageChange}
                       total={totalRequests}
                       showSizeChanger={false}
@@ -202,14 +208,20 @@ const RequestsPage = ({
 
 RequestsPage.propTypes = {
   getAllRequests: PropTypes.func.isRequired,
-  requests: PropTypes.object.isRequired,
+
   FilterRequestCategory: PropTypes.func.isRequired,
   FilterRequestStatus: PropTypes.func.isRequired,
+
+  ChangeRequestsPage: PropTypes.func.isRequired,
+
+  requests: PropTypes.object.isRequired,
   requestsFilters: PropTypes.object.isRequired,
+  requestsPagination: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   requestsFilters: state.filters.requestsFilters,
+  requestsPagination: state.pagination.requestsPagination,
   requests: state.requests,
 });
 
@@ -217,4 +229,5 @@ export default connect(mapStateToProps, {
   getAllRequests,
   FilterRequestCategory,
   FilterRequestStatus,
+  ChangeRequestsPage,
 })(RequestsPage);

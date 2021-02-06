@@ -8,6 +8,7 @@ import {
   FilterDonationCategory,
   FilterDonationStatus,
 } from '../actions/filters';
+import { ChangeDonationsPage } from '../actions/pagination';
 import { DonationsCategories } from '../shared/Categories';
 import useStatusFilter from '../costumeHooks/useStatusFilter';
 import useCategoryFilter from '../costumeHooks/useCategoryFilter';
@@ -55,27 +56,10 @@ const DonationsPage = ({
     currentLocationFilter,
     currentSelectedLocation,
   },
+  ChangeDonationsPage,
+  donationsPagination: { currentPageQuery, currentSelectedPage },
 }) => {
   const [queries, setQueries] = useState([]);
-  const [queryPage, setQueryPage] = useState('');
-
-  const { filterStatus } = useStatusFilter(
-    setQueries,
-    setQueryPage,
-    FilterDonationStatus
-  );
-
-  const { filterCategory } = useCategoryFilter(
-    setQueries,
-    setQueryPage,
-    FilterDonationCategory
-  );
-
-  const { filterLocation } = useLocationFilter(
-    setQueries,
-    setQueryPage,
-    FilterDonationLocation
-  );
 
   const [showTimedSpinner, setShowTimedSpinner] = useState(false);
 
@@ -88,21 +72,43 @@ const DonationsPage = ({
     }, 1000);
   };
 
-  const { onPageChange, currentPage } = usePagination(
+  // Filter Donations by Status
+  const { filterStatus } = useStatusFilter(
     setQueries,
-    setQueryPage,
-    timedSpinner
+    FilterDonationStatus,
+    ChangeDonationsPage
+  );
+
+  // Filter Donations by Category
+  const { filterCategory } = useCategoryFilter(
+    setQueries,
+    FilterDonationCategory,
+    ChangeDonationsPage
+  );
+
+  // Filter Donations by Location
+  const { filterLocation } = useLocationFilter(
+    setQueries,
+    FilterDonationLocation,
+    ChangeDonationsPage
+  );
+
+  // Change Donations Page
+  const { onPageChange } = usePagination(
+    setQueries,
+    timedSpinner,
+    ChangeDonationsPage
   );
 
   useEffect(() => {
     if (donations === undefined) {
-      getAllDonations(queryPage);
+      getAllDonations(currentPageQuery);
     }
-  }, [getAllDonations, donations, queryPage]);
+  }, [getAllDonations, donations, currentPageQuery]);
 
   useEffect(() => {
-    if (queryPage.length > 0) {
-      queries.push(queryPage);
+    if (currentPageQuery.length > 0) {
+      queries.push(currentPageQuery);
     }
     if (currentStatusFilter.length > 0) {
       queries.push(currentStatusFilter);
@@ -124,7 +130,7 @@ const DonationsPage = ({
     } else {
       if (updateAfterTenSeconds) {
         const interval = setInterval(() => {
-          getAllDonations(queryPage);
+          getAllDonations(currentPageQuery);
         }, 60000);
 
         return () => clearInterval(interval);
@@ -133,7 +139,7 @@ const DonationsPage = ({
   }, [
     getAllDonations,
     queries,
-    queryPage,
+    currentPageQuery,
     currentStatusFilter,
     currentCategoryFilter,
     currentLocationFilter,
@@ -210,7 +216,7 @@ const DonationsPage = ({
                     <div className='pagination'>
                       <Pagination
                         defaultCurrent={1}
-                        current={currentPage}
+                        current={currentSelectedPage}
                         onChange={onPageChange}
                         total={totalDonations}
                         showSizeChanger={false}
@@ -253,15 +259,21 @@ const DonationsPage = ({
 
 DonationsPage.propTypes = {
   getAllDonations: PropTypes.func.isRequired,
+
   FilterDonationLocation: PropTypes.func.isRequired,
   FilterDonationCategory: PropTypes.func.isRequired,
   FilterDonationStatus: PropTypes.func.isRequired,
+
+  ChangeDonationsPage: PropTypes.func.isRequired,
+
   donations: PropTypes.object.isRequired,
   donationsFilters: PropTypes.object.isRequired,
+  donationsPagination: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   donationsFilters: state.filters.donationsFilters,
+  donationsPagination: state.pagination.donationsPagination,
   donations: state.donations,
 });
 
@@ -270,4 +282,5 @@ export default connect(mapStateToProps, {
   FilterDonationLocation,
   FilterDonationCategory,
   FilterDonationStatus,
+  ChangeDonationsPage,
 })(DonationsPage);

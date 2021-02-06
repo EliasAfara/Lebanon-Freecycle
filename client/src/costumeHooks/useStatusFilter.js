@@ -1,8 +1,9 @@
 const useStatusFilter = (
   setQueries,
-  setQueryPage,
   FilterDonationStatus,
-  FilterRequestStatus
+  ChangeDonationsPage,
+  FilterRequestStatus,
+  ChangeRequestsPage
 ) => {
   const filterStatus = (value) => {
     if (value === 'All') {
@@ -13,7 +14,12 @@ const useStatusFilter = (
       }
 
       setQueries([]);
-      setQueryPage('page=1');
+
+      if (ChangeDonationsPage) {
+        ChangeDonationsPage(1, 'page=1');
+      } else if (ChangeRequestsPage) {
+        ChangeRequestsPage(1, 'page=1');
+      }
     } else {
       if (FilterDonationStatus) {
         FilterDonationStatus(value, `status=${value}`);
@@ -22,7 +28,12 @@ const useStatusFilter = (
       }
 
       setQueries([]);
-      setQueryPage('page=1');
+
+      if (ChangeDonationsPage) {
+        ChangeDonationsPage(1, 'page=1');
+      } else if (ChangeRequestsPage) {
+        ChangeRequestsPage(1, 'page=1');
+      }
     }
   };
 
