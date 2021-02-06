@@ -69,23 +69,21 @@ const FilterBar = ({
                 showSearch
                 style={{ width: 140 }}
                 placeholder='Select Location'
-                dropdownMatchSelectWidth={false}
                 defaultActiveFirstOption={false}
                 optionFilterProp='children'
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
                 }
-                autoComplete='chrome-off'
                 value={
                   currentSelectedLocation.length > 0
                     ? currentSelectedLocation
                     : 'Select Location'
                 }
                 onChange={filterLocation}
+                autoComplete='chrome-off'
               >
                 <Option value='All'>All</Option>
-
                 {LocationsData.map((location, index) => {
                   return (
                     <Option key={index} value={location.Location_Name_En}>

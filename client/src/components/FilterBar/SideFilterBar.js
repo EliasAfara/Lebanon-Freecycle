@@ -95,7 +95,6 @@ const SideFilterBar = ({
                 showSearch
                 style={{ width: 200 }}
                 placeholder='Select Location'
-                dropdownMatchSelectWidth={false}
                 defaultActiveFirstOption={false}
                 optionFilterProp='children'
                 filterOption={(input, option) =>

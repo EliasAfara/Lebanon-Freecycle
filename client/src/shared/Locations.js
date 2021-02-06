@@ -17312,7 +17312,7 @@ export const Locations = [
     Google_Map_link: 'http://maps.google.com/maps?q=34.30206,35.83672',
   },
   {
-    Location_Name_En: 'Kfar Hata',
+    Location_Name_En: 'Kfar Hata El-Koura',
     Latitude: '34.284589',
     Longitude: '35.7453560000001',
     District: 'El Koura',
@@ -18864,7 +18864,7 @@ export const Locations = [
     Google_Map_link: 'http://maps.google.com/maps?q=34.27938,35.96124',
   },
   {
-    Location_Name_En: 'Kfar Sghab',
+    Location_Name_En: 'Morh Kfar Sghab',
     Latitude: '34.3382810000001',
     Longitude: '35.9021030000001',
     District: 'Zgharta',
