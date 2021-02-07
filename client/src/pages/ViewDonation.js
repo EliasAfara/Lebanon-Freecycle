@@ -6,6 +6,7 @@ import {
   getSingleDonation,
   updateDonationStatus,
   deleteDonation,
+  likeUnlikeDonation,
 } from '../actions/donations';
 import Spinner from '../components/Spinner/Spinner';
 import SingleItem from '../components/SingleItem/SingleItem';
@@ -19,6 +20,7 @@ const ViewDonation = ({
   getSingleDonation,
   updateDonationStatus,
   deleteDonation,
+  likeUnlikeDonation,
   donations: {
     singleDonations,
     singleDonationLoading,
@@ -51,7 +53,7 @@ const ViewDonation = ({
       centered: true,
       onOk() {
         updateDonationStatus(singleDonations._id, newStatus);
-        console.log('Updated');
+        // console.log('Updated');
       },
       onCancel() {
         console.log('Canceled');
@@ -71,7 +73,7 @@ const ViewDonation = ({
       centered: true,
       onOk() {
         deleteDonation(singleDonations._id);
-        console.log('Deleted');
+        // console.log('Deleted');
       },
       onCancel() {
         console.log('Canceled');
@@ -93,6 +95,7 @@ const ViewDonation = ({
             type='donation'
             handleComplete={handleComplete}
             handleDelete={handleDelete}
+            updateDonationLikes={likeUnlikeDonation}
             modalShow={modalShow}
             onClickShowModal={() => setModalShow(true)}
             onClickHideModal={() => setModalShow(false)}
@@ -107,6 +110,7 @@ ViewDonation.propTypes = {
   getSingleDonation: PropTypes.func.isRequired,
   updateDonationStatus: PropTypes.func.isRequired,
   deleteDonation: PropTypes.func.isRequired,
+  likeUnlikeDonation: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   donations: PropTypes.object.isRequired,
 };
@@ -120,4 +124,5 @@ export default connect(mapStateToProps, {
   getSingleDonation,
   updateDonationStatus,
   deleteDonation,
+  likeUnlikeDonation,
 })(ViewDonation);

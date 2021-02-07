@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { formatDate, formatDateMDY } from '../../utils/formatDate';
@@ -31,7 +32,6 @@ const SingleItem = ({
     images,
     status,
     likes,
-    comments,
     date,
     address,
     location,
@@ -40,13 +40,33 @@ const SingleItem = ({
   type,
   handleComplete,
   handleDelete,
+  updateDonationLikes,
+  updateRequestLikes,
   modalShow,
   onClickShowModal,
   onClickHideModal,
 }) => {
-  const [liked, addLike] = useState(false);
+  let likedByCurrentUser = false;
+
+  if (!auth.authLoading && auth.isAuthenticated) {
+    likedByCurrentUser = likes
+      .map((like) => like.user === auth.user?._id)
+      .includes(true);
+  }
+
+  const [liked, addLike] = useState(likedByCurrentUser);
 
   let lebanesePhoneNumber = `+961 ${phoneNumber.slice(3)}`;
+
+  const handleItemLike = () => {
+    if (type === 'donation') {
+      updateDonationLikes(_id, user.id);
+    } else if (type === 'request') {
+      updateRequestLikes(_id, user.id);
+    }
+    addLike(!liked);
+  };
+
   return (
     <div className='single-item-container'>
       <div className='single-item-image-slider'>
@@ -58,17 +78,28 @@ const SingleItem = ({
           <strong>{name}</strong>
         </h1>
         <div className='item-title-leftside-content'>
-          <span className='header-love-icon' onClick={() => addLike(!liked)}>
-            {liked ? (
-              <BsFillHeartFill style={{ color: '#f05f70' }} />
-            ) : (
-              <Tooltip title='Love' color={'#f05f70'}>
-                <BsHeart />
-              </Tooltip>
-            )}
-          </span>
-          {likes && likes.length > 0 && (
-            <span className='header-love-score'>{likes.length}</span>
+          {!auth.authLoading && auth.isAuthenticated ? (
+            <span className='header-love-icon' onClick={handleItemLike}>
+              {liked ? (
+                <>
+                  <BsFillHeartFill style={{ color: '#f05f70' }} />
+                  {likes && likes.length > 0 && (
+                    <span className='header-love-score'>{likes.length}</span>
+                  )}
+                </>
+              ) : (
+                <Tooltip title='Love' color={'#f05f70'}>
+                  <BsHeart />
+                </Tooltip>
+              )}
+            </span>
+          ) : (
+            likes &&
+            likes.length > 0 && (
+              <span className='header-love-score'>
+                {likes.length} {likes.length > 1 ? 'Likes' : 'Like'}
+              </span>
+            )
           )}
         </div>
       </div>
@@ -206,6 +237,10 @@ const SingleItem = ({
       )}
     </div>
   );
+};
+
+SingleItem.propTypes = {
+  item: PropTypes.object.isRequired,
 };
 
 export default React.memo(SingleItem);

@@ -7,8 +7,16 @@ import { connect } from 'react-redux';
 import ModalPopUp from '../Modal/ModalPopUp';
 import AuthenticatedUserActions from '../Modal/AuthenticatedUserActions';
 import GuestUserActions from '../Modal/GuestUserActions';
-import { updateRequestStatus, deleteRequest } from '../../actions/requests';
-import { updateDonationStatus, deleteDonation } from '../../actions/donations';
+import {
+  updateRequestStatus,
+  deleteRequest,
+  likeUnlikeRequest,
+} from '../../actions/requests';
+import {
+  updateDonationStatus,
+  deleteDonation,
+  likeUnlikeDonation,
+} from '../../actions/donations';
 
 // Styled Components
 import * as S from './ItemCardElements';
@@ -32,6 +40,8 @@ const ItemCard = ({
   deleteRequest,
   updateDonationStatus,
   deleteDonation,
+  likeUnlikeRequest,
+  likeUnlikeDonation,
   UserAvatar,
   FullName,
   Username,
@@ -49,7 +59,25 @@ const ItemCard = ({
   auth,
 }) => {
   const [modalShow, setModalShow] = useState(false);
-  const [liked, addLike] = useState(false);
+
+  let likedByCurrentUser = false;
+
+  if (!auth.authLoading && auth.isAuthenticated) {
+    likedByCurrentUser = likes
+      .map((like) => like.user === auth.user?._id)
+      .includes(true);
+  }
+
+  const [liked, addLike] = useState(likedByCurrentUser);
+
+  const handleItemLike = () => {
+    if (type === 'donation') {
+      likeUnlikeDonation(ItemID, ItemUserId);
+    } else if (type === 'request') {
+      likeUnlikeRequest(ItemID, ItemUserId);
+    }
+    addLike(!liked);
+  };
 
   const handleComplete = () => {
     let newStatus = '';
@@ -73,7 +101,7 @@ const ItemCard = ({
         } else if (type === 'request') {
           updateRequestStatus(ItemID, newStatus);
         }
-        console.log('Updated');
+        // console.log('Updated');
       },
       onCancel() {
         console.log('Canceled');
@@ -97,7 +125,7 @@ const ItemCard = ({
         } else if (type === 'request') {
           deleteRequest(ItemID);
         }
-        console.log('Deleted');
+        // console.log('Deleted');
       },
       onCancel() {
         console.log('Canceled');
@@ -274,35 +302,52 @@ const ItemCard = ({
                   )}
                   <S.LowerFooter>
                     <>
-                      <S.LikeWrapper>
-                        <span
-                          onClick={() => addLike(!liked)}
-                          style={{ cursor: 'pointer' }}
-                        >
-                          {liked ? (
-                            <BsFillHeartFill
+                      {!auth.authLoading && auth.isAuthenticated ? (
+                        <>
+                          <S.LikeWrapper>
+                            <span
+                              onClick={handleItemLike}
                               style={{
-                                color: '#f05f70',
+                                cursor: 'pointer',
                                 marginRight: `${
-                                  likes && likes.length > 0 ? '8px' : 0
+                                  likes && likes.length > 0 ? '8px' : '0px'
                                 }`,
-                                fontSize: '16px',
                               }}
-                            />
-                          ) : (
-                            <BsHeart
-                              style={{
-                                color: '#f05f70',
+                            >
+                              {liked ? (
+                                <BsFillHeartFill
+                                  style={{
+                                    color: '#f05f70',
+                                    fontSize: '16px',
+                                  }}
+                                />
+                              ) : (
+                                <BsHeart
+                                  style={{
+                                    color: '#f05f70',
 
-                                fontSize: '16px',
-                              }}
-                            />
-                          )}
-                        </span>
-                        {likes && likes.length > 0 && <>{likes.length}</>}
-                      </S.LikeWrapper>
+                                    fontSize: '16px',
+                                  }}
+                                />
+                              )}
+                            </span>
+                            {likes && likes.length > 0 && <>{likes.length}</>}
+                          </S.LikeWrapper>
 
-                      <Divider type='vertical' />
+                          <Divider type='vertical' />
+                        </>
+                      ) : (
+                        likes &&
+                        likes.length > 0 && (
+                          <>
+                            <span>
+                              {likes.length}{' '}
+                              {likes.length > 1 ? 'Likes' : 'Like'}
+                            </span>
+                            <Divider type='vertical' />
+                          </>
+                        )
+                      )}
 
                       <S.ViewItemDetailsLink to={`/${type}/${ItemID}`}>
                         View Details
@@ -335,6 +380,8 @@ ItemCard.propTypes = {
   deleteRequest: PropTypes.func.isRequired,
   updateDonationStatus: PropTypes.func.isRequired,
   deleteDonation: PropTypes.func.isRequired,
+  likeUnlikeRequest: PropTypes.func.isRequired,
+  likeUnlikeDonation: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -348,5 +395,7 @@ export default React.memo(
     deleteRequest,
     updateDonationStatus,
     deleteDonation,
+    likeUnlikeRequest,
+    likeUnlikeDonation,
   })(ItemCard)
 );

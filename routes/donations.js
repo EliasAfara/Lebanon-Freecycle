@@ -367,8 +367,19 @@ router.delete('/:id', auth, async (req, res) => {
       (donationObj) => donationObj.donation.toString() !== req.params.id
     );
 
+    const donationLikes = donation.likes.length;
+
     await donation.remove();
     await user.save();
+
+    // If the donation had any likes, decrement this ammount from the total user likes
+    if (donationLikes > 0) {
+      await user.updateOne({
+        $inc: {
+          likes: -donationLikes,
+        },
+      });
+    }
 
     res.json({ msg: 'donation was removed successfuly!' });
   } catch (err) {
@@ -376,6 +387,63 @@ router.delete('/:id', auth, async (req, res) => {
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'donation not found' });
     }
+    res.status(500).send('500 Internal server error');
+  }
+});
+
+/************************************************************/
+/**
+ * @route    #reqtype: PUT | #endpoint: api/donations/like/donation/:id/donator/:userId
+ * @desc     Like & Unlike a Donation
+ * @access   Private
+ */
+router.put('/like/donation/:id/donator/:userId', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).select('-password');
+    const donation = await Donation.findById(req.params.id);
+
+    // Handle user incase it does not exists
+    if (!user) {
+      // Check if a donation owner exists with the provided userId
+      return res.status(404).json({ msg: 'User was not found' });
+    }
+
+    // Handle donation incase it does not exists
+    if (!donation) {
+      // Check if a donations exists with the provided ID
+      return res.status(404).json({ msg: 'Donation was not found' });
+    }
+
+    // Check if the donation has already been liked
+    if (
+      donation.likes.filter((like) => like.user.toString() === req.user.id)
+        .length > 0
+    ) {
+      donation.likes.splice(
+        donation.likes.findIndex(
+          (like) => like.user.toString() === req.user.id
+        ),
+        1
+      );
+      await donation.save();
+      await user.updateOne({
+        $inc: {
+          likes: -1,
+        },
+      });
+      return res.json(donation.likes);
+    }
+
+    donation.likes.unshift({ user: req.user.id });
+    await donation.save();
+    await user.updateOne({
+      $inc: {
+        likes: +1,
+      },
+    });
+    res.json(donation.likes);
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send('500 Internal server error');
   }
 });

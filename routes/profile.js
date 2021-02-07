@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const normalizeUrl = require('normalize-url');
 
 const User = require('../models/User');
+const Request = require('../models/Request');
+const Donation = require('../models/Donation');
 const auth = require('../middleware/auth');
 
 /**
@@ -130,7 +132,9 @@ router.put(
 router.get('/:username', async (req, res) => {
   try {
     const usernameLowerCase = req.params.username.toLowerCase();
-    const user = await User.findOne({ username: usernameLowerCase });
+    const user = await User.findOne({ username: usernameLowerCase }).select(
+      '-password'
+    );
 
     if (!user) {
       return res.status(400).json({ msg: 'User not found' });
@@ -173,7 +177,7 @@ router.put(
 
     try {
       // See if user already exists
-      let user = await User.findById(req.user.id);
+      let user = await User.findById(req.user.id).select('-password');
 
       const match = await bcrypt.compareSync(oldPassword, user.password);
 
@@ -226,8 +230,8 @@ router.put(
 router.delete('/', auth, async (req, res) => {
   try {
     // Remove users Donations & Requests
-    // await Donations.deleteMany({ user: req.user.id });
-    // await Requests.deleteMany({ user: req.user.id });
+    await Donation.deleteMany({ 'user.id': req.user.id });
+    await Request.deleteMany({ 'user.id': req.user.id });
     //Remove user
     await User.findOneAndRemove({ _id: req.user.id });
     res.json({ msg: 'User was deleted successfuly!' });

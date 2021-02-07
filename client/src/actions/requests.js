@@ -14,6 +14,8 @@ import {
   UPDATE_REQUEST_FAIL,
   DELETE_A_REQUEST,
   REQUEST_FORM_LOADING,
+  REQUEST_LIKE_UNLIKE,
+  REQUEST_LIKE_UNLIKE_ERROR,
 } from './types';
 import { setAlert } from './alert';
 import { setToast } from './toast';
@@ -50,7 +52,7 @@ export const getAllUserRequests = (quries) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/requests/user/?${quries}`);
 
-    console.log(res);
+    // console.log(res);
 
     dispatch({
       type: GET_ALL_USER_REQUESTS,
@@ -75,7 +77,7 @@ export const getSingleRequest = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/requests/single/${id}`);
 
-    console.log(res);
+    // console.log(res);
 
     dispatch({
       type: GET_A_SINGLE_REQUEST,
@@ -182,6 +184,31 @@ export const deleteRequest = (requestId) => async (dispatch) => {
     console.log(err);
     dispatch({
       type: REQUESTS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const likeUnlikeRequest = (requestId, requestorId) => async (
+  dispatch
+) => {
+  try {
+    const res = await axios.put(
+      `/api/requests/like/request/${requestId}/requestor/${requestorId}`
+    );
+
+    dispatch({
+      type: REQUEST_LIKE_UNLIKE,
+      payload: {
+        requestId: requestId,
+        requestorId: requestorId,
+        likes: res.data,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: REQUEST_LIKE_UNLIKE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

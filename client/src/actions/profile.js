@@ -104,7 +104,7 @@ export const updatePassword = (formData) => async (dispatch) => {
 };
 
 // Delete User Account
-export const deleteAccount = () => async (dispatch) => {
+export const deleteAccount = (userId) => async (dispatch) => {
   dispatch({
     type: CLEAR_PROFILE,
   });
@@ -113,13 +113,10 @@ export const deleteAccount = () => async (dispatch) => {
 
     dispatch({
       type: ACCOUNT_DELETED,
+      payload: userId,
     });
 
     dispatch(setToast('You account has been permanently deleted!', 'warning'));
-
-    //   dispatch(
-    //     setAlert('You account has been permanently deleted!', 'warning')
-    //   );
   } catch (err) {
     dispatch({
       type: USER_PROFILE_ERROR,

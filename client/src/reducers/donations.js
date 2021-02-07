@@ -179,6 +179,54 @@ export default function donations(state = initialState, action) {
         redirectPage: false,
         error: {},
       };
+
+    case actionsType.DONATION_LIKE_UNLIKE:
+      let updateDonationsLikes = state.allDonations.donations;
+      if (state.allDonations && state.allDonations.donations) {
+        if (state.allDonations.donations.length > 0) {
+          updateDonationsLikes = state.allDonations.donations.map(
+            (donation) => {
+              if (donation._id === payload.donationId) {
+                return { ...donation, likes: payload.likes };
+              } else {
+                return { ...donation };
+              }
+            }
+          );
+        }
+      }
+
+      let updatedUserDonationsLikes = [];
+      if (state.userDonations.length > 0) {
+        updatedUserDonationsLikes = state.userDonations.map((donation) => {
+          if (donation._id === payload.donationId) {
+            return { ...donation, likes: payload.likes };
+          } else {
+            return { ...donation };
+          }
+        });
+      }
+
+      let updateSingleDonationLikes = state.singleDonations;
+      if (state.singleDonations !== null) {
+        if (state.singleDonations._id === payload.donationId) {
+          updateSingleDonationLikes = {
+            ...state.singleDonations,
+            likes: payload.likes,
+          };
+        }
+      }
+
+      return {
+        ...state,
+        allDonations: {
+          totalDonations: state.allDonations.totalDonations,
+          donations: updateDonationsLikes,
+        },
+        userDonations: updatedUserDonationsLikes,
+        singleDonations: updateSingleDonationLikes,
+      };
+
     case actionsType.DELETE_A_DONATION:
       let filteredDonations = [];
       let newTotalDonations = state.allDonations.totalDonations;
@@ -240,6 +288,38 @@ export default function donations(state = initialState, action) {
         allDonations: {},
         userDonations: [],
         singleDonations: null,
+      };
+
+    case actionsType.ACCOUNT_DELETED:
+      let filterDeletedAccountDonations = [];
+      let newTotalDonationsAfterAccountDeletion =
+        state.allDonations.totalDonations;
+
+      let currentCountedTotalDonationsByUser = state.allDonations.donations.filter(
+        (donation) => donation.user.id === payload
+      ).length;
+
+      if (state.allDonations && state.allDonations.donations) {
+        if (currentCountedTotalDonationsByUser > 0) {
+          newTotalDonationsAfterAccountDeletion =
+            state.allDonations.totalDonations -
+            currentCountedTotalDonationsByUser;
+        }
+
+        if (state.allDonations.donations.length > 0) {
+          filterDeletedAccountDonations = state.allDonations.donations.filter(
+            (donation) => donation.user.id !== payload
+          );
+        }
+      } else {
+        filterDeletedAccountDonations = state.allDonations.donations;
+      }
+      return {
+        ...state,
+        allDonations: {
+          totalDonations: newTotalDonationsAfterAccountDeletion,
+          donations: filterDeletedAccountDonations,
+        },
       };
 
     default:

@@ -323,8 +323,19 @@ router.delete('/:id', auth, async (req, res) => {
       (requestObj) => requestObj.request.toString() !== req.params.id
     );
 
+    const requestLikes = request.likes.length;
+
     await request.remove();
     await user.save();
+
+    // If the request had any likes, decrement this ammount from the total user likes
+    if (requestLikes > 0) {
+      await user.updateOne({
+        $inc: {
+          likes: -requestLikes,
+        },
+      });
+    }
 
     res.json({ msg: 'Request was removed successfuly!' });
   } catch (err) {
@@ -332,6 +343,61 @@ router.delete('/:id', auth, async (req, res) => {
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Request not found' });
     }
+    res.status(500).send('500 Internal server error');
+  }
+});
+
+/************************************************************/
+/**
+ * @route    #reqtype: PUT | #endpoint: api/requests/like/request/:id/requestor/:userId
+ * @desc     Like & Unlike a Request
+ * @access   Private
+ */
+router.put('/like/request/:id/requestor/:userId', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).select('-password');
+    const request = await Request.findById(req.params.id);
+
+    // Handle user incase it does not exists
+    if (!user) {
+      // Check if a donation owner exists with the provided userId
+      return res.status(404).json({ msg: 'User was not found' });
+    }
+
+    // Handle donation incase it does not exists
+    if (!request) {
+      // Check if a requests exists with the provided ID
+      return res.status(404).json({ msg: 'Request was not found' });
+    }
+
+    // Check if the request has already been liked
+    if (
+      request.likes.filter((like) => like.user.toString() === req.user.id)
+        .length > 0
+    ) {
+      request.likes.splice(
+        request.likes.findIndex((like) => like.user.toString() === req.user.id),
+        1
+      );
+      await request.save();
+      await user.updateOne({
+        $inc: {
+          likes: -1,
+        },
+      });
+      return res.json(request.likes);
+    }
+
+    request.likes.unshift({ user: req.user.id });
+    await request.save();
+    await user.updateOne({
+      $inc: {
+        likes: +1,
+      },
+    });
+    res.json(request.likes);
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send('500 Internal server error');
   }
 });

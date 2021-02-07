@@ -180,7 +180,12 @@ const ProfileTop = ({
                 <S.ItemCount>
                   {donations && donations.length > 0 ? donations.length : 0}
                 </S.ItemCount>{' '}
-                <span> Donations</span>
+                <span>
+                  {' '}
+                  {donations && donations.length === 1
+                    ? 'Donation'
+                    : 'Donations'}
+                </span>
               </S.ListItemSpan>
             </S.ListItems>
             <S.ListItems>
@@ -188,13 +193,16 @@ const ProfileTop = ({
                 <S.ItemCount>
                   {requests && requests.length > 0 ? requests.length : 0}
                 </S.ItemCount>{' '}
-                <span> Requests</span>
+                <span>
+                  {' '}
+                  {requests && requests.length === 1 ? 'Request' : 'Requests'}
+                </span>
               </S.ListItemSpan>
             </S.ListItems>
             <S.ListItems>
               <S.ListItemSpan>
                 <S.ItemCount>{likes}</S.ItemCount>
-                <span> Likes</span>
+                <span> {likes === 1 ? 'Like' : 'Likes'}</span>
               </S.ListItemSpan>
             </S.ListItems>
           </S.UnOrderedList>
@@ -217,6 +225,7 @@ const ProfileTop = ({
 
 ProfileTop.propTypes = {
   auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -178,6 +178,52 @@ export default function requests(state = initialState, action) {
         redirectPage: false,
         error: {},
       };
+
+    case actionsType.REQUEST_LIKE_UNLIKE:
+      let updateRequestsLikes = state.allRequests.requests;
+      if (state.allRequests && state.allRequests.requests) {
+        if (state.allRequests.requests.length > 0) {
+          updateRequestsLikes = state.allRequests.requests.map((request) => {
+            if (request._id === payload.requestId) {
+              return { ...request, likes: payload.likes };
+            } else {
+              return { ...request };
+            }
+          });
+        }
+      }
+
+      let updatedUserRequestsLikes = [];
+      if (state.userRequests.length > 0) {
+        updatedUserRequestsLikes = state.userRequests.map((request) => {
+          if (request._id === payload.requestId) {
+            return { ...request, likes: payload.likes };
+          } else {
+            return { ...request };
+          }
+        });
+      }
+
+      let updateSingleRequestLikes = state.singleRequests;
+      if (state.singleRequests !== null) {
+        if (state.singleRequests._id === payload.requestId) {
+          updateSingleRequestLikes = {
+            ...state.singleRequests,
+            likes: payload.likes,
+          };
+        }
+      }
+
+      return {
+        ...state,
+        allRequests: {
+          totalRequests: state.allRequests.totalRequests,
+          requests: updateRequestsLikes,
+        },
+        userRequests: updatedUserRequestsLikes,
+        singleRequests: updateSingleRequestLikes,
+      };
+
     case actionsType.DELETE_A_REQUEST:
       let filteredRequests = [];
       let newTotalRequests = state.allRequests.totalRequests;
@@ -238,6 +284,36 @@ export default function requests(state = initialState, action) {
         allRequests: {},
         userRequests: [],
         singleRequests: null,
+      };
+
+    case actionsType.ACCOUNT_DELETED:
+      let filterDeletedAccountRequests = [];
+      let newTotalRequestsAfterAccountDeletion =
+        state.allRequests.totalRequests;
+
+      let currentCountedTotalRequestsByUser = state.allRequests.requests.filter(
+        (request) => request.user.id === payload
+      ).length;
+      if (state.allRequests && state.allRequests.requests) {
+        if (currentCountedTotalRequestsByUser > 0) {
+          newTotalRequestsAfterAccountDeletion =
+            state.allRequests.totalRequests - currentCountedTotalRequestsByUser;
+        }
+
+        if (state.allRequests.requests.length > 0) {
+          filterDeletedAccountRequests = state.allRequests.requests.filter(
+            (request) => request.user.id !== payload
+          );
+        }
+      } else {
+        filterDeletedAccountRequests = state.allRequests.requests;
+      }
+      return {
+        ...state,
+        allRequests: {
+          totalRequests: newTotalRequestsAfterAccountDeletion,
+          requests: filterDeletedAccountRequests,
+        },
       };
 
     default:

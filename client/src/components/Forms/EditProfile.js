@@ -83,11 +83,11 @@ const EditProfile = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    // console.log(formData);
     const currentErrors = validateEditProfileForm(formData);
     setErrors(currentErrors);
 
-    console.log(currentErrors);
+    // console.log(currentErrors);
 
     if (Object.keys(currentErrors).length === 0) {
       updateProfile(formData, history);
@@ -107,7 +107,7 @@ const EditProfile = ({
       maskClosable: true,
 
       onOk() {
-        deleteAccount();
+        deleteAccount(user._id);
       },
       onCancel() {},
     });

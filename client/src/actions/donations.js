@@ -15,6 +15,8 @@ import {
   UPDATE_DONATION_FAIL,
   DELETE_A_DONATION,
   DONATION_FORM_LOADING,
+  DONATION_LIKE_UNLIKE,
+  DONATION_LIKE_UNLIKE_ERROR,
 } from './types';
 
 import { setAlert } from './alert';
@@ -53,7 +55,7 @@ export const getAllUserDonations = (quries) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/donations/user/?${quries}`);
 
-    console.log(res);
+    //console.log(res);
 
     dispatch({
       type: GET_ALL_USER_DONATIONS,
@@ -79,7 +81,7 @@ export const getSingleDonation = (donationId) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/donations/single/${donationId}`);
 
-    console.log(res);
+    // console.log(res);
 
     dispatch({
       type: GET_A_SINGLE_DONATION,
@@ -192,6 +194,31 @@ export const deleteDonation = (donationId) => async (dispatch) => {
     console.log(err);
     dispatch({
       type: DONATIONS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const likeUnlikeDonation = (donationId, donatorId) => async (
+  dispatch
+) => {
+  try {
+    const res = await axios.put(
+      `/api/donations/like/donation/${donationId}/donator/${donatorId}`
+    );
+
+    dispatch({
+      type: DONATION_LIKE_UNLIKE,
+      payload: {
+        donationId: donationId,
+        donatorId: donatorId,
+        likes: res.data,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: DONATION_LIKE_UNLIKE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

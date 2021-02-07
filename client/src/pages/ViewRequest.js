@@ -6,6 +6,7 @@ import {
   getSingleRequest,
   updateRequestStatus,
   deleteRequest,
+  likeUnlikeRequest,
 } from '../actions/requests';
 import Spinner from '../components/Spinner/Spinner';
 import SingleItem from '../components/SingleItem/SingleItem';
@@ -19,6 +20,7 @@ const ViewRequest = ({
   getSingleRequest,
   updateRequestStatus,
   deleteRequest,
+  likeUnlikeRequest,
   requests: {
     singleRequests,
     singleRequestLoading,
@@ -51,7 +53,7 @@ const ViewRequest = ({
       centered: true,
       onOk() {
         updateRequestStatus(singleRequests._id, newStatus);
-        console.log('Updated');
+        // console.log('Updated');
       },
       onCancel() {
         console.log('Canceled');
@@ -71,7 +73,7 @@ const ViewRequest = ({
       centered: true,
       onOk() {
         deleteRequest(singleRequests._id);
-        console.log('Deleted');
+        // console.log('Deleted');
       },
       onCancel() {
         console.log('Canceled');
@@ -93,6 +95,7 @@ const ViewRequest = ({
             type='request'
             handleComplete={handleComplete}
             handleDelete={handleDelete}
+            updateRequestLikes={likeUnlikeRequest}
             modalShow={modalShow}
             onClickShowModal={() => setModalShow(true)}
             onClickHideModal={() => setModalShow(false)}
@@ -107,6 +110,7 @@ ViewRequest.propTypes = {
   getSingleRequest: PropTypes.func.isRequired,
   updateRequestStatus: PropTypes.func.isRequired,
   deleteRequest: PropTypes.func.isRequired,
+  likeUnlikeRequest: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   requests: PropTypes.object.isRequired,
 };
@@ -120,4 +124,5 @@ export default connect(mapStateToProps, {
   getSingleRequest,
   updateRequestStatus,
   deleteRequest,
+  likeUnlikeRequest,
 })(ViewRequest);

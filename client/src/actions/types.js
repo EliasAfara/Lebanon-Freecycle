@@ -89,3 +89,10 @@ export const DONATION_FILTER_STATUS = 'Donations-Filter/Status';
 // Pagination
 export const DONATION_PAGINATION = 'All-Donations/Pagination';
 export const REQUEST_PAGINATION = 'All-Requests/Pagination';
+
+// Likes & Unlike Donatinons & Requests
+export const DONATION_LIKE_UNLIKE = 'Donation/Liked-Unliked';
+export const DONATION_LIKE_UNLIKE_ERROR = 'Donation-Error/Liked-Unliked';
+
+export const REQUEST_LIKE_UNLIKE = 'Request/Liked-Unliked';
+export const REQUEST_LIKE_UNLIKE_ERROR = 'Request-Error/Liked-Unliked';
