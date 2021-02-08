@@ -153,7 +153,7 @@ const RequestsPage = ({
                 <>
                   {requests.map((request) => (
                     <ItemCard
-                      key={request._id}
+                      key={request?._id}
                       UserAvatar={request.user.avatar}
                       FullName={request.user.fullname}
                       Username={request.user.username}
@@ -162,7 +162,7 @@ const RequestsPage = ({
                       ItemStatus={request.status}
                       ItemDescription={request.description}
                       ItemDateOfCreation={request.date}
-                      ItemID={request._id}
+                      ItemID={request?._id}
                       ItemUserId={request.user.id}
                       likes={request.likes}
                       images={request.images}
