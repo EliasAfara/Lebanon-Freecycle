@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import loadable from '@loadable/component';
 
 import { formatDate, formatDateMDY } from '../../utils/formatDate';
 import AuthenticatedUserActions from '../Modal/AuthenticatedUserActions';
@@ -8,14 +9,14 @@ import GuestUserActions from '../Modal/GuestUserActions';
 
 import './SingleItem.css';
 import ShareIcon from '../SVGComponents/ShareIcon';
-import { Tooltip, Tag } from 'antd';
+import { Tooltip, Tag, Button } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { VscEllipsis } from 'react-icons/vsc';
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
-import { RiUserLocationFill, RiPhoneFill } from 'react-icons/ri';
+import { RiUserLocationFill } from 'react-icons/ri';
 import { MdLocationCity } from 'react-icons/md';
 import { SiGooglestreetview } from 'react-icons/si';
-import loadable from '@loadable/component';
+import ReactWhatsapp from 'react-whatsapp';
 
 const ImageSlider = loadable(() => import('../ImageSlider/ImageSlider'));
 const Map = loadable(() => import('../Map'));
@@ -46,6 +47,8 @@ const SingleItem = ({
   onClickShowModal,
   onClickHideModal,
 }) => {
+  const [contactPopUp, setContactPopUp] = useState(false);
+
   let likedByCurrentUser = false;
 
   if (!auth.authLoading && auth.isAuthenticated) {
@@ -56,7 +59,7 @@ const SingleItem = ({
 
   const [liked, addLike] = useState(likedByCurrentUser);
 
-  let lebanesePhoneNumber = `+961 ${phoneNumber.slice(3)}`;
+  let lebanesePhoneNumber = `+961${phoneNumber.slice(3)}`;
 
   const handleItemLike = () => {
     if (type === 'donation') {
@@ -196,15 +199,6 @@ const SingleItem = ({
                     </span>
                   )}
 
-                  <span className='item-details-contact-wrapper'>
-                    <RiPhoneFill />{' '}
-                    <a
-                      href={`tel:${lebanesePhoneNumber}`}
-                      className='item-details-contact'
-                    >
-                      {lebanesePhoneNumber}
-                    </a>
-                  </span>
                   {location && (
                     <span className='item-details-contact-wrapper'>
                       <SiGooglestreetview />{' '}
@@ -217,6 +211,52 @@ const SingleItem = ({
                         View on Google Map
                       </a>
                     </span>
+                  )}
+
+                  <br />
+
+                  {phoneNumber && !auth.authLoading && auth.isAuthenticated ? (
+                    <>
+                      <ModalPopUp
+                        show={contactPopUp}
+                        onHide={() => setContactPopUp(false)}
+                        actions={
+                          <>
+                            <ReactWhatsapp
+                              number={`${lebanesePhoneNumber}`}
+                              message={`Hello Dear ${
+                                user && user.fullname
+                              }, I'm interested in you post titled as "${name}" and I would like to know more information about it. `}
+                              className='action-popup-button'
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: '#4FC35D',
+                                fontWeight: 700,
+                              }}
+                            >
+                              Via Whatsapp
+                            </ReactWhatsapp>
+
+                            <a
+                              className='action-popup-link'
+                              href={`tel:${lebanesePhoneNumber}`}
+                            >
+                              Via Phone Call
+                            </a>
+                          </>
+                        }
+                      />
+                      <Button
+                        type='primary'
+                        onClick={() => setContactPopUp(true)}
+                      >
+                        Contact User
+                      </Button>
+                    </>
+                  ) : (
+                    <span>Login to view contact Information</span>
                   )}
                 </div>
               </div>
