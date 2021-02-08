@@ -313,6 +313,7 @@ color: ${(props) => props.theme.fontColor};
 .anticon{
     vertical-align: 0.125em;
 }
+
 .ant-tag{
     background: transparent;
     font-weight: 400;
