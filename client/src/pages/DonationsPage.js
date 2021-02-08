@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import loadable from '@loadable/component';
 
 import { getAllDonations } from '../actions/donations';
 import {
@@ -9,12 +10,15 @@ import {
   FilterDonationStatus,
 } from '../actions/filters';
 import { ChangeDonationsPage } from '../actions/pagination';
-import { DonationsCategories } from '../shared/Categories';
+import { DonationsPartialSearch } from '../actions/search';
+
 import useStatusFilter from '../costumeHooks/useStatusFilter';
 import useCategoryFilter from '../costumeHooks/useCategoryFilter';
 import usePagination from '../costumeHooks/usePagination';
+import usePartialSearch from '../costumeHooks/usePartialSearch';
+
 import { Locations } from '../shared/Locations';
-import loadable from '@loadable/component';
+import { DonationsCategories } from '../shared/Categories';
 
 import Spinner from '../components/Spinner/Spinner';
 import './DonationPageStyles.css';
@@ -58,6 +62,8 @@ const DonationsPage = ({
   },
   ChangeDonationsPage,
   donationsPagination: { currentPageQuery, currentSelectedPage },
+  DonationsPartialSearch,
+  donationsSearch: { currentSearchInput, currentSearchQuery },
 }) => {
   const [queries, setQueries] = useState([]);
 
@@ -71,6 +77,13 @@ const DonationsPage = ({
       setShowTimedSpinner(false);
     }, 1000);
   };
+
+  // Donations partial search
+  const { partialSearch } = usePartialSearch(
+    setQueries,
+    DonationsPartialSearch,
+    ChangeDonationsPage
+  );
 
   // Filter Donations by Status
   const { filterStatus } = useStatusFilter(
@@ -113,6 +126,9 @@ const DonationsPage = ({
     if (currentStatusFilter.length > 0) {
       queries.push(currentStatusFilter);
     }
+    if (currentSearchQuery.length > 0) {
+      queries.push(currentSearchQuery);
+    }
     if (currentLocationFilter.length > 0) {
       queries.push(currentLocationFilter);
     }
@@ -143,6 +159,7 @@ const DonationsPage = ({
     currentStatusFilter,
     currentCategoryFilter,
     currentLocationFilter,
+    currentSearchQuery,
   ]);
 
   // console.log(donations);
@@ -168,6 +185,8 @@ const DonationsPage = ({
                     LocationsData={Locations}
                     filterLocation={filterLocation}
                     currentSelectedLocation={currentSelectedLocation}
+                    partialSearch={partialSearch}
+                    currentSearchInput={currentSearchInput}
                   />
                 </div>
 
@@ -263,16 +282,19 @@ DonationsPage.propTypes = {
   FilterDonationLocation: PropTypes.func.isRequired,
   FilterDonationCategory: PropTypes.func.isRequired,
   FilterDonationStatus: PropTypes.func.isRequired,
+  DonationsPartialSearch: PropTypes.func.isRequired,
 
   ChangeDonationsPage: PropTypes.func.isRequired,
 
   donations: PropTypes.object.isRequired,
   donationsFilters: PropTypes.object.isRequired,
+  donationsSearch: PropTypes.object.isRequired,
   donationsPagination: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   donationsFilters: state.filters.donationsFilters,
+  donationsSearch: state.search.donationsSearch,
   donationsPagination: state.pagination.donationsPagination,
   donations: state.donations,
 });
@@ -283,4 +305,5 @@ export default connect(mapStateToProps, {
   FilterDonationCategory,
   FilterDonationStatus,
   ChangeDonationsPage,
+  DonationsPartialSearch,
 })(DonationsPage);

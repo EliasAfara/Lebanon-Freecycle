@@ -7,17 +7,19 @@ import requests from './requests';
 import donations from './donations';
 import filters from './filters';
 import pagination from './pagination';
+import search from './search';
 
 export default combineReducers({
   // Will take in an object (whose values are reducers) that has all the reduces I create ex: auth reducer
   auth,
-  alert,
   profile,
-  toast,
   requests,
   donations,
-  filters,
   pagination,
+  filters,
+  search,
+  alert,
+  toast,
 });
 
 // Flow of redux:

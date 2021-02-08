@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import loadable from '@loadable/component';
+import { RequestCategories } from '../shared/Categories';
 
 import { getAllRequests } from '../actions/requests';
 import { FilterRequestCategory, FilterRequestStatus } from '../actions/filters';
 import { ChangeRequestsPage } from '../actions/pagination';
-import { RequestCategories } from '../shared/Categories';
+import { RequestsPartialSearch } from '../actions/search';
+
 import useStatusFilter from '../costumeHooks/useStatusFilter';
 import useCategoryFilter from '../costumeHooks/useCategoryFilter';
 import usePagination from '../costumeHooks/usePagination';
-import loadable from '@loadable/component';
+import usePartialSearch from '../costumeHooks/usePartialSearch';
 
 import Spinner from '../components/Spinner/Spinner';
 import { Pagination, Button } from 'antd';
@@ -38,6 +41,8 @@ const RequestsPage = ({
   },
   ChangeRequestsPage,
   requestsPagination: { currentPageQuery, currentSelectedPage },
+  RequestsPartialSearch,
+  requestsSearch: { currentSearchInput, currentSearchQuery },
 }) => {
   const [queries, setQueries] = useState([]);
 
@@ -51,6 +56,13 @@ const RequestsPage = ({
       setShowTimedSpinner(false);
     }, 1000);
   };
+
+  // Requests partial search
+  const { partialSearch } = usePartialSearch(
+    setQueries,
+    RequestsPartialSearch,
+    ChangeRequestsPage
+  );
 
   // Filter Requests by Status
   const { filterStatus } = useStatusFilter(
@@ -83,6 +95,9 @@ const RequestsPage = ({
     if (currentPageQuery.length > 0) {
       queries.push(currentPageQuery);
     }
+    if (currentSearchQuery.length > 0) {
+      queries.push(currentSearchQuery);
+    }
     if (currentStatusFilter.length > 0) {
       queries.push(currentStatusFilter);
     }
@@ -112,6 +127,7 @@ const RequestsPage = ({
     currentPageQuery,
     currentStatusFilter,
     currentCategoryFilter,
+    currentSearchQuery,
   ]);
 
   // console.log(requests);
@@ -133,6 +149,8 @@ const RequestsPage = ({
                   categories={RequestCategories}
                   filterCategory={filterCategory}
                   currentSelectedCategory={currentSelectedCategory}
+                  partialSearch={partialSearch}
+                  currentSearchInput={currentSearchInput}
                 />
               </div>
 
@@ -211,16 +229,19 @@ RequestsPage.propTypes = {
 
   FilterRequestCategory: PropTypes.func.isRequired,
   FilterRequestStatus: PropTypes.func.isRequired,
+  RequestsPartialSearch: PropTypes.func.isRequired,
 
   ChangeRequestsPage: PropTypes.func.isRequired,
 
   requests: PropTypes.object.isRequired,
   requestsFilters: PropTypes.object.isRequired,
+  requestsSearch: PropTypes.object.isRequired,
   requestsPagination: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   requestsFilters: state.filters.requestsFilters,
+  requestsSearch: state.search.requestsSearch,
   requestsPagination: state.pagination.requestsPagination,
   requests: state.requests,
 });
@@ -230,4 +251,5 @@ export default connect(mapStateToProps, {
   FilterRequestCategory,
   FilterRequestStatus,
   ChangeRequestsPage,
+  RequestsPartialSearch,
 })(RequestsPage);
