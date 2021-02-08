@@ -1,8 +1,8 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const helmet = require('helmet');
-var compression = require('compression');
-const xss = require('xss-clean');
+// var compression = require('compression');
+// const xss = require('xss-clean');
 
 // Nodejs path module
 const path = require('path');
@@ -13,15 +13,19 @@ connectDB();
 const app = express();
 
 // Set security header
-app.use(helmet());
-app.use(compression());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
+// app.use(compression());
 
 // body parser middleware
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Prevent XSS attacks
-app.use(xss());
+// app.use(xss());
 
 // app.get('/', (req, res) => res.send('API RUNNING'));
 
@@ -44,7 +48,7 @@ app.use('/api/donations', donationsRoute);
 // Serve static assests in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
-  app.use(express.static('client/build'));
+  app.use(express.static(__dirname, 'client/build'));
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
