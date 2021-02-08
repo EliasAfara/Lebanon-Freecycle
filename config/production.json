@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://eliasafara1998:eliasafara1998@cluster0.9n2um.mongodb.net/lfc?retryWrites=true&w=majority",
+
+    "jwtSecret": "LebanonFreeCycleEliasAfara"
+
+}
