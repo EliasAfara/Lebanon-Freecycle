@@ -96,3 +96,7 @@ export const DONATION_LIKE_UNLIKE_ERROR = 'Donation-Error/Liked-Unliked';
 
 export const REQUEST_LIKE_UNLIKE = 'Request/Liked-Unliked';
 export const REQUEST_LIKE_UNLIKE_ERROR = 'Request-Error/Liked-Unliked';
+
+// Partial Search
+export const REQUEST_PARTIAL_SEARCH = 'Requests/Partial-Search';
+export const DONATION_PARTIAL_SEARCH = 'Donations/Partial-Search';
