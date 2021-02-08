@@ -9,8 +9,7 @@ import { RequestCategories } from '../../shared/Categories';
 import ItemCard from '../ItemCard/ItemCard';
 import FilterBar from '../FilterBar/FilterBar';
 import { GiBrokenHeartZone } from 'react-icons/gi';
-import { Button, Space, Spin } from 'antd';
-import SideFilterBar from '../FilterBar/SideFilterBar';
+import { Space, Spin } from 'antd';
 
 const UserRequests = ({
   getAllUserRequests,
@@ -27,8 +26,6 @@ const UserRequests = ({
   const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
     'Select Category'
   );
-
-  const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
 
   const filterStatus = (value) => {
     setCurrentSelectedStatus(value);
@@ -88,26 +85,8 @@ const UserRequests = ({
         </div>
       ) : (
         <>
-          <div className='FilterBar-wrapper'>
+          <div>
             <FilterBar
-              filterStatus={filterStatus}
-              currentSelectedStatus={currentSelectedStatus}
-              categories={RequestCategories}
-              filterCategory={filterCategory}
-              currentSelectedCategory={currentSelectedCategory}
-            />
-          </div>
-
-          <div className='SideFilterBar-wrapper'>
-            <Button
-              type='primary'
-              onClick={() => setSideFilterBarVisible(true)}
-            >
-              Filter Requests
-            </Button>
-            <SideFilterBar
-              onClose={() => setSideFilterBarVisible(false)}
-              visible={sideFilterBarVisible}
               filterStatus={filterStatus}
               currentSelectedStatus={currentSelectedStatus}
               categories={RequestCategories}

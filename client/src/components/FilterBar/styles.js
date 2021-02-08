@@ -10,6 +10,7 @@ export const FilterBarContaier = styled.div`
 export const FilterBar = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0 10px;
   height: 50px;
   width: 100%;
@@ -25,4 +26,26 @@ export const FilterSelector = styled.div`
   justify-content: space-between;
   width: fit-content;
   margin-right: 10px;
+
+  @media only screen and (max-width: 767px) {
+    display: none;
+  }
+`;
+
+export const SearchSelector = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+
+  @media only screen and (max-width: 767px) {
+    margin-right: 10px;
+  }
+`;
+
+export const SideFilterBarContainer = styled.div`
+  display: none;
+  @media only screen and (max-width: 767px) {
+    display: block;
+  }
 `;

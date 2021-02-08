@@ -23,7 +23,7 @@ import { DonationsCategories } from '../shared/Categories';
 import Spinner from '../components/Spinner/Spinner';
 import './DonationPageStyles.css';
 import * as S from '../components/layout/styles';
-import { Pagination, Button } from 'antd';
+import { Pagination } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 import useLocationFilter from '../costumeHooks/useLocationFilter';
 
@@ -34,12 +34,6 @@ const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'), {
 const ItemCard = loadable(() => import('../components/ItemCard/ItemCard'), {
   fallback: <div>Loading...</div>,
 });
-const SideFilterBar = loadable(
-  () => import('../components/FilterBar/SideFilterBar'),
-  {
-    fallback: <div>Loading...</div>,
-  }
-);
 
 const DonationsPage = ({
   getAllDonations,
@@ -68,8 +62,6 @@ const DonationsPage = ({
   const [queries, setQueries] = useState([]);
 
   const [showTimedSpinner, setShowTimedSpinner] = useState(false);
-
-  const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
 
   const timedSpinner = () => {
     setShowTimedSpinner(true);
@@ -175,7 +167,7 @@ const DonationsPage = ({
           ) : (
             <>
               <S.ContentContainer>
-                <div className='FilterBar-wrapper'>
+                <div>
                   <FilterBar
                     filterStatus={filterStatus}
                     currentSelectedStatus={currentSelectedStatus}
@@ -187,27 +179,6 @@ const DonationsPage = ({
                     currentSelectedLocation={currentSelectedLocation}
                     partialSearch={partialSearch}
                     currentSearchInput={currentSearchInput}
-                  />
-                </div>
-
-                <div className='SideFilterBar-wrapper'>
-                  <Button
-                    type='primary'
-                    onClick={() => setSideFilterBarVisible(true)}
-                  >
-                    Filter
-                  </Button>
-                  <SideFilterBar
-                    onClose={() => setSideFilterBarVisible(false)}
-                    visible={sideFilterBarVisible}
-                    filterStatus={filterStatus}
-                    currentSelectedStatus={currentSelectedStatus}
-                    categories={DonationsCategories}
-                    filterCategory={filterCategory}
-                    currentSelectedCategory={currentSelectedCategory}
-                    LocationsData={Locations}
-                    filterLocation={filterLocation}
-                    currentSelectedLocation={currentSelectedLocation}
                   />
                 </div>
 

@@ -43,6 +43,14 @@ button:focus{
     outline: none;
 }
 
+.ant-btn-primary{
+    display: flex;
+    align-items: center;
+    background: ${(props) => props.theme.activeLinkColor};
+    border-color: ${(props) => props.theme.activeLinkColor};
+    transition: 0.8s all ease;
+}
+
 .card-header{
     font-weight: 600;
     background-color: ${(props) => props.theme.cardHeaderBackground};
@@ -175,6 +183,33 @@ button:focus{
     font-weight: 700;
 }
 
+// Search Input
+
+.ant-input{
+    color: ${(props) => props.theme.fontColor};
+    background: ${(props) => props.theme.formBackground};
+    transition: 0.8s all ease;
+}
+
+.ant-input-affix-wrapper{
+    color: ${(props) => props.theme.fontColor};
+    background: ${(props) => props.theme.formBackground};
+    transition: 0.8s all ease;
+}
+
+.ant-input-clear-icon{
+    color: ${(props) => props.theme.fontColor};
+    transition: 0.8s all ease;
+}
+
+.ant-input-group-addon{
+color: ${(props) => props.theme.fontColor};
+    background: ${(props) => props.theme.formBackground};
+    transition: 0.8s all ease;
+}
+
+// Search Input 
+
 .ant-select-single .ant-select-selector .ant-select-selection-item {
     color: ${(props) => props.theme.fontColor};
 }
@@ -225,23 +260,6 @@ button:focus{
 
 .modal-content{
   background-color: ${(props) => props.theme.itemBackground};
-}
-
-.FilterBar-wrapper{
-    display: block;
-
-    @media only screen and (max-width: 767px) {
-
-      display: none;
-      
-    }
-}
-
-.SideFilterBar-wrapper{
-display: none;
-  @media only screen and (max-width: 767px) {
-      display: block;
-    }
 }
 
 .ant-tag, .ant-tag a, .ant-tag a:hover {
@@ -349,10 +367,12 @@ label.invalid-selected-images.custom-file-label{
 .Ant-Select-isInvalid .ant-select-selector {
     border: 1px solid #fa1529 !important;
     background: ${(props) => props.theme.inValidInputBackground};
+    transition: 0.8s all ease;
 }
 
 .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     background: ${(props) => props.theme.formBackground};
+    transition: 0.8s all ease;
 }
 
 .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector::after, .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item {

@@ -8,8 +8,7 @@ import { DonationsCategories } from '../../shared/Categories';
 import ItemCard from '../ItemCard/ItemCard';
 import FilterBar from '../FilterBar/FilterBar';
 import { GiBrokenHeartZone } from 'react-icons/gi';
-import { Button, Space, Spin } from 'antd';
-import SideFilterBar from '../FilterBar/SideFilterBar';
+import { Space, Spin } from 'antd';
 
 const UserDonations = ({
   getAllUserDonations,
@@ -26,8 +25,6 @@ const UserDonations = ({
   const [currentSelectedCategory, setCurrentSelectedCategory] = useState(
     'Select Category'
   );
-
-  const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
 
   const filterStatus = (value) => {
     setCurrentSelectedStatus(value);
@@ -87,7 +84,7 @@ const UserDonations = ({
         </div>
       ) : (
         <>
-          <div className='FilterBar-wrapper'>
+          <>
             <FilterBar
               filterStatus={filterStatus}
               currentSelectedStatus={currentSelectedStatus}
@@ -95,25 +92,7 @@ const UserDonations = ({
               filterCategory={filterCategory}
               currentSelectedCategory={currentSelectedCategory}
             />
-          </div>
-
-          <div className='SideFilterBar-wrapper'>
-            <Button
-              type='primary'
-              onClick={() => setSideFilterBarVisible(true)}
-            >
-              Filter
-            </Button>
-            <SideFilterBar
-              onClose={() => setSideFilterBarVisible(false)}
-              visible={sideFilterBarVisible}
-              filterStatus={filterStatus}
-              currentSelectedStatus={currentSelectedStatus}
-              categories={DonationsCategories}
-              filterCategory={filterCategory}
-              currentSelectedCategory={currentSelectedCategory}
-            />
-          </div>
+          </>
 
           {userDonations && userDonations.length > 0 ? (
             userDonations.map((donation) => (
