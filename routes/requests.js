@@ -126,17 +126,19 @@ router.post(
 // Get All in descending or ascendoing order { limit 10 per page }
 router.get('/', async (req, res) => {
   try {
-    //http://localhost:5000/api/requests?page=2
+    // http://localhost:5000/api/requests?page=2
+    // http://localhost:5000/api/requests?name=admin&status=Available&category=Books and Educational Supplies&page=1
 
     const features = new APIfeatures(Request.find(), req.query)
+      .partialSearch()
       .filtering()
       .paginating();
+
     const requests = await features.query;
 
-    const getAllFilteredRequests = new APIfeatures(
-      Request.find(),
-      req.query
-    ).filtering();
+    const getAllFilteredRequests = new APIfeatures(Request.find(), req.query)
+      .partialSearch()
+      .filtering();
 
     let allRequests = await getAllFilteredRequests.query;
     let totalRequests = allRequests.length;
@@ -150,6 +152,26 @@ router.get('/', async (req, res) => {
     res.status(500).send('500 Internal server error');
   }
 });
+
+/********************************************************************************* */
+// Used for testing partial search separatly
+// router.get('/partial/search', async (req, res) => {
+//   try {
+//     const features = new APIfeatures(Request.find(), req.query).partialSearch();
+//     const requests = await features.query;
+
+//     let allRequests = await features.query;
+//     let totalRequests = allRequests.length;
+
+//     res.json({
+//       totalRequests: totalRequests,
+//       requests,
+//     });
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send('500 Internal server error');
+//   }
+// });
 
 /********************************************************************************* */
 

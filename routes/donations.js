@@ -150,14 +150,14 @@ router.get('/', async (req, res) => {
     //http://localhost:5000/api/donations?page=2
 
     const features = new APIfeatures(Donation.find(), req.query)
+      .partialSearch()
       .filtering()
       .paginating();
     const donations = await features.query;
 
-    const getAllFiltereddonations = new APIfeatures(
-      Donation.find(),
-      req.query
-    ).filtering();
+    const getAllFiltereddonations = new APIfeatures(Donation.find(), req.query)
+      .partialSearch()
+      .filtering();
 
     let allDonations = await getAllFiltereddonations.query;
     let totalDonations = allDonations.length;
