@@ -49,7 +49,7 @@ const UserRequests = ({
   };
 
   useEffect(() => {
-    console.log(queries);
+    // console.log(queries);
 
     queries.push(`user.username=${userNameInParam}`);
 

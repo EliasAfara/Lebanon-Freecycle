@@ -100,7 +100,7 @@ const EditDonation = ({
     let locationDetails = Locations.filter(
       (location) => locationName === location.Location_Name_En
     );
-    console.log(locationDetails[0]);
+    // console.log(locationDetails[0]);
     setFormData({
       ...formData,
       locationName: locationDetails[0].Location_Name_En,
@@ -133,7 +133,7 @@ const EditDonation = ({
     const currentErrors = validateDonationsForm(data);
     setErrors(currentErrors);
 
-    console.log(currentErrors);
+    // console.log(currentErrors);
 
     if (Object.keys(currentErrors).length === 0) {
       updateDonation(data, userIDInParam);

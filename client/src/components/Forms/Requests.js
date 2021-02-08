@@ -106,7 +106,7 @@ const Requests = ({
       imagesErrors.imagesRequiredError =
         'You are required to select at most 3 images';
     }
-    console.log(currentErrors);
+    // console.log(currentErrors);
 
     //console.log(data);
     if (Object.keys(currentErrors).length === 0) {

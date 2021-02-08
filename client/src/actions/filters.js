@@ -18,7 +18,7 @@ export const FilterDonationLocation = (locationName, locationQuery) => (
 export const FilterDonationCategory = (CategoryName, CategoryQuery) => (
   dispatch
 ) => {
-  console.log(CategoryName, CategoryQuery);
+  // console.log(CategoryName, CategoryQuery);
   dispatch({
     type: DONATION_FILTER_CATEGORY,
     payload: {

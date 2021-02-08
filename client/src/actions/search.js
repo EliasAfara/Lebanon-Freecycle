@@ -12,7 +12,7 @@ export const DonationsPartialSearch = (searchInput, searchQuery) => (
 export const RequestsPartialSearch = (searchInput, searchQuery) => (
   dispatch
 ) => {
-  console.log(searchInput, searchQuery);
+  // console.log(searchInput, searchQuery);
 
   dispatch({
     type: REQUEST_PARTIAL_SEARCH,

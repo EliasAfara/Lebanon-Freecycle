@@ -91,7 +91,7 @@ const EditRequest = ({
     const currentErrors = validateRequestsForm(data);
     setErrors(currentErrors);
 
-    console.log(currentErrors);
+    // console.log(currentErrors);
 
     if (Object.keys(currentErrors).length === 0) {
       updateRequest(data, userIDInParam);

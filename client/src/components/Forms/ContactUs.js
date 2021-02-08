@@ -65,7 +65,7 @@ const ContactUs = () => {
         )
         .then(
           (result) => {
-            console.log(result);
+            // console.log(result);
             setFormData({ name: '', email: '', subject: '', message: '' });
             setShowAlert(true);
             setTimeout(() => {

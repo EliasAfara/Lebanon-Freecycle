@@ -27,12 +27,12 @@ const FilterBar = ({
 
   const handlePartialSearch = (searchInput) => {
     if (searchInput.length !== 0) {
-      console.log(searchInput);
+      // console.log(searchInput);
       partialSearch(searchInput);
     }
   };
   const handlePartialSearchChange = (searchInput) => {
-    console.log(searchInput.target.value);
+    // console.log(searchInput.target.value);
     partialSearch(searchInput.target.value);
   };
   return (

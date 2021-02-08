@@ -8,7 +8,7 @@ export const ChangeDonationsPage = (pageNumber, pageQuery) => (dispatch) => {
 };
 
 export const ChangeRequestsPage = (pageNumber, pageQuery) => (dispatch) => {
-  console.log(pageNumber, pageQuery);
+  // console.log(pageNumber, pageQuery);
   dispatch({
     type: REQUEST_PAGINATION,
     payload: {

@@ -108,7 +108,7 @@ const Donations = ({
     let locationDetails = Locations.filter(
       (location) => locationName === location.Location_Name_En
     );
-    console.log(locationDetails[0]);
+    // console.log(locationDetails[0]);
     setFormData({
       ...formData,
       locationName: locationDetails[0].Location_Name_En,
@@ -121,10 +121,6 @@ const Donations = ({
     // Reset Errors
     setErrors((errors) => ({ ...errors, locationName: '' }));
   };
-
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -151,8 +147,8 @@ const Donations = ({
       imagesErrors.imagesRequiredError =
         'You are required to select at most 3 images';
     }
-    console.log(currentErrors);
-    console.log(imagesErrors);
+    // console.log(currentErrors);
+    // console.log(imagesErrors);
 
     //console.log(data);
     if (

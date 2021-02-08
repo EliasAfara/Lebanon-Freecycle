@@ -58,7 +58,7 @@ const ChangePassword = ({ updatePassword, profile: { error } }) => {
     const currentErrors = validateChangePasswordForm(formData);
     setErrors(currentErrors);
 
-    console.log(currentErrors);
+    // console.log(currentErrors);
 
     // console.log(formData);
     if (Object.keys(currentErrors).length === 0) {
