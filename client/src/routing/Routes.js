@@ -35,19 +35,8 @@ const Routes = () => {
         <Switch>
           {/* Public */}
 
-          <Route exact path='/donations' component={DonationsPage} />
-          <Route exact path='/donation/:id' component={ViewDonation} />
-
-          <Route exact path='/requests' component={RequestsPage} />
-          <Route exact path='/request/:id' component={ViewRequest} />
-
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
-
-          <Route exact path='/profile/:username' component={Profile} />
-
-          {/* Private */}
-          <PrivateRoute exact path='/dashboard' component={DashboardPage} />
 
           <Suspense
             fallback={
@@ -58,6 +47,17 @@ const Routes = () => {
               </div>
             }
           >
+            <Route exact path='/donations' component={DonationsPage} />
+            <Route exact path='/donation/:id' component={ViewDonation} />
+
+            <Route exact path='/requests' component={RequestsPage} />
+            <Route exact path='/request/:id' component={ViewRequest} />
+
+            <Route exact path='/profile/:username' component={Profile} />
+
+            {/* Private */}
+            <PrivateRoute exact path='/dashboard' component={DashboardPage} />
+
             <PrivateRoute
               exact
               path='/setting/edit-profile'
