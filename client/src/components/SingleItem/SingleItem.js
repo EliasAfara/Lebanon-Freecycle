@@ -73,7 +73,7 @@ const SingleItem = ({
   return (
     <div className='single-item-container'>
       <div className='single-item-image-slider'>
-        {images && <ImageSlider images={images} interval={4000} fade={true} />}
+        {images && <ImageSlider images={images} itemName={description} />}
       </div>
 
       <div className='item-title-container'>

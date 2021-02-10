@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import loadable, { lazy } from '@loadable/component';
+
 import PrivateRoute from './PrivateRoute';
 
 import Alert from '../components/layout/Alert';
@@ -8,21 +10,21 @@ import Toast from '../components/layout/Toast';
 // Forms
 import Login from '../components/Forms/Login';
 import Register from '../components/Forms/Register';
-import EditRequest from '../components/Forms/EditRequest';
-import EditDonation from '../components/Forms/EditDonation';
-import EditProfile from '../components/Forms/EditProfile';
-import ChangePassword from '../components/Forms/ChangePassword';
 
-// Public Pages
-import Profile from '../pages/Profile';
-import ErrorPage from '../pages/ErrorPage';
-import RequestsPage from '../pages/RequestsPage';
-import DonationsPage from '../pages/DonationsPage';
-import ViewDonation from '../pages/ViewDonation';
-import ViewRequest from '../pages/ViewRequest';
+import { Space, Spin } from 'antd';
 
-// Private Pages
-import DashboardPage from '../pages/DashboardPage';
+const DonationsPage = lazy(() => import('../pages/DonationsPage'));
+const RequestsPage = lazy(() => import('../pages/RequestsPage'));
+const Profile = lazy(() => import('../pages/Profile'));
+const DashboardPage = lazy(() => import('../pages/DashboardPage'));
+const ViewDonation = lazy(() => import('../pages/ViewDonation'));
+const ViewRequest = lazy(() => import('../pages/ViewRequest'));
+
+const EditRequest = lazy(() => import('../components/Forms/EditRequest'));
+const EditDonation = lazy(() => import('../components/Forms/EditDonation'));
+const EditProfile = lazy(() => import('../components/Forms/EditProfile'));
+const ChangePassword = lazy(() => import('../components/Forms/ChangePassword'));
+const ErrorPage = loadable(() => import('../pages/ErrorPage'));
 
 const Routes = () => {
   return (
@@ -47,29 +49,39 @@ const Routes = () => {
           {/* Private */}
           <PrivateRoute exact path='/dashboard' component={DashboardPage} />
 
-          <PrivateRoute
-            exact
-            path='/setting/edit-profile'
-            component={EditProfile}
-          />
+          <Suspense
+            fallback={
+              <div style={{ textAlign: 'center' }}>
+                <Space size='middle'>
+                  <Spin size='large' />
+                </Space>
+              </div>
+            }
+          >
+            <PrivateRoute
+              exact
+              path='/setting/edit-profile'
+              component={EditProfile}
+            />
 
-          <PrivateRoute
-            exact
-            path='/setting/change-password'
-            component={ChangePassword}
-          />
+            <PrivateRoute
+              exact
+              path='/setting/change-password'
+              component={ChangePassword}
+            />
 
-          <PrivateRoute
-            exact
-            path='/edit-donation/:id'
-            component={EditDonation}
-          />
+            <PrivateRoute
+              exact
+              path='/edit-donation/:id'
+              component={EditDonation}
+            />
 
-          <PrivateRoute
-            exact
-            path='/edit-request/:id'
-            component={EditRequest}
-          />
+            <PrivateRoute
+              exact
+              path='/edit-request/:id'
+              component={EditRequest}
+            />
+          </Suspense>
 
           {/* Error 404 - Not Found */}
           <Route path='*' component={ErrorPage} />

@@ -15,10 +15,18 @@ import usePagination from '../costumeHooks/usePagination';
 import usePartialSearch from '../costumeHooks/usePartialSearch';
 
 import Spinner from '../components/Spinner/Spinner';
-import { Pagination } from 'antd';
+import { Pagination, Space, Spin } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 
-const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'));
+const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'), {
+  fallback: (
+    <div style={{ textAlign: 'center' }}>
+      <Space size='middle'>
+        <Spin size='large' />
+      </Space>
+    </div>
+  ),
+});
 const ItemCard = loadable(() => import('../components/ItemCard/ItemCard'));
 
 const RequestsPage = ({

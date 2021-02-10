@@ -7,6 +7,8 @@ import loadable, { lazy } from '@loadable/component';
 import { updatePassword } from '../../actions/profile';
 import { validateChangePasswordForm } from '../../utils/validateForm';
 
+import { Space, Spin } from 'antd';
+
 import * as S from './styles';
 
 const FormContainer = lazy(() => import('../../common/FormContainer'));
@@ -69,7 +71,15 @@ const ChangePassword = ({ updatePassword, profile: { error } }) => {
   return (
     <div style={{ maxWidth: '600px', width: 'inherit' }}>
       <S.FormContainer__Div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div style={{ textAlign: 'center' }}>
+              <Space size='middle'>
+                <Spin size='large' />
+              </Space>
+            </div>
+          }
+        >
           <FormContainer>
             <S.FormTitle>Update Your Password</S.FormTitle>
             <form onSubmit={(e) => handleSubmit(e)}>

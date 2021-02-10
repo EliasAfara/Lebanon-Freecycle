@@ -8,7 +8,7 @@ import { validateRegisterForm } from '../../utils/validateForm';
 
 import loadable, { lazy } from '@loadable/component';
 
-import { Spin } from 'antd';
+import { Space, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import * as S from './styles';
 import { registerUser } from '../../actions/auth';
@@ -56,7 +56,15 @@ const Register = ({ registerUser, isAuthenticated, registerFormLoading }) => {
   }
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div style={{ textAlign: 'center' }}>
+            <Space size='middle'>
+              <Spin size='large' />
+            </Space>
+          </div>
+        }
+      >
         <FormContainer maxWidth={'450px'}>
           <form onSubmit={handleSubmit}>
             <S.FormTitle>Create a New Account</S.FormTitle>

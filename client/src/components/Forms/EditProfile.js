@@ -11,7 +11,7 @@ import * as ProfileForm from './SettingElements';
 
 import { RiInformationLine } from 'react-icons/ri';
 // Ant Design Delete Model
-import { Modal } from 'antd';
+import { Modal, Space, Spin } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 const { confirm } = Modal;
 
@@ -116,7 +116,15 @@ const EditProfile = ({
   return (
     <div style={{ maxWidth: '600px', width: 'inherit' }}>
       <S.FormContainer__Div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div style={{ textAlign: 'center' }}>
+              <Space size='middle'>
+                <Spin size='large' />
+              </Space>
+            </div>
+          }
+        >
           <FormContainer>
             <ProfileForm.ProfileHeader__Div>
               <ProfileForm.PictureContainer__Div>

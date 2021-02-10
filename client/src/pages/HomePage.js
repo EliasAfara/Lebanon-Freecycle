@@ -2,10 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import loadable from '@loadable/component';
 
 import Hero from '../components/layout/Hero';
-import HowItWorks from '../components/layout/HowItWorks';
-import Footer from '../components/layout/Footer';
+
+const HowItWorks = loadable(() => import('../components/layout/HowItWorks'), {
+  fallback: <div />,
+});
+const Footer = loadable(() => import('../components/layout/Footer'), {
+  fallback: <div />,
+});
 
 const HomePage = ({ isAuthenticated }) => {
   // Redirect if logged in
@@ -14,13 +20,11 @@ const HomePage = ({ isAuthenticated }) => {
   }
 
   return (
-    <>
-      <div>
-        <Hero />
-        <HowItWorks />
-        <Footer />
-      </div>
-    </>
+    <div>
+      <Hero />
+      <HowItWorks />
+      <Footer />
+    </div>
   );
 };
 

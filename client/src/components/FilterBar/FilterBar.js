@@ -22,7 +22,7 @@ const FilterBar = ({
   const [sideFilterBarVisible, setSideFilterBarVisible] = useState(false);
 
   const SideFilterBar = loadable(() => import('./SideFilterBar'), {
-    fallback: <div>Loading...</div>,
+    fallback: <div />,
   });
 
   const handlePartialSearch = (searchInput) => {

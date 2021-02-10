@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import loadable from '@loadable/component';
+
 import { FaLinkedin } from 'react-icons/fa';
-import Footer from '../components/layout/Footer';
+
 import * as S from './styles';
+
+const Footer = loadable(() => import('../components/layout/Footer'));
 
 const AboutPage = () => {
   return (

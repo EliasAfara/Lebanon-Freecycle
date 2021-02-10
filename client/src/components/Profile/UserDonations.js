@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import loadable from '@loadable/component';
 
 import { getAllUserDonations } from '../../actions/donations';
 import { DonationsCategories } from '../../shared/Categories';
 
-import ItemCard from '../ItemCard/ItemCard';
-import FilterBar from '../FilterBar/FilterBar';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 import { Space, Spin } from 'antd';
+
+const FilterBar = loadable(() => import('../FilterBar/FilterBar'));
+const ItemCard = loadable(() => import('../ItemCard/ItemCard'));
 
 const UserDonations = ({
   getAllUserDonations,
@@ -84,50 +86,62 @@ const UserDonations = ({
         </div>
       ) : (
         <>
-          <>
-            <FilterBar
-              filterStatus={filterStatus}
-              currentSelectedStatus={currentSelectedStatus}
-              categories={DonationsCategories}
-              filterCategory={filterCategory}
-              currentSelectedCategory={currentSelectedCategory}
-            />
-          </>
-
-          {userDonations && userDonations.length > 0 ? (
-            userDonations.map((donation) => (
-              <ItemCard
-                key={donation._id}
-                UserAvatar={donation.user.avatar}
-                FullName={donation.user.fullname}
-                Username={donation.user.username}
-                ItemName={donation.name}
-                ItemCategory={donation.category}
-                ItemStatus={donation.status}
-                ItemLocation={donation.location}
-                ItemDescription={donation.description}
-                ItemDateOfCreation={donation.date}
-                ItemID={donation._id}
-                ItemUserId={donation.user.id}
-                likes={donation.likes}
-                images={donation.images}
-                type='donation'
-              />
-            ))
-          ) : (
-            <div className='user-not-found'>
-              <div
-                className='user-not-found-icon'
-                style={{ height: 'inherit', marginBottom: '-40px' }}
-              >
-                <GiBrokenHeartZone style={{ width: 100, fillOpacity: 0.34 }} />
+          <Suspense
+            fallback={
+              <div className='user-content-spinner'>
+                <Space size='middle'>
+                  <Spin size='large' />
+                </Space>
               </div>
-
-              <p className='user-not-found-title'>
-                Sorry, couldn't find any donations.
-              </p>
+            }
+          >
+            <div>
+              <FilterBar
+                filterStatus={filterStatus}
+                currentSelectedStatus={currentSelectedStatus}
+                categories={DonationsCategories}
+                filterCategory={filterCategory}
+                currentSelectedCategory={currentSelectedCategory}
+              />
             </div>
-          )}
+
+            {userDonations && userDonations.length > 0 ? (
+              userDonations.map((donation) => (
+                <ItemCard
+                  key={donation._id}
+                  UserAvatar={donation.user.avatar}
+                  FullName={donation.user.fullname}
+                  Username={donation.user.username}
+                  ItemName={donation.name}
+                  ItemCategory={donation.category}
+                  ItemStatus={donation.status}
+                  ItemLocation={donation.location}
+                  ItemDescription={donation.description}
+                  ItemDateOfCreation={donation.date}
+                  ItemID={donation._id}
+                  ItemUserId={donation.user.id}
+                  likes={donation.likes}
+                  images={donation.images}
+                  type='donation'
+                />
+              ))
+            ) : (
+              <div className='user-not-found'>
+                <div
+                  className='user-not-found-icon'
+                  style={{ height: 'inherit', marginBottom: '-40px' }}
+                >
+                  <GiBrokenHeartZone
+                    style={{ width: 100, fillOpacity: 0.34 }}
+                  />
+                </div>
+
+                <p className='user-not-found-title'>
+                  Sorry, couldn't find any donations.
+                </p>
+              </div>
+            )}
+          </Suspense>
         </>
       )}
     </>

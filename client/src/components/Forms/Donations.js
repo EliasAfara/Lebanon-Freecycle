@@ -13,7 +13,7 @@ import { validateDonationsForm } from '../../utils/validateForm';
 import './DashboardForms.css';
 import * as S from './styles';
 
-import { Spin } from 'antd';
+import { Space, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { RiInformationLine } from 'react-icons/ri';
 
@@ -178,7 +178,15 @@ const Donations = ({
 
   return (
     <S.FormContainer__Div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div style={{ textAlign: 'center' }}>
+            <Space size='middle'>
+              <Spin size='large' />
+            </Space>
+          </div>
+        }
+      >
         <FormContainer>
           <S.FormTitle>Provide a Donation</S.FormTitle>
 

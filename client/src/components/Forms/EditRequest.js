@@ -10,6 +10,7 @@ import { validateRequestsForm } from '../../utils/validateForm';
 
 import Spinner from '../Spinner/Spinner';
 import { RiInformationLine } from 'react-icons/ri';
+import { Space, Spin } from 'antd';
 
 import * as S from './styles';
 
@@ -134,7 +135,15 @@ const EditRequest = ({
       ) : (
         <>
           <S.FormContainer__Div>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense
+              fallback={
+                <div style={{ textAlign: 'center' }}>
+                  <Space size='middle'>
+                    <Spin size='large' />
+                  </Space>
+                </div>
+              }
+            >
               <FormContainer>
                 <S.FormTitle>Update Your Request</S.FormTitle>
 

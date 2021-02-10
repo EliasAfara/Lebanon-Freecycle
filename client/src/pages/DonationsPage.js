@@ -23,17 +23,21 @@ import { DonationsCategories } from '../shared/Categories';
 import Spinner from '../components/Spinner/Spinner';
 import './DonationPageStyles.css';
 import * as S from '../components/layout/styles';
-import { Pagination } from 'antd';
+import { Pagination, Space, Spin } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 import useLocationFilter from '../costumeHooks/useLocationFilter';
 
 const Map = loadable(() => import('../components/Map'));
 const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'), {
-  fallback: <div>Loading...</div>,
+  fallback: (
+    <div style={{ textAlign: 'center' }}>
+      <Space size='middle'>
+        <Spin size='large' />
+      </Space>
+    </div>
+  ),
 });
-const ItemCard = loadable(() => import('../components/ItemCard/ItemCard'), {
-  fallback: <div>Loading...</div>,
-});
+const ItemCard = loadable(() => import('../components/ItemCard/ItemCard'));
 
 const DonationsPage = ({
   getAllDonations,

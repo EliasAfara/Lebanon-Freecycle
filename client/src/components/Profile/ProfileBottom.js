@@ -1,13 +1,23 @@
 import React from 'react';
-
-import Tabs from '../Tabs/NavTabs';
-import UserDonations from './UserDonations';
-import UserRequests from './UserRequests';
+import loadable from '@loadable/component';
 
 import { GiLifeSupport } from 'react-icons/gi';
 import { GiNestedHearts } from 'react-icons/gi';
+import { Space, Spin } from 'antd';
 
 import './Profile.css';
+
+const Tabs = loadable(() => import('../Tabs/NavTabs'), {
+  fallback: (
+    <div style={{ textAlign: 'center' }}>
+      <Space size='middle'>
+        <Spin size='large' />
+      </Space>
+    </div>
+  ),
+});
+const UserDonations = loadable(() => import('./UserDonations'));
+const UserRequests = loadable(() => import('./UserRequests'));
 
 const EmptySection = ({ icon, message, username, type }) => {
   return (

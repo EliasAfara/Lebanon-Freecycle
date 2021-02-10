@@ -1,7 +1,18 @@
 import React from 'react';
-import Donations from '../components/Forms/Donations';
-import Requests from '../components/Forms/Requests';
-import Tabs from '../components/Tabs/NavTabs';
+import loadable from '@loadable/component';
+import { Space, Spin } from 'antd';
+
+const Tabs = loadable(() => import('../components/Tabs/NavTabs'), {
+  fallback: (
+    <div style={{ textAlign: 'center' }}>
+      <Space size='middle'>
+        <Spin size='large' />
+      </Space>
+    </div>
+  ),
+});
+const Donations = loadable(() => import('../components/Forms/Donations'));
+const Requests = loadable(() => import('../components/Forms/Requests'));
 
 const DashboardPage = () => {
   return (

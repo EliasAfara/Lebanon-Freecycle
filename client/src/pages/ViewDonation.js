@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import loadable from '@loadable/component';
+
 import {
   getSingleDonation,
   updateDonationStatus,
@@ -9,12 +11,24 @@ import {
   likeUnlikeDonation,
 } from '../actions/donations';
 import Spinner from '../components/Spinner/Spinner';
-import SingleItem from '../components/SingleItem/SingleItem';
 
 // Ant Design Delete Model
-import { Modal } from 'antd';
+import { Modal, Space, Spin } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 const { confirm } = Modal;
+
+const SingleItem = loadable(
+  () => import('../components/SingleItem/SingleItem'),
+  {
+    fallback: (
+      <div style={{ textAlign: 'center' }}>
+        <Space size='middle'>
+          <Spin size='large' />
+        </Space>
+      </div>
+    ),
+  }
+);
 
 const ViewDonation = ({
   getSingleDonation,

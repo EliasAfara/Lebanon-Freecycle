@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-//import { IoMdSettings } from 'react-icons/io';
 import { RiFacebookFill, RiTwitterFill, RiInstagramLine } from 'react-icons/ri';
 import VerifiedBadgeSVG from '../SVGComponents/VerifiedBadgeSVG';
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import loadable from '@loadable/component';
+
 import { Link } from 'react-router-dom';
 // Redux
 import { connect } from 'react-redux';
 
-import ModalPopUp from '../Modal/ModalPopUp';
 import AuthenticatedUserActions from '../Modal/AuthenticatedUserActions';
 import GuestUserActions from '../Modal/GuestUserActions';
 import {
@@ -25,7 +26,6 @@ import { formatDate, formatDateMDY } from '../../utils/formatDate';
 import { VscEllipsis } from 'react-icons/vsc';
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
 
-import ImageSlider from '../ImageSlider/ImageSlider';
 // Ant Design Delete Model
 import { Modal, Tag, Divider } from 'antd';
 import {
@@ -34,6 +34,9 @@ import {
   ClockCircleOutlined,
 } from '@ant-design/icons';
 const { confirm } = Modal;
+
+const ImageSlider = loadable(() => import('../ImageSlider/ImageSlider'));
+const ModalPopUp = loadable(() => import('../Modal/ModalPopUp'));
 
 const ItemCard = ({
   updateRequestStatus,
@@ -195,7 +198,7 @@ const ItemCard = ({
 
             {images && images.length > 0 && (
               <S.CardImage>
-                <ImageSlider images={images} />
+                <ImageSlider images={images} itemName={ItemName} />
               </S.CardImage>
             )}
 

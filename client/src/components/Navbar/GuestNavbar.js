@@ -123,7 +123,7 @@ const GuestNavbar = ({ isOpen, toggleNavBar, theme, toggleTheme }) => {
                 </S.SettingsItemLink>
 
                 <S.SettingsItemLink
-                  to='/Login'
+                  to='/login'
                   title='Login'
                   onClick={toggleNavBar}
                 >

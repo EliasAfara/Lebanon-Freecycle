@@ -1,7 +1,5 @@
 import React from 'react';
 import './Slider.css';
-// import { Carousel, CarouselItem } from 'react-bootstrap';
-// import LazyImage from './LazyImage';
 import Slider from 'react-slick';
 
 function SampleNextArrow(props) {
@@ -26,7 +24,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-const ImageSlider = ({ images, interval, fade }) => {
+const ImageSlider = ({ images, itemName }) => {
   const settings = {
     dots: true,
     lazyLoad: true,
@@ -70,9 +68,10 @@ const ImageSlider = ({ images, interval, fade }) => {
               <img
                 src={img.imageURL}
                 loading='lazy'
-                alt={`Slide${index}`}
+                alt={itemName}
                 className='image'
                 draggable='false'
+                decoding='auto'
                 width='700'
                 height='400'
               />

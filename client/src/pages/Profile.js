@@ -1,17 +1,36 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
-import ProfileTop from '../components/Profile/ProfileTop';
-import ProfileBottom from '../components/Profile/ProfileBottom';
+import loadable from '@loadable/component';
 
 // Redux
 import { connect } from 'react-redux';
-
-//import SpinnerSVG from '../components/SVGComponents/SpinnerSVG';
-import Spinner from '../components/Spinner/Spinner';
-
 import { getProfileByUsername } from '../actions/profile';
-import UserNotFound from '../components/Profile/UserNotFound';
+
+import Spinner from '../components/Spinner/Spinner';
+import { Space, Spin } from 'antd';
+
+const ProfileTop = loadable(() => import('../components/Profile/ProfileTop'), {
+  fallback: (
+    <div style={{ textAlign: 'center' }}>
+      <Space size='middle'>
+        <Spin size='large' />
+      </Space>
+    </div>
+  ),
+});
+const ProfileBottom = loadable(
+  () => import('../components/Profile/ProfileBottom'),
+  {
+    fallback: <div />,
+  }
+);
+
+const UserNotFound = loadable(
+  () => import('../components/Profile/UserNotFound'),
+  {
+    fallback: <div />,
+  }
+);
 
 const Profile = ({
   getProfileByUsername,

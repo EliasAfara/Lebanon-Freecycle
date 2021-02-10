@@ -68,7 +68,7 @@ router.post(
               upload_preset: 'lebanon-freecycle-donations',
               crop: 'scale',
               quality: 'auto:eco',
-              fetch_format: 'webp',
+              fetch_format: 'jpg',
               responsive_breakpoints: {
                 create_derived: true,
                 bytes_step: 20000,
@@ -80,7 +80,7 @@ router.post(
                   gravity: 'auto',
                 },
               },
-              format: 'webp',
+              format: 'jpg',
               folder: 'donations',
               public_id: `lfc_${req.user.id}_donation_${v4()}`,
             }

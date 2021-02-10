@@ -13,7 +13,7 @@ import './DashboardForms.css';
 import * as S from './styles';
 
 import { RiInformationLine } from 'react-icons/ri';
-import { Spin } from 'antd';
+import { Space, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -133,7 +133,15 @@ const Requests = ({
 
   return (
     <S.FormContainer__Div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div style={{ textAlign: 'center' }}>
+            <Space size='middle'>
+              <Spin size='large' />
+            </Space>
+          </div>
+        }
+      >
         <FormContainer>
           <S.FormTitle>Ask For Something</S.FormTitle>
 

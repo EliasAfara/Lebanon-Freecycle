@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ContactUs from '../components/Forms/ContactUs';
-import Footer from '../components/layout/Footer';
+import loadable from '@loadable/component';
+
 import * as S from './styles';
+
+const ContactUs = loadable(() => import('../components/Forms/ContactUs'));
+const Footer = loadable(() => import('../components/layout/Footer'));
 
 const ContactUsPage = () => {
   return (
