@@ -11,14 +11,17 @@ import Toast from '../components/layout/Toast';
 import Login from '../components/Forms/Login';
 import Register from '../components/Forms/Register';
 
-import { Space, Spin } from 'antd';
+// Public Pages
+import DonationsPage from '../pages/DonationsPage';
+import RequestsPage from '../pages/RequestsPage';
+import Profile from '../pages/Profile';
+import ViewDonation from '../pages/ViewDonation';
+import ViewRequest from '../pages/ViewRequest';
 
-const DonationsPage = lazy(() => import('../pages/DonationsPage'));
-const RequestsPage = lazy(() => import('../pages/RequestsPage'));
-const Profile = lazy(() => import('../pages/Profile'));
-const DashboardPage = lazy(() => import('../pages/DashboardPage'));
-const ViewDonation = lazy(() => import('../pages/ViewDonation'));
-const ViewRequest = lazy(() => import('../pages/ViewRequest'));
+// Private Pages
+import DashboardPage from '../pages/DashboardPage';
+
+import { Space, Spin } from 'antd';
 
 const EditRequest = lazy(() => import('../components/Forms/EditRequest'));
 const EditDonation = lazy(() => import('../components/Forms/EditDonation'));
@@ -38,6 +41,17 @@ const Routes = () => {
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
 
+          <Route exact path='/donations' component={DonationsPage} />
+          <Route exact path='/donation/:id' component={ViewDonation} />
+
+          <Route exact path='/requests' component={RequestsPage} />
+          <Route exact path='/request/:id' component={ViewRequest} />
+
+          <Route exact path='/profile/:username' component={Profile} />
+
+          {/* Private */}
+          <PrivateRoute exact path='/dashboard' component={DashboardPage} />
+
           <Suspense
             fallback={
               <div style={{ textAlign: 'center' }}>
@@ -47,17 +61,6 @@ const Routes = () => {
               </div>
             }
           >
-            <Route exact path='/donations' component={DonationsPage} />
-            <Route exact path='/donation/:id' component={ViewDonation} />
-
-            <Route exact path='/requests' component={RequestsPage} />
-            <Route exact path='/request/:id' component={ViewRequest} />
-
-            <Route exact path='/profile/:username' component={Profile} />
-
-            {/* Private */}
-            <PrivateRoute exact path='/dashboard' component={DashboardPage} />
-
             <PrivateRoute
               exact
               path='/setting/edit-profile'
