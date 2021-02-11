@@ -32,35 +32,35 @@ const ErrorPage = loadable(() => import('../pages/ErrorPage'));
 const Routes = () => {
   return (
     <>
-      <section className='container'>
-        <Alert />
-        <Toast />
-        <Switch>
-          {/* Public */}
+      <Suspense
+        fallback={
+          <div style={{ textAlign: 'center' }}>
+            <Space size='middle'>
+              <Spin size='large' />
+            </Space>
+          </div>
+        }
+      >
+        <section className='container'>
+          <Alert />
+          <Toast />
+          <Switch>
+            {/* Public */}
 
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/register' component={Register} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/register' component={Register} />
 
-          <Route exact path='/donations' component={DonationsPage} />
-          <Route exact path='/donation/:id' component={ViewDonation} />
+            <Route exact path='/donations' component={DonationsPage} />
+            <Route exact path='/donation/:id' component={ViewDonation} />
 
-          <Route exact path='/requests' component={RequestsPage} />
-          <Route exact path='/request/:id' component={ViewRequest} />
+            <Route exact path='/requests' component={RequestsPage} />
+            <Route exact path='/request/:id' component={ViewRequest} />
 
-          <Route exact path='/profile/:username' component={Profile} />
+            <Route exact path='/profile/:username' component={Profile} />
 
-          {/* Private */}
-          <PrivateRoute exact path='/dashboard' component={DashboardPage} />
+            {/* Private */}
+            <PrivateRoute exact path='/dashboard' component={DashboardPage} />
 
-          <Suspense
-            fallback={
-              <div style={{ textAlign: 'center' }}>
-                <Space size='middle'>
-                  <Spin size='large' />
-                </Space>
-              </div>
-            }
-          >
             <PrivateRoute
               exact
               path='/setting/edit-profile'
@@ -84,12 +84,12 @@ const Routes = () => {
               path='/edit-request/:id'
               component={EditRequest}
             />
-          </Suspense>
 
-          {/* Error 404 - Not Found */}
-          <Route path='*' component={ErrorPage} />
-        </Switch>
-      </section>
+            {/* Error 404 - Not Found */}
+            <Route component={ErrorPage} />
+          </Switch>
+        </section>
+      </Suspense>
     </>
   );
 };

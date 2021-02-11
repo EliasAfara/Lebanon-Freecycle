@@ -114,7 +114,7 @@ router.put(
           { _id: req.user.id },
           { $set: profileFields },
           { new: true }
-        );
+        ).select('-password');
         return res.json(profile);
       }
     } catch (err) {
@@ -177,7 +177,7 @@ router.put(
 
     try {
       // See if user already exists
-      let user = await User.findById(req.user.id).select('-password');
+      let user = await User.findById(req.user.id);
 
       const match = await bcrypt.compareSync(oldPassword, user.password);
 
@@ -210,11 +210,12 @@ router.put(
           { _id: req.user.id },
           { password: password },
           { new: true }
-        );
+        ).select('-password');
         return res.json(user);
       }
     } catch (err) {
       console.log(err.message);
+      console.log(err);
       res.status(500).send('500 Internal Server Error');
     }
   }
