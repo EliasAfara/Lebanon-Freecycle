@@ -1,7 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const helmet = require('helmet');
-// var compression = require('compression');
+var compression = require('compression');
 // const xss = require('xss-clean');
 
 // Nodejs path module
@@ -18,7 +18,7 @@ app.use(
     contentSecurityPolicy: false,
   })
 );
-// app.use(compression());
+app.use(compression());
 
 // body parser middleware
 app.use(express.json({ limit: '50mb' }));
