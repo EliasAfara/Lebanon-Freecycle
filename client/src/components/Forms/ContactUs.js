@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import emailjs from 'emailjs-com';
-import { Alert } from 'react-bootstrap';
+import { notification } from 'antd';
 import { validateContactUsForm } from '../../utils/validateForm';
 
 import * as S from './styles';
@@ -19,7 +19,6 @@ const initialState = {
 const ContactUs = () => {
   const [formData, setFormData] = useState(initialState);
   const { name, email, subject, message } = formData;
-  const [showAlert, setShowAlert] = useState(false);
   const [errors, setErrors] = useState({});
 
   const ValidationType = ({ type }) => {
@@ -40,6 +39,13 @@ const ContactUs = () => {
     });
     // Reset Errors
     setErrors((errors) => ({ ...errors, [e.target.name]: '' }));
+  };
+
+  const openNotification = () => {
+    notification.open({
+      message: 'Successful Submission',
+      description: 'Congrats! Your message was sent successfuly.',
+    });
   };
 
   const sendEmail = async (e) => {
@@ -67,10 +73,7 @@ const ContactUs = () => {
           (result) => {
             // console.log(result);
             setFormData({ name: '', email: '', subject: '', message: '' });
-            setShowAlert(true);
-            setTimeout(() => {
-              setShowAlert(false);
-            }, 4000);
+            openNotification();
           },
           (error) => {
             console.log(error);
@@ -79,23 +82,8 @@ const ContactUs = () => {
     }
   };
 
-  function ShowSuccessAlert() {
-    return (
-      <Alert
-        variant='success'
-        onClose={() => setShowAlert(false)}
-        style={{ paddingBottom: 0 }}
-        dismissible
-      >
-        <p>Congrats! Your message was sent successfuly.</p>
-      </Alert>
-    );
-  }
-
   return (
     <>
-      {showAlert ? <ShowSuccessAlert /> : null}
-
       <S.ContactUsForm>
         <form onSubmit={sendEmail}>
           <div>

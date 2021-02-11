@@ -43,21 +43,25 @@ export const ContentContainer = styled.div`
 `;
 
 export const SideContentContainer = styled.div`
-  width: 400px;
+  width: 300px;
   height: 400px;
+  margin-right: 15px;
 
   @media only screen and (max-width: 1024px) {
     width: 100%;
     height: 350px;
+    margin-right: 15px;
   }
   @media only screen and (max-width: 1090px) {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 200px;
+    margin-right: 15px;
   }
   @media only screen and (max-width: 991px) {
     width: 100%;
     height: 350px;
     margin-bottom: 20px;
+    margin-right: 0;
   }
 `;
 
@@ -82,13 +86,16 @@ export const SideContentContainer_FAQ = styled.div`
 export const SideBarRoute = styled(NavLinkRouter)`
   color: inherit;
   text-decoration: none;
+  width: 100%;
+  height: 100%;
+  padding: 12px 24px;
 
-  &:hover div {
+  &:hover {
     color: ${(props) => props.theme.activeLinkColor};
     background: ${(props) => props.theme.models.hoverColor};
   }
 
-  &.active div {
+  &.active {
     color: ${(props) => props.theme.activeLinkColor};
   }
 `;

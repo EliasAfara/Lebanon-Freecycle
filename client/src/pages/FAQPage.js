@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import loadable from '@loadable/component';
 
 import { faq } from '../shared/FAQsData';
-import { Card, ListGroup } from 'react-bootstrap';
+import { List } from 'antd';
 import * as S from '../components/layout/styles';
 import { Space, Spin } from 'antd';
 
@@ -26,16 +26,18 @@ const FAQPage = ({ match }) => {
         <div className='public-container'>
           <S.PageContainer_FAQ>
             <S.SideContentContainer_FAQ>
-              <Card style={{ width: '14rem', height: 'fit-content' }}>
-                <Card.Header>Frequently Asked Questions</Card.Header>
-                <ListGroup variant='flush'>
-                  {faq.map((item, index) => (
+              <List
+                header={<div>Frequently Asked Questions</div>}
+                bordered
+                dataSource={faq}
+                renderItem={(item, index) => (
+                  <List.Item>
                     <S.SideBarRoute to={`/faq/${item.title}`} key={index}>
-                      <ListGroup.Item>{item.title}</ListGroup.Item>
+                      {item.title}
                     </S.SideBarRoute>
-                  ))}
-                </ListGroup>
-              </Card>
+                  </List.Item>
+                )}
+              />
             </S.SideContentContainer_FAQ>
 
             <S.ContentContainer>

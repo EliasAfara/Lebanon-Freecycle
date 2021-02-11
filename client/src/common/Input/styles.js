@@ -14,6 +14,8 @@ export const Container = styled.div`
 
 export const Label = styled.label`
   font-weight: 500;
+  display: inline-block;
+  margin-bottom: 0.5rem;
 `;
 
 export const Input = styled.input`

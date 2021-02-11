@@ -34,7 +34,10 @@ hr {
     display: block;
     unicode-bidi: isolate;
     margin: 0;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
 }
+
 h1, h2, h3, h4, h5, h6 {
     color: ${(props) => props.theme.fontColor};
 }
@@ -50,13 +53,36 @@ button:focus{
     border-color: ${(props) => props.theme.activeLinkColor};
     transition: 0.8s all ease;
 }
+.ant-list{    
+    margin-right: 15px;
+    @media only screen and (max-width: 991px){
+        margin-right: 0;
+    }
+}
 
-.card-header{
+.ant-list, .ant-list-item{
+    color: ${(props) => props.theme.fontColor};
+}
+
+.ant-list-header{
     font-weight: 600;
     background-color: ${(props) => props.theme.cardHeaderBackground};
 }
-.card-body, .list-group-item{
+.ant-list-split .ant-list-header {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+
+.ant-list-item:last-child {
+    border-bottom: none;
+}
+.ant-list-bordered .ant-list-item{
+    padding-right: 0;
+    padding-left: 0;
+}
+.ant-list-item{
     background-color: ${(props) => props.theme.models.background};
+    padding: 0;
 }
 
 .ant-spin{
@@ -106,27 +132,35 @@ button:focus{
     border-color: ${(props) => props.theme.activeLinkColor};
 }
 
-.modal-content {
-    background-color: ${(props) => props.theme.models.background};
+.ant-notification{
+    z-index: 1100;
 }
+
+.ant-modal-confirm .ant-modal-confirm-btns{
+    display: flex;
+}
+
+// Modal Pop up
+.popup-content{
+    width: 280px;
+    background: ${(props) => props.theme.models.background};
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+
+}
+
+.popup-overlay {
+    z-index: 1100 !important;
+}
+
+// costume 
+
 .action-popup-link:hover,
 .action-popup-button:hover {
     background: ${(props) => props.theme.models.hoverColor};
 }
 
-.modal-dialog .modal-content {
-    border-radius: 12px;
-}
-
-.modal-open {
-    overflow: hidden;
-    overflow-y: scroll;
-    padding-right: 0 !important;
-}
-
-.modal-body {
-    padding: 0;
-}
 .actions-popup{
     display: flex;
     flex-direction: column;
@@ -182,6 +216,8 @@ button:focus{
     color: #1980fa;
     font-weight: 700;
 }
+// Modal Pop up
+
 
 // Search Input
 
@@ -260,6 +296,10 @@ color: ${(props) => props.theme.fontColor};
 
 .modal-content{
   background-color: ${(props) => props.theme.itemBackground};
+}
+.ant-tag{
+    display: inline-flex;
+    width: fit-content;
 }
 
 .ant-tag, .ant-tag a, .ant-tag a:hover {
@@ -362,8 +402,37 @@ label.invalid-selected-images.custom-file-label{
 }
 
 .custom-file-label {
-  background: ${(props) => props.theme.formBackground};
+    left: 0;
+    z-index: 1;
+    background: ${(props) => props.theme.formBackground};
+    border: 1px solid #ced4da;
 }
+
+.custom-control-label:before, .custom-file-label, .custom-select {
+    transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.custom-file-label, .custom-file-label:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: #495057;
+}
+
+.custom-file-label:after {
+    bottom: 0;
+    z-index: 3;
+    display: block;
+    height: calc(1.5em + .75rem);
+    content: "Browse";
+    background-color: #e9ecef;
+    border-left: inherit;
+    border-radius: 0 .25rem .25rem 0;
+}
+
+
 
 .Ant-Select-isInvalid .ant-select-selector {
     border: 1px solid #fa1529 !important;

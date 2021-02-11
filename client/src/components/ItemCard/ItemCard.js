@@ -322,13 +322,14 @@ const ItemCard = ({
                                   style={{
                                     color: '#f05f70',
                                     fontSize: '16px',
+                                    display: 'flex',
                                   }}
                                 />
                               ) : (
                                 <BsHeart
                                   style={{
                                     color: '#f05f70',
-
+                                    display: 'flex',
                                     fontSize: '16px',
                                   }}
                                 />

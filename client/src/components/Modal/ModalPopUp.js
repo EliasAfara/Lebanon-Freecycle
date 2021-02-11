@@ -1,26 +1,18 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
+import Popup from 'reactjs-popup';
 
 const ModalPopUp = ({ show, onHide, actions }) => {
   return (
-    <>
-      <Modal
-        show={show}
-        onHide={onHide}
-        size='sm'
-        aria-labelledby='actions'
-        centered
-      >
-        <Modal.Body>
-          <div className='actions-popup'>
-            {actions}
-            <button className='action-popup-button' onClick={onHide}>
-              Cancel
-            </button>
-          </div>
-        </Modal.Body>
-      </Modal>
-    </>
+    <Popup open={show} closeOnDocumentClick onClose={onHide}>
+      <div className='modal'>
+        <div className='actions-popup'>
+          {actions}
+          <button className='action-popup-button' onClick={onHide}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </Popup>
   );
 };
 

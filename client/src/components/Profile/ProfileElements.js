@@ -32,8 +32,7 @@ export const HeaderImage = styled.div`
 `;
 
 export const ImageSpan = styled.span`
-  background-color: #fafafa;
-  background-color: rgba(var(--b3f, 250, 250, 250), 1);
+  background-color: ${(props) => props.theme.body};
   border-radius: 50%;
   box-sizing: border-box;
   display: block;

@@ -34,6 +34,7 @@ export const Label = styled.label`
   line-height: 17px;
   text-align: end;
   margin: 0;
+  display: inline-block;
 
   @media (max-width: 767px) {
     margin-bottom: 5px;
@@ -138,6 +139,5 @@ export const ImagesInput = styled.input`
 `;
 
 // export const CostumeInputStyles = createGlobalStyle`
-
 
 // `;
