@@ -20,8 +20,6 @@ import FAQPage from './pages/FAQPage';
 // Routes
 import Routes from './routing/Routes';
 
-import './App.css';
-
 import { ThemeProvider } from 'styled-components';
 import { useDarkMode } from './costumeHooks/useDarkMode';
 import { GlobalStyles } from './globalStyles';

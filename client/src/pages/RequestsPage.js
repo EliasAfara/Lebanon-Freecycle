@@ -15,9 +15,10 @@ import usePagination from '../costumeHooks/usePagination';
 import usePartialSearch from '../costumeHooks/usePartialSearch';
 
 import Spinner from '../components/Spinner/Spinner';
-import { Pagination, Space, Spin } from 'antd';
+import { Space, Spin } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 
+const Pagination = loadable(() => import('antd/lib/pagination/index'));
 const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'), {
   fallback: (
     <div style={{ textAlign: 'center' }}>

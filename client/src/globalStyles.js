@@ -46,6 +46,48 @@ button:focus{
     outline: none;
 }
 
+.container {
+    width: 100%;
+    padding: 75px 15px 62px 15px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    @media (max-width: 600px) {
+    max-width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+    @media (max-width: 767px) {
+        padding-top: 54px;
+    }
+}
+.public-container {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    max-width: 1000px;
+    width: 100%;
+    height: 100%;
+    padding: 75px 15px 0 15px;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.containerMother{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .ant-btn-primary{
     display: flex;
     align-items: center;
@@ -266,9 +308,34 @@ color: ${(props) => props.theme.fontColor};
     background-color: ${(props) => props.theme.models.background};
 }
 
+// Leaflet map
 .leaflet-marker-pane img {
     filter: ${(props) => props.theme.markerFilter};
 }
+.leaflet-container {
+    width: inherit;
+    height: 400px;
+    position: fixed;
+    border: 1px solid #cdcdcd;
+    border-radius: 3px;
+
+    @media only screen and (max-width: 1024px) {
+        width: 100%;
+        height: 350px;
+        position: relative;
+    }
+    @media only screen and (max-width: 1090px) {
+        height: 300px;
+    }
+    @media only screen and (max-width: 991px) {
+        width: 100%;
+        height: 350px;
+        position: relative;
+    }
+}
+
+// Leaflet map
+
 
 .ant-tabs{
     color: ${(props) => props.theme.fontColor};
@@ -524,5 +591,268 @@ transition: all 0.3s ease;
 
 
 /* Form Inputs */
+
+
+
+.target-link{
+    text-decoration: underline;
+    color: #006deb;
+}
+
+/* Contact us css */
+
+.required {
+    color: #fa1529;
+}
+
+.all-fields-required {
+    font-size: .75rem;
+    font-weight: 500;
+    line-height: 1;
+    color: #68d1f1;
+}
+
+.contactUS__info--link {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size cubic-bezier(0, .5, 0, 1) 0.3s;
+}
+
+.contactUS__info--link:hover,
+.contactUS__info--link:focus {
+    text-decoration: none;
+    background-size: 100% 2px;
+}
+
+/* Contact us css */
+
+
+/* Error Page CSS */
+.PageNotFound {
+    font-family: 'Lato', sans-serif;
+    color: #888;
+    transition: all 0.6s;
+    margin: 0;
+    display: table;
+    width: 100%;
+    height: 80vh;
+    text-align: center;
+}
+
+.PageNotFound__Error {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.PageNotFound__Error h1 {
+    font-size: 50px;
+    display: inline-block;
+    padding-right: 12px;
+    animation: type .5s alternate infinite;
+}
+
+@keyframes type {
+    from {
+        box-shadow: inset -3px 0px 0px #888;
+    }
+
+    to {
+        box-shadow: inset -3px 0px 0px transparent;
+    }
+}
+
+/* Error Page CSS */
+
+
+
+/* Spinner */
+
+.spinner-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    background: none;
+}
+
+/*!
+ * Load Awesome v1.1.0 (http://github.danielcardoso.net/load-awesome/)
+ * Copyright 2015 Daniel Cardoso <@DanielCardoso>
+ * Licensed under MIT
+ */
+.spinner,
+.spinner>div {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.spinner.la-dark {
+    color: #333;
+}
+
+.spinner>div {
+    display: inline-block;
+    float: none;
+    background-color: currentColor;
+    border: 0 solid currentColor;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+}
+
+.spinner>div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    opacity: 0;
+    -webkit-animation: ball-scale-multiple 1s 0s linear infinite;
+    -moz-animation: ball-scale-multiple 1s 0s linear infinite;
+    -o-animation: ball-scale-multiple 1s 0s linear infinite;
+    animation: ball-scale-multiple 1s 0s linear infinite;
+}
+
+.spinner>div:nth-child(2) {
+    -webkit-animation-delay: .2s;
+    -moz-animation-delay: .2s;
+    -o-animation-delay: .2s;
+    animation-delay: .2s;
+}
+
+.spinner>div:nth-child(3) {
+    -webkit-animation-delay: .4s;
+    -moz-animation-delay: .4s;
+    -o-animation-delay: .4s;
+    animation-delay: .4s;
+}
+
+.spinner.la-sm {
+    width: 16px;
+    height: 16px;
+}
+
+.spinner.la-sm>div {
+    width: 16px;
+    height: 16px;
+}
+
+.spinner.la-2x {
+    width: 64px;
+    height: 64px;
+}
+
+.spinner.la-2x>div {
+    width: 64px;
+    height: 64px;
+}
+
+.spinner.la-3x {
+    width: 96px;
+    height: 96px;
+}
+
+.spinner.la-3x>div {
+    width: 96px;
+    height: 96px;
+}
+
+/*
+ * Animation
+ */
+@-webkit-keyframes ball-scale-multiple {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    5% {
+        opacity: .75;
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@-moz-keyframes ball-scale-multiple {
+    0% {
+        opacity: 0;
+        -moz-transform: scale(0);
+        transform: scale(0);
+    }
+
+    5% {
+        opacity: .75;
+    }
+
+    100% {
+        opacity: 0;
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@-o-keyframes ball-scale-multiple {
+    0% {
+        opacity: 0;
+        -o-transform: scale(0);
+        transform: scale(0);
+    }
+
+    5% {
+        opacity: .75;
+    }
+
+    100% {
+        opacity: 0;
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes ball-scale-multiple {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+    }
+
+    5% {
+        opacity: .75;
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+/* Spinner */
+
 
 `;

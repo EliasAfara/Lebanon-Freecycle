@@ -21,12 +21,12 @@ import { Locations } from '../shared/Locations';
 import { DonationsCategories } from '../shared/Categories';
 
 import Spinner from '../components/Spinner/Spinner';
-import './DonationPageStyles.css';
 import * as S from '../components/layout/styles';
-import { Pagination, Space, Spin } from 'antd';
+import { Space, Spin } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 import useLocationFilter from '../costumeHooks/useLocationFilter';
 
+const Pagination = loadable(() => import('antd/lib/pagination/index'));
 const Map = loadable(() => import('../components/Map'));
 const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'), {
   fallback: (

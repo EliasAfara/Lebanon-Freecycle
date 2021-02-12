@@ -36,7 +36,7 @@ const Hero = () => {
           <S.HeroImage_container>
             <S.HeroMain_image
               loading='lazy'
-              src='https://english.aawsat.com/sites/default/files/styles/article_img_top/public/2020/05/14/protest.jpg?itok=EBXniVRE'
+              src='https://res.cloudinary.com/freecyclelebanon/image/upload/v1613122094/lebaneseProtest_lfc_gg7jw7.jpg'
               alt='Lebanon'
               draggable='false'
             />
