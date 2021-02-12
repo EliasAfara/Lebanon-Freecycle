@@ -55,7 +55,7 @@ const HowItWorks = () => {
       <S.SectionContainer>
         <S.HowItWorksSection>
           <S.HowItWorksHeading>
-            <S.HowItWorksH1>How it works</S.HowItWorksH1>
+            <S.HowItWorksH1>How It Works</S.HowItWorksH1>
           </S.HowItWorksHeading>
 
           <S.FeaturesWrapper>

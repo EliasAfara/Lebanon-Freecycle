@@ -355,6 +355,7 @@ export const HeroH1 = styled.h1`
   font-size: 3rem;
   font-weight: 700;
   color: #006a3c;
+  line-height: 3rem;
 
   @media (min-width: 1440px) {
     font-size: 4rem;

@@ -88,6 +88,22 @@ button:focus{
     justify-content: space-between;
 }
 
+.styled-hr {	
+    border-top-width: 1px;	
+    display: block;	
+    unicode-bidi: isolate;	
+    margin-block-start: 0.5em;	
+    margin-block-end: 0.5em;	
+    margin-inline-start: auto;	
+    margin-inline-end: auto;	
+}
+
+.ant-input-search>.ant-input-group>.ant-input-group-addon .ant-input-search-button:not(.ant-btn-primary) {
+    color: rgba(0,0,0,.45);
+    display: flex;
+    justify-content: center;
+}
+
 .ant-btn-primary{
     display: flex;
     align-items: center;
@@ -151,10 +167,17 @@ button:focus{
 .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
     background-color: ${(props) => props.theme.models.background};
 }
+
 .ant-pagination-item {
     color: ${(props) => props.theme.fontColor};
     background-color: ${(props) => props.theme.models.background};
 }
+
+.ant-pagination-item a, .ant-pagination-next button, .ant-pagination-prev button{
+    color: ${(props) => props.theme.fontColor};
+}
+
+
 .ant-pagination-item-active {
     font-weight: 500;
     background: ${(props) => props.theme.models.background};

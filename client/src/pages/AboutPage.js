@@ -25,7 +25,7 @@ const AboutPage = () => {
             {' '}
             <S.themeActiveColor>
               Elias Afara
-              <span aria-hidden='true' style={{ verticalAlign: '0.14em' }}>
+              <span aria-hidden='true' style={{ verticalAlign: '-0.1em' }}>
                 {' '}
                 <FaLinkedin />{' '}
               </span>
