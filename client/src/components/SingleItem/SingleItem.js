@@ -54,7 +54,7 @@ const SingleItem = ({
 
   if (!auth.authLoading && auth.isAuthenticated) {
     likedByCurrentUser = likes
-      .map((like) => like.user === auth.user?._id)
+      ?.map((like) => like.user === auth.user?._id)
       .includes(true);
   }
 
@@ -121,9 +121,9 @@ const SingleItem = ({
 
       <div className='item-header'>
         <div className='item-header-info'>
-          <Link to={`/profile/${user.username}`}>
+          <Link to={`/profile/${user?.username}`}>
             <img
-              src={user.avatar}
+              src={user?.avatar}
               alt='User Avatar'
               className='user-avatar'
               loading='lazy'
@@ -133,8 +133,8 @@ const SingleItem = ({
             />
           </Link>
           <div className='header-info-wrapper'>
-            <Link to={`/profile/${user.username}`}>
-              <h4 className='user-fullname'>{user.fullname}</h4>
+            <Link to={`/profile/${user?.username}`}>
+              <h4 className='user-fullname'>{user?.fullname}</h4>
             </Link>
             <h4 className='header-date'>
               <span className='dot-divider'>•</span>
@@ -159,7 +159,7 @@ const SingleItem = ({
         onHide={onClickHideModal}
         actions={
           !auth.authLoading && auth.isAuthenticated ? (
-            user.id === auth.user._id ? (
+            user?.id === auth.user?._id ? (
               <AuthenticatedUserActions
                 itemStatus={status}
                 editLink={`/edit-${type}/${_id}`}

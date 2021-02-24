@@ -67,7 +67,7 @@ const ItemCard = ({
 
   if (!auth.authLoading && auth.isAuthenticated) {
     likedByCurrentUser = likes
-      .map((like) => like.user === auth.user?._id)
+      ?.map((like) => like.user === auth.user?._id)
       .includes(true);
   }
 
@@ -264,7 +264,7 @@ const ItemCard = ({
                     auth.user !== null &&
                     !auth.authLoading &&
                     auth.isAuthenticated ? (
-                      ItemUserId === auth.user._id ? (
+                      ItemUserId === auth.user?._id ? (
                         <AuthenticatedUserActions
                           itemStatus={ItemStatus}
                           editLink={`/edit-${type}/${ItemID}`}
