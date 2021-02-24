@@ -198,20 +198,20 @@ const DonationsPage = ({
                   <>
                     {donations.map((donation) => (
                       <ItemCard
-                        key={donation._id}
-                        UserAvatar={donation.user.avatar}
-                        FullName={donation.user.fullname}
-                        Username={donation.user.username}
-                        ItemName={donation.name}
-                        ItemCategory={donation.category}
-                        ItemStatus={donation.status}
-                        ItemLocation={donation.location}
-                        ItemDescription={donation.description}
-                        ItemDateOfCreation={donation.date}
-                        ItemID={donation._id}
-                        ItemUserId={donation.user.id}
-                        likes={donation.likes}
-                        images={donation.images}
+                        key={donation?._id}
+                        UserAvatar={donation?.user.avatar}
+                        FullName={donation?.user.fullname}
+                        Username={donation?.user.username}
+                        ItemName={donation?.name}
+                        ItemCategory={donation?.category}
+                        ItemStatus={donation?.status}
+                        ItemLocation={donation?.location}
+                        ItemDescription={donation?.description}
+                        ItemDateOfCreation={donation?.date}
+                        ItemID={donation?._id}
+                        ItemUserId={donation?.user.id}
+                        likes={donation?.likes}
+                        images={donation?.images}
                         type='donation'
                       />
                     ))}
