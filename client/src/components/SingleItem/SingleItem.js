@@ -17,6 +17,7 @@ import { RiUserLocationFill } from 'react-icons/ri';
 import { MdLocationCity } from 'react-icons/md';
 import { SiGooglestreetview } from 'react-icons/si';
 import ReactWhatsapp from 'react-whatsapp';
+import HeadHelmet from '../../utils/HeadHelmet';
 
 const ImageSlider = loadable(() => import('../ImageSlider/ImageSlider'));
 const Map = loadable(() => import('../Map'));
@@ -70,8 +71,19 @@ const SingleItem = ({
     addLike(!liked);
   };
 
+  console.log(images);
+
   return (
     <div className='single-item-container'>
+      <HeadHelmet
+        title={`${user.username}'s ${type} • Lebanon Freecycle`}
+        description={name}
+        url={`https://www.lebanon-freecycle.live/${type}/${_id}`}
+        image={type === 'donation' && images[0].imageURL}
+        author={user.username}
+        section={type}
+        createdAt={date}
+      />
       <div className='single-item-image-slider'>
         {images && <ImageSlider images={images} itemName={description} />}
       </div>

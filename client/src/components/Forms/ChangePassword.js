@@ -10,6 +10,7 @@ import { validateChangePasswordForm } from '../../utils/validateForm';
 import { Space, Spin } from 'antd';
 
 import * as S from './styles';
+import HeadHelmet from '../../utils/HeadHelmet';
 
 const FormContainer = lazy(() => import('../../common/FormContainer'));
 const InputV2 = loadable(() => import('../../common/InputV2'));
@@ -70,6 +71,12 @@ const ChangePassword = ({ updatePassword, profile: { error } }) => {
 
   return (
     <div style={{ maxWidth: '600px', width: 'inherit' }}>
+      <HeadHelmet
+        title='Change Password • Lebanon Freecycle'
+        description='Lebanon Freecycle Change Password ❤'
+        url='https://www.lebanon-freecycle.live/setting/change-password'
+      />
+
       <S.FormContainer__Div>
         <Suspense
           fallback={

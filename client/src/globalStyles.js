@@ -102,6 +102,7 @@ button:focus{
     color: rgba(0,0,0,.45);
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .ant-btn-primary{
@@ -145,6 +146,7 @@ button:focus{
 
 .ant-spin{
     color: ${(props) => props.theme.activeLinkColor};
+    display: flex;
 }
 
 .ant-spin-dot-item{

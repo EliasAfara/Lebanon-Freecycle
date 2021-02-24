@@ -5,12 +5,19 @@ import loadable from '@loadable/component';
 import { FaLinkedin } from 'react-icons/fa';
 
 import * as S from './styles';
+import HeadHelmet from '../utils/HeadHelmet';
 
 const Footer = loadable(() => import('../components/layout/Footer'));
 
 const AboutPage = () => {
   return (
     <div className='containerMother'>
+      <HeadHelmet
+        title='About Us • Lebanon Freecycle'
+        description='Lebanon Freecycle is a social network founded in 2021 by Elias Afara that facilitates the connection between people in Lebanon who are kind-hearted and are willing to help/support each other and draw a smile on the faces of those who are underprivileged in such a tough time.'
+        url='https://www.lebanon-freecycle.live/about'
+        image='https://res.cloudinary.com/freecyclelebanon/image/upload/v1613940519/lfc_dqjvkj.png'
+      />
       <div className='public-container'>
         <S.PublicPageContentHeader>
           About <S.themeActiveColor>Us</S.themeActiveColor>

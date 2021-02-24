@@ -25,6 +25,7 @@ import * as S from '../components/layout/styles';
 import { Space, Spin } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
 import useLocationFilter from '../costumeHooks/useLocationFilter';
+import HeadHelmet from '../utils/HeadHelmet';
 
 const Pagination = loadable(() => import('antd/lib/pagination/index'));
 const Map = loadable(() => import('../components/Map'));
@@ -162,6 +163,13 @@ const DonationsPage = ({
 
   return (
     <S.PageContainer>
+      <HeadHelmet
+        title='Donations • Lebanon Freecycle'
+        description='All Lebanon Freecycle uploaded Donations are displayed here with a Map that will showcase the locations of each donation ❤'
+        url='https://www.lebanon-freecycle.live/'
+        image='https://res.cloudinary.com/freecyclelebanon/image/upload/v1613940519/lfc_dqjvkj.png'
+      />
+
       {DonatinosLoading ? (
         <Spinner />
       ) : (

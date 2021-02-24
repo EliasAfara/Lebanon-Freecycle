@@ -13,6 +13,7 @@ import { RiInformationLine } from 'react-icons/ri';
 // Ant Design Delete Model
 import { Modal, Space, Spin } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import HeadHelmet from '../../utils/HeadHelmet';
 const { confirm } = Modal;
 
 const FormContainer = lazy(() => import('../../common/FormContainer'));
@@ -115,6 +116,12 @@ const EditProfile = ({
 
   return (
     <div style={{ maxWidth: '600px', width: 'inherit' }}>
+      <HeadHelmet
+        title='Edit Profile • Lebanon Freecycle'
+        description='Lebanon Freecycle Edit Profile ❤'
+        url='https://www.lebanon-freecycle.live/setting/edit-profile'
+      />
+
       <S.FormContainer__Div>
         <Suspense
           fallback={

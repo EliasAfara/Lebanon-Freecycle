@@ -7,6 +7,7 @@ import { RiFacebookFill, RiTwitterFill, RiInstagramLine } from 'react-icons/ri';
 import VerifiedBadgeSVG from '../SVGComponents/VerifiedBadgeSVG';
 
 import * as S from './ProfileElements';
+import HeadHelmet from '../../utils/HeadHelmet';
 
 function useWindowScreenWidth() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -44,8 +45,17 @@ const ProfileTop = ({
   auth,
 }) => {
   const screenWidth = useWindowScreenWidth();
+  console.log(avatar);
   return (
     <>
+      <HeadHelmet
+        title={`${fullname} (@${username}) • Lebanon Freecycle`}
+        description={`${fullname} profile ❤ ${
+          typeof bio !== 'undefined' ? bio : ''
+        }`}
+        url={`https://www.lebanon-freecycle.live/profile/${username}`}
+        image={avatar}
+      />
       <S.ProfileHeader>
         <S.HeaderImage>
           <S.ImageSpan>

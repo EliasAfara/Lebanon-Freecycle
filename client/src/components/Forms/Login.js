@@ -12,6 +12,7 @@ import { Space, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import * as S from './styles';
 import { loginUser } from '../../actions/auth';
+import HeadHelmet from '../../utils/HeadHelmet';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -54,6 +55,12 @@ const Login = ({ loginUser, isAuthenticated, loginFormLoading }) => {
   }
   return (
     <>
+      <HeadHelmet
+        title='Login • Lebanon Freecycle'
+        description='Lebanon Freecycle Login ❤'
+        url='https://www.lebanon-freecycle.live/login'
+      />
+
       <Suspense
         fallback={
           <div style={{ textAlign: 'center' }}>
@@ -97,7 +104,13 @@ const Login = ({ loginUser, isAuthenticated, loginFormLoading }) => {
                 type='submit'
                 value={
                   formLoading ? (
-                    <>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
                       <Spin
                         indicator={antIcon}
                         style={{
@@ -105,7 +118,7 @@ const Login = ({ loginUser, isAuthenticated, loginFormLoading }) => {
                           fontSize: 'inherit',
                         }}
                       />{' '}
-                    </>
+                    </div>
                   ) : (
                     <>Login</>
                   )

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import loadable from '@loadable/component';
 
 import * as S from './styles';
+import HeadHelmet from '../utils/HeadHelmet';
 
 const ContactUs = loadable(() => import('../components/Forms/ContactUs'));
 const Footer = loadable(() => import('../components/layout/Footer'));
@@ -10,6 +11,12 @@ const Footer = loadable(() => import('../components/layout/Footer'));
 const ContactUsPage = () => {
   return (
     <div className='containerMother'>
+      <HeadHelmet
+        title='Contact Us • Lebanon Freecycle'
+        description='Have questions? Shoot us an email 📧'
+        url='https://www.lebanon-freecycle.live/contact-us'
+        image='https://res.cloudinary.com/freecyclelebanon/image/upload/v1613940519/lfc_dqjvkj.png'
+      />
       <div className='public-container'>
         <S.ContactUsWrapper>
           <S.ContactUsContent>

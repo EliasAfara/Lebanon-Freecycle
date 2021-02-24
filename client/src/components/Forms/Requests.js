@@ -256,7 +256,13 @@ const Requests = ({
                     type='submit'
                     value={
                       formLoading ? (
-                        <>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
                           <Spin
                             indicator={antIcon}
                             style={{
@@ -266,7 +272,7 @@ const Requests = ({
                             }}
                           />{' '}
                           Submitting...
-                        </>
+                        </div>
                       ) : (
                         <>Submit</>
                       )

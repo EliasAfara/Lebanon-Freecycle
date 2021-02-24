@@ -13,6 +13,7 @@ import { RiInformationLine } from 'react-icons/ri';
 import { Space, Spin } from 'antd';
 
 import * as S from './styles';
+import HeadHelmet from '../../utils/HeadHelmet';
 
 const FormContainer = lazy(() => import('../../common/FormContainer'));
 const InputV2 = loadable(() => import('../../common/InputV2'));
@@ -130,6 +131,12 @@ const EditRequest = ({
 
   return (
     <>
+      <HeadHelmet
+        title='Edit Request • Lebanon Freecycle'
+        description='Lebanon Freecycle Edit Request ❤'
+        url={`https://www.lebanon-freecycle.live/edit-request/${userIDInParam}`}
+      />
+
       {editRequestFormLoading ? (
         <Spinner />
       ) : (

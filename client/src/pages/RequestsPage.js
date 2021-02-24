@@ -17,6 +17,7 @@ import usePartialSearch from '../costumeHooks/usePartialSearch';
 import Spinner from '../components/Spinner/Spinner';
 import { Space, Spin } from 'antd';
 import { GiBrokenHeartZone } from 'react-icons/gi';
+import HeadHelmet from '../utils/HeadHelmet';
 
 const Pagination = loadable(() => import('antd/lib/pagination/index'));
 const FilterBar = loadable(() => import('../components/FilterBar/FilterBar'), {
@@ -138,6 +139,13 @@ const RequestsPage = ({
 
   return (
     <div style={{ maxWidth: '700px', width: 'inherit' }}>
+      <HeadHelmet
+        title='Requests • Lebanon Freecycle'
+        description='All Lebanon Freecycle uploaded Requests are displayed here ❤'
+        url='https://www.lebanon-freecycle.live/'
+        image='https://res.cloudinary.com/freecyclelebanon/image/upload/v1613940519/lfc_dqjvkj.png'
+      />
+
       {loading ? (
         <Spinner />
       ) : (
